@@ -39,8 +39,8 @@ const Contact = () => {
             <div className="pt-[130px]" />
 
             {/* ══ MAIN 2-COL ══ */}
-            <section className="py-14 px-8">
-                <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
+            <section className="py-14">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
 
                     {/* ── LEFT: dark green form ── */}
                     <div className="bg-[#3c4a28] px-12 py-12 w-full flex flex-col min-h-[520px]">

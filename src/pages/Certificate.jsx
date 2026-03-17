@@ -17,7 +17,7 @@ const Certificate = () => {
         <div className="w-full bg-white">
 
             {/* ── BREADCRUMB ── */}
-            <div className="max-w-[1800px] mx-auto px-10 pt-[130px] pb-4">
+            <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] pt-[130px] pb-4">
                 <nav className="flex items-center gap-2 text-[11px] text-stone-400 tracking-wide uppercase">
                     <Link to="/" className="hover:text-stone-600 transition-colors">Home</Link>
                     <span>/</span>
@@ -29,7 +29,7 @@ const Certificate = () => {
               HERO — centered furniture image + title + description
              ══════════════════════════════════════════ */}
             <section className="py-10 text-center">
-                <div className="max-w-xl mx-auto px-6">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
 
                     {/* Decorative furniture illustration / image */}
                     <div className="flex justify-center mb-6">
@@ -51,11 +51,12 @@ const Certificate = () => {
                         ON WHAT TO EXPECT
                     </h1>
 
-                    <p className="text-sm text-stone-500 leading-relaxed max-w-sm mx-auto">
-                        Tapered legs – a signature of midcentury design – complement our
-                        chair's striking silhouette. The impeccably upholstered seat and
-                        back is supported by a wood frame, its crushed finish providing
-                        visual contrast and warmth. Plush foam cushioning provides the
+                    <p className="text-sm text-stone-500 leading-relaxed max-w-3xl mx-auto">
+
+                        Tapered legs - a signature of midcentury design - complement our <br />
+                        chair's striking silhouette. The impeccably upholstered seat and <br />
+                        back is supported by a wood frame, its brushed finish providing <br />
+                        visual contrast and warmth. Plush foam cushioning provides the <br />
                         perfect combination of comfort and enduring support.
                     </p>
 
@@ -66,7 +67,7 @@ const Certificate = () => {
               MAIN — 2-col: left image/video | right certifications
              ══════════════════════════════════════════ */}
             <section className="pb-24">
-                <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
                     {/* ── LEFT: image with play button ── */}
                     <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
