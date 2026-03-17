@@ -148,7 +148,7 @@ const Home = () => {
           3. DARK PROMO — Full-width dark bg + 3-col images beneath
          ══════════════════════════════════════════════ */}
             <section className="bg-[#d8d1c9] py-24">
-                <div className="max-w-7xl mx-auto px-6">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
 
                     {/* Title */}
                     <h2
@@ -344,7 +344,7 @@ const Home = () => {
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
             <section className="bg-[#f5f5f3] py-20">
-                <div className="max-w-6xl mx-auto px-6">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
 
                     {/* ===== Partners ===== */}
                     <div className="text-center mb-16">
@@ -408,108 +408,124 @@ const Home = () => {
             {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-            <section style={{ backgroundColor: "#f0ede8" }} className="py-24">
-                <div className="max-w-7xl mx-auto px-10">
+            <section style={{ backgroundColor: "#d6cec6" }} className="py-12">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-
-                        {/* LEFT CONTENT */}
-                        <div>
+                        {/* LEFT CONTENT - 40% */}
+                        <div className="lg:col-span-2 flex flex-col justify-center">
 
                             <h2
-                                className="font-heading uppercase font-light mb-6"
+                                className="font-serif uppercase mb-3 text-[#273927] whitespace-nowrap"
                                 style={{
-                                    fontSize: "clamp(1.6rem,2.5vw,2.1rem)",
-                                    letterSpacing: "0.06em",
-                                    color: "#3f4a2f",
+                                    fontSize: "clamp(1.5rem, 2.5vw, 2.3rem)",
+                                    letterSpacing: "0.08em",
+                                    lineHeight: "1.15"
                                 }}
                             >
                                 TIMBER MERCHANDISING
                             </h2>
 
-                            <p className="text-sm text-stone-600 leading-relaxed mb-5 max-w-md">
-                                We enjoy advantages of having large warehousing facilities, with storage
-                                capacity of up to 10,000 cubic meter of raw material and more than 60 containers.
-                            </p>
-
-                            <p className="text-sm text-stone-600 leading-relaxed mb-10 max-w-md">
-                                We have established long-term relationship with our licensed suppliers
-                                in New Zealand, Chile, Brazil, Germany, and Uruguay. All sourced timber
-                                is 100% FSC certified and passing relevant controlled wood regulatory requirements.
-                            </p>
+                            <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-600">
+                                <p className="leading-relaxed">
+                                    We enjoy advantages of having large warehousing facilities, with storage
+                                    capacity of up to 10,000 cubic meter of raw material and more than 60 containers.
+                                </p>
+                                <p className="leading-relaxed">
+                                    We have established long-term relationship with our licensed suppliers
+                                    in New Zealand, Chile, Brazil, Germany, and Uruguay. All sourced timber
+                                    is 100% FSC certified and passing relevant controlled wood regulatory requirements.
+                                </p>
+                            </div>
 
                             {/* QUALITY */}
-                            <div className="mb-8">
-                                <p className="text-[10px] tracking-[0.25em] uppercase text-stone-500 font-semibold mb-3">
+                            <div className="mb-5">
+                                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-3">
                                     QUALITY
                                 </p>
 
-                                <div className="flex flex-wrap gap-3 max-w-md">
-                                    {["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"].map((tag) => (
-                                        <span
-                                            key={tag}
-                                            className="bg-[#e6e3df] text-stone-700 text-[11px] px-5 py-2"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
+                                <div className="flex flex-col gap-2">
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Industrial Grade", "Millrun", "COL"].map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["FCOL", "ACOL"].map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
                             {/* SIZE */}
-                            <div className="mb-10">
-                                <p className="text-[10px] tracking-[0.25em] uppercase text-stone-500 font-semibold mb-2">
+                            <div className="mb-6">
+                                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-2">
                                     SIZE
                                 </p>
-                                <p className="text-sm text-stone-600">
+                                <p className="text-sm text-stone-600 font-light">
                                     Varied thickness (11mm to 50mm)
                                 </p>
                             </div>
 
                             {/* BUTTON */}
-                            <Link
-                                to="/product"
-                                className="inline-block bg-[#3f4c2f] text-white text-[12px] tracking-[0.25em] uppercase px-10 py-3 hover:bg-[#2f3923] transition"
-                            >
-                                LEARN MORE
-                            </Link>
+                            <div>
+                                <Link
+                                    to="/product"
+                                    className="inline-block bg-[#273927] text-white text-[12px] tracking-[0.2em] font-medium uppercase px-8 py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                                >
+                                    LEARN MORE
+                                </Link>
+                            </div>
 
                         </div>
 
-                        {/* RIGHT IMAGE LAYOUT */}
-                        <div className="grid grid-cols-2 gap-4">
+                        {/* RIGHT IMAGE LAYOUT - 60% */}
+                        <div className="lg:col-span-3 flex flex-col gap-6">
 
                             {/* TOP IMAGE */}
-                            <div className="col-span-2 overflow-hidden rounded-sm">
+                            <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                                 <Img
                                     src="/images/timber-main.jpg"
-                                    alt="Timber bedroom"
-                                    className="w-full h-[300px] object-cover"
+                                    alt="Bedroom furniture"
+                                    className="w-full h-full object-cover"
+                                    placeholderBg="#b5a898"
                                 />
                             </div>
 
-                            {/* BOTTOM LEFT */}
-                            <div className="overflow-hidden rounded-sm">
-                                <Img
-                                    src="/images/timber-dining.jpg"
-                                    alt="Timber dining"
-                                    className="w-full h-[180px] object-cover"
-                                />
-                            </div>
-
-                            {/* BOTTOM RIGHT */}
-                            <div className="overflow-hidden rounded-sm">
-                                <Img
-                                    src="/images/timber-chairs.jpg"
-                                    alt="Timber chairs"
-                                    className="w-full h-[180px] object-cover"
-                                />
+                            {/* BOTTOM IMAGES */}
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+                                    <Img
+                                        src="/images/timber-dining.jpg"
+                                        alt="Dining tables"
+                                        className="w-full h-full object-cover"
+                                        placeholderBg="#b5a898"
+                                    />
+                                </div>
+                                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+                                    <Img
+                                        src="/images/timber-chairs.jpg"
+                                        alt="Dining specific"
+                                        className="w-full h-full object-cover"
+                                        placeholderBg="#b5a898"
+                                    />
+                                </div>
                             </div>
 
                         </div>
 
                     </div>
-
                 </div>
             </section>
 
@@ -517,28 +533,27 @@ const Home = () => {
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
             <section className="bg-white py-24">
-                <div className="max-w-7xl mx-auto px-10">
+                <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center max-w-[1300px] mx-auto">
 
-                        {/* LEFT IMAGE */}
-                        <div className="overflow-hidden">
+                        {/* LEFT IMAGE - 60% */}
+                        <div className="lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
                             <Img
                                 src="/images/contact-furniture.jpg"
                                 alt="Furniture showroom"
-                                className="w-full h-[380px] object-cover"
+                                className="w-full h-full object-cover"
+                                placeholderBg="#d1cec7"
                             />
                         </div>
 
-                        {/* RIGHT CONTENT */}
-                        <div>
-
+                        {/* RIGHT CONTENT - 40% */}
+                        <div className="lg:col-span-2 flex flex-col justify-center">
                             <h2
-                                className="font-heading font-light uppercase mb-4"
+                                className="font-serif uppercase mb-3 text-[#2d3a2d] whitespace-nowrap"
                                 style={{
-                                    fontSize: "clamp(1.8rem,2.6vw,2.4rem)",
+                                    fontSize: "clamp(1.3rem, 2vw, 1.8rem)", // ↓ nhỏ lại
                                     letterSpacing: "0.05em",
-                                    color: "#3f4c2f",
                                     lineHeight: "1.3"
                                 }}
                             >
@@ -546,24 +561,32 @@ const Home = () => {
                                 COLLECTION TOGETHER
                             </h2>
 
-                            <p className="text-sm text-stone-600 mb-8 max-w-md">
+                            <p className="text-[17px] font-light text-stone-500 mb-5 max-w-[500px] leading-relaxed">
                                 Contact our team to receive product catalogs, technical specifications,
-                                and partnership information
+                                and partnership information.
                             </p>
 
                             {/* EMAIL FORM */}
-                            <div className="flex max-w-lg border border-stone-300">
+                            <div className="flex w-full max-w-[900px] mb-4">
 
                                 <input
                                     type="email"
                                     placeholder="Enter Your Email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="flex-1 px-4 py-3 text-sm bg-transparent outline-none placeholder:text-stone-400"
+                                    className="flex-1 px-5 h-[42px] text-[14px] 
+                                                border border-stone-300 
+                                                bg-white 
+                                                outline-none 
+                                                placeholder:text-stone-400 
+                                                text-stone-700"
                                 />
 
                                 <button
-                                    className="bg-[#3f4c2f] text-white text-[12px] px-8 hover:bg-[#2f3923] transition"
+                                    className="ml-2 shrink-0 bg-[#2d3a2d] text-white text-[13px] 
+                                                tracking-widest uppercase font-medium 
+                                                px-5 h-[42px] 
+                                                hover:bg-[#222c22] transition duration-300"
                                 >
                                     Send
                                 </button>
@@ -571,9 +594,9 @@ const Home = () => {
                             </div>
 
                             {/* CONTACT LINK */}
-                            <div className="flex items-center gap-3 mt-8 text-sm text-[#3f4c2f]">
-                                <span className="w-6 h-px bg-[#3f4c2f]" />
-                                Contact now
+                            <div className="flex items-center gap-4 text-[#2d3a2d] hover:opacity-80 transition cursor-pointer group">
+                                <span className="w-8 h-[1px] bg-[#2d3a2d] transition-all group-hover:w-10" />
+                                <span className="text-[13px] uppercase tracking-widest font-medium">Contact now</span>
                             </div>
 
                         </div>
