@@ -110,7 +110,7 @@ const Home = () => {
         {/* Background */}
         <div className="absolute inset-0">
           <Img
-            src="/src/assets/images/home/Home-main.jpg"
+            src="/images/home/Home-main.jpg"
             alt="Hero background"
             className={`w-full h-full object-cover transition-all duration-2000 ease-out ${
               isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
@@ -193,13 +193,13 @@ const Home = () => {
           }`} style={{ transitionDelay: "0.2s" }}>
             <CategoryCard
               label="Living Room"
-              src="/src/assets/images/home/Home-Dining.jpg"
+              src="/images/home/Home-Dining.jpg"
               bg="#3a3530"
               className="aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]"
             />
             <CategoryCard
               label="Bedroom"
-              src="/src/assets/images/home/Home-Bedroom.jpg"
+              src="/images/home/Home-Bedroom.jpg"
               bg="#2e2a26"
               className="aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]"
             />
@@ -211,25 +211,25 @@ const Home = () => {
           }`} style={{ transitionDelay: "0.4s" }}>
             <CategoryCard
               label="Dining Room"
-              src="/src/assets/images/home/Home-Dining.jpg"
+              src="/images/home/Home-Dining.jpg"
               bg="#3d3832"
               className="aspect-square"
             />
             <CategoryCard
               label="Vanity"
-              src="/src/assets/images/home/Home-Vanity.jpg"
+              src="/images/home/Home-Vanity.jpg"
               bg="#312d29"
               className="aspect-square"
             />
             <CategoryCard
               label="Youth Room"
-              src="/src/assets/images/home/Home-Youth.jpg"
+              src="/images/home/Home-Youth.jpg"
               bg="#3a3530"
               className="aspect-square"
             />
             <CategoryCard
               label="Accessories"
-              src="/src/assets/images/home/Home-Accessories.jpg"
+              src="/images/home/Home-Accessories.jpg"
               bg="#2e2a26"
               className="aspect-square"
             />
@@ -261,19 +261,19 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                src: "/src/assets/images/home/Quality.jpg",
+                src: "/images/home/Quality.jpg",
                 text: "Cam kết chất lượng",
               },
               {
-                src: "/src/assets/images/home/InternationalStandard.jpg",
+                src: "/images/home/InternationalStandard.jpg",
                 text: "Tiêu chuẩn quốc tế",
               },
               {
-                src: "/src/assets/images/home/SustainableProduction.jpg",
+                src: "/images/home/SustainableProduction.jpg",
                 text: "Sản xuất bền vững",
               },
               {
-                src: "/src/assets/images/home/ExportRegulations.jpg",
+                src: "/images/home/ExportRegulations.jpg",
                 text: "Tuân thủ quy định xuất khẩu",
               },
             ].map((item, i) => (
@@ -354,7 +354,7 @@ const Home = () => {
             {/* Right: image */}
             <div className="lg:col-span-7 overflow-hidden w-full">
               <Img
-                src="src/assets/images/home/AboutCompany.jpg"
+                src="/images/home/AboutCompany.jpg"
                 alt="About Happy Furniture"
                 placeholderBg="#b5a898"
                 className="aspect-[4/3] w-full"
@@ -428,7 +428,7 @@ const Home = () => {
         className="pt-60 pb-20 relative"
         style={{
           backgroundImage:
-            "url(/src/assets/images/home/InsideFactoryBackGround.jpg)",
+            "url(/images/home/InsideFactoryBackGround.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -441,7 +441,7 @@ const Home = () => {
           style={{ height: "520px" }}
         >
           <Img
-            src="/src/assets/images/home/InsideFactoryBackGround.jpg"
+            src="/images/home/InsideFactoryBackGround.jpg"
             alt="Inside our factory"
           />
 
@@ -491,9 +491,9 @@ const Home = () => {
 
             <div className="flex justify-center gap-12">
               {[
-                "/src/assets/images/home/GlobalPartners.jpg",
-                "/src/assets/images/home/GlobalPartners.jpg",
-                "/src/assets/images/home/GlobalPartners.jpg",
+                "/images/home/GlobalPartners.jpg",
+                "/images/home/GlobalPartners.jpg",
+                "/images/home/GlobalPartners.jpg",
               ].map((src, i) => (
                 <div key={i} className="w-24 h-24 rounded-full overflow-hidden">
                   <Img
@@ -516,19 +516,19 @@ const Home = () => {
 
             <div className="grid grid-cols-3 items-center max-w-3xl mx-auto gap-12">
               <Img
-                src="src/assets/images/home/CTPAT.jpg"
+                src="/images/home/CTPAT.jpg"
                 alt="CTPAT"
                 className="h-10 object-contain mx-auto"
               />
 
               <Img
-                src="src/assets/images/home/Amfori.jpg"
+                src="/images/home/Amfori.jpg"
                 alt="BSCI"
                 className="h-10 object-contain mx-auto"
               />
 
               <Img
-                src="src/assets/images/home/SMETA.jpg"
+                src="/images/home/SMETA.jpg"
                 alt="SMETA Sedex"
                 className="h-12 object-contain mx-auto"
               />
@@ -626,7 +626,7 @@ const Home = () => {
               {/* TOP IMAGE */}
               <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
-                  src="src/assets/images/home/Timber.jpg"
+                  src="/images/home/Timber.jpg"
                   alt="Bedroom furniture"
                   className="w-full h-full object-cover"
                   placeholderBg="#b5a898"
@@ -637,7 +637,7 @@ const Home = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
                   <Img
-                    src="src/assets/images/home/Timber2.jpg"
+                    src="/images/home/Timber2.jpg"
                     alt="Dining tables"
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
@@ -645,7 +645,7 @@ const Home = () => {
                 </div>
                 <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
                   <Img
-                    src="src/assets/images/home/Timber3.jpg"
+                    src="/images/home/Timber3.jpg"
                     alt="Dining specific"
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
@@ -666,7 +666,7 @@ const Home = () => {
             {/* LEFT IMAGE - 60% */}
             <div className="lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
               <Img
-                src="src/assets/images/home/Furniture.jpg"
+                src="/images/home/Furniture.jpg"
                 alt="Furniture showroom"
                 className="w-full h-full object-cover"
                 placeholderBg="#d1cec7"
