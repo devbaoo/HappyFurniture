@@ -83,8 +83,8 @@ export default function WhatWeDo() {
           alt="Factory floor"
           className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.5]"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="font-heading text-white text-5xl md:text-6xl lg:text-7xl uppercase tracking-[0.18em] font-light">
+        <div className="absolute inset-0 flex items-end justify-center pb-16">
+          <h1 className="font-heading text-white text-4xl md:text-5xl uppercase tracking-[0.25em] font-light">
             What We Do
           </h1>
         </div>
