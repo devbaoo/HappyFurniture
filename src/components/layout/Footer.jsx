@@ -45,11 +45,9 @@ const Footer = () => {
                     <div>
                         <h3 className="font-semibold mb-4">PRODUCT</h3>
                         <ul className="space-y-2 text-sm text-white/80">
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
+                            {footerLinks.Product.map((link, index) => (
+                                <li key={index}>{link}</li>
+                            ))}
                         </ul>
                     </div>
 
@@ -57,10 +55,9 @@ const Footer = () => {
                     <div>
                         <h3 className="font-semibold mb-4">SUPPORT</h3>
                         <ul className="space-y-2 text-sm text-white/80">
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
+                            {footerLinks.Support.map((link, index) => (
+                                <li key={index}>{link}</li>
+                            ))}
                         </ul>
                     </div>
 

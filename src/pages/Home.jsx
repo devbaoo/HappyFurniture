@@ -37,8 +37,9 @@ const CategoryCard = ({ label, src, bg, className = "" }) => (
       placeholderBg={bg || "#3a3530"}
       className="transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
     />
-    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    <span className="absolute bottom-3 right-4 text-white text-[10px] tracking-[0.2em] uppercase font-light drop-shadow transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+    {/* Gradient layer to make text pop */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+    <span className="absolute bottom-4 right-5 text-white text-[16px] md:text-[18px] tracking-[0.15em] uppercase font-medium drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right">
       {label}
     </span>
   </div>
@@ -65,7 +66,7 @@ const PromoCard = ({ label, src, bg, className = "" }) => (
 /* ─── Custom hook for scroll animations ─── */
 const useScrollAnimation = () => {
   const [visibleElements, setVisibleElements] = useState(new Set());
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -94,7 +95,10 @@ const Home = () => {
   const heroRef = useRef(null);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -109,27 +113,27 @@ const Home = () => {
       >
         {/* Background */}
         <div className="absolute inset-0">
-          <Img
-            src="/images/home/Home-main.jpg"
-            alt="Hero background"
-            className={`w-full h-full object-cover transition-all duration-2000 ease-out ${
-              isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
-            }`}
+          <div
+            className={`absolute inset-0 bg-no-repeat transition-all duration-2000 ease-out ${isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
+              }`}
+            style={{
+              backgroundImage: "url('/images/home/Home-main.jpg')",
+              backgroundSize: "100% 100%", /* Ép ảnh hiển thị đủ 100% chiều ngang và dọc */
+              backgroundPosition: "center"
+            }}
           />
 
-          {/* overlay */}
-          <div className={`absolute inset-0 bg-black/50 transition-opacity duration-1500 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`} />
+          {/* overlay - Đã tắt hoàn toàn để ảnh sáng nhất có thể */}
+          <div className={`absolute inset-0 transition-opacity duration-1500 ${isLoaded ? 'opacity-0' : 'opacity-0'
+            }`} />
         </div>
 
         {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-5xl">
           {/* TITLE */}
           <h1
-            className={`text-white font-light uppercase leading-tight text-center transform transition-all duration-1500 ease-out ${
-              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}
+            className={`text-white font-light uppercase leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
             style={{
               fontSize: "clamp(1rem, 2vw, 4.5rem)",
               letterSpacing: "0.02em",
@@ -142,20 +146,18 @@ const Home = () => {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className={`text-white/80 text-sm mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
-          style={{ transitionDelay: "0.6s" }}>
+          <p className={`text-white/80 text-sm mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+            style={{ transitionDelay: "0.6s" }}>
             We manufacture high-quality solid wood furniture with stable
             production capacity, strict quality control, and long-term
             partnership commitment
           </p>
 
           {/* BUTTON */}
-          <div className={`mt-10 transform transition-all duration-1500 ease-out ${
-            isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
-          style={{ transitionDelay: "0.9s" }}>
+          <div className={`mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+            style={{ transitionDelay: "0.9s" }}>
             <Link
               to="/product"
               className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[16px] font-medium tracking-[0.1em] uppercase w-[280px] h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
@@ -172,9 +174,8 @@ const Home = () => {
       <section className="bg-white py-16" data-animate id="categories">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* Section title */}
-          <div className={`text-center mb-10 transform transition-all duration-1000 ease-out ${
-            visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
+          <div className={`text-center mb-10 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}>
             <h2 className="font-heading text-3xl md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-4">
               Our Product Categories
             </h2>
@@ -188,9 +189,8 @@ const Home = () => {
           </div>
 
           {/* Top row — 2 large equal images */}
-          <div className={`grid grid-cols-2 gap-2 mb-2 transform transition-all duration-1000 ease-out ${
-            visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`} style={{ transitionDelay: "0.2s" }}>
+          <div className={`grid grid-cols-2 gap-2 mb-2 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`} style={{ transitionDelay: "0.2s" }}>
             <CategoryCard
               label="Living Room"
               src="/images/home/Home-Dining.jpg"
@@ -206,9 +206,8 @@ const Home = () => {
           </div>
 
           {/* Bottom row — 4 smaller equal images */}
-          <div className={`grid grid-cols-4 gap-2 transform transition-all duration-1000 ease-out ${
-            visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`} style={{ transitionDelay: "0.4s" }}>
+          <div className={`grid grid-cols-4 gap-2 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`} style={{ transitionDelay: "0.4s" }}>
             <CategoryCard
               label="Dining Room"
               src="/images/home/Home-Dining.jpg"
@@ -244,9 +243,8 @@ const Home = () => {
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading uppercase text-[#4b4a3f] mb-16 transform transition-all duration-1000 ease-out ${
-              visibleElements.has('promo') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}
+            className={`text-center font-heading uppercase text-[#4b4a3f] mb-16 transform transition-all duration-1000 ease-out ${visibleElements.has('promo') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
             style={{
               fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)",
               letterSpacing: "0.08em",
@@ -288,10 +286,10 @@ const Home = () => {
                 />
 
                 {/* overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
 
                 {/* caption */}
-                <p className="absolute bottom-5 left-0 right-0 text-center text-white text-sm font-light tracking-wide">
+                <p className="absolute bottom-3 left-0 right-0 text-center text-white text-[16px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
                   {item.text}
                 </p>
               </div>
@@ -425,7 +423,7 @@ const Home = () => {
           6. INSIDE OUR FACTORY — Full-width dark video/image section
          ══════════════════════════════════════════════ */}
       <section
-        className="pt-60 pb-20 relative"
+        className="pt-64 mt-20 pb-20 relative"
         style={{
           backgroundImage:
             "url(/images/home/InsideFactoryBackGround.jpg)",
@@ -435,9 +433,9 @@ const Home = () => {
         }}
       >
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/0"></div>
         <div
-          className="max-w-5xl mx-auto absolute left-0 right-0 -top-16 overflow-hidden shadow-2xl z-10"
+          className="max-w-5xl mx-auto absolute left-0 right-0 -top-16 overflow-hidden shadow-xl z-10"
           style={{ height: "520px" }}
         >
           <Img
@@ -479,15 +477,15 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#f5f5f3] py-20">
+      <section className="bg-white py-20">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-16">
-            <h3 className="text-[#4b4a3f] font-medium mb-4">
+            <h3 className="text-[#4b4a3f] text-xl md:text-2xl font-medium tracking-wide mb-2 uppercase">
               Our Global Partners
             </h3>
 
-            <div className="w-48 h-px bg-stone-300 mx-auto mb-8"></div>
+            <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-10"></div>
 
             <div className="flex justify-center gap-12">
               {[
@@ -508,11 +506,11 @@ const Home = () => {
 
           {/* ===== Certifications ===== */}
           <div className="text-center">
-            <h3 className="text-[#4b4a3f] font-medium mb-4">
+            <h3 className="text-[#4b4a3f] text-xl md:text-2xl font-medium tracking-wide mb-2 uppercase">
               Our Certifications
             </h3>
 
-            <div className="w-48 h-px bg-stone-300 mx-auto mb-10"></div>
+            <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-12"></div>
 
             <div className="grid grid-cols-3 items-center max-w-3xl mx-auto gap-12">
               <Img
