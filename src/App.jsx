@@ -7,6 +7,7 @@ import OrderDelivery from "./pages/OrderDelivery";
 import Contact from "./pages/Contact";
 import Certificate from "./pages/Certificate";
 import News from "./pages/News";
+import WhatWeDo from "./pages/WhatWeDo";
 
 // NotFound fallback
 const NotFound = () => (
@@ -83,6 +84,14 @@ const App = () => {
           element={
             <MainLayout>
               <News />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/what-we-do"
+          element={
+            <MainLayout>
+              <WhatWeDo />
             </MainLayout>
           }
         />
