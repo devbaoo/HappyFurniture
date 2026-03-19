@@ -324,14 +324,14 @@ const Home = () => {
                   MANUFACTURING PARTNER
                 </h2>
               </div>
-              <p className="text-sm text-stone-600 leading-relaxed mb-3">
+              <p className="text-[12px] text-stone-800 font-medium leading-relaxed mb-3">
                 Founded in 2005, Happy Furniture is a Vietnam-based manufacturer
                 specializing in knock-down (KD) wooden furniture for global
                 markets. With nearly two decades of experience, we have built a
                 strong reputation as a reliable partner for international
                 furniture brands, retailers, and importers.
               </p>
-              <p className="text-sm text-stone-600 leading-relaxed mb-3">
+              <p className="text-[12px] text-stone-800 font-medium leading-relaxed mb-3">
                 Our product range focuses on mid- to high-end indoor furniture
                 collections, including dining, bedroom, and living room
                 furniture. In addition to finished furniture, we also supply
@@ -343,7 +343,7 @@ const Home = () => {
                 production systems, quality control, and supply chain management
                 to meet the expectations of international customers.
               </p>
-              <p className="text-sm text-stone-600 leading-relaxed">
+              <p className="text-[12px] text-stone-800 font-medium leading-relaxed">
                 Today, Happy Furniture is recognized as one of Vietnam's leading
                 knock-down (KD) furniture manufacturers, serving partners across
                 the United States, the United Kingdom, Ireland, Italy,
@@ -545,7 +545,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#d6cec6" }} className="py-12">
+      <section style={{ backgroundColor: "#d6cec6" }} className="py-4">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
             {/* LEFT CONTENT - 40% */}
@@ -627,7 +627,7 @@ const Home = () => {
             </div>
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
-            <div className="lg:col-span-3 flex flex-col gap-6">
+            <div className="lg:col-span-3 flex flex-col gap-1">
               {/* TOP IMAGE */}
               <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
@@ -639,7 +639,7 @@ const Home = () => {
               </div>
 
               {/* BOTTOM IMAGES */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-1">
                 <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
                   <Img
                     src="/images/home/Timber2.jpg"
