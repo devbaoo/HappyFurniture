@@ -25,20 +25,6 @@ const Header = () => {
   const { pathname } = useLocation();
   const isDark = pathname === "/";
 
-  const bg = isDark ? "bg-black border-white/10" : "bg-white border-border";
-  const textColor = isDark ? "text-white" : "text-primary";
-  const mutedColor = isDark ? "text-white/50" : "text-muted";
-  const dividerColor = isDark ? "bg-white/20" : "bg-border";
-  const inputBorder = isDark ? "border-white/20" : "border-border";
-  const placeholderClass = isDark
-    ? "placeholder:text-white/30"
-    : "placeholder:text-muted/60";
-  const navBorder = isDark ? "border-white/10" : "border-border";
-  const iconColor = isDark
-    ? "text-white hover:text-white/60"
-    : "text-primary hover:text-muted";
-  const searchIconColor = isDark ? "text-white/40" : "text-muted";
-
   return (
     <header
       className={`absolute top-0 left-0 w-full z-50 ${isDark ? "" : "bg-white"}`}
@@ -46,9 +32,9 @@ const Header = () => {
       <div className="mx-auto max-w-[1800px] px-10 w-full">
         <div className="flex items-center justify-between py-6 relative">
           {/* Search */}
-          <div className="w-[260px]">
+          <div className="w-[300px]">
             <div
-              className={`flex items-center border px-4 py-2 gap-2 ${isDark ? "border-white/50" : "border-stone-300"}`}
+              className={`flex items-center border px-4 py-1.5 gap-2 ${isDark ? "border-white/50" : "border-stone-300"}`}
             >
               <svg
                 className={`w-4 h-4 ${isDark ? "text-white/70" : "text-stone-400"}`}

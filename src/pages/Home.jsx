@@ -174,9 +174,9 @@ const Home = () => {
       <section className="bg-white py-16" data-animate id="categories">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* Section title */}
-          <div className={`text-center mb-10 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div className={`text-center mb-4 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
-            <h2 className="font-heading text-3xl md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-1">
               Our Product Categories
             </h2>
 
@@ -243,12 +243,14 @@ const Home = () => {
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading uppercase text-[#4b4a3f] mb-16 transform transition-all duration-1000 ease-out ${visibleElements.has('promo') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            className={`text-center font-heading uppercase text-[#4b4a3f] mb-20 transition-all duration-1000 ease-out ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               }`}
             style={{
               fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)",
               letterSpacing: "0.08em",
               lineHeight: "1.4",
+              height: "0.677085px",
+              transform: visibleElements.has('promo') ? "translate(0px, -33.3334px)" : "translate(0px, 0px)",
             }}
           >
             WE ARE KNOWN AS ONE OF THE TOP <br />
@@ -256,7 +258,7 @@ const Home = () => {
           </h2>
 
           {/* 4 images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               {
                 src: "/images/home/Quality.jpg",
@@ -367,7 +369,7 @@ const Home = () => {
          ══════════════════════════════════════════════ */}
       <section className="bg-white py-10 -mt-10">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          <div className="border-t-2 border-[#8a857d] mb-4" />
+          <div className="border-t-[3px] border-[#5a564f] mb-0" />
 
           <div className="bg-[rgb(241,240,238)] py-0">
             <div className="grid grid-cols-1 md:grid-cols-4 text-center divide-x divide-[#c9c5be]">
@@ -391,21 +393,21 @@ const Home = () => {
               ].map((item) => (
                 <div key={item.title} className="px-20 py-5">
                   <h3
-                    className="mb-3 font-medium"
+                    className="mb-3 font-semibold"
                     style={{
-                      fontSize: "15px",
+                      fontSize: "22px",
                       letterSpacing: "0.04em",
-                      color: "#3f3c37", // chữ đậm hơn
+                      color: "#2b2925", // chữ tiêu đề thêm đậm và đen hơn
                     }}
                   >
                     {item.title}
                   </h3>
 
                   <p
-                    className="leading-7"
+                    className="leading-7 font-medium"
                     style={{
-                      fontSize: "13px",
-                      color: "#5f5b55", // chữ mô tả đậm hơn
+                      fontSize: "14.5px",
+                      color: "#4a4742", // chữ mô tả đậm và rõ nét hơn
                       maxWidth: "240px",
                       margin: "0 auto",
                     }}
@@ -461,7 +463,7 @@ const Home = () => {
         <div className="text-center mt-56 px-6 relative z-10">
           <h2
             className="font-heading text-white font-light uppercase tracking-widest mb-5"
-            style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)" }}
+            style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)", height: "29.5487px" }}
           >
             Inside Our Factory
           </h2>
@@ -477,7 +479,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-20" data-selected="true" data-label-id="0" style={{ height: "621.545px" }}>
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-16">
@@ -487,7 +489,7 @@ const Home = () => {
 
             <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-10"></div>
 
-            <div className="flex justify-center gap-12">
+            <div className="flex justify-center gap-12" style={{ height: "88.1945px", transform: "translate(0px, -57.7778px)" }}>
               {[
                 "/images/home/GlobalPartners.jpg",
                 "/images/home/GlobalPartners.jpg",
@@ -512,7 +514,12 @@ const Home = () => {
 
             <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-12"></div>
 
-            <div className="grid grid-cols-3 items-center max-w-3xl mx-auto gap-12">
+            <div
+              className="grid grid-cols-3 items-center max-w-3xl mx-auto gap-12"
+              data-selected="true"
+              data-label-id="0"
+              style={{ height: "130.278px", transform: "translate(0px, -87.7778px)" }}
+            >
               <Img
                 src="/images/home/CTPAT.jpg"
                 alt="CTPAT"
