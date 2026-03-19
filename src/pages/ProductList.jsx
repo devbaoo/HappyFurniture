@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
@@ -34,24 +34,44 @@ const recentProducts = Array.from({ length: 6 }, (_, i) => ({
 
 const ProductList = () => {
   const [activeFilter, setActiveFilter] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  // First page shows maximum possible items (up to 6), remaining items go to next page
-  const maxItemsFirstPage = 6; // Maximum items that can fit on first page
-  const firstPageItems = Math.min(categories.length, maxItemsFirstPage);
-  const remainingItems = Math.max(0, categories.length - maxItemsFirstPage);
-  const totalPages = remainingItems > 0 ? 2 : 1;
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handlePageChange = (newPage) => {
-    if (newPage === currentPage || isTransitioning) return;
+  // Tính toán số trang (slides) dựa trên chiều rộng
+  const totalSlides = 3;
 
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentPage(newPage);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 50);
-    }, 200);
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      // Tránh lỗi chia cho 0 nếu scroll chưa sẵn sàng
+      if (scrollWidth > clientWidth) {
+        const scrollPercentage = scrollLeft / (scrollWidth - clientWidth);
+        const newSlide = Math.round(scrollPercentage * (totalSlides - 1));
+        setCurrentSlide(newSlide);
+      }
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    if (scrollRef.current) {
+      setStartX(e.pageX - scrollRef.current.offsetLeft);
+      setScrollLeft(scrollRef.current.scrollLeft);
+    }
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Scroll speed multiplier
+    scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
@@ -82,60 +102,58 @@ const ProductList = () => {
         </Container>
       </div>
 
-      {/* Category Pagination */}
+      {/* Category Scroll */}
       <section className="border-b border-border">
         <Container>
-          <div className="flex justify-center gap-3 py-6 min-h-[240px]">
+          <div className="py-6">
             <div
-              className={`flex justify-center gap-3 transition-all duration-300 ${
-                isTransitioning
-                  ? "opacity-0 transform scale-95"
-                  : "opacity-100 transform scale-100"
-              }`}
+              ref={scrollRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              onScroll={handleScroll}
+              className={`flex gap-3 overflow-x-auto select-none pb-4 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+              style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
             >
-              {categories
-                .slice(
-                  currentPage === 0 ? 0 : firstPageItems,
-                  currentPage === 0 ? firstPageItems : categories.length,
-                )
-                .map((cat, index) => (
-                  <Link
-                    key={cat.id}
-                    to={`/product?category=${cat.id}`}
-                    className="group"
-                    style={{
-                      animationDelay: `${index * 100}ms`,
-                    }}
-                  >
-                    <div
-                      className={`w-[227px] h-[204px] bg-[#666] group-hover:bg-[#555] transition-all duration-300 flex items-end justify-center transform ${
-                        isTransitioning
-                          ? "translate-y-4 opacity-0"
-                          : "translate-y-0 opacity-100"
-                      }`}
-                    >
-                      <span className="text-white text-sm font-medium tracking-wider text-center leading-tight px-4 pb-4">
-                        {cat.label}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
+              {categories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  to={`/product?category=${cat.id}`}
+                  className="group shrink-0 pointer-events-auto"
+                  onClick={(e) => {
+                    if (isDragging) e.preventDefault(); // Prevent navigating when dragging
+                  }}
+                  draggable={false}
+                >
+                  <div className="w-[227px] h-[204px] bg-[#666] group-hover:bg-[#555] transition-all duration-300 flex items-end justify-center pointer-events-none">
+                    <span className="text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2">
+                      {cat.label}
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
-          </div>
-          {/* Pagination dots */}
-          <div className="flex justify-center gap-1.5 pb-3">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => handlePageChange(i)}
-                disabled={isTransitioning}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 transform hover:scale-125 ${
-                  i === currentPage
-                    ? "bg-primary scale-125"
-                    : "bg-border hover:bg-primary/50"
-                } ${isTransitioning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
-              />
-            ))}
+
+            {/* Pagination dots */}
+            <div className="flex justify-center gap-1.5 mt-2">
+              {Array.from({ length: totalSlides }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === idx ? "bg-[#444]" : "bg-[#e5e5e5]"
+                    }`}
+                />
+              ))}
+            </div>
+
+            {/* Custom style for webkit scrollbar hiding */}
+            <style dangerouslySetInnerHTML={{
+              __html: `
+              .cursor-grab::-webkit-scrollbar,
+              .cursor-grabbing::-webkit-scrollbar {
+                display: none;
+              }
+            `}} />
           </div>
         </Container>
       </section>
@@ -149,11 +167,10 @@ const ProductList = () => {
                 key={f}
                 type="button"
                 onClick={() => setActiveFilter(f === activeFilter ? null : f)}
-                className={`flex items-center gap-1.5 px-4 py-1.5 text-xs tracking-wide border transition-colors ${
-                  activeFilter === f
-                    ? "border-primary bg-primary text-white"
-                    : "border-border text-secondary hover:border-primary hover:text-primary"
-                }`}
+                className={`flex items-center gap-1.5 px-4 py-1.5 text-xs tracking-wide border transition-colors ${activeFilter === f
+                  ? "border-primary bg-primary text-white"
+                  : "border-border text-secondary hover:border-primary hover:text-primary"
+                  }`}
               >
                 {f}
                 {f === "Filter" && (
