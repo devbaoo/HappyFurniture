@@ -23,11 +23,11 @@ const Footer = () => {
     const isLightFooter = location.pathname.startsWith('/product') || location.pathname.startsWith('/news');
 
     return (
-        <footer className={isLightFooter ? "bg-[rgba(237,233,233,0.75)] text-stone-800 border-t border-stone-200 pt-8" : "bg-[#3c4a28] text-white"}>
+        <footer className={isLightFooter ? "bg-[rgba(237,233,233,0.75)] text-stone-800 border-t border-stone-200 pt-4" : "bg-[#3c4a28] text-white pt-2"}>
             <div className="mx-auto max-w-[1700px] px-6 w-full">
 
                 {/* TOP GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 py-5">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 py-3">
 
                     {/* LOGO */}
                     <div>
@@ -109,9 +109,9 @@ const Footer = () => {
                 </div>
 
                 {/* SOCIAL */}
-                <div className="mt-4 pb-4">
+                <div className="mt-2 pb-4">
 
-                    <div className="flex items-center gap-6 mb-5">
+                    <div className="flex items-center gap-6 mb-4">
                         <span className="text-sm font-semibold">Social</span>
                         <div className={`flex-1 h-px ${isLightFooter ? 'bg-stone-500' : 'bg-white/30'}`}></div>
                     </div>
