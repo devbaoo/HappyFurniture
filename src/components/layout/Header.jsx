@@ -159,8 +159,8 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Short decorative line + breadcrumb — only on non-home and non-what-we-do pages */}
-      {!isDark && pathname !== "/what-we-do" && (
+      {/* Short decorative line + breadcrumb — only on /certificate */}
+      {pathname === "/certificate" && (
         <div className="mx-auto max-w-[1800px] px-10 w-full pb-3">
           {/* line */}
           <div className="h-px bg-stone-300 mb-2" />

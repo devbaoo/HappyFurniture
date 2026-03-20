@@ -10,7 +10,7 @@ export default {
         container: "1320px",
       },
       fontFamily: {
-        sans: ["'Inter'", "sans-serif"],
+        sans: ["'Avenir Next'", "'Montserrat'", "sans-serif"],
         heading: ["'Cormorant Garamond'", "serif"],
         catalog: ["'Avenir Next'", "'Montserrat'", "sans-serif"],
       },
