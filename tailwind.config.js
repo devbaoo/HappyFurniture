@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ["'Inter'", "sans-serif"],
         heading: ["'Cormorant Garamond'", "serif"],
+        catalog: ["'Avenir Next'", "'Montserrat'", "sans-serif"],
       },
       colors: {
         primary: "#1a1a1a",
@@ -22,6 +23,7 @@ export default {
         white: "#ffffff",
         dark: "#111111",
         accent: "#2c2c2c",
+        forest: "#2f3e2f",
       },
       spacing: {
         // 8pt scale

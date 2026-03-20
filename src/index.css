@@ -52,21 +52,79 @@
 
 /* ── WhatWeDo page helpers ─────────────────────────────────────── */
 @layer components {
-  .wwd-spec-heading {
-    @apply text-base font-semibold uppercase tracking-widest text-primary mb-3 border-b border-border pb-2;
+  /* ── Specs section wrapper ─────────────────────────────────────── */
+  .wwd-specs-section {
+    @apply py-20 md:py-32 bg-white;
   }
 
+  /* Two-column grid inside the specs section */
+  .wwd-specs-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 80px;
+    align-items: start;
+  }
+
+  @media (max-width: 640px) {
+    .wwd-specs-columns {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  /* Left column stacks its three blocks */
+  .wwd-specs-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Right column holds Product Range */
+  .wwd-specs-right {
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px; /* optical alignment with left column first heading */
+  }
+
+  /* ── Individual spec block ─────────────────────────────────────── */
+  .wwd-spec-block {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-top: 1px solid #e0e0dc;
+  }
+
+  .wwd-spec-block:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  /* ── Section heading — catalog style ───────────────────────────── */
+  .wwd-spec-heading {
+    font-family: 'Avenir Next', 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2f3e2f;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  /* ── Body list ─────────────────────────────────────────────────── */
   .wwd-spec-list {
-    @apply space-y-1.5;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .wwd-spec-list li {
-    @apply text-sm text-secondary leading-relaxed pl-3 relative;
-  }
-
-  .wwd-spec-list li::before {
-    content: "—";
-    @apply absolute left-0 text-muted text-xs;
+    font-family: 'Avenir Next', 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.65;
   }
 
   .wwd-badge {
