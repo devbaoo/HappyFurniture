@@ -147,7 +147,7 @@ export default function WhatWeDo() {
       <section className="bg-[#d8d1c9] py-24">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <h2
-            className="text-center font-heading uppercase text-[#4b4a3f] mb-16"
+            className="text-center font-heading uppercase text-[#4b4a3f] mb-20"
             style={{
               fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)",
               letterSpacing: "0.08em",
@@ -158,7 +158,7 @@ export default function WhatWeDo() {
             KD MANUFACTURERS IN VIETNAM.
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               { src: "/images/home/Quality.jpg", text: "Cam kết chất lượng" },
               {
@@ -183,8 +183,8 @@ export default function WhatWeDo() {
                   alt={item.text}
                   className="w-full h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <p className="absolute bottom-5 left-0 right-0 text-center text-white text-sm font-light tracking-wide">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
+                <p className="absolute bottom-3 left-0 right-0 text-center text-white text-[16px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
                   {item.text}
                 </p>
               </div>
@@ -194,7 +194,7 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
-      <section className="py-16 md:py-24">
+      <section className="wwd-specs-section">
         <Container>
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start">
             {/* Left — design sketch image */}
@@ -206,40 +206,48 @@ export default function WhatWeDo() {
               />
             </div>
 
-            {/* Right — specs */}
-            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10">
-              <div>
-                <h3 className="wwd-spec-heading">Finishing</h3>
-                <ul className="wwd-spec-list">
-                  <li>NC, PU, Water-based (Greenguard certified)</li>
-                  <li>UV, UV Edge Paint</li>
-                  <li>Painted/Pigmented, Rustic</li>
-                </ul>
-              </div>
+            {/* Right — specs in two-column catalog layout */}
+            <div className="flex-1">
+              <div className="wwd-specs-columns">
+                {/* Left spec column: Finishing → Materials → Specializing In */}
+                <div className="wwd-specs-left">
+                  <div className="wwd-spec-block">
+                    <h3 className="wwd-spec-heading">Finishing</h3>
+                    <ul className="wwd-spec-list">
+                      <li>NC, PU, Water-based (Greenguard certified)</li>
+                      <li>UV, UV Edge Paint</li>
+                      <li>Painted/Pigmented, Rustic</li>
+                    </ul>
+                  </div>
 
-              <div>
-                <h3 className="wwd-spec-heading">Product Range</h3>
-                <ul className="wwd-spec-list">
-                  {productRange.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+                  <div className="wwd-spec-block">
+                    <h3 className="wwd-spec-heading">Materials</h3>
+                    <ul className="wwd-spec-list">
+                      <li>Solid: Pine, Poplar, Oak, Rubberwood, Acacia, Hemlock</li>
+                      <li>Veneers: Any type</li>
+                    </ul>
+                  </div>
 
-              <div>
-                <h3 className="wwd-spec-heading">Materials</h3>
-                <ul className="wwd-spec-list">
-                  <li>Solid: Pine, Poplar, Oak, Rubberwood, Acacia, Hemlock</li>
-                  <li>Veneers: Any type</li>
-                </ul>
-              </div>
+                  <div className="wwd-spec-block">
+                    <h3 className="wwd-spec-heading">Specializing In</h3>
+                    <ul className="wwd-spec-list">
+                      <li>Solid Wood Furniture</li>
+                      <li>Veneered Particle Board Furniture</li>
+                    </ul>
+                  </div>
+                </div>
 
-              <div>
-                <h3 className="wwd-spec-heading">Specializing In</h3>
-                <ul className="wwd-spec-list">
-                  <li>Solid Wood Furniture</li>
-                  <li>Veneered Particle Board Furniture</li>
-                </ul>
+                {/* Right spec column: Product Range */}
+                <div className="wwd-specs-right">
+                  <div className="wwd-spec-block" style={{ borderTop: "none", paddingTop: 0 }}>
+                    <h3 className="wwd-spec-heading">Product Range</h3>
+                    <ul className="wwd-spec-list">
+                      {productRange.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -247,7 +255,7 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#d6cec6" }} className="py-12">
+      <section style={{ backgroundColor: "#d6cec6" }} className="py-4">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
             {/* LEFT CONTENT - 40% */}
@@ -328,7 +336,7 @@ export default function WhatWeDo() {
             </div>
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
-            <div className="lg:col-span-3 flex flex-col gap-6">
+            <div className="lg:col-span-3 flex flex-col gap-1">
               <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <img
                   src={timber1Img}
@@ -336,7 +344,7 @@ export default function WhatWeDo() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-1">
                 <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
                   <img
                     src={timber2Img}
