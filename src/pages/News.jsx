@@ -3,17 +3,22 @@ import { Link } from "react-router-dom";
 
 const News = () => {
     return (
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] py-8 font-sans">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] py-8 pt-32 font-sans bg-white relative">
+            {/* 1. PAGE TITLE */}
+            <h1 className="text-3xl lg:text-4xl uppercase tracking-widest font-light mb-6 text-center">
+                News &amp; Events
+            </h1>
+
             {/* 2. BREADCRUMB */}
-            <div className="mb-12 text-sm text-gray-500 tracking-wide">
+            <div className="mb-10 text-sm text-gray-500 tracking-wide text-center">
                 <Link to="/" className="hover:text-black transition-colors">HOME</Link> / <span className="text-black">NEWS</span>
             </div>
 
             {/* 3. EVENT SECTION */}
-            <section className="mb-24">
-                <h2 className="text-2xl md:text-3xl font-serif text-center uppercase tracking-widest mb-12">Event</h2>
+            <section className="mb-16">
+                <h2 className="text-2xl md:text-3xl font-serif text-center uppercase tracking-widest mb-8">Event</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                     {[1, 2, 3].map((item) => (
                         <div key={item} className="flex flex-col group cursor-pointer">
                             {/* Image Box */}
@@ -45,12 +50,12 @@ const News = () => {
             </section>
 
             {/* 4. COMPANY ACTIVITIES */}
-            <section className="mb-24">
-                <h2 className="text-2xl md:text-3xl font-serif text-center uppercase tracking-widest mb-12">Company Activities</h2>
+            <section className="mb-16">
+                <h2 className="text-2xl md:text-3xl font-serif text-center uppercase tracking-widest mb-8">Company Activities</h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10 mb-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8 mb-8">
                     {/* Left Column */}
-                    <div className="flex flex-col space-y-10">
+                    <div className="flex flex-col space-y-8">
                         {[1, 2, 3].map((item) => (
                             <div key={`left-${item}`} className="flex gap-6 group cursor-pointer">
                                 <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
@@ -73,7 +78,7 @@ const News = () => {
                     </div>
 
                     {/* Right Column */}
-                    <div className="flex flex-col space-y-10">
+                    <div className="flex flex-col space-y-8">
                         {[4, 5, 6].map((item) => (
                             <div key={`right-${item}`} className="flex gap-6 group cursor-pointer">
                                 <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
