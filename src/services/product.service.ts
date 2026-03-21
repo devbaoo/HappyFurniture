@@ -1,0 +1,68 @@
+import api from "./api";
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  oldPrice?: number;
+  slug: string;
+  categoryId?: string; // Optional if not used
+  categories?: any[]; // Replaces categoryId from API
+  isActive: boolean;
+  images?: any[];
+  variants?: any[];
+}
+
+export const productService = {
+  // Lấy toàn bộ sản phẩm (lọc và phân trang)
+  getProducts: async (params?: any): Promise<any> => {
+    const response = await api.get("/Products", { params });
+    return response.data;
+  },
+
+  // Lấy các sản phẩm nổi bật
+  getFeaturedProducts: async (): Promise<Product[]> => {
+    const response = await api.get("/Products/featured");
+    return response.data;
+  },
+
+  // Lấy chi tiết sản phẩm theo ID
+  getProductById: async (id: string): Promise<Product> => {
+    const response = await api.get(`/Products/${id}`);
+    return response.data;
+  },
+
+  // Lấy sản phẩm theo SLug
+  getProductBySlug: async (slug: string): Promise<Product> => {
+    const response = await api.get(`/Products/slug/${slug}`);
+    return response.data;
+  },
+
+  // Tạo một sản phẩm mới
+  createProduct: async (data: any): Promise<Product> => {
+    const response = await api.post("/Products", data);
+    return response.data;
+  },
+
+  // Tạo sản phẩm kèm file ảnh
+  createProductWithImages: async (data: FormData): Promise<Product> => {
+    const response = await api.post("/Products/with-images", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  },
+
+  // Cập nhật sản phẩm
+  updateProduct: async (id: string, data: any): Promise<Product> => {
+    const response = await api.put(`/Products/${id}`, data);
+    return response.data;
+  },
+
+  // Xóa sản phẩm
+  deleteProduct: async (id: string): Promise<void> => {
+    await api.delete(`/Products/${id}`);
+  },
+};
