@@ -71,15 +71,11 @@ const Certificate = () => {
       <section className="pb-24">
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* ── LEFT: image with play button ── */}
-          <div
-            className="relative overflow-hidden"
-            style={{ aspectRatio: "4/3" }}
-          >
-            <Img
-              src="/images/cert-workshop.jpg"
+          <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+            <img
               alt="Workshop inspection"
               className="object-cover w-full h-full"
-              placeholderBg="#c8bfb0"
+              src="/images/cert-workshop.jpg"
             />
             {/* overlay */}
             <div className="absolute inset-0 bg-black/20" />
@@ -101,15 +97,14 @@ const Certificate = () => {
           </div>
 
           {/* ── RIGHT: certifications list ── */}
-          <div className="flex flex-col gap-0">
+          <div className="flex flex-col gap-0" style={{ width: "756px", transform: "translate(102px, 0px)" }}>
             {/* ─── CTPAT ─── */}
             <div className="pb-8" style={{ width: "740.903px", transform: "translate(31.1112px, 0px)", height: "185.885px" }}>
               <div className="mb-3">
-                <Img
-                  src="/images/ctpat.png"
+                <img
                   alt="CTPAT"
-                  className="h-12 md:h-14 object-contain"
-                  placeholderBg="transparent"
+                  className="object-cover h-12 md:h-14 object-contain"
+                  src="/images/ctpat.png"
                 />
               </div>
               <h2
@@ -131,11 +126,10 @@ const Certificate = () => {
             {/* ─── BSCI ─── */}
             <div className="pb-8" style={{ width: "740.903px", transform: "translate(31.1111px, 0px)", height: "182.5px" }}>
               <div className="mb-3" style={{ height: "103.299px", transform: "translate(0px, -28.8889px)" }}>
-                <Img
-                  src="/images/bsci.png"
+                <img
                   alt="BSCI"
-                  className="h-12 md:h-14 object-contain"
-                  placeholderBg="transparent"
+                  className="object-cover h-12 md:h-14 object-contain"
+                  src="/images/bsci.png"
                 />
               </div>
               <h2
@@ -156,13 +150,11 @@ const Certificate = () => {
 
             {/* ─── SMETA ─── */}
             <div className="pb-2" style={{ width: "756.458px", transform: "translate(15.5555px, 0px)", height: "184.566px" }}>
-              {/* Two logos row */}
               <div className="flex items-center gap-4 mb-3" style={{ height: "141.111px", transform: "translate(16.6667px, -61.1111px)", width: "739.757px" }}>
-                <Img
-                  src="/images/smeta.png"
+                <img
                   alt="SMETA Sedex"
-                  className="h-12 md:h-14 object-contain"
-                  placeholderBg="transparent"
+                  className="object-cover h-12 md:h-14 object-contain"
+                  src="/images/smeta.png"
                 />
               </div>
               <h2

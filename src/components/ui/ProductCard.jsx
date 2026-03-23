@@ -56,7 +56,7 @@ const ProductCard = ({
             </div>
 
             {/* Name */}
-            <p className="text-xs text-secondary leading-snug mb-1 line-clamp-2">{name}</p>
+            <p className="text-xs font-medium text-primary leading-snug mb-1 line-clamp-2">{name}</p>
 
             {/* Price */}
             <div className="flex items-center gap-2">

@@ -195,40 +195,33 @@ export default function WhatWeDo() {
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
       <section className="wwd-specs-section">
-        <Container>
+        <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start">
-            {/* Left — design sketch image */}
             <div className="w-full lg:w-[40%] flex-shrink-0">
               <img
-                src={finishingImg}
                 alt="Design sketches"
                 className="w-full h-[500px] object-cover"
+                src={finishingImg}
               />
             </div>
-
-            {/* Right — specs in two-column catalog layout */}
             <div className="flex-1">
               <div className="wwd-specs-columns">
-                {/* Left spec column: Finishing → Materials → Specializing In */}
                 <div className="wwd-specs-left">
                   <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">Finishing</h3>
-                    <ul className="wwd-spec-list">
-                      <li>NC, PU, Water-based (Greenguard certified)</li>
-                      <li>UV, UV Edge Paint</li>
+                    <ul className="wwd-spec-list" style={{ width: "516.406px" }}>
+                      <li>NC, PU, Water-based (Greenguard certified), UV, UV Edge Paint</li>
                       <li>Painted/Pigmented, Rustic</li>
                     </ul>
                   </div>
-
-                  <div className="wwd-spec-block">
+                  <div className="wwd-spec-block" style={{ height: "159.562px", transform: "translate(0px, -26px)" }}>
                     <h3 className="wwd-spec-heading">Materials</h3>
                     <ul className="wwd-spec-list">
                       <li>Solid: Pine, Poplar, Oak, Rubberwood, Acacia, Hemlock</li>
                       <li>Veneers: Any type</li>
                     </ul>
                   </div>
-
-                  <div className="wwd-spec-block">
+                  <div className="wwd-spec-block" style={{ height: "157.547px", transform: "translate(0px, -12px)" }}>
                     <h3 className="wwd-spec-heading">Specializing In</h3>
                     <ul className="wwd-spec-list">
                       <li>Solid Wood Furniture</li>
@@ -236,10 +229,8 @@ export default function WhatWeDo() {
                     </ul>
                   </div>
                 </div>
-
-                {/* Right spec column: Product Range */}
-                <div className="wwd-specs-right">
-                  <div className="wwd-spec-block" style={{ borderTop: "none", paddingTop: 0 }}>
+                <div className="wwd-specs-right" style={{ width: "362.391px", transform: "translate(-54px, 0px)" }}>
+                  <div className="wwd-spec-block" style={{ borderTop: "none", paddingTop: "0px", width: "308.391px", transform: "translate(83px, 0px)" }}>
                     <h3 className="wwd-spec-heading">Product Range</h3>
                     <ul className="wwd-spec-list">
                       {productRange.map((item) => (
@@ -251,7 +242,7 @@ export default function WhatWeDo() {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
@@ -271,7 +262,7 @@ export default function WhatWeDo() {
                 TIMBER MERCHANDISING
               </h2>
 
-              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-600">
+              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-1500">
                 <p className="leading-relaxed">
                   We enjoy advantages of having large warehousing facilities,
                   with storage capacity of up to 10,000 cubic meter of raw

@@ -172,7 +172,7 @@ const Home = () => {
           2. OUR PRODUCT CATEGORIES — White bg, 2-row grid
          ══════════════════════════════════════════════ */}
       <section className="bg-white py-16" data-animate id="categories">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
           <div className={`text-center mb-4 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
@@ -240,7 +240,7 @@ const Home = () => {
           3. DARK PROMO — Full-width dark bg + 3-col images beneath
          ══════════════════════════════════════════════ */}
       <section className="bg-[#d8d1c9] py-24" data-animate id="promo">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
             className={`text-center font-heading uppercase text-[#4b4a3f] mb-20 transition-all duration-1000 ease-out ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
@@ -304,8 +304,8 @@ const Home = () => {
           4. ABOUT THE COMPANY — White bg, 2-col (text left, image right)
          ══════════════════════════════════════════════ */}
       <section className="bg-white py-20">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 max-w-[1300px] mx-auto items-center">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-2">
               <div>
@@ -367,12 +367,12 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           5. 4-COLUMN FEATURES — White bg, thin rule, vertical dividers
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-10 -mt-10">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="bg-white pb-10 pt-6">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="border-t-[3px] border-[#5a564f] mb-0" />
 
-          <div className="bg-[rgb(241,240,238)] py-0">
-            <div className="grid grid-cols-1 md:grid-cols-4 text-center divide-x divide-[#c9c5be]">
+          <div className="bg-[rgb(241,240,238)]">
+            <div className="grid grid-cols-1 md:grid-cols-4 text-center divide-y md:divide-y-0 md:divide-x divide-[#c9c5be]">
               {[
                 {
                   title: "Delivery",
@@ -391,11 +391,11 @@ const Home = () => {
                   desc: "International-standard packaging solutions tailored to client requirements and shipping safety",
                 },
               ].map((item) => (
-                <div key={item.title} className="px-20 py-5">
+                <div key={item.title} className="px-6 lg:px-10 py-5">
                   <h3
-                    className="mb-3 font-semibold"
+                    className="mb-2 font-semibold"
                     style={{
-                      fontSize: "22px",
+                      fontSize: "18px",
                       letterSpacing: "0.04em",
                       color: "#2b2925", // chữ tiêu đề thêm đậm và đen hơn
                     }}
@@ -404,9 +404,9 @@ const Home = () => {
                   </h3>
 
                   <p
-                    className="leading-7 font-medium"
+                    className="leading-6 font-medium"
                     style={{
-                      fontSize: "14.5px",
+                      fontSize: "13.5px",
                       color: "#4a4742", // chữ mô tả đậm và rõ nét hơn
                       maxWidth: "240px",
                       margin: "0 auto",
@@ -546,7 +546,7 @@ const Home = () => {
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
       <section style={{ backgroundColor: "#d6cec6" }} className="py-4">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center">
@@ -561,7 +561,7 @@ const Home = () => {
                 TIMBER MERCHANDISING
               </h2>
 
-              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-600">
+              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-1500">
                 <p className="leading-relaxed">
                   We enjoy advantages of having large warehousing facilities,
                   with storage capacity of up to 10,000 cubic meter of raw
@@ -576,8 +576,8 @@ const Home = () => {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-5">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-3">
+              <div className="mb-4">
+                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-2">
                   QUALITY
                 </p>
 
@@ -607,7 +607,7 @@ const Home = () => {
 
               {/* SIZE */}
               <div className="mb-6">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-2">
+                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-1">
                   SIZE
                 </p>
                 <p className="text-sm text-stone-600 font-light">
@@ -666,8 +666,8 @@ const Home = () => {
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
       <section className="bg-white py-24">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center max-w-[1300px] mx-auto">
+        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center">
             {/* LEFT IMAGE - 60% */}
             <div className="lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
               <Img
