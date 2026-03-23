@@ -147,12 +147,23 @@ const Header = () => {
         <div className="mx-auto max-w-[1800px] px-10 w-full">
           <ul className="flex items-center justify-center gap-16 pb-4 whitespace-nowrap">
             {navLinks.map(({ to, label }) => (
-              <li key={to}>
+              <li key={to} className="relative group">
                 <NavLink
                   to={to}
-                  className={`text-[12px] tracking-[0.25em] uppercase ${isDark ? "text-white/80 hover:text-white" : "text-stone-600 hover:text-stone-900"}`}
+                  className={`text-[12px] tracking-[0.25em] uppercase pb-1 transition-colors ${isDark
+                    ? "text-white/80 hover:text-white"
+                    : "text-stone-1000 hover:text-stone-900"
+                    }`}
                 >
-                  {label}
+                  {({ isActive }) => (
+                    <>
+                      {label}
+                      <span
+                        className={`absolute left-0 bottom-0 w-full h-[1px] transform origin-left transition-transform duration-300 ${isDark ? "bg-white" : "bg-stone-900"
+                          } ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+                      />
+                    </>
+                  )}
                 </NavLink>
               </li>
             ))}
