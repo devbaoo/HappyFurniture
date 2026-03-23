@@ -9,7 +9,6 @@ const navLinks = [
   { to: "/news", label: "News" },
   { to: "/order-delivery", label: "Order And Delivery" },
   { to: "/contact", label: "Contact" },
-  { to: "/admin/login", label: "Login" },
 ];
 
 /* map pathname → label cho breadcrumb */
