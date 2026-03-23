@@ -3,15 +3,42 @@ import api from "./api";
 export interface Product {
   id: string;
   name: string;
+  slug: string;
   description: string;
   price: number;
   oldPrice?: number;
-  slug: string;
-  categoryId?: string; // Optional if not used
-  categories?: any[]; // Replaces categoryId from API
+  dimensionsHeight?: number;
+  dimensionsWidth?: number;
+  dimensionsDepth?: number;
+  dimensionUnit?: string;
+  detail?: string;
+  deliveryInfo?: string;
+  weight?: number;
+  isFeatured?: boolean;
   isActive: boolean;
+  categoryId?: string;
+  categories?: any[];
   images?: any[];
   variants?: any[];
+}
+
+export interface CreateProductRequest {
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  oldPrice: number;
+  dimensionsHeight: number;
+  dimensionsWidth: number;
+  dimensionsDepth: number;
+  dimensionUnit: string;
+  detail: string;
+  deliveryInfo: string;
+  weight: number;
+  isFeatured: boolean;
+  isActive: boolean;
+  categoryIds: number[];
+  imageUrls: string[];
 }
 
 export const productService = {
