@@ -97,7 +97,7 @@ const ProductList = () => {
       </section>
 
       {/* Breadcrumb */}
-      <div className="border-b border-border">
+      <div>
         <Container>
           <nav
             aria-label="Breadcrumb"
@@ -113,9 +113,12 @@ const ProductList = () => {
       </div>
 
       {/* Category Scroll */}
-      <section className="border-b border-border">
-        <Container>
-          <div className="py-6">
+      <section style={{ height: "243px" }}>
+        <div
+          className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full"
+          style={{ height: "268px", transform: "translate(0px, -61px)" }}
+        >
+          <div className="py-6" style={{ height: "321px" }}>
             <div
               ref={scrollRef}
               onMouseDown={handleMouseDown}
@@ -123,8 +126,13 @@ const ProductList = () => {
               onMouseUp={handleMouseUp}
               onMouseMove={handleMouseMove}
               onScroll={handleScroll}
-              className={`flex gap-3 overflow-x-auto select-none pb-4 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-              style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
+              className={`flex gap-3 overflow-x-auto select-none pb-4 ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
+              style={{
+                msOverflowStyle: "none",
+                scrollbarWidth: "none",
+                height: "234px",
+              }}
             >
               {categories.map((cat) => (
                 <Link
@@ -132,7 +140,7 @@ const ProductList = () => {
                   to={`/product?category=${cat.id}`}
                   className="group shrink-0 pointer-events-auto"
                   onClick={(e) => {
-                    if (isDragging) e.preventDefault(); // Prevent navigating when dragging
+                    if (isDragging) e.preventDefault();
                   }}
                   draggable={false}
                 >
@@ -146,7 +154,10 @@ const ProductList = () => {
             </div>
 
             {/* Pagination dots */}
-            <div className="flex justify-center gap-1.5 mt-2">
+            <div
+              className="flex justify-center gap-1.5 mt-2"
+              style={{ height: "6px", transform: "translate(0px, -32px)" }}
+            >
               {Array.from({ length: totalSlides }).map((_, idx) => (
                 <div
                   key={idx}
@@ -157,19 +168,22 @@ const ProductList = () => {
             </div>
 
             {/* Custom style for webkit scrollbar hiding */}
-            <style dangerouslySetInnerHTML={{
-              __html: `
+            <style
+              dangerouslySetInnerHTML={{
+                __html: `
               .cursor-grab::-webkit-scrollbar,
               .cursor-grabbing::-webkit-scrollbar {
                 display: none;
               }
-            `}} />
+            `,
+              }}
+            />
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Filter bar */}
-      <section className="border-b border-border">
+      <section className="border-t border-border">
         <Container>
           <div className="flex items-center gap-3 py-4">
             {filters.map((f) => (
