@@ -1,23 +1,42 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-// ProductCard — grid card with image placeholder, wishlist, price
+const PLACEHOLDER_COUNT = 5;
+
 const ProductCard = ({
     id = "1",
     name = "Bocce Taupe Sheepskin Upholstered Bench",
     price = "1000$",
-    oldPrice = "1200$",
-    colors = 5,
+    oldPrice = null,
+    images = [],
     className = "",
 }) => {
+    const primaryImage = images.find((img) => img.isPrimary) ?? images[0] ?? null;
+    const [imgError, setImgError] = useState(false);
+
+    const swatches = images.length > 0
+        ? images.slice(0, PLACEHOLDER_COUNT)
+        : Array.from({ length: PLACEHOLDER_COUNT });
+
     return (
         <Link
             to={`/product/${id}`}
             className={`group block ${className}`}
             aria-label={name}
         >
-            {/* Image */}
+            {/* Main image */}
             <div className="relative overflow-hidden bg-[#666] aspect-square mb-3">
-                <div className="absolute inset-0 bg-[#555]" />
+                {primaryImage && !imgError ? (
+                    <img
+                        src={primaryImage.imageUrl}
+                        alt={primaryImage.altText || name}
+                        onError={() => setImgError(true)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                ) : (
+                    <div className="absolute inset-0 bg-[#555]" />
+                )}
+
                 {/* Wishlist */}
                 <button
                     type="button"
@@ -44,15 +63,28 @@ const ProductCard = ({
                 </button>
             </div>
 
-            {/* Color swatches */}
+            {/* Image swatches — thumbnail or placeholder squares */}
             <div className="flex gap-1 mb-2">
-                {Array.from({ length: colors }).map((_, i) => (
-                    <div
-                        key={i}
-                        className="w-3 h-3 rounded-sm bg-primary opacity-60"
-                        style={{ opacity: 0.3 + i * 0.15 }}
-                    />
-                ))}
+                {swatches.map((img, i) =>
+                    img ? (
+                        <div
+                            key={img.id ?? i}
+                            className="w-3 h-3 rounded-sm overflow-hidden bg-[#ccc]"
+                        >
+                            <img
+                                src={img.imageUrl}
+                                alt=""
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    ) : (
+                        <div
+                            key={i}
+                            className="w-3 h-3 rounded-sm bg-primary"
+                            style={{ opacity: 0.3 + i * 0.15 }}
+                        />
+                    )
+                )}
             </div>
 
             {/* Name */}

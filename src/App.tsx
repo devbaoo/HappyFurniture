@@ -9,14 +9,6 @@ import Certificate from "./pages/Certificate";
 import News from "./pages/News";
 import WhatWeDo from "./pages/WhatWeDo";
 
-// Admin components
-import AdminLayout from "./components/layout/AdminLayout";
-import AdminLogin from "./pages/admin/AdminLogin";
-import Categories from "./pages/admin/Categories";
-import Products from "./pages/admin/Products";
-import Variants from "./pages/admin/Variants";
-import Images from "./pages/admin/Images";
-
 // NotFound fallback
 const NotFound = () => (
   <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -34,31 +26,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* === ADMIN ROUTES === */}
-        <Route path="/admin/login" element={<AdminLogin />} />
-
-        <Route path="/admin" element={<AdminLayout />}>
-          {/* Default admin redirect to dashboard */}
-          <Route
-            index
-            element={
-              <div className="p-4 text-xl font-semibold">
-                Welcome to Dashboard
-              </div>
-            }
-          />
-          <Route
-            path="dashboard"
-            element={
-              <div className="p-4 text-xl font-semibold">Dashboard Page</div>
-            }
-          />
-          <Route path="categories" element={<Categories />} />
-          <Route path="products" element={<Products />} />
-          <Route path="variants" element={<Variants />} />
-          <Route path="images" element={<Images />} />
-        </Route>
-
         {/* === CUSTOMER / CLIENT ROUTES === */}
         <Route
           path="/"

@@ -1,7 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
+
+const API_URL =
+  "https://happyfurniture-huexcrecemgaesdy.southeastasia-01.azurewebsites.net/api/Products";
 
 // Category data
 const categories = [
@@ -16,21 +19,8 @@ const categories = [
 
 const filters = ["Filter", "Sofa", "More", "Width", "Material", "Cushion"];
 
-const products = Array.from({ length: 12 }, (_, i) => ({
-  id: String(i + 1),
-  name: "Tocca Taupe Sheepskin Upholstered Bench a.k.a (60'-67')",
-  price: "1000$",
-  oldPrice: "1200$",
-  colors: 5,
-}));
-
-const recentProducts = Array.from({ length: 6 }, (_, i) => ({
-  id: String(i + 100),
-  name: "Tocca Taupe Sheepskin Upholstered Corduroy Bench (60'-67')",
-  price: "1000$",
-  oldPrice: "1200$",
-  colors: 5,
-}));
+const formatPrice = (price) =>
+  price != null ? `${Number(price).toLocaleString()}$` : null;
 
 const ProductList = () => {
   const [activeFilter, setActiveFilter] = useState(null);
@@ -39,6 +29,26 @@ const ProductList = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        setProducts(data.items ?? []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   // Tính toán số trang (slides) dựa trên chiều rộng
   const totalSlides = 3;
@@ -212,27 +222,64 @@ const ProductList = () => {
       {/* Product Grid */}
       <section className="py-10">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {products.map((p) => (
-              <ProductCard key={p.id} {...p} />
-            ))}
-          </div>
+          {loading && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-square bg-[#e5e5e5] mb-3" />
+                  <div className="flex gap-1 mb-2">
+                    {Array.from({ length: 5 }).map((__, j) => (
+                      <div key={j} className="w-3 h-3 rounded-sm bg-[#e5e5e5]" />
+                    ))}
+                  </div>
+                  <div className="h-3 bg-[#e5e5e5] rounded mb-1 w-3/4" />
+                  <div className="h-3 bg-[#e5e5e5] rounded w-1/3" />
+                </div>
+              ))}
+            </div>
+          )}
+          {error && (
+            <p className="text-sm text-red-500 py-4">Failed to load products: {error}</p>
+          )}
+          {!loading && !error && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {products.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={String(p.id)}
+                  name={p.name}
+                  price={formatPrice(p.price)}
+                  oldPrice={formatPrice(p.oldPrice)}
+                  images={p.images ?? []}
+                />
+              ))}
+            </div>
+          )}
         </Container>
       </section>
 
       {/* Recently Viewed Products */}
-      <section className="py-12 border-t border-border">
-        <Container>
-          <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8">
-            Recently Viewed Products
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-1 md:gap-2">
-            {recentProducts.map((p) => (
-              <ProductCard key={p.id} {...p} />
-            ))}
-          </div>
-        </Container>
-      </section>
+      {!loading && !error && products.length > 0 && (
+        <section className="py-12 border-t border-border">
+          <Container>
+            <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8">
+              Recently Viewed Products
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+              {products.slice(0, 6).map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={String(p.id)}
+                  name={p.name}
+                  price={formatPrice(p.price)}
+                  oldPrice={formatPrice(p.oldPrice)}
+                  images={p.images ?? []}
+                />
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
     </div>
   );
 };
