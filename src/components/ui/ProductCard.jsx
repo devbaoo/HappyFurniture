@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const PLACEHOLDER_COUNT = 5;
 
 const ProductCard = ({
-    id = "1",
+    id = "1",       // accepts slug string or numeric id fallback
     name = "Bocce Taupe Sheepskin Upholstered Bench",
     price = "1000$",
     oldPrice = null,

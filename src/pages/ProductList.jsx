@@ -519,7 +519,7 @@ const ProductList = () => {
               {products.map((p) => (
                 <ProductCard
                   key={p.id}
-                  id={String(p.id)}
+                  id={p.slug ?? String(p.id)}
                   name={p.name}
                   price={formatPrice(p.price)}
                   oldPrice={formatPrice(p.oldPrice)}
@@ -542,7 +542,7 @@ const ProductList = () => {
               {recentlyViewed.map((p) => (
                 <ProductCard
                   key={p.id}
-                  id={String(p.id)}
+                  id={p.slug ?? String(p.id)}
                   name={p.name}
                   price={formatPrice(p.price)}
                   oldPrice={formatPrice(p.oldPrice)}
