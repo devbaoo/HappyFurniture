@@ -1,248 +1,521 @@
-import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { SlidersHorizontal, ChevronDown, X } from "lucide-react";
 import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
+import { productService } from "../services/product.service";
+import useMegaMenu from "../hooks/useMegaMenu";
 
-const API_URL =
-  "https://happyfurniture-huexcrecemgaesdy.southeastasia-01.azurewebsites.net/api/Products";
-
-// Category data
-const categories = [
-  { id: "sofas", label: "SOFAS" },
-  { id: "sectionals", label: "SECTIONALS" },
-  { id: "accent-chair", label: "ACCENT CHAIR" },
-  { id: "dining-ancient-chair-sets", label: "DINING & ANCIENT CHAIR SETS" },
-  { id: "coffee-tables", label: "COFFEE TABLES" },
-  { id: "side-tables", label: "SIDE TABLES" },
-  { id: "misc", label: "MISC" },
-];
-
-const filters = ["Filter", "Sofa", "More", "Width", "Material", "Cushion"];
-
+/* ─── helpers ─────────────────────────────────────────────────── */
 const formatPrice = (price) =>
   price != null ? `${Number(price).toLocaleString()}$` : null;
 
-const ProductList = () => {
-  const [activeFilter, setActiveFilter] = useState(null);
-  const scrollRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
+const SORT_OPTIONS = [
+  { value: "", label: "Default" },
+  { value: "price_asc", label: "Price: Low → High" },
+  { value: "price_desc", label: "Price: High → Low" },
+  { value: "name_asc", label: "Name A–Z" },
+  { value: "name_desc", label: "Name Z–A" },
+];
 
+const PAGE_SIZES = [12, 24, 48];
+
+/* ─── Price range slider (simple dual-input) ──────────────────── */
+const PriceFilter = ({ min, max, onChange }) => {
+  const [localMin, setLocalMin] = useState(min ?? "");
+  const [localMax, setLocalMax] = useState(max ?? "");
+
+  // sync props → local state when parent clears the filter
+  if (localMin !== (min ?? "") && document.activeElement?.tagName !== "INPUT") {
+    setLocalMin(min ?? "");
+  }
+  if (localMax !== (max ?? "") && document.activeElement?.tagName !== "INPUT") {
+    setLocalMax(max ?? "");
+  }
+
+  const commit = () => onChange(localMin || null, localMax || null);
+
+  return (
+    <div className="flex items-center gap-2">
+      <input
+        type="number"
+        placeholder="Min $"
+        value={localMin}
+        onChange={(e) => setLocalMin(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => e.key === "Enter" && commit()}
+        className="w-24 border border-border px-3 py-1.5 text-xs outline-none focus:border-primary transition-colors"
+      />
+      <span className="text-muted text-xs">—</span>
+      <input
+        type="number"
+        placeholder="Max $"
+        value={localMax}
+        onChange={(e) => setLocalMax(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => e.key === "Enter" && commit()}
+        className="w-24 border border-border px-3 py-1.5 text-xs outline-none focus:border-primary transition-colors"
+      />
+    </div>
+  );
+};
+
+/* ─── Dropdown wrapper ─────────────────────────────────────────── */
+const FilterDropdown = ({ label, active, children }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative border-r border-border">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`flex items-center gap-1.5 px-5 py-3 text-[11px] tracking-[0.12em] uppercase transition-colors ${
+          active
+            ? "text-primary font-semibold"
+            : "text-secondary hover:text-primary"
+        }`}
+      >
+        {label}
+        <ChevronDown
+          size={11}
+          strokeWidth={1.8}
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-px bg-white border border-border shadow-xl z-[40] min-w-[180px] p-4">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ─── Skeleton card ────────────────────────────────────────────── */
+const SkeletonCard = () => (
+  <div className="animate-pulse">
+    <div className="aspect-square bg-surface mb-3" />
+    <div className="flex gap-1 mb-2">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} className="w-3 h-3 rounded-sm bg-surface" />
+      ))}
+    </div>
+    <div className="h-3 bg-surface rounded mb-1 w-3/4" />
+    <div className="h-3 bg-surface rounded w-1/3" />
+  </div>
+);
+
+/* ─── Recently Viewed — localStorage ─────────────────────────── */
+const RV_KEY = "hp_recently_viewed";
+const RV_MAX = 6;
+
+const saveRecentlyViewed = (products) => {
+  if (!products.length) return;
+  try {
+    const existing = JSON.parse(localStorage.getItem(RV_KEY) || "[]");
+    const existingIds = new Set(existing.map((p) => p.id));
+    const fresh = products.filter((p) => !existingIds.has(p.id));
+    const merged = [...fresh, ...existing].slice(0, RV_MAX);
+    localStorage.setItem(RV_KEY, JSON.stringify(merged));
+  } catch (e) { void e; }
+};
+
+const loadRecentlyViewed = () => {
+  try { return JSON.parse(localStorage.getItem(RV_KEY) || "[]"); }
+  catch (e) { void e; return []; }
+};
+
+/* ─── Main page ────────────────────────────────────────────────── */
+const ProductList = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { categories: megaCategories } = useMegaMenu();
+
+  /* ── URL-driven state ────────────────────────────────────────── */
+  const categoryId = searchParams.get("category") || "";
+  const [nameFilter, setNameFilter] = useState(searchParams.get("name") || "");
+  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || null);
+  const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || null);
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
+  const [pageNumber, setPageNumber] = useState(Number(searchParams.get("page") || 1));
+  const [pageSize, setPageSize] = useState(Number(searchParams.get("pageSize") || 12));
+
+  /* ── Products state ──────────────────────────────────────────── */
   const [products, setProducts] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  /* ── Recently viewed ─────────────────────────────────────────── */
+  const [recentlyViewed, setRecentlyViewed] = useState(loadRecentlyViewed);
+
+  /* ── Category scroll (horizontal) ───────────────────────────── */
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragScrollLeft, setDragScrollLeft] = useState(0);
+
+  /* ── Derive current category label ──────────────────────────── */
+  const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
+  const activeCat = allCategories.find((c) => String(c.id) === categoryId);
+  // pageTitle reserved for future use (e.g. <title> tag)
+  void (activeCat ? activeCat.name.trim() : "All Products");
+
+  /* ── Build params & fetch ────────────────────────────────────── */
+  const fetchProducts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+
+    const [sortField, sortOrder] = sortBy
+      ? sortBy.split("_")
+      : [undefined, undefined];
+
+    try {
+      const data = await productService.getProducts({
+        ...(categoryId ? { CategoryId: categoryId } : {}),
+        ...(nameFilter ? { Name: nameFilter } : {}),
+        ...(minPrice != null ? { MinPrice: minPrice } : {}),
+        ...(maxPrice != null ? { MaxPrice: maxPrice } : {}),
+        ...(sortField ? { SortBy: sortField } : {}),
+        ...(sortOrder ? { SortOrder: sortOrder } : {}),
+        PageNumber: pageNumber,
+        PageSize: pageSize,
+      });
+      const items = data.items ?? [];
+      setProducts(items);
+      setTotalCount(data.totalCount ?? 0);
+      setTotalPages(data.totalPages ?? 1);
+      // Save first few products of current view to recently viewed
+      saveRecentlyViewed(items.slice(0, 4));
+      setRecentlyViewed(loadRecentlyViewed());
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [categoryId, nameFilter, minPrice, maxPrice, sortBy, pageNumber, pageSize]);
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        setProducts(data.items ?? []);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
-  // Tính toán số trang (slides) dựa trên chiều rộng
-  const totalSlides = 3;
+  /* ── Sync filters → URL (for bookmarking / back-button) ──────── */
+  useEffect(() => {
+    const params = {};
+    if (categoryId) params.category = categoryId;
+    if (nameFilter) params.name = nameFilter;
+    if (minPrice) params.minPrice = minPrice;
+    if (maxPrice) params.maxPrice = maxPrice;
+    if (sortBy) params.sortBy = sortBy;
+    if (pageNumber > 1) params.page = pageNumber;
+    if (pageSize !== 12) params.pageSize = pageSize;
+    setSearchParams(params, { replace: true });
+  }, [categoryId, nameFilter, minPrice, maxPrice, sortBy, pageNumber, pageSize, setSearchParams]);
 
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      // Tránh lỗi chia cho 0 nếu scroll chưa sẵn sàng
-      if (scrollWidth > clientWidth) {
-        const scrollPercentage = scrollLeft / (scrollWidth - clientWidth);
-        const newSlide = Math.round(scrollPercentage * (totalSlides - 1));
-        setCurrentSlide(newSlide);
-      }
-    }
-  };
+  /* ── Reset to page 1 whenever any filter changes ─────────────── */
+  const applyFilter = (fn) => { fn(); setPageNumber(1); };
 
-  const handleMouseDown = (e) => {
+  /* ── Drag scroll handlers ────────────────────────────────────── */
+  const onMouseDown = (e) => {
     setIsDragging(true);
-    if (scrollRef.current) {
-      setStartX(e.pageX - scrollRef.current.offsetLeft);
-      setScrollLeft(scrollRef.current.scrollLeft);
-    }
+    setDragStartX(e.pageX - scrollRef.current.offsetLeft);
+    setDragScrollLeft(scrollRef.current.scrollLeft);
   };
-
-  const handleMouseLeave = () => setIsDragging(false);
-  const handleMouseUp = () => setIsDragging(false);
-
-  const handleMouseMove = (e) => {
+  const onMouseUp = () => setIsDragging(false);
+  const onMouseLeave = () => setIsDragging(false);
+  const onMouseMove = (e) => {
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // Scroll speed multiplier
-    scrollRef.current.scrollLeft = scrollLeft - walk;
+    scrollRef.current.scrollLeft = dragScrollLeft - (x - dragStartX) * 1.5;
+  };
+
+  /* ── Active filters summary (pill chips) ─────────────────────── */
+  const hasActiveFilters = nameFilter || minPrice || maxPrice || sortBy;
+
+  const clearAll = () => {
+    setNameFilter("");
+    setMinPrice(null);
+    setMaxPrice(null);
+    setSortBy("");
+    setPageNumber(1);
   };
 
   return (
     <div>
-      {/* Hero Banner */}
-      <section className="relative bg-[#888] overflow-hidden">
-        <div className="absolute inset-0 bg-[#888]" />
-        <Container className="relative py-16">
-          <h1 className="font-heading text-4xl font-light uppercase tracking-widest text-white">
-            Living Room Furniture
-          </h1>
-        </Container>
-      </section>
+      {/* ── Spacer — offsets absolute header (~130px tall) ────────── */}
+      <div className="pt-[130px]" />
 
-      {/* Breadcrumb */}
+      {/* ── Breadcrumb ───────────────────────────────────────────── */}
       <div className="border-b border-border">
         <Container>
-          <nav
-            aria-label="Breadcrumb"
-            className="py-3 flex items-center gap-2 text-xs text-muted"
-          >
-            <Link to="/" className="hover:text-primary transition-colors">
-              Home
-            </Link>
+          <nav aria-label="Breadcrumb" className="py-3 flex items-center gap-2 text-xs text-muted">
+            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-primary">Living Room</span>
+            <Link to="/product" className="hover:text-primary transition-colors">Products</Link>
+            {activeCat && (
+              <>
+                <span>/</span>
+                <span className="text-primary">{activeCat.name.trim()}</span>
+              </>
+            )}
           </nav>
         </Container>
       </div>
 
-      {/* Category Scroll */}
-      <section className="border-b border-border">
-        <Container>
-          <div className="py-6">
-            <div
-              ref={scrollRef}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
-              onScroll={handleScroll}
-              className={`flex gap-3 overflow-x-auto select-none pb-4 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-              style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
-            >
-              {categories.map((cat) => (
+      {/* ── Category scroll strip ────────────────────────────────── */}
+      {megaCategories.length > 0 && (
+        <section className="border-b border-border">
+          <Container>
+            <div className="py-6">
+              <div
+                ref={scrollRef}
+                onMouseDown={onMouseDown}
+                onMouseLeave={onMouseLeave}
+                onMouseUp={onMouseUp}
+                onMouseMove={onMouseMove}
+                className={`flex gap-3 overflow-x-auto select-none pb-2 ${
+                  isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
+                style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
+              >
+                {/* "All" tile */}
                 <Link
-                  key={cat.id}
-                  to={`/product?category=${cat.id}`}
-                  className="group shrink-0 pointer-events-auto"
-                  onClick={(e) => {
-                    if (isDragging) e.preventDefault(); // Prevent navigating when dragging
-                  }}
+                  to="/product"
+                  onClick={(e) => isDragging && e.preventDefault()}
                   draggable={false}
+                  className="group shrink-0"
                 >
-                  <div className="w-[227px] h-[204px] bg-[#666] group-hover:bg-[#555] transition-all duration-300 flex items-end justify-center pointer-events-none">
-                    <span className="text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2">
-                      {cat.label}
+                  <div
+                    className={`w-[160px] h-[140px] flex items-end justify-center transition-all duration-300 ${
+                      !categoryId
+                        ? "bg-primary"
+                        : "bg-[#aaa] group-hover:bg-[#888]"
+                    }`}
+                  >
+                    <span className="text-white text-[10px] font-semibold tracking-wider px-2 pb-2 uppercase">
+                      All
                     </span>
                   </div>
                 </Link>
-              ))}
+
+                {megaCategories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    to={`/product?category=${cat.id}`}
+                    onClick={(e) => isDragging && e.preventDefault()}
+                    draggable={false}
+                    className="group shrink-0 relative overflow-hidden"
+                  >
+                    <div
+                      className={`w-[160px] h-[140px] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${
+                        String(cat.id) === categoryId
+                          ? "ring-2 ring-primary ring-inset"
+                          : ""
+                      }`}
+                    >
+                      {cat.imageUrl ? (
+                        <img
+                          src={cat.imageUrl}
+                          alt={cat.name.trim()}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          draggable={false}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-[#888] group-hover:bg-[#666] transition-colors duration-300" />
+                      )}
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
+                      <span className="relative text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2 uppercase z-10">
+                        {cat.name.trim()}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <style dangerouslySetInnerHTML={{
+                __html: `.cursor-grab::-webkit-scrollbar,.cursor-grabbing::-webkit-scrollbar{display:none}`
+              }} />
             </div>
+          </Container>
+        </section>
+      )}
 
-            {/* Pagination dots */}
-            <div className="flex justify-center gap-1.5 mt-2">
-              {Array.from({ length: totalSlides }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === idx ? "bg-[#444]" : "bg-[#e5e5e5]"
-                    }`}
-                />
-              ))}
-            </div>
-
-            {/* Custom style for webkit scrollbar hiding */}
-            <style dangerouslySetInnerHTML={{
-              __html: `
-              .cursor-grab::-webkit-scrollbar,
-              .cursor-grabbing::-webkit-scrollbar {
-                display: none;
-              }
-            `}} />
-          </div>
-        </Container>
-      </section>
-
-      {/* Filter bar */}
-      <section className="border-b border-border">
+      {/* ── Filter bar ───────────────────────────────────────────── */}
+      <section className="border-b border-border bg-white">
         <Container>
-          <div className="flex items-center gap-3 py-4">
-            {filters.map((f) => (
+          <div className="flex items-center gap-0 py-0">
+
+            {/* Search */}
+            <div className="flex items-center gap-2 border-r border-border px-4 py-3">
+              <svg className="w-3.5 h-3.5 text-muted shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search products…"
+                value={nameFilter}
+                onChange={(e) => applyFilter(() => setNameFilter(e.target.value))}
+                className="outline-none bg-transparent w-36 text-[11px] tracking-wide placeholder-stone-400 text-primary"
+              />
+              {nameFilter && (
+                <button onClick={() => applyFilter(() => setNameFilter(""))} className="text-muted hover:text-primary transition-colors">
+                  <X size={11} />
+                </button>
+              )}
+            </div>
+
+            {/* Price */}
+            <FilterDropdown label="Price" active={!!(minPrice || maxPrice)}>
+              <p className="text-[10px] tracking-widest uppercase text-muted mb-3">Price Range</p>
+              <PriceFilter
+                min={minPrice}
+                max={maxPrice}
+                onChange={(mn, mx) => applyFilter(() => { setMinPrice(mn); setMaxPrice(mx); })}
+              />
+              {(minPrice || maxPrice) && (
+                <button
+                  onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}
+                  className="mt-3 text-[10px] text-muted hover:text-primary tracking-wide"
+                >
+                  Clear
+                </button>
+              )}
+            </FilterDropdown>
+
+            {/* Sort */}
+            <FilterDropdown label="Sort" active={!!sortBy}>
+              <p className="text-[10px] tracking-widest uppercase text-muted mb-2">Sort By</p>
+              <ul className="flex flex-col gap-0.5">
+                {SORT_OPTIONS.map((opt) => (
+                  <li key={opt.value}>
+                    <button
+                      onClick={() => applyFilter(() => setSortBy(opt.value))}
+                      className={`text-[11px] w-full text-left py-1.5 px-2 transition-colors rounded-sm ${
+                        sortBy === opt.value
+                          ? "text-primary font-medium bg-surface"
+                          : "text-secondary hover:text-primary hover:bg-surface"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterDropdown>
+
+            {/* Show N */}
+            <FilterDropdown label={`Show ${pageSize}`} active={false}>
+              <p className="text-[10px] tracking-widest uppercase text-muted mb-2">Per Page</p>
+              <ul className="flex flex-col gap-0.5">
+                {PAGE_SIZES.map((s) => (
+                  <li key={s}>
+                    <button
+                      onClick={() => { setPageSize(s); setPageNumber(1); }}
+                      className={`text-[11px] w-full text-left py-1.5 px-2 transition-colors rounded-sm ${
+                        pageSize === s
+                          ? "text-primary font-medium bg-surface"
+                          : "text-secondary hover:text-primary hover:bg-surface"
+                      }`}
+                    >
+                      {s} items
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterDropdown>
+
+            {/* Clear all */}
+            {hasActiveFilters && (
               <button
-                key={f}
-                type="button"
-                onClick={() => setActiveFilter(f === activeFilter ? null : f)}
-                className={`flex items-center gap-1.5 px-4 py-1.5 text-xs tracking-wide border transition-colors ${activeFilter === f
-                  ? "border-primary bg-primary text-white"
-                  : "border-border text-secondary hover:border-primary hover:text-primary"
-                  }`}
+                onClick={clearAll}
+                className="flex items-center gap-1 text-[11px] tracking-wide text-muted hover:text-primary transition-colors border-l border-border px-4 py-3"
               >
-                {f}
-                {f === "Filter" && (
-                  <svg
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
-                    />
-                  </svg>
-                )}
-                {f !== "Filter" && (
-                  <svg
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                )}
+                <X size={11} />
+                Clear
               </button>
-            ))}
+            )}
+
+
           </div>
         </Container>
       </section>
 
-      {/* Product Grid */}
+      {/* ── Active filter chips ───────────────────────────────────── */}
+      {hasActiveFilters && (
+        <div className="border-b border-border">
+          <Container>
+            <div className="flex items-center gap-2 py-2 flex-wrap">
+              {nameFilter && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                  Name: {nameFilter}
+                  <button onClick={() => applyFilter(() => setNameFilter(""))}><X size={10} /></button>
+                </span>
+              )}
+              {(minPrice || maxPrice) && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                  Price: {minPrice || "0"}$ – {maxPrice || "∞"}$
+                  <button onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}><X size={10} /></button>
+                </span>
+              )}
+              {sortBy && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                  Sort: {SORT_OPTIONS.find((o) => o.value === sortBy)?.label}
+                  <button onClick={() => applyFilter(() => setSortBy(""))}><X size={10} /></button>
+                </span>
+              )}
+            </div>
+          </Container>
+        </div>
+      )}
+
+      {/* ── Product grid ─────────────────────────────────────────── */}
       <section className="py-10">
         <Container>
           {loading && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="aspect-square bg-[#e5e5e5] mb-3" />
-                  <div className="flex gap-1 mb-2">
-                    {Array.from({ length: 5 }).map((__, j) => (
-                      <div key={j} className="w-3 h-3 rounded-sm bg-[#e5e5e5]" />
-                    ))}
-                  </div>
-                  <div className="h-3 bg-[#e5e5e5] rounded mb-1 w-3/4" />
-                  <div className="h-3 bg-[#e5e5e5] rounded w-1/3" />
-                </div>
-              ))}
+              {Array.from({ length: pageSize }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
           )}
+
           {error && (
-            <p className="text-sm text-red-500 py-4">Failed to load products: {error}</p>
+            <div className="py-16 text-center">
+              <p className="text-sm text-red-500 mb-4">Failed to load products: {error}</p>
+              <button
+                onClick={fetchProducts}
+                className="text-xs tracking-widest uppercase border border-primary px-6 py-2 hover:bg-primary hover:text-white transition-colors"
+              >
+                Retry
+              </button>
+            </div>
           )}
-          {!loading && !error && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+          {!loading && !error && products.length === 0 && (
+            <div className="py-24 text-center">
+              <SlidersHorizontal size={32} className="mx-auto text-muted mb-4" strokeWidth={1} />
+              <p className="text-sm text-muted tracking-wide mb-2">No products found</p>
+              <p className="text-xs text-muted/60">Try adjusting your filters</p>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearAll}
+                  className="mt-6 text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
+          )}
+
+          {!loading && !error && products.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -258,15 +531,15 @@ const ProductList = () => {
         </Container>
       </section>
 
-      {/* Recently Viewed Products */}
-      {!loading && !error && products.length > 0 && (
+      {/* ── Recently Viewed ──────────────────────────────────────── */}
+      {recentlyViewed.length > 0 && (
         <section className="py-12 border-t border-border">
           <Container>
-            <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8">
-              Recently Viewed Products
+            <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8 text-primary">
+              Recently Viewed
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-              {products.slice(0, 6).map((p) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {recentlyViewed.map((p) => (
                 <ProductCard
                   key={p.id}
                   id={String(p.id)}
@@ -277,6 +550,59 @@ const ProductList = () => {
                 />
               ))}
             </div>
+          </Container>
+        </section>
+      )}
+
+      {/* ── Pagination ───────────────────────────────────────────── */}
+      {!loading && !error && totalPages > 1 && (
+        <section className="pb-16">
+          <Container>
+            <div className="flex items-center justify-center gap-1">
+              <button
+                disabled={pageNumber <= 1}
+                onClick={() => setPageNumber((p) => p - 1)}
+                className="px-3 py-1.5 text-xs border border-border disabled:opacity-30 hover:border-primary hover:text-primary transition-colors disabled:cursor-not-allowed"
+              >
+                ← Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((pg) => pg === 1 || pg === totalPages || Math.abs(pg - pageNumber) <= 2)
+                .reduce((acc, pg, i, arr) => {
+                  if (i > 0 && pg - arr[i - 1] > 1) acc.push("...");
+                  acc.push(pg);
+                  return acc;
+                }, [])
+                .map((item, i) =>
+                  item === "..." ? (
+                    <span key={`ellipsis-${i}`} className="px-2 text-muted text-xs">…</span>
+                  ) : (
+                    <button
+                      key={item}
+                      onClick={() => setPageNumber(item)}
+                      className={`w-8 h-8 text-xs border transition-colors ${
+                        pageNumber === item
+                          ? "border-primary bg-primary text-white"
+                          : "border-border hover:border-primary hover:text-primary"
+                      }`}
+                    >
+                      {item}
+                    </button>
+                  )
+                )}
+
+              <button
+                disabled={pageNumber >= totalPages}
+                onClick={() => setPageNumber((p) => p + 1)}
+                className="px-3 py-1.5 text-xs border border-border disabled:opacity-30 hover:border-primary hover:text-primary transition-colors disabled:cursor-not-allowed"
+              >
+                Next →
+              </button>
+            </div>
+            <p className="text-center text-[10px] text-muted mt-3 tracking-wide">
+              Page {pageNumber} of {totalPages} · {totalCount} products
+            </p>
           </Container>
         </section>
       )}
