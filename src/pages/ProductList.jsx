@@ -212,7 +212,7 @@ const ProductList = () => {
       {/* Product Grid */}
       <section className="py-10">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {products.map((p) => (
               <ProductCard key={p.id} {...p} />
             ))}
@@ -226,7 +226,7 @@ const ProductList = () => {
           <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8">
             Recently Viewed Products
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-1 md:gap-2">
             {recentProducts.map((p) => (
               <ProductCard key={p.id} {...p} />
             ))}
