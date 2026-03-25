@@ -74,25 +74,25 @@ const FilterDropdown = ({ label, active, children }) => {
   }, []);
 
   return (
-    <div ref={ref} className="relative border-r border-border">
+    <div ref={ref} className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1.5 px-5 py-3 text-[11px] tracking-[0.12em] uppercase transition-colors ${
-          active
-            ? "text-primary font-semibold"
-            : "text-secondary hover:text-primary"
-        }`}
+        className={`flex items-center justify-center min-w-[85px] h-[40px] gap-2 px-3 text-[14px] bg-white transition-colors ${active
+          ? "border-primary text-primary font-medium"
+          : "border-[#d8d8d8] text-[#333] hover:border-[#a0a0a0]"
+          }`}
+        style={{ border: "1px solid #d8d8d8" }}
       >
-        {label}
+        <span className="font-light tracking-wide">{label}</span>
         <ChevronDown
-          size={11}
-          strokeWidth={1.8}
-          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          size={14}
+          strokeWidth={1}
+          className={`transition-transform duration-200 text-[#666] ${open ? "rotate-180" : ""}`}
         />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-px bg-white border border-border shadow-xl z-[40] min-w-[180px] p-4">
+        <div className="absolute top-full left-0 mt-1 bg-white border border-[#d8d8d8] shadow-xl z-[40] w-max px-3 py-2">
           {children}
         </div>
       )}
@@ -146,7 +146,7 @@ const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || null);
   const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
   const [pageNumber, setPageNumber] = useState(Number(searchParams.get("page") || 1));
-  const [pageSize, setPageSize] = useState(Number(searchParams.get("pageSize") || 12));
+  const [pageSize] = useState(Number(searchParams.get("pageSize") || 12));
 
   /* ── Products state ──────────────────────────────────────────── */
   const [products, setProducts] = useState([]);
@@ -239,6 +239,28 @@ const ProductList = () => {
     scrollRef.current.scrollLeft = dragScrollLeft - (x - dragStartX) * 1.5;
   };
 
+  /* ── Category Dots ───────────────────────────────────────────── */
+  const [scrollDots, setScrollDots] = useState({ index: 0, total: 1 });
+  const handleScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const el = scrollRef.current;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 0) {
+      setScrollDots({ index: 0, total: 1 });
+      return;
+    }
+    const dotsCount = Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth));
+    const progress = Math.max(0, Math.min(1, el.scrollLeft / maxScroll));
+    const index = Math.round(progress * (dotsCount - 1));
+    setScrollDots({ index, total: dotsCount });
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("resize", handleScroll);
+    return () => window.removeEventListener("resize", handleScroll);
+  }, [megaCategories, handleScroll]);
+
   /* ── Active filters summary (pill chips) ─────────────────────── */
   const hasActiveFilters = nameFilter || minPrice || maxPrice || sortBy;
 
@@ -275,17 +297,17 @@ const ProductList = () => {
       {/* ── Category scroll strip ────────────────────────────────── */}
       {megaCategories.length > 0 && (
         <section className="border-b border-border">
-          <Container>
-            <div className="py-6">
+          <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
+            <div className="pt-6 pb-1">
               <div
                 ref={scrollRef}
+                onScroll={handleScroll}
                 onMouseDown={onMouseDown}
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseMove={onMouseMove}
-                className={`flex gap-3 overflow-x-auto select-none pb-2 ${
-                  isDragging ? "cursor-grabbing" : "cursor-grab"
-                }`}
+                className={`grid grid-flow-col auto-cols-[calc((100%-6*12px)/7.5)] gap-3 overflow-x-auto select-none pb-2 bg-scroll ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                  }`}
                 style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
               >
                 {/* "All" tile */}
@@ -293,16 +315,15 @@ const ProductList = () => {
                   to="/product"
                   onClick={(e) => isDragging && e.preventDefault()}
                   draggable={false}
-                  className="group shrink-0"
+                  className="group"
                 >
                   <div
-                    className={`w-[160px] h-[140px] flex items-end justify-center transition-all duration-300 ${
-                      !categoryId
-                        ? "bg-primary"
-                        : "bg-[#aaa] group-hover:bg-[#888]"
-                    }`}
+                    className={`w-full aspect-square flex items-end justify-center transition-all duration-300 ${!categoryId
+                      ? "bg-primary"
+                      : "bg-[#aaa] group-hover:bg-[#888]"
+                      }`}
                   >
-                    <span className="text-white text-[10px] font-semibold tracking-wider px-2 pb-2 uppercase">
+                    <span className="text-white text-[10px] font-semibold tracking-wider px-2 pb-2 uppercase text-center w-full truncate">
                       All
                     </span>
                   </div>
@@ -314,14 +335,13 @@ const ProductList = () => {
                     to={`/product?category=${cat.id}`}
                     onClick={(e) => isDragging && e.preventDefault()}
                     draggable={false}
-                    className="group shrink-0 relative overflow-hidden"
+                    className="group relative overflow-hidden"
                   >
                     <div
-                      className={`w-[160px] h-[140px] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${
-                        String(cat.id) === categoryId
-                          ? "ring-2 ring-primary ring-inset"
-                          : ""
-                      }`}
+                      className={`w-full aspect-square flex items-end justify-center transition-all duration-300 relative overflow-hidden ${String(cat.id) === categoryId
+                        ? "ring-2 ring-primary ring-inset"
+                        : ""
+                        }`}
                     >
                       {cat.imageUrl ? (
                         <img
@@ -334,7 +354,7 @@ const ProductList = () => {
                         <div className="absolute inset-0 bg-[#888] group-hover:bg-[#666] transition-colors duration-300" />
                       )}
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
-                      <span className="relative text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2 uppercase z-10">
+                      <span className="relative text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2 uppercase z-10 w-full truncate">
                         {cat.name.trim()}
                       </span>
                     </div>
@@ -344,36 +364,41 @@ const ProductList = () => {
               <style dangerouslySetInnerHTML={{
                 __html: `.cursor-grab::-webkit-scrollbar,.cursor-grabbing::-webkit-scrollbar{display:none}`
               }} />
+
+              {/* Pagination Dots */}
+              <div className="flex justify-center items-center gap-1.5 mt-0 mb-1" style={{ height: "17px" }}>
+                {scrollDots.total > 1 && Array.from({ length: scrollDots.total }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === scrollDots.index ? "bg-[#333]" : "bg-[#ddd]"
+                      }`}
+                  />
+                ))}
+              </div>
             </div>
-          </Container>
+          </div>
         </section>
       )}
 
       {/* ── Filter bar ───────────────────────────────────────────── */}
-      <section className="border-b border-border bg-white">
+      <section className="border-b border-border bg-white py-1.5 z-[30] relative">
         <Container>
-          <div className="flex items-center gap-0 py-0">
+          <div className="flex flex-wrap items-center justify-start gap-[6px]">
 
-            {/* Search */}
-            <div className="flex items-center gap-2 border-r border-border px-4 py-3">
-              <svg className="w-3.5 h-3.5 text-muted shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search products…"
-                value={nameFilter}
-                onChange={(e) => applyFilter(() => setNameFilter(e.target.value))}
-                className="outline-none bg-transparent w-36 text-[11px] tracking-wide placeholder-stone-400 text-primary"
-              />
-              {nameFilter && (
-                <button onClick={() => applyFilter(() => setNameFilter(""))} className="text-muted hover:text-primary transition-colors">
-                  <X size={11} />
-                </button>
-              )}
-            </div>
+            {/* Left side: FILTER button */}
+            <button
+              className="flex items-center justify-center gap-2 px-6 h-[40px] min-w-[120px] text-[14px] bg-white text-[#333] tracking-widest hover:border-[#a0a0a0] transition-colors mr-3"
+              style={{ border: "1px solid #d8d8d8" }}
+            >
+              <SlidersHorizontal size={14} strokeWidth={1.2} />
+              <span className="font-light">FILTER</span>
+            </button>
 
-            {/* Price */}
+            {/* Middle: Dropdowns all aligned to the left next to Filter */}
+            <FilterDropdown label="Type" active={false}>
+              <div className="text-[12px] text-muted">Filter by type</div>
+            </FilterDropdown>
+
             <FilterDropdown label="Price" active={!!(minPrice || maxPrice)}>
               <p className="text-[10px] tracking-widest uppercase text-muted mb-3">Price Range</p>
               <PriceFilter
@@ -384,66 +409,24 @@ const ProductList = () => {
               {(minPrice || maxPrice) && (
                 <button
                   onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}
-                  className="mt-3 text-[10px] text-muted hover:text-primary tracking-wide"
+                  className="mt-4 text-[11px] text-muted hover:text-primary tracking-wide border border-border w-full py-1.5"
                 >
-                  Clear
+                  Clear Price
                 </button>
               )}
             </FilterDropdown>
 
-            {/* Sort */}
-            <FilterDropdown label="Sort" active={!!sortBy}>
-              <p className="text-[10px] tracking-widest uppercase text-muted mb-2">Sort By</p>
-              <ul className="flex flex-col gap-0.5">
-                {SORT_OPTIONS.map((opt) => (
-                  <li key={opt.value}>
-                    <button
-                      onClick={() => applyFilter(() => setSortBy(opt.value))}
-                      className={`text-[11px] w-full text-left py-1.5 px-2 transition-colors rounded-sm ${
-                        sortBy === opt.value
-                          ? "text-primary font-medium bg-surface"
-                          : "text-secondary hover:text-primary hover:bg-surface"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            <FilterDropdown label="Width" active={false}>
+              <div className="text-[12px] text-muted">Filter by width</div>
             </FilterDropdown>
 
-            {/* Show N */}
-            <FilterDropdown label={`Show ${pageSize}`} active={false}>
-              <p className="text-[10px] tracking-widest uppercase text-muted mb-2">Per Page</p>
-              <ul className="flex flex-col gap-0.5">
-                {PAGE_SIZES.map((s) => (
-                  <li key={s}>
-                    <button
-                      onClick={() => { setPageSize(s); setPageNumber(1); }}
-                      className={`text-[11px] w-full text-left py-1.5 px-2 transition-colors rounded-sm ${
-                        pageSize === s
-                          ? "text-primary font-medium bg-surface"
-                          : "text-secondary hover:text-primary hover:bg-surface"
-                      }`}
-                    >
-                      {s} items
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            <FilterDropdown label="Material" active={false}>
+              <div className="text-[12px] text-muted">Filter by material</div>
             </FilterDropdown>
 
-            {/* Clear all */}
-            {hasActiveFilters && (
-              <button
-                onClick={clearAll}
-                className="flex items-center gap-1 text-[11px] tracking-wide text-muted hover:text-primary transition-colors border-l border-border px-4 py-3"
-              >
-                <X size={11} />
-                Clear
-              </button>
-            )}
-
+            <FilterDropdown label="Color" active={false}>
+              <div className="text-[12px] text-muted">Filter by color</div>
+            </FilterDropdown>
 
           </div>
         </Container>
@@ -478,16 +461,16 @@ const ProductList = () => {
       )}
 
       {/* ── Product grid ─────────────────────────────────────────── */}
-      <section className="py-10">
+      <section className="pt-4 pb-6">
         <Container>
           {loading && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
               {Array.from({ length: pageSize }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
           )}
 
           {error && (
-            <div className="py-16 text-center">
+            <div className="py-12 text-center">
               <p className="text-sm text-red-500 mb-4">Failed to load products: {error}</p>
               <button
                 onClick={fetchProducts}
@@ -499,14 +482,14 @@ const ProductList = () => {
           )}
 
           {!loading && !error && products.length === 0 && (
-            <div className="py-24 text-center">
+            <div className="py-16 text-center">
               <SlidersHorizontal size={32} className="mx-auto text-muted mb-4" strokeWidth={1} />
               <p className="text-sm text-muted tracking-wide mb-2">No products found</p>
               <p className="text-xs text-muted/60">Try adjusting your filters</p>
               {hasActiveFilters && (
                 <button
                   onClick={clearAll}
-                  className="mt-6 text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
+                  className="mt-4 text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
                 >
                   Clear filters
                 </button>
@@ -515,7 +498,7 @@ const ProductList = () => {
           )}
 
           {!loading && !error && products.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2">
               {products.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -533,12 +516,12 @@ const ProductList = () => {
 
       {/* ── Recently Viewed ──────────────────────────────────────── */}
       {recentlyViewed.length > 0 && (
-        <section className="py-12 border-t border-border">
+        <section className="py-6 border-t border-border">
           <Container>
-            <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8 text-primary">
+            <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
               Recently Viewed
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-2">
               {recentlyViewed.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -556,7 +539,7 @@ const ProductList = () => {
 
       {/* ── Pagination ───────────────────────────────────────────── */}
       {!loading && !error && totalPages > 1 && (
-        <section className="pb-16">
+        <section className="pb-8 pt-2">
           <Container>
             <div className="flex items-center justify-center gap-1">
               <button
@@ -581,11 +564,10 @@ const ProductList = () => {
                     <button
                       key={item}
                       onClick={() => setPageNumber(item)}
-                      className={`w-8 h-8 text-xs border transition-colors ${
-                        pageNumber === item
-                          ? "border-primary bg-primary text-white"
-                          : "border-border hover:border-primary hover:text-primary"
-                      }`}
+                      className={`w-8 h-8 text-xs border transition-colors ${pageNumber === item
+                        ? "border-primary bg-primary text-white"
+                        : "border-border hover:border-primary hover:text-primary"
+                        }`}
                     >
                       {item}
                     </button>
