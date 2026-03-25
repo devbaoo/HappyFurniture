@@ -74,11 +74,11 @@ const Header = () => {
 
   return (
     <header
-      className={`absolute top-0 left-0 w-full z-50 ${isDark ? "" : "bg-white"}`}
+      className={`absolute top-0 left-0 w-full z-50 ${isDark ? "bg-transparent" : "bg-white"}`}
     >
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
       <div className="mx-auto max-w-[1800px] px-4 md:px-10 w-full">
-        <div className="flex items-center justify-between py-4 md:py-6 relative">
+        <div className={`flex items-center justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}>
 
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -196,8 +196,8 @@ const Header = () => {
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
       <nav aria-label="Main navigation">
-        <div className="mx-auto max-w-[1800px] px-10 w-full">
-          <ul className="hidden md:flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
+        <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
+          <ul className="flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
             {NAV_LEFT.map(({ to, label, end }) => (
               <StaticNavItem key={to} to={to} label={label} end={end} isDark={isDark} />
             ))}
@@ -215,10 +215,9 @@ const Header = () => {
         {mobileOpen && (
           <div
             className={`
-              md:hidden fixed inset-x-0 bottom-0 overflow-y-auto z-[90]
-              ${isDark ? "bg-stone-950" : "bg-white"}
+              md:hidden fixed inset-x-0 bottom-0 top-[80px] overflow-y-auto z-[90]
+              ${isDark ? "bg-[#111111]" : "bg-white"}
             `}
-            style={{ top: "var(--header-h, 120px)" }}
           >
             <ul
               className={`px-6 pt-4 pb-4 border-t ${isDark ? "border-white/10" : "border-stone-100"
