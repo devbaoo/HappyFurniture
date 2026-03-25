@@ -109,7 +109,7 @@ const Home = () => {
       <section
         ref={heroRef}
         className="relative flex items-center justify-center overflow-hidden"
-        style={{ minHeight: "calc(100vh - 96px)" }}
+        style={{ minHeight: "100vh" }}
       >
         {/* Background */}
         <div className="absolute inset-0">
@@ -118,7 +118,7 @@ const Home = () => {
               }`}
             style={{
               backgroundImage: "url('/images/home/Home-main.jpg')",
-              backgroundSize: "100% 100%", /* Ép ảnh hiển thị đủ 100% chiều ngang và dọc */
+              backgroundSize: "cover", /* Changed to cover for better mobile view */
               backgroundPosition: "center"
             }}
           />
@@ -129,24 +129,25 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-6 max-w-5xl">
+        <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mt-16 md:mt-0">
           {/* TITLE */}
           <h1
-            className={`text-white font-light uppercase leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              }`}
+            className={`text-white font-light uppercase leading-snug md:leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              } text-[28px] sm:text-3xl md:text-5xl lg:text-[64px]`}
             style={{
-              fontSize: "clamp(1rem, 2vw, 4.5rem)",
               letterSpacing: "0.02em",
               transitionDelay: "0.3s"
             }}
           >
-            SOLID WOOD FURNITURE MANUFACTURER
+            SOLID WOOD FURNITURE
+            <br />
+            MANUFACTURER
             <br />
             FOR GLOBAL BRANDS
           </h1>
 
           {/* DESCRIPTION */}
-          <p className={`text-white/80 text-sm mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <p className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             style={{ transitionDelay: "0.6s" }}>
             We manufacture high-quality solid wood furniture with stable
@@ -155,12 +156,12 @@ const Home = () => {
           </p>
 
           {/* BUTTON */}
-          <div className={`mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             style={{ transitionDelay: "0.9s" }}>
             <Link
               to="/product"
-              className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[16px] font-medium tracking-[0.1em] uppercase w-[280px] h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
+              className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.1em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
             >
               OUR PRODUCT RANGE
             </Link>
