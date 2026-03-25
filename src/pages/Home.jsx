@@ -172,25 +172,25 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           2. OUR PRODUCT CATEGORIES — White bg, 2-row grid
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-16" data-animate id="categories">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+      <section className="bg-white py-6 md:py-16 md:mt-0" data-animate id="categories">
+        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
-          <div className={`text-center mb-4 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
-            <h2 className="font-heading text-3xl md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-1">
+            <h2 className="font-heading text-[18px] md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-3 md:mb-3">
               Our Product Categories
             </h2>
 
-            <p className="text-base md:text-lg text-stone-500 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-[11px] md:text-lg text-stone-600 max-w-3xl mx-auto leading-snug md:leading-relaxed mb-1 md:mb-0">
               Comprehensive solid wood furniture collections developed for
               residential
-              <br />
-              and commercial markets
+              <br className="hidden md:block" />
+              {' '}and commercial markets
             </p>
           </div>
 
           {/* Top row — 2 large equal images */}
-          <div className={`grid grid-cols-2 gap-2 mb-2 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`} style={{ transitionDelay: "0.2s" }}>
             <CategoryCard
               label="Living Room"
@@ -207,7 +207,7 @@ const Home = () => {
           </div>
 
           {/* Bottom row — 4 smaller equal images */}
-          <div className={`grid grid-cols-4 gap-2 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`} style={{ transitionDelay: "0.4s" }}>
             <CategoryCard
               label="Dining Room"
@@ -304,19 +304,19 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           4. ABOUT THE COMPANY — White bg, 2-col (text left, image right)
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-20">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-center">
+      <section className="bg-white pt-8 md:pt-20 pb-2 md:pb-20">
+        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-20 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-2">
-              <div>
+              <div className="text-center md:text-left">
                 <p className="text-sm tracking-wide text-[#3f4a2f] mb-2 font-bold font-sans">
                   About the Company
                 </p>
                 <h2
-                  className="font-heading font-light uppercase text-[#3f4a2f] mb-8 leading-snug"
+                  className="font-heading font-light uppercase text-[#3f4a2f] mb-4 md:mb-8 leading-snug mx-auto md:mx-0 max-w-[280px] md:max-w-none"
                   style={{
-                    fontSize: "clamp(1.6rem, 2.5vw, 2.3rem)",
+                    fontSize: "clamp(1.4rem, 2.5vw, 2.3rem)",
                     letterSpacing: "0.01em",
                   }}
                 >
@@ -325,14 +325,14 @@ const Home = () => {
                   MANUFACTURING PARTNER
                 </h2>
               </div>
-              <p className="text-[12px] text-stone-800 font-medium leading-relaxed mb-3">
+              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed mb-3 text-justify md:text-left">
                 Founded in 2005, Happy Furniture is a Vietnam-based manufacturer
                 specializing in knock-down (KD) wooden furniture for global
                 markets. With nearly two decades of experience, we have built a
                 strong reputation as a reliable partner for international
                 furniture brands, retailers, and importers.
               </p>
-              <p className="text-[12px] text-stone-800 font-medium leading-relaxed mb-3">
+              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed mb-3 text-justify md:text-left">
                 Our product range focuses on mid- to high-end indoor furniture
                 collections, including dining, bedroom, and living room
                 furniture. In addition to finished furniture, we also supply
@@ -344,7 +344,7 @@ const Home = () => {
                 production systems, quality control, and supply chain management
                 to meet the expectations of international customers.
               </p>
-              <p className="text-[12px] text-stone-800 font-medium leading-relaxed">
+              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed text-justify md:text-left">
                 Today, Happy Furniture is recognized as one of Vietnam's leading
                 knock-down (KD) furniture manufacturers, serving partners across
                 the United States, the United Kingdom, Ireland, Italy,
@@ -353,7 +353,7 @@ const Home = () => {
             </div>
 
             {/* Right: image */}
-            <div className="lg:col-span-7 overflow-hidden w-full">
+            <div className="lg:col-span-7 overflow-hidden w-full mt-2 md:mt-0">
               <Img
                 src="/images/home/AboutCompany.jpg"
                 alt="About Happy Furniture"
@@ -368,12 +368,12 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           5. 4-COLUMN FEATURES — White bg, thin rule, vertical dividers
          ══════════════════════════════════════════════ */}
-      <section className="bg-white pb-10 pt-6">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+      <section className="bg-white pb-4 md:pb-10 pt-2 md:pt-6">
+        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="border-t-[3px] border-[#5a564f] mb-0" />
 
           <div className="bg-[rgb(241,240,238)]">
-            <div className="grid grid-cols-1 md:grid-cols-4 text-center divide-y md:divide-y-0 md:divide-x divide-[#c9c5be]">
+            <div className="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x divide-[#c9c5be]">
               {[
                 {
                   title: "Delivery",
@@ -391,24 +391,29 @@ const Home = () => {
                   title: "Packaging and Dispatch",
                   desc: "International-standard packaging solutions tailored to client requirements and shipping safety",
                 },
-              ].map((item) => (
-                <div key={item.title} className="px-6 lg:px-10 py-5">
+              ].map((item, index) => (
+                <div
+                  key={item.title}
+                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${index < 2 ? 'border-b md:border-b-0 border-[#c9c5be]' : ''
+                    } ${index % 2 === 0 ? 'border-r md:border-r-0 border-[#c9c5be]' : ''
+                    }`}
+                >
                   <h3
-                    className="mb-2 font-semibold"
+                    className="mb-1 md:mb-2 font-semibold"
                     style={{
-                      fontSize: "18px",
+                      fontSize: "clamp(15px, 4vw, 18px)",
                       letterSpacing: "0.04em",
-                      color: "#2b2925", // chữ tiêu đề thêm đậm và đen hơn
+                      color: "#2b2925",
                     }}
                   >
                     {item.title}
                   </h3>
 
                   <p
-                    className="leading-6 font-medium"
+                    className="leading-tight md:leading-6 font-medium"
                     style={{
-                      fontSize: "13.5px",
-                      color: "#4a4742", // chữ mô tả đậm và rõ nét hơn
+                      fontSize: "clamp(12px, 3vw, 13.5px)",
+                      color: "#4a4742",
                       maxWidth: "240px",
                       margin: "0 auto",
                     }}
@@ -426,32 +431,31 @@ const Home = () => {
           6. INSIDE OUR FACTORY — Full-width dark video/image section
          ══════════════════════════════════════════════ */}
       <section
-        className="pt-64 mt-20 pb-20 relative"
+        className="pt-0 md:pt-64 mt-4 md:mt-20 pb-2 md:pb-20 relative bg-[#0c0a09] md:bg-transparent"
         style={{
-          backgroundImage:
-            "url(/images/home/InsideFactoryBackGround.jpg)",
+          backgroundImage: "url(/images/home/InsideFactoryBackGround.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/0"></div>
+        <div className="absolute inset-0 bg-[#0c0a09] md:bg-black/0 z-0"></div>
+
         <div
-          className="max-w-5xl mx-auto absolute left-0 right-0 -top-16 overflow-hidden shadow-xl z-10"
-          style={{ height: "520px" }}
+          className="w-full md:max-w-5xl mx-auto relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden md:shadow-xl z-10 aspect-[4/3] md:aspect-auto md:h-[520px]"
         >
           <Img
             src="/images/home/InsideFactoryBackGround.jpg"
             alt="Inside our factory"
+            className="w-full h-full object-cover"
           />
 
-          <div className="absolute inset-0" />
+          <div className="absolute inset-0 bg-black/40 md:bg-black/20" />
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <button className="w-20 h-20 rounded-full bg-white/20 border-2 border-white flex items-center justify-center hover:bg-white/30 transition">
+            <button className="w-20 h-20 md:w-20 md:h-20 md:rounded-full bg-transparent md:bg-white/20 border-0 md:border-2 md:border-white flex items-center justify-center hover:bg-white/10 transition">
               <svg
-                className="w-8 h-8 text-white ml-1"
+                className="w-16 h-16 md:w-8 md:h-8 text-white ml-2 md:ml-1 drop-shadow-lg md:drop-shadow-none"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -461,15 +465,14 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="text-center mt-56 px-6 relative z-10">
+        <div className="text-center mt-10 md:mt-56 px-6 relative z-10 container mx-auto">
           <h2
-            className="font-heading text-white font-light uppercase tracking-widest mb-5"
-            style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)", height: "29.5487px" }}
+            className="font-serif text-[#f4ecd8] md:text-white uppercase tracking-[0.15em] md:tracking-widest mb-6 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-snug"
           >
-            Inside Our Factory
+            Inside Our <br className="md:hidden" /> Factory
           </h2>
 
-          <p className="text-white/60 text-sm max-w-3xl mx-auto leading-relaxed">
+          <p className="text-[#e5e5e5] md:text-white/60 text-[15px] md:text-sm max-w-[320px] md:max-w-3xl mx-auto leading-[1.7] md:leading-relaxed">
             A look inside our operations, from office and product development to
             white wood production, finishing, packaging, showroom and warehouse
             facilities
@@ -480,23 +483,23 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-20" data-selected="true" data-label-id="0" style={{ height: "621.545px" }}>
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="bg-white pt-2 pb-4 md:py-20">
+        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
-          <div className="text-center mb-16">
-            <h3 className="text-[#4b4a3f] text-xl md:text-2xl font-medium tracking-wide mb-2 uppercase">
+          <div className="text-center mb-8 md:mb-16">
+            <h3 className="text-[#3f4a2f] md:text-[#4b4a3f] text-lg sm:text-xl md:text-2xl font-bold md:font-medium tracking-wide mb-1 md:mb-2 uppercase">
               Our Global Partners
             </h3>
 
-            <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-10"></div>
+            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-10"></div>
 
-            <div className="flex justify-center gap-12" style={{ height: "88.1945px", transform: "translate(0px, -57.7778px)" }}>
+            <div className="flex justify-center gap-4 sm:gap-8 md:gap-12">
               {[
                 "/images/home/GlobalPartners.jpg",
                 "/images/home/GlobalPartners.jpg",
                 "/images/home/GlobalPartners.jpg",
               ].map((src, i) => (
-                <div key={i} className="w-24 h-24 rounded-full overflow-hidden">
+                <div key={i} className="w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 shadow-sm md:shadow-none">
                   <Img
                     src={src}
                     alt={`Global partner ${i + 1}`}
@@ -509,34 +512,31 @@ const Home = () => {
 
           {/* ===== Certifications ===== */}
           <div className="text-center">
-            <h3 className="text-[#4b4a3f] text-xl md:text-2xl font-medium tracking-wide mb-2 uppercase">
+            <h3 className="text-[#3f4a2f] md:text-[#4b4a3f] text-lg sm:text-xl md:text-2xl font-bold md:font-medium tracking-wide mb-1 md:mb-2 uppercase">
               Our Certifications
             </h3>
 
-            <div className="w-80 h-[2px] bg-stone-300 mx-auto mb-12"></div>
+            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-12"></div>
 
             <div
-              className="grid grid-cols-3 items-center max-w-3xl mx-auto gap-12"
-              data-selected="true"
-              data-label-id="0"
-              style={{ height: "130.278px", transform: "translate(0px, -87.7778px)" }}
+              className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-4 sm:gap-8 md:gap-12"
             >
               <Img
                 src="/images/home/CTPAT.jpg"
                 alt="CTPAT"
-                className="h-10 object-contain mx-auto"
+                className="h-8 sm:h-10 md:h-10 object-contain"
               />
 
               <Img
                 src="/images/home/Amfori.jpg"
                 alt="BSCI"
-                className="h-10 object-contain mx-auto"
+                className="h-7 sm:h-10 md:h-10 object-contain"
               />
 
               <Img
                 src="/images/home/SMETA.jpg"
                 alt="SMETA Sedex"
-                className="h-12 object-contain mx-auto"
+                className="h-9 sm:h-12 md:h-12 object-contain"
               />
             </div>
           </div>
@@ -546,29 +546,29 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#d6cec6" }} className="py-4">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+      <section style={{ backgroundColor: "#eae4db" }} className="md:bg-[#d6cec6] pt-6 pb-2 md:pt-8 md:pb-16 w-full">
+        <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
-            <div className="lg:col-span-2 flex flex-col justify-center">
+            <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className="font-serif uppercase mb-3 text-[#273927] whitespace-nowrap"
+                className="font-serif uppercase mb-3 md:mb-3 text-[#2a2c26] md:text-[#273927]"
                 style={{
-                  fontSize: "clamp(1.5rem, 2.5vw, 2.3rem)",
-                  letterSpacing: "0.08em",
-                  lineHeight: "1.15",
+                  fontSize: "clamp(1.6rem, 7vw, 2.3rem)",
+                  letterSpacing: "0.03em",
+                  lineHeight: "1.05",
                 }}
               >
                 TIMBER MERCHANDISING
               </h2>
 
-              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-1500">
-                <p className="leading-relaxed">
+              <div className="mb-4 md:mb-5 flex flex-col gap-2 md:gap-2 text-[14px] md:text-sm font-normal md:font-light text-[#303030] md:text-stone-1500 text-left">
+                <p className="leading-[1.4] md:leading-relaxed text-justify md:text-left">
                   We enjoy advantages of having large warehousing facilities,
                   with storage capacity of up to 10,000 cubic meter of raw
                   material and more than 60 containers.
                 </p>
-                <p className="leading-relaxed">
+                <p className="leading-[1.4] md:leading-relaxed text-justify md:text-left">
                   We have established long-term relationship with our licensed
                   suppliers in New Zealand, Chile, Brazil, Germany, and Uruguay.
                   All sourced timber is 100% FSC certified and passing relevant
@@ -577,27 +577,27 @@ const Home = () => {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-4">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-2">
-                  QUALITY
+              <div className="mb-4 md:mb-4">
+                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-2 md:mb-2">
+                  Quality
                 </p>
 
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex w-full gap-2">
                     {["Industrial Grade", "Millrun", "COL"].map((tag) => (
                       <span
                         key={tag}
-                        className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
+                        className="flex-1 bg-white text-stone-800 md:text-stone-600 text-[12px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-2 md:py-1.5 px-0 md:px-4 text-center rounded-sm shadow-sm flex items-center justify-center min-w-0"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex w-full gap-2">
                     {["FCOL", "ACOL"].map((tag) => (
                       <span
                         key={tag}
-                        className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
+                        className="w-[calc(33.33%-5.33px)] md:w-auto md:flex-1 bg-white text-stone-800 md:text-stone-600 text-[12px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-2 md:py-1.5 px-0 md:px-4 text-center rounded-sm shadow-sm flex items-center justify-center min-w-0"
                       >
                         {tag}
                       </span>
@@ -607,20 +607,20 @@ const Home = () => {
               </div>
 
               {/* SIZE */}
-              <div className="mb-6">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-1">
-                  SIZE
+              <div className="mb-5 md:mb-6">
+                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-1">
+                  Size
                 </p>
-                <p className="text-sm text-stone-600 font-light">
+                <p className="text-[14px] md:text-sm text-[#303030] md:text-stone-600 font-normal md:font-light">
                   Varied thickness (11mm to 50mm)
                 </p>
               </div>
 
               {/* BUTTON */}
-              <div>
+              <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-block bg-[#273927] text-white text-[12px] tracking-[0.2em] font-medium uppercase px-8 py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  className="inline-flex justify-center items-center w-full sm:w-[240px] md:w-auto bg-[#314028] md:bg-[#273927] text-white text-[13px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-3.5 md:py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
                 >
                   LEARN MORE
                 </Link>
@@ -628,9 +628,9 @@ const Home = () => {
             </div>
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
-            <div className="lg:col-span-3 flex flex-col gap-1">
+            <div className="lg:col-span-3 flex flex-col gap-2 md:gap-1 mt-4 md:mt-0 w-full mb-0 pb-0">
               {/* TOP IMAGE */}
-              <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
+              <div className="w-full h-[200px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
                   src="/images/home/Timber.jpg"
                   alt="Bedroom furniture"
@@ -640,8 +640,8 @@ const Home = () => {
               </div>
 
               {/* BOTTOM IMAGES */}
-              <div className="grid grid-cols-2 gap-1">
-                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+              <div className="grid grid-cols-2 gap-2 md:gap-1 w-full">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
                     src="/images/home/Timber2.jpg"
                     alt="Dining tables"
@@ -649,7 +649,7 @@ const Home = () => {
                     placeholderBg="#b5a898"
                   />
                 </div>
-                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
                     src="/images/home/Timber3.jpg"
                     alt="Dining specific"
