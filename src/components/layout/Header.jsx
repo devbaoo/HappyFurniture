@@ -77,57 +77,68 @@ const Header = () => {
       className={`absolute top-0 left-0 w-full z-50 ${isDark ? "" : "bg-white"}`}
     >
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
-      <div className="mx-auto max-w-[1800px] px-10 w-full">
-        <div className="flex items-center justify-between py-6 relative">
+      <div className="mx-auto max-w-[1800px] px-4 md:px-10 w-full">
+        <div className="flex items-center justify-between py-4 md:py-6 relative">
 
-          {/* Search — desktop only */}
-          <div className="w-[300px] hidden md:block">
-            <div
-              className={`flex items-center border px-4 py-1.5 gap-2 ${
-                isDark ? "border-white/50" : "border-stone-300"
-              }`}
+          {/* Left Side: Mobile Hamburger & Desktop Search */}
+          <div className="w-auto md:w-[300px] flex items-center">
+            {/* Mobile hamburger */}
+            <button
+              className={`md:hidden p-2 -ml-2 ${isDark ? "text-white" : "text-stone-700"}`}
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              <svg
-                className={`w-4 h-4 shrink-0 ${isDark ? "text-white/70" : "text-stone-400"}`}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
+              {mobileOpen
+                ? <X size={28} strokeWidth={1} />
+                : <Menu size={28} strokeWidth={1} />
+              }
+            </button>
+
+            {/* Search — desktop only */}
+            <div className="hidden md:block w-full">
+              <div
+                className={`flex items-center border px-4 py-1.5 gap-2 ${isDark ? "border-white/50" : "border-stone-300"
+                  }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M21 21l-5.197-5.197M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"
-                />
-              </svg>
-              <input
-                type="search"
-                placeholder="what can we help you find"
-                className={`bg-transparent text-[12px] w-full outline-none ${
-                  isDark
+                <svg
+                  className={`w-4 h-4 shrink-0 ${isDark ? "text-white/70" : "text-stone-400"}`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M21 21l-5.197-5.197M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"
+                  />
+                </svg>
+                <input
+                  type="search"
+                  placeholder="what can we help you find"
+                  className={`bg-transparent text-[12px] w-full outline-none ${isDark
                     ? "placeholder-white/70 text-white"
                     : "placeholder-stone-400 text-stone-700"
-                }`}
-              />
+                    }`}
+                />
+              </div>
             </div>
           </div>
 
           {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 text-center">
+          <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
             <Link
               to="/"
-              className={`flex items-center gap-2 ${
-                isDark ? "text-white" : "text-stone-800"
-              }`}
+              className={`flex items-center gap-2 ${isDark ? "text-white" : "text-stone-800"
+                }`}
             >
-              <span className="text-3xl font-light">HP</span>
+              <span className="text-2xl md:text-3xl font-light">HP</span>
               <div className="flex flex-col text-left">
-                <span className="text-sm tracking-widest">HAPPY</span>
-                <span className="text-sm tracking-widest">FURNITURE</span>
+                <span className="text-xs md:text-sm tracking-widest leading-tight">HAPPY</span>
+                <span className="text-xs md:text-sm tracking-widest leading-tight">FURNITURE</span>
                 <span
-                  className={`text-[9px] ${
-                    isDark ? "text-white/70" : "text-stone-400"
-                  }`}
+                  className={`text-[7px] md:text-[9px] leading-tight ${isDark ? "text-white/70" : "text-stone-400"
+                    }`}
                 >
                   Make life more convenient
                 </span>
@@ -135,8 +146,8 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Right: flags + mobile toggle */}
-          <div className="flex items-center gap-3">
+          {/* Right: flags */}
+          <div className="flex items-center gap-2 md:gap-3 w-auto md:w-[300px] justify-end">
             {/* Vietnam flag */}
             <button
               aria-label="Tiếng Việt"
@@ -179,18 +190,6 @@ const Header = () => {
                 ))}
               </svg>
             </button>
-
-            {/* Mobile hamburger */}
-            <button
-              className={`md:hidden ml-2 p-1 ${isDark ? "text-white" : "text-stone-700"}`}
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            >
-              {mobileOpen
-                ? <X size={22} strokeWidth={1.5} />
-                : <Menu size={22} strokeWidth={1.5} />
-              }
-            </button>
           </div>
         </div>
       </div>
@@ -222,24 +221,21 @@ const Header = () => {
             style={{ top: "var(--header-h, 120px)" }}
           >
             <ul
-              className={`px-6 pt-4 pb-4 border-t ${
-                isDark ? "border-white/10" : "border-stone-100"
-              }`}
+              className={`px-6 pt-4 pb-4 border-t ${isDark ? "border-white/10" : "border-stone-100"
+                }`}
             >
               {ALL_STATIC.slice(0, 3).map(({ to, label, end }) => (
                 <li
                   key={to}
-                  className={`border-b py-3 ${
-                    isDark ? "border-white/10" : "border-stone-100"
-                  }`}
+                  className={`border-b py-3 ${isDark ? "border-white/10" : "border-stone-100"
+                    }`}
                 >
                   <NavLink
                     to={to}
                     end={end}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80" : "text-stone-700"
-                    }`}
+                    className={`text-[12px] tracking-[0.2em] uppercase ${isDark ? "text-white/80" : "text-stone-700"
+                      }`}
                   >
                     {label}
                   </NavLink>
@@ -252,16 +248,14 @@ const Header = () => {
               {ALL_STATIC.slice(3).map(({ to, label }) => (
                 <li
                   key={to}
-                  className={`border-b py-3 ${
-                    isDark ? "border-white/10" : "border-stone-100"
-                  }`}
+                  className={`border-b py-3 ${isDark ? "border-white/10" : "border-stone-100"
+                    }`}
                 >
                   <NavLink
                     to={to}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80" : "text-stone-700"
-                    }`}
+                    className={`text-[12px] tracking-[0.2em] uppercase ${isDark ? "text-white/80" : "text-stone-700"
+                      }`}
                   >
                     {label}
                   </NavLink>
