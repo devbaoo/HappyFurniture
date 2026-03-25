@@ -268,7 +268,7 @@ const Header = () => {
 
       {/* ── Breadcrumb — only on /certificate ──────────────────── */}
       {pathname === "/certificate" && (
-        <div className="mx-auto max-w-[1800px] px-10 w-full pb-3">
+        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pb-3">
           <div className="h-px bg-stone-300 mb-2" />
           <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
             <Link to="/" className="hover:text-stone-600 transition-colors">
