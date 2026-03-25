@@ -81,7 +81,7 @@ const OrderDelivery = () => {
                                 </li>
                             </ul>
                         </div>
-                        <ImgPlaceholder className="w-full aspect-[4/3]" tone="light" />
+                        <ImgPlaceholder className="w-full aspect-video" tone="light" />
                     </div>
                 </div>
             </section>
@@ -100,15 +100,25 @@ const OrderDelivery = () => {
                             <h2 className="font-heading font-light uppercase text-2xl md:text-3xl text-primary mb-6" style={{ letterSpacing: "0.1em", height: "38px", transform: "translate(0px, 22px)" }}>
                                 Order
                             </h2>
-                            <p className="font-sans text-sm text-secondary mb-4" style={{ lineHeight: "1.75", width: "526px", height: "24.5px", transform: "translate(0px, 21px)" }}>
+                            <p className="font-sans text-sm text-secondary mb-4"
+                                style={{
+                                    lineHeight: "1.75", width: "526px", height: "24.5px",
+                                    transform: "translate(0px, 21px)"
+                                }}>
                                 Our current and past product ranges are displayed in our showroom for your reference.
                             </p>
-                            <p className="font-sans text-sm text-secondary mb-10" style={{ lineHeight: "1.75", width: "489px", height: "24.5px", transform: "translate(0px, 21px)" }}>
+                            <p className="font-sans text-sm text-secondary mb-10"
+                                style={{
+                                    lineHeight: "1.75", width: "489px", height: "24.5px",
+                                    transform: "translate(0px, 21px)"
+                                }}>
                                 Orders made for any of these designs are subject to MOQ, which is at least 200 for chairs and 50 for other products.
                             </p>
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-[#1a1a1a] w-full aspect-video" style={{ height: "125px", transform: "translate(0px, -8px)" }}></div>
-                                <div className="bg-[#1a1a1a] w-full aspect-video" style={{ height: "125px", transform: "translate(0px, -8px)" }}></div>
+                                <div className="bg-[#1a1a1a] w-full aspect-video"
+                                    style={{ height: "125px", transform: "translate(0px, -8px)" }}></div>
+                                <div className="bg-[#1a1a1a] w-full aspect-video"
+                                    style={{ height: "125px", transform: "translate(0px, -8px)" }}></div>
                             </div>
                         </div>
                     </div>

@@ -56,13 +56,22 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
+  const [prevSlug, setPrevSlug] = useState(slug);
+
+  if (slug !== prevSlug) {
+    setPrevSlug(slug);
+    setProduct(null);
+    setLoading(true);
+    setError(null);
+    setActiveImg(0);
+    setQuantity(1);
+  }
+
   const [recentlyViewed, setRecentlyViewed] = useState(loadRecentlyViewed);
 
   /* ── Fetch by slug ─────────────────────────────────────────── */
   useEffect(() => {
     if (!slug) return;
-    setLoading(true);
-    setError(null);
     productService
       .getProductBySlug(slug)
       .then((data) => {
@@ -106,7 +115,7 @@ const ProductDetail = () => {
   const originalPrice = formatPrice(product?.oldPrice);
 
   const categoryName = product?.categories?.[0]?.name?.trim() ?? "Products";
-  const categoryId   = product?.categories?.[0]?.id ?? null;
+  const categoryId = product?.categories?.[0]?.id ?? null;
 
   /* ── Loading skeleton ──────────────────────────────────────── */
   if (loading) {
@@ -167,7 +176,7 @@ const ProductDetail = () => {
       </div>
 
       {/* ── Main layout ────────────────────────────────────────── */}
-      <section className="py-10 bg-white">
+      <section className="pt-8 pb-4 bg-white">
         <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
@@ -181,9 +190,8 @@ const ProductDetail = () => {
                       key={img.id ?? i}
                       type="button"
                       onClick={() => setActiveImg(i)}
-                      className={`w-16 h-16 shrink-0 border-2 overflow-hidden transition-all duration-200 ${
-                        activeImg === i ? "border-primary" : "border-border hover:border-secondary"
-                      }`}
+                      className={`w-16 h-16 shrink-0 border-2 overflow-hidden transition-all duration-200 ${activeImg === i ? "border-primary" : "border-border hover:border-secondary"
+                        }`}
                       aria-label={`View image ${i + 1}`}
                     >
                       <img src={img.imageUrl} alt={img.altText || product.name} className="w-full h-full object-cover" />
@@ -212,18 +220,18 @@ const ProductDetail = () => {
             <div className="flex flex-col">
 
               {/* Name */}
-              <h1 className="font-heading font-light text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-2">
+              <h1 className="font-heading font-light text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-1">
                 {product.name}
               </h1>
 
               {/* Stars + Reviews + Add Your Favourite */}
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   {/* 5 stars — placeholder rating (no rating API yet) */}
                   <div className="flex gap-0.5">
-                    {[1,2,3,4,5].map((s) => (
+                    {[1, 2, 3, 4, 5].map((s) => (
                       <svg key={s} className={`w-4 h-4 ${s <= 3 ? "text-primary" : "text-stone-200"}`} viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                       </svg>
                     ))}
                   </div>
@@ -233,23 +241,23 @@ const ProductDetail = () => {
                 {/* Add Your Favourite */}
                 <button
                   type="button"
-                  onClick={() => {}}
+                  onClick={() => { }}
                   className="flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors"
                 >
                   Add Your Favourite
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
                 </button>
               </div>
 
               {/* Description */}
               {product.description && (
-                <p className="text-sm text-secondary leading-relaxed mb-4">{product.description}</p>
+                <p className="text-sm text-secondary leading-relaxed mb-2">{product.description}</p>
               )}
 
               {/* Price */}
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-baseline gap-3">
                   <span className="text-3xl font-light text-primary">{displayPrice}</span>
                   {originalPrice && originalPrice !== displayPrice && (
@@ -278,7 +286,7 @@ const ProductDetail = () => {
               {/* Add to Basket */}
               <button
                 type="button"
-                className="w-full bg-primary text-white text-xs tracking-widest uppercase py-3.5 hover:bg-accent transition-colors mb-6"
+                className="w-full bg-primary text-white text-xs tracking-widest uppercase py-3.5 hover:bg-accent transition-colors mb-4"
               >
                 Add to Basket
               </button>
@@ -291,9 +299,9 @@ const ProductDetail = () => {
                   <AccordionRow label="1. Size" defaultOpen>
                     <div className="flex gap-8 py-1">
                       {product.dimensionsHeight && <div><span className="text-muted">Height: </span><span className="font-medium">{product.dimensionsHeight} {product.dimensionUnit}</span></div>}
-                      {product.dimensionsWidth  && <div><span className="text-muted">Width: </span><span className="font-medium">{product.dimensionsWidth} {product.dimensionUnit}</span></div>}
-                      {product.dimensionsDepth  && <div><span className="text-muted">Depth: </span><span className="font-medium">{product.dimensionsDepth} {product.dimensionUnit}</span></div>}
-                      {product.weight           && <div><span className="text-muted">Weight: </span><span className="font-medium">{product.weight} kg</span></div>}
+                      {product.dimensionsWidth && <div><span className="text-muted">Width: </span><span className="font-medium">{product.dimensionsWidth} {product.dimensionUnit}</span></div>}
+                      {product.dimensionsDepth && <div><span className="text-muted">Depth: </span><span className="font-medium">{product.dimensionsDepth} {product.dimensionUnit}</span></div>}
+                      {product.weight && <div><span className="text-muted">Weight: </span><span className="font-medium">{product.weight} kg</span></div>}
                     </div>
                   </AccordionRow>
                 )}
@@ -309,9 +317,8 @@ const ProductDetail = () => {
                             type="button"
                             onClick={() => setSelectedVariant(v)}
                             title={v.colorName}
-                            className={`aspect-square border-2 transition-colors ${
-                              selectedVariant?.id === v.id ? "border-primary" : "border-border hover:border-secondary"
-                            }`}
+                            className={`aspect-square border-2 transition-colors ${selectedVariant?.id === v.id ? "border-primary" : "border-border hover:border-secondary"
+                              }`}
                             style={{ backgroundColor: `#${v.colorCode}` }}
                             aria-label={v.colorName}
                           />
@@ -357,12 +364,12 @@ const ProductDetail = () => {
 
       {/* ── Recently Viewed ────────────────────────────────────── */}
       {recentlyViewed.length > 0 && (
-        <section className="py-12 border-t border-border bg-white">
+        <section className="py-6 border-t border-border bg-white">
           <Container>
-            <h3 className="font-heading text-lg uppercase tracking-widest font-light mb-8 text-primary">
+            <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
               Recently Viewed
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
               {recentlyViewed.map((p) => (
                 <ProductCard
                   key={p.id}
