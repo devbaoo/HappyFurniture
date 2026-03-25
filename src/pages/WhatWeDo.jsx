@@ -75,7 +75,7 @@ export default function WhatWeDo() {
     <main className="bg-white text-primary">
       {/* ══ HERO ══════════════════════════════════════════════════════════ */}
       <section
-        className="relative h-[70vh] min-h-[480px] overflow-hidden"
+        className="relative w-full overflow-hidden h-[clamp(220px,45vw,580px)] md:h-[70vh] md:min-h-[480px]"
         style={{ marginTop: headerH }}
       >
         <img
@@ -83,8 +83,10 @@ export default function WhatWeDo() {
           alt="Factory floor"
           className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.5]"
         />
-        <div className="absolute inset-0 flex items-end justify-center pb-16">
-          <h1 className="font-heading text-white text-4xl md:text-5xl uppercase tracking-[0.25em] font-light">
+        {/* subtle dark gradient at bottom for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-center pb-[5%]">
+          <h1 className="hidden md:block font-heading text-white text-4xl md:text-5xl uppercase tracking-[0.25em] font-light">
             What We Do
           </h1>
         </div>
@@ -92,7 +94,7 @@ export default function WhatWeDo() {
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
       <section className="wwd-mfg-section">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="wwd-mfg-inner">
             {/* ── LEFT: green block + photo ── */}
             <div className="wwd-mfg-left">
@@ -195,33 +197,34 @@ export default function WhatWeDo() {
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
       <section className="wwd-specs-section">
-        <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
+        <div className="mx-auto max-w-[1800px] px-4 md:px-14 lg:px-24 w-full">
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start">
-            <div className="w-full lg:w-[40%] flex-shrink-0">
+            {/* Ảnh ẩn trên mobile, hiện từ lg trở lên */}
+            <div className="hidden lg:block w-full lg:w-[40%] flex-shrink-0">
               <img
                 alt="Design sketches"
                 className="w-full h-[500px] object-cover"
                 src={finishingImg}
               />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 w-full">
               <div className="wwd-specs-columns">
                 <div className="wwd-specs-left">
                   <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">Finishing</h3>
-                    <ul className="wwd-spec-list" style={{ width: "516.406px" }}>
+                    <ul className="wwd-spec-list">
                       <li>NC, PU, Water-based (Greenguard certified), UV, UV Edge Paint</li>
                       <li>Painted/Pigmented, Rustic</li>
                     </ul>
                   </div>
-                  <div className="wwd-spec-block" style={{ height: "159.562px", transform: "translate(0px, -26px)" }}>
+                  <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">Materials</h3>
                     <ul className="wwd-spec-list">
                       <li>Solid: Pine, Poplar, Oak, Rubberwood, Acacia, Hemlock</li>
                       <li>Veneers: Any type</li>
                     </ul>
                   </div>
-                  <div className="wwd-spec-block" style={{ height: "157.547px", transform: "translate(0px, -12px)" }}>
+                  <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">Specializing In</h3>
                     <ul className="wwd-spec-list">
                       <li>Solid Wood Furniture</li>
@@ -229,8 +232,8 @@ export default function WhatWeDo() {
                     </ul>
                   </div>
                 </div>
-                <div className="wwd-specs-right" style={{ width: "362.391px", transform: "translate(-54px, 0px)" }}>
-                  <div className="wwd-spec-block" style={{ borderTop: "none", paddingTop: "0px", width: "308.391px", transform: "translate(83px, 0px)" }}>
+                <div className="wwd-specs-right">
+                  <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">Product Range</h3>
                     <ul className="wwd-spec-list">
                       {productRange.map((item) => (

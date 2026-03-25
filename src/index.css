@@ -82,10 +82,38 @@
     align-items: start;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .wwd-specs-columns {
       grid-template-columns: 1fr;
       gap: 0;
+    }
+
+    .wwd-specs-section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    /* Product Range block: remove border-top trên mobile vì nó nằm dưới cùng 1 cột */
+    .wwd-specs-right .wwd-spec-block {
+      border-top: 1px solid #e0e0dc;
+      padding-top: 40px;
+    }
+
+    .wwd-spec-block {
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .wwd-spec-block:first-child {
+      padding-top: 0;
+    }
+
+    .wwd-spec-list {
+      gap: 12px;
+    }
+
+    .wwd-spec-list li {
+      font-size: 14px;
     }
   }
 
@@ -320,30 +348,63 @@
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
+    /* Hide the image/green-block column entirely on mobile */
     .wwd-mfg-left {
-      min-height: 320px;
-      padding-top: 24px;
-      padding-bottom: 24px;
-    }
-
-    .wwd-green-block {
-      width: 547.719px;
-      transform: translate(-43px, 0px);
-    }
-
-    .wwd-photo-wrap {
-      left: 24px;
-      top: 18px;
-      bottom: 44px;
+      display: none;
     }
 
     .wwd-mfg-right {
-      padding: 28px 20px 24px;
+      flex: none;
+      width: 100%;
+      padding: 28px 0 36px 0;
+    }
+
+    .wwd-mfg-right-inner {
+      max-width: 100%;
     }
 
     .wwd-mfg-heading {
-      font-size: 21px;
+      font-size: clamp(1rem, 5.2vw, 1.6rem);
+      white-space: nowrap;
+      margin-bottom: 14px;
+    }
+
+    .wwd-mfg-intro {
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 100%;
+    }
+
+    .wwd-stat-list {
+      gap: 24px;
+    }
+
+    .wwd-stat-item {
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .wwd-stat-icon {
+      width: 38px;
+      height: 38px;
+    }
+
+    .wwd-stat-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .wwd-stat-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .wwd-stat-detail {
+      font-size: 14px;
+      line-height: 1.65;
     }
   }
 }
