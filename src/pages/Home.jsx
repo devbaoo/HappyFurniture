@@ -133,15 +133,13 @@ const Home = () => {
           {/* TITLE */}
           <h1
             className={`text-white font-light uppercase leading-snug md:leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              } text-[28px] sm:text-3xl md:text-5xl lg:text-[64px]`}
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px]`}
             style={{
               letterSpacing: "0.02em",
               transitionDelay: "0.3s"
             }}
           >
-            SOLID WOOD FURNITURE
-            <br />
-            MANUFACTURER
+            SOLID WOOD FURNITURE MANUFACTURER
             <br />
             FOR GLOBAL BRANDS
           </h1>
@@ -546,13 +544,13 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#eae4db" }} className="md:bg-[#d6cec6] pt-6 pb-2 md:pt-8 md:pb-16 w-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
         <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className="font-serif uppercase mb-3 md:mb-3 text-[#2a2c26] md:text-[#273927]"
+                className="font-serif uppercase mb-3 md:mb-5 text-[#2a2c26] md:text-[#273927]"
                 style={{
                   fontSize: "clamp(1.6rem, 7vw, 2.3rem)",
                   letterSpacing: "0.03em",
@@ -562,7 +560,7 @@ const Home = () => {
                 TIMBER MERCHANDISING
               </h2>
 
-              <div className="mb-4 md:mb-5 flex flex-col gap-2 md:gap-2 text-[14px] md:text-sm font-normal md:font-light text-[#303030] md:text-stone-1500 text-left">
+              <div className="mb-4 md:mb-6 flex flex-col gap-2 md:gap-3 text-[14px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 <p className="leading-[1.4] md:leading-relaxed text-justify md:text-left">
                   We enjoy advantages of having large warehousing facilities,
                   with storage capacity of up to 10,000 cubic meter of raw
@@ -577,41 +575,29 @@ const Home = () => {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-4 md:mb-4">
-                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-2 md:mb-2">
+              <div className="mb-4 md:mb-6">
+                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-2 md:mb-3">
                   Quality
                 </p>
 
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex w-full gap-2">
-                    {["Industrial Grade", "Millrun", "COL"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="flex-1 bg-white text-stone-800 md:text-stone-600 text-[12px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-2 md:py-1.5 px-0 md:px-4 text-center rounded-sm shadow-sm flex items-center justify-center min-w-0"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex w-full gap-2">
-                    {["FCOL", "ACOL"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="w-[calc(33.33%-5.33px)] md:w-auto md:flex-1 bg-white text-stone-800 md:text-stone-600 text-[12px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-2 md:py-1.5 px-0 md:px-4 text-center rounded-sm shadow-sm flex items-center justify-center min-w-0"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-2 md:gap-3 w-full">
+                  {["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="w-auto md:w-auto bg-white text-stone-800 md:text-stone-600 text-[12px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-2 md:py-1.5 px-4 md:px-6 md:min-w-[85px] text-center rounded-sm shadow-sm flex items-center justify-center"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
 
               {/* SIZE */}
-              <div className="mb-5 md:mb-6">
-                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-1">
+              <div className="mb-5 md:mb-8">
+                <p className="text-[14px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   Size
                 </p>
-                <p className="text-[14px] md:text-sm text-[#303030] md:text-stone-600 font-normal md:font-light">
+                <p className="text-[14px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal md:font-light">
                   Varied thickness (11mm to 50mm)
                 </p>
               </div>
@@ -620,7 +606,7 @@ const Home = () => {
               <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-flex justify-center items-center w-full sm:w-[240px] md:w-auto bg-[#314028] md:bg-[#273927] text-white text-[13px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-3.5 md:py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[240px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[13px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
                 >
                   LEARN MORE
                 </Link>
@@ -666,11 +652,11 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-24">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center">
+      <section className="bg-[#fbfcfa] md:bg-white py-10 md:py-24">
+        <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-20 items-center">
             {/* LEFT IMAGE - 60% */}
-            <div className="lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
+            <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
               <Img
                 src="/images/home/Furniture.jpg"
                 alt="Furniture showroom"
@@ -680,43 +666,42 @@ const Home = () => {
             </div>
 
             {/* RIGHT CONTENT - 40% */}
-            <div className="lg:col-span-2 flex flex-col justify-center">
+            <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className="font-serif uppercase mb-3 text-[#2d3a2d] whitespace-nowrap"
+                className="font-serif uppercase mb-4 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap"
                 style={{
-                  fontSize: "clamp(1.3rem, 2vw, 1.8rem)", // ↓ nhỏ lại
+                  fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
                   letterSpacing: "0.05em",
-                  lineHeight: "1.3",
+                  lineHeight: "1.25",
                 }}
               >
                 LET’S BUILD YOUR NEXT <br />
                 COLLECTION TOGETHER
               </h2>
 
-              <p className="text-[17px] font-light text-stone-500 mb-5 max-w-[500px] leading-relaxed">
+              <p className="text-[15px] md:text-[17px] font-light text-[#303030] md:text-stone-500 mb-5 max-w-full md:max-w-[500px] leading-relaxed">
                 Contact our team to receive product catalogs, technical
                 specifications, and partnership information.
               </p>
 
               {/* EMAIL FORM */}
-              <div className="flex w-full max-w-[900px] mb-4">
+              <div className="flex w-full mb-5 md:mb-4">
                 <input
                   type="email"
                   placeholder="Enter Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 px-5 h-[42px] text-[14px] 
-                                                border border-stone-300 
-                                                bg-white 
-                                                outline-none 
-                                                placeholder:text-stone-400 
+                  className="flex-1 min-w-0 px-4 md:px-5 h-[48px] md:h-[42px] text-[14px]
+                                                border border-stone-300
+                                                bg-white
+                                                outline-none
+                                                placeholder:text-stone-400
                                                 text-stone-700"
                 />
-
                 <button
-                  className="ml-2 shrink-0 bg-[#2d3a2d] text-white text-[13px] 
-                                                tracking-widest uppercase font-medium 
-                                                px-5 h-[42px] 
+                  className="shrink-0 md:ml-2 bg-[#314028] md:bg-[#2d3a2d] text-white text-[14px] md:text-[13px]
+                                                tracking-widest capitalize md:uppercase font-light md:font-medium
+                                                px-8 md:px-5 h-[48px] md:h-[42px]
                                                 hover:bg-[#222c22] transition duration-300"
                 >
                   Send
@@ -724,9 +709,9 @@ const Home = () => {
               </div>
 
               {/* CONTACT LINK */}
-              <div className="flex items-center gap-4 text-[#2d3a2d] hover:opacity-80 transition cursor-pointer group">
-                <span className="w-8 h-[1px] bg-[#2d3a2d] transition-all group-hover:w-10" />
-                <span className="text-[13px] uppercase tracking-widest font-medium">
+              <div className="flex items-center gap-4 text-[#314028] md:text-[#2d3a2d] hover:opacity-80 transition cursor-pointer group">
+                <span className="w-8 h-[1px] bg-[#314028] md:bg-[#2d3a2d] transition-all group-hover:w-10" />
+                <span className="text-[14px] md:text-[13px] capitalize md:uppercase tracking-wide md:tracking-widest font-bold md:font-medium">
                   Contact now
                 </span>
               </div>

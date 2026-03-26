@@ -27,10 +27,10 @@ const Footer = () => {
             <div className="mx-auto max-w-[1700px] px-6 w-full">
 
                 {/* TOP GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 py-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-12 py-8 md:py-3">
 
                     {/* LOGO */}
-                    <div>
+                    <div className="col-span-2 md:col-span-1">
                         <div className="flex items-center gap-4 mb-3">
                             <div className="text-3xl font-bold">HP</div>
                             <div>
@@ -65,7 +65,7 @@ const Footer = () => {
                     </div>
 
                     {/* CONTACT */}
-                    <div>
+                    <div className="col-span-2 md:col-span-1">
                         <h3 className="font-semibold mb-3 text-base">CONTACT US</h3>
 
                         <div className={`space-y-4 text-sm leading-relaxed font-light ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
@@ -109,14 +109,14 @@ const Footer = () => {
                 </div>
 
                 {/* SOCIAL */}
-                <div className="mt-2 pb-4">
+                <div className={`mt-0 md:mt-2 pb-6 md:pb-4 border-t md:border-t-0 ${isLightFooter ? 'border-stone-200' : 'border-white/10'}`}>
 
-                    <div className="flex items-center gap-6 mb-4">
+                    <div className="flex items-center gap-6 mb-4 pt-5 md:pt-0">
                         <span className="text-sm font-semibold">Social</span>
                         <div className={`flex-1 h-px ${isLightFooter ? 'bg-stone-500' : 'bg-white/30'}`}></div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-6 md:gap-8">
+                    <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-4 md:gap-8">
 
                         {/* ICONS */}
                         <div className="flex gap-4">
@@ -154,8 +154,7 @@ const Footer = () => {
                         </div>
 
                         {/* COPYRIGHT */}
-                        <p className={`text-[13px] whitespace-nowrap ml-auto text-right ${isLightFooter ? 'text-stone-500' : 'text-white/70'}`}>
-
+                        <p className={`text-[12px] md:text-[13px] md:whitespace-nowrap md:ml-auto md:text-right leading-relaxed ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
                             ©2026 All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 
