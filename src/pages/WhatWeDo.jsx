@@ -146,21 +146,23 @@ export default function WhatWeDo() {
       {/* ══════════════════════════════════════════════
           3. DARK PROMO — Full-width dark bg + 4-col images beneath
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#d8d1c9] py-24">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="bg-[#d8d1c9] py-5 md:py-24">
+        <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <h2
-            className="text-center font-heading uppercase text-[#4b4a3f] mb-20"
-            style={{
-              fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)",
-              letterSpacing: "0.08em",
-              lineHeight: "1.4",
-            }}
+            className="text-center font-heading uppercase text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.025em] md:tracking-[0.08em] leading-[1.3] md:leading-[1.4] md:-translate-y-[33.3334px]"
           >
-            WE ARE KNOWN AS ONE OF THE TOP <br />
-            KD MANUFACTURERS IN VIETNAM.
+            <span className="md:hidden">
+              <span className="whitespace-nowrap">WE ARE KNOWN AS ONE</span> <br />
+              OF THE TOP KD MANUFACTURERS <br />
+              IN VIETNAM.
+            </span>
+            <span className="hidden md:inline">
+              WE ARE KNOWN AS ONE OF THE TOP <br />
+              KD MANUFACTURERS IN VIETNAM.
+            </span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               { src: "/images/home/Quality.jpg", text: "Cam kết chất lượng" },
               {
@@ -183,10 +185,10 @@ export default function WhatWeDo() {
                 <img
                   src={item.src}
                   alt={item.text}
-                  className="w-full h-[290px] object-cover transition duration-500 group-hover:scale-105"
+                  className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
-                <p className="absolute bottom-3 left-0 right-0 text-center text-white text-[16px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
+                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
                   {item.text}
                 </p>
               </div>
@@ -249,29 +251,29 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#d6cec6" }} className="py-4">
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
+        <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
-            <div className="lg:col-span-2 flex flex-col justify-center">
+            <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className="font-serif uppercase mb-3 text-[#273927] whitespace-nowrap"
+                className="font-serif lg:font-sans uppercase whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] lg:font-semibold"
                 style={{
-                  fontSize: "clamp(1.5rem, 2.5vw, 2.3rem)",
-                  letterSpacing: "0.08em",
-                  lineHeight: "1.15",
+                  fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
+                  letterSpacing: "0.02em",
+                  lineHeight: "1.08",
                 }}
               >
                 TIMBER MERCHANDISING
               </h2>
 
-              <div className="mb-5 flex flex-col gap-2 text-sm font-light text-stone-1500">
-                <p className="leading-relaxed">
+              <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
+                <p className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
                   We enjoy advantages of having large warehousing facilities,
                   with storage capacity of up to 10,000 cubic meter of raw
                   material and more than 60 containers.
                 </p>
-                <p className="leading-relaxed">
+                <p className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
                   We have established long-term relationship with our licensed
                   suppliers in New Zealand, Chile, Brazil, Germany, and Uruguay.
                   All sourced timber is 100% FSC certified and passing relevant
@@ -280,49 +282,38 @@ export default function WhatWeDo() {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-5">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-3">
-                  QUALITY
+              <div className="mb-2 md:mb-6">
+                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
+                  Quality
                 </p>
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-wrap gap-2">
-                    {["Industrial Grade", "Millrun", "COL"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {["FCOL", "ACOL"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-white text-stone-600 text-[11px] font-medium uppercase tracking-wider px-4 py-1.5 rounded-sm shadow-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+
+                <div className="grid grid-cols-3 md:flex md:flex-wrap gap-1.5 md:gap-3 w-full">
+                  {["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="w-full md:w-auto bg-white text-stone-800 md:text-stone-600 text-[11px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-1.5 md:py-1.5 px-2.5 md:px-6 md:min-w-[85px] text-center rounded-sm shadow-sm flex items-center justify-center"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
 
               {/* SIZE */}
-              <div className="mb-6">
-                <p className="text-xs tracking-[0.2em] uppercase text-stone-500 font-medium mb-2">
-                  SIZE
+              <div className="mb-2.5 md:mb-8">
+                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
+                  Size
                 </p>
-                <p className="text-sm text-stone-600 font-light">
+                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal md:font-light">
                   Varied thickness (11mm to 50mm)
                 </p>
               </div>
 
               {/* BUTTON */}
-              <div>
+              <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-block bg-[#273927] text-white text-[12px] tracking-[0.2em] font-medium uppercase px-8 py-3.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
                 >
                   LEARN MORE
                 </Link>
@@ -330,23 +321,23 @@ export default function WhatWeDo() {
             </div>
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
-            <div className="lg:col-span-3 flex flex-col gap-1">
-              <div className="w-full h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
+            <div className="lg:col-span-3 flex flex-col gap-1.5 md:gap-1 mt-1 md:mt-0 w-full mb-0 pb-0">
+              <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <img
                   src={timber1Img}
                   alt="Bedroom furniture"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-1">
-                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+              <div className="grid grid-cols-2 gap-2 md:gap-1 w-full">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <img
                     src={timber2Img}
                     alt="Dining tables"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="overflow-hidden rounded-sm h-[200px] lg:h-[280px]">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <img
                     src={timber3Img}
                     alt="Dining specific"
