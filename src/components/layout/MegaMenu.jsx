@@ -2,13 +2,17 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import useMegaMenu from "../../hooks/useMegaMenu";
+import { useLanguage } from "../../context/LanguageContext";
+import { siteCopy } from "../../i18n/siteCopy";
 
 /* ─── Fallback image when category has no imageUrl ────────────── */
 const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80";
 
 /* ─── Single category column (name + children list) ───────────── */
-const CategoryColumn = ({ category, isDark, onHoverImage }) => (
+const CategoryColumn = ({ category, isDark, onHoverImage }) => {
+  const { lang } = useLanguage();
+  return (
   <div
     className="flex flex-col gap-3 min-w-[150px]"
     onMouseEnter={() => onHoverImage(category)}
@@ -65,11 +69,12 @@ const CategoryColumn = ({ category, isDark, onHoverImage }) => (
           isDark ? "text-white/40" : "text-stone-400"
         }`}
       >
-        View collection
+        {siteCopy.common.viewCollection[lang]}
       </span>
     )}
   </div>
-);
+  );
+};
 
 /* ─── Right image panel ────────────────────────────────────────── */
 const ImagePanel = ({ category, isDark }) => (
@@ -165,7 +170,7 @@ const DropdownPanel = ({ categories, isDark, topOffset, open, onMouseEnter, onMo
 };
 
 /* ─── "Product" nav item with mega dropdown ───────────────────── */
-export const ProductNavItem = ({ isDark = false }) => {
+export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => {
   const { categories, loading } = useMegaMenu();
   const [open, setOpen] = useState(false);
   const [panelTop, setPanelTop] = useState(0);
@@ -204,7 +209,7 @@ export const ProductNavItem = ({ isDark = false }) => {
             isDark ? "text-white" : "text-stone-600"
           }`}
         >
-          Product
+          {productLabel}
         </span>
       </li>
     );
@@ -230,7 +235,7 @@ export const ProductNavItem = ({ isDark = false }) => {
         aria-expanded={open}
         aria-haspopup="true"
       >
-        Product
+        {productLabel}
         {/* Active underline */}
         <span
           className={`
@@ -257,7 +262,12 @@ export const ProductNavItem = ({ isDark = false }) => {
 };
 
 /* ─── Mobile accordion for "Product" ─────────────────────────── */
-export const ProductMobileItem = ({ isDark = false, onClose }) => {
+export const ProductMobileItem = ({
+  isDark = false,
+  onClose,
+  productLabel = "Product",
+}) => {
+  const { lang } = useLanguage();
   const { categories, loading } = useMegaMenu();
   const [open, setOpen] = useState(false);
 
@@ -273,12 +283,13 @@ export const ProductMobileItem = ({ isDark = false, onClose }) => {
             isDark ? "text-white/80" : "text-stone-700"
           }`}
         >
-          Product
+          {productLabel}
         </Link>
         <button
+          type="button"
           onClick={() => setOpen((v) => !v)}
           className={`py-3 px-2 transition-transform duration-200 ${open ? "rotate-90" : ""}`}
-          aria-label="expand categories"
+          aria-label={siteCopy.common.expandCategoriesAria[lang]}
         >
           <ChevronRight
             size={14}

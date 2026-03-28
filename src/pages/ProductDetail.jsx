@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
+import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
@@ -180,40 +181,14 @@ const ProductDetail = () => {
         <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-            {/* ── LEFT: Gallery ────────────────────────────────── */}
-            <div className="flex gap-4">
-              {/* Thumbnails */}
-              {sortedImages.length > 1 && (
-                <div className="flex flex-col gap-2 w-20 shrink-0">
-                  {sortedImages.map((img, i) => (
-                    <button
-                      key={img.id ?? i}
-                      type="button"
-                      onClick={() => setActiveImg(i)}
-                      className={`w-16 h-16 shrink-0 border-2 overflow-hidden transition-all duration-200 ${activeImg === i ? "border-primary" : "border-border hover:border-secondary"
-                        }`}
-                      aria-label={`View image ${i + 1}`}
-                    >
-                      <img src={img.imageUrl} alt={img.altText || product.name} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Main image */}
-              <div className="flex-1">
-                <div className="aspect-square bg-surface overflow-hidden relative">
-                  {sortedImages[activeImg] ? (
-                    <img
-                      src={sortedImages[activeImg].imageUrl}
-                      alt={sortedImages[activeImg].altText || product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-surface" />
-                  )}
-                </div>
-              </div>
+            {/* ── LEFT: Gallery + hover magnifier (flyout; main image stays full column width) ─ */}
+            <div className="min-w-0 overflow-visible">
+              <ProductGalleryMagnifier
+                images={sortedImages}
+                activeIndex={activeImg}
+                onActiveIndexChange={setActiveImg}
+                productName={product.name}
+              />
             </div>
 
             {/* ── RIGHT: Product info ───────────────────────────── */}

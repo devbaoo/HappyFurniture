@@ -104,9 +104,9 @@ const FilterDropdown = ({ label, active, children }) => {
 const SkeletonCard = () => (
   <div className="animate-pulse">
     <div className="aspect-square bg-surface mb-3" />
-    <div className="flex gap-1 mb-2">
+    <div className="flex gap-2 mb-2">
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="w-3 h-3 rounded-sm bg-surface" />
+        <div key={i} className="w-6 h-6 sm:w-[26px] sm:h-[26px] rounded-sm bg-surface shrink-0" />
       ))}
     </div>
     <div className="h-3 bg-surface rounded mb-1 w-3/4" />

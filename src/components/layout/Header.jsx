@@ -1,38 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
-
-/* ─── All nav links. "product" is handled separately by ProductNavItem ── */
-const NAV_LEFT = [
-  { to: "/", label: "Home", end: true },
-  { to: "/certificate", label: "Certificate" },
-  { to: "/what-we-do", label: "What We Do" },
-];
-
-const NAV_RIGHT = [
-  { to: "/news", label: "News" },
-  { to: "/order-delivery", label: "Order & Delivery" },
-  { to: "/contact", label: "Contact" },
-];
-
-const ALL_STATIC = [
-  { to: "/", label: "Home", end: true },
-  { to: "/certificate", label: "Certificate" },
-  { to: "/what-we-do", label: "What We Do" },
-  { to: "/news", label: "News" },
-  { to: "/order-delivery", label: "Order & Delivery" },
-  { to: "/contact", label: "Contact" },
-];
-
-const pageLabels = {
-  "/certificate": "Certificate",
-  "/what-we-do": "What We Do",
-  "/product": "Product",
-  "/news": "News",
-  "/order-delivery": "Order And Delivery",
-  "/contact": "Contact",
-};
+import { useLanguage } from "../../context/LanguageContext";
+import { siteCopy } from "../../i18n/siteCopy";
 
 /* ─── Reusable static NavLink item ────────────────────────────── */
 const StaticNavItem = ({ to, label, end, isDark }) => (
@@ -69,8 +40,41 @@ const StaticNavItem = ({ to, label, end, isDark }) => (
 /* ─── Header ───────────────────────────────────────────────────── */
 const Header = () => {
   const { pathname } = useLocation();
+  const { lang, setLang } = useLanguage();
   const isDark = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const NAV_LEFT = useMemo(
+    () => [
+      { to: "/", label: siteCopy.nav[lang].home, end: true },
+      { to: "/certificate", label: siteCopy.nav[lang].certificate },
+      { to: "/what-we-do", label: siteCopy.nav[lang].whatWeDo },
+    ],
+    [lang]
+  );
+  const NAV_RIGHT = useMemo(
+    () => [
+      { to: "/news", label: siteCopy.nav[lang].news },
+      { to: "/order-delivery", label: siteCopy.nav[lang].orderDelivery },
+      { to: "/contact", label: siteCopy.nav[lang].contact },
+    ],
+    [lang]
+  );
+  const ALL_STATIC = useMemo(
+    () => [...NAV_LEFT, ...NAV_RIGHT],
+    [NAV_LEFT, NAV_RIGHT]
+  );
+  const pageLabels = useMemo(
+    () => ({
+      "/certificate": siteCopy.nav[lang].certificate,
+      "/what-we-do": siteCopy.nav[lang].whatWeDo,
+      "/product": lang === "vi" ? "Sản phẩm" : "Product",
+      "/news": siteCopy.nav[lang].news,
+      "/order-delivery": siteCopy.nav[lang].orderDelivery,
+      "/contact": siteCopy.nav[lang].contact,
+    }),
+    [lang]
+  );
 
   return (
     <header
@@ -86,7 +90,7 @@ const Header = () => {
             <button
               className={`md:hidden p-2 -ml-2 ${isDark ? "text-white" : "text-stone-700"}`}
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? siteCopy.header.ariaCloseMenu[lang] : siteCopy.header.ariaOpenMenu[lang]}
             >
               {mobileOpen
                 ? <X size={28} strokeWidth={1} />
@@ -115,7 +119,7 @@ const Header = () => {
                 </svg>
                 <input
                   type="search"
-                  placeholder="what can we help you find"
+                  placeholder={siteCopy.header.searchPlaceholder[lang]}
                   className={`bg-transparent text-[12px] w-full outline-none ${isDark
                     ? "placeholder-white/70 text-white"
                     : "placeholder-stone-400 text-stone-700"
@@ -140,7 +144,7 @@ const Header = () => {
                   className={`text-[7px] md:text-[9px] leading-tight ${isDark ? "text-white/70" : "text-stone-400"
                     }`}
                 >
-                  Make life more convenient
+                  {siteCopy.header.tagline[lang]}
                 </span>
               </div>
             </Link>
@@ -150,8 +154,11 @@ const Header = () => {
           <div className="flex items-center gap-2 md:gap-3 w-auto md:w-[300px] justify-end">
             {/* Vietnam flag */}
             <button
+              type="button"
               aria-label="Tiếng Việt"
-              className="overflow-hidden rounded-sm hover:opacity-80 transition-opacity"
+              aria-pressed={lang === "vi"}
+              onClick={() => setLang("vi")}
+              className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "vi" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
               style={{ width: 28, height: 20 }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 20" width="28" height="20">
@@ -165,8 +172,11 @@ const Header = () => {
 
             {/* US flag */}
             <button
+              type="button"
               aria-label="English"
-              className="overflow-hidden rounded-sm hover:opacity-80 transition-opacity"
+              aria-pressed={lang === "en"}
+              onClick={() => setLang("en")}
+              className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "en" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
               style={{ width: 28, height: 20 }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 20" width="28" height="20">
@@ -195,7 +205,7 @@ const Header = () => {
       </div>
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
-      <nav aria-label="Main navigation">
+      <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
         <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
           <ul className="flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
             {NAV_LEFT.map(({ to, label, end }) => (
@@ -203,7 +213,7 @@ const Header = () => {
             ))}
 
             {/* ← "Product" with mega-dropdown → */}
-            <ProductNavItem isDark={isDark} />
+            <ProductNavItem isDark={isDark} productLabel={pageLabels["/product"]} />
 
             {NAV_RIGHT.map(({ to, label }) => (
               <StaticNavItem key={to} to={to} label={label} isDark={isDark} />
@@ -242,7 +252,11 @@ const Header = () => {
               ))}
 
               {/* Product with expandable categories */}
-              <ProductMobileItem isDark={isDark} onClose={() => setMobileOpen(false)} />
+              <ProductMobileItem
+                isDark={isDark}
+                onClose={() => setMobileOpen(false)}
+                productLabel={pageLabels["/product"]}
+              />
 
               {ALL_STATIC.slice(3).map(({ to, label }) => (
                 <li
@@ -271,13 +285,13 @@ const Header = () => {
           <div className="h-px bg-stone-300 mb-2" />
           <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
             <Link to="/" className="hover:text-stone-600 transition-colors">
-              Home
+              {siteCopy.nav[lang].home}
             </Link>
             <span className="text-stone-300">/</span>
             <span className="text-stone-600">
               {pageLabels[pathname] ||
                 (pathname.startsWith("/product/")
-                  ? "Product"
+                  ? pageLabels["/product"]
                   : pathname.replace("/", ""))}
             </span>
           </div>

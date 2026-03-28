@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/ui/Container";
+import { useLanguage } from "../context/LanguageContext";
+import { siteCopy } from "../i18n/siteCopy";
 
 /* ─────────────────────────────────────────────
    Reusable image placeholder
@@ -88,11 +90,48 @@ const useScrollAnimation = () => {
   return visibleElements;
 };
 
+const PARTNER_LOGO_SRCS = [
+  "/images/home/GlobalPartners.jpg",
+  "/images/home/UKPartners.jpg",
+  "/images/home/IrelandPartners.jpg",
+  "/images/home/ItaliaPartners.jpg",
+  "/images/home/AustraliaPartners.jpg",
+];
+
+const PartnerLogoCircle = ({ src, index, altPrefix }) => (
+  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 shadow-sm md:shadow-none">
+    <Img
+      src={src}
+      alt={`${altPrefix} ${index + 1}`}
+      className={
+        index === 0
+          ? "w-full h-full object-cover"
+          : "w-full h-full object-cover origin-center scale-[1.3] sm:scale-[1.27] md:scale-[1.24]"
+      }
+    />
+  </div>
+);
+
+const CERT_LOGO_SRCS = [
+  "/images/home/CTPAT.jpg",
+  "/images/home/Amfori.jpg",
+  "/images/home/SMETA.jpg",
+];
+
 const Home = () => {
+  const { lang } = useLanguage();
   const [email, setEmail] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const visibleElements = useScrollAnimation();
   const heroRef = useRef(null);
+  const aboutParagraphs = siteCopy.home.aboutBody[lang];
+  const certItems = siteCopy.home.certItems[lang];
+  const h = siteCopy.home;
+  const categoryLabels = h.categoryLabels[lang];
+  const featureColumns = h.featureColumns[lang];
+  const promoCaptions = h.promoCaptions[lang];
+  const timberTags = h.timberTags[lang];
+  const timberAlts = h.timberAlts[lang];
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -132,25 +171,23 @@ const Home = () => {
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mt-16 md:mt-0">
           {/* TITLE */}
           <h1
-            className={`text-white font-light uppercase leading-snug md:leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px]`}
+            className={`text-white font-light leading-snug md:leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] ${lang === 'vi' ? '' : 'uppercase'}`}
             style={{
               letterSpacing: "0.02em",
               transitionDelay: "0.3s"
             }}
           >
-            SOLID WOOD FURNITURE MANUFACTURER
+            {h.heroTitleLine1[lang]}
             <br />
-            FOR GLOBAL BRANDS
+            {h.heroTitleLine2[lang]}
           </h1>
 
           {/* DESCRIPTION */}
           <p className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             style={{ transitionDelay: "0.6s" }}>
-            We manufacture high-quality solid wood furniture with stable
-            production capacity, strict quality control, and long-term
-            partnership commitment
+            {h.heroSubtitle[lang]}
           </p>
 
           {/* BUTTON */}
@@ -161,7 +198,7 @@ const Home = () => {
               to="/product"
               className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.1em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
             >
-              OUR PRODUCT RANGE
+              {h.heroCta[lang]}
             </Link>
           </div>
         </div>
@@ -175,15 +212,14 @@ const Home = () => {
           {/* Section title */}
           <div className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
-            <h2 className="font-heading text-[18px] md:text-4xl font-light uppercase tracking-widest text-[#3f4a2f] mb-3 md:mb-3">
-              Our Product Categories
+            <h2 className={`font-heading text-[18px] md:text-4xl font-light tracking-widest text-[#3f4a2f] mb-3 md:mb-3 ${lang === 'vi' ? '' : 'uppercase'}`}>
+              {h.categoriesHeading[lang]}
             </h2>
 
             <p className="text-[11px] md:text-lg text-stone-600 max-w-3xl mx-auto leading-snug md:leading-relaxed mb-1 md:mb-0">
-              Comprehensive solid wood furniture collections developed for
-              residential
+              {h.categoriesSubBeforeBreak[lang]}
               <br className="hidden md:block" />
-              {' '}and commercial markets
+              {` ${h.categoriesSubAfterBreak[lang]}`}
             </p>
           </div>
 
@@ -191,13 +227,13 @@ const Home = () => {
           <div className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`} style={{ transitionDelay: "0.2s" }}>
             <CategoryCard
-              label="Living Room"
+              label={categoryLabels[0]}
               src="/images/home/Home-Dining.jpg"
               bg="#3a3530"
               className="aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]"
             />
             <CategoryCard
-              label="Bedroom"
+              label={categoryLabels[1]}
               src="/images/home/Home-Bedroom.jpg"
               bg="#2e2a26"
               className="aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]"
@@ -208,25 +244,25 @@ const Home = () => {
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`} style={{ transitionDelay: "0.4s" }}>
             <CategoryCard
-              label="Dining Room"
+              label={categoryLabels[2]}
               src="/images/home/Home-Dining.jpg"
               bg="#3d3832"
               className="aspect-square"
             />
             <CategoryCard
-              label="Vanity"
+              label={categoryLabels[3]}
               src="/images/home/Home-Vanity.jpg"
               bg="#312d29"
               className="aspect-square"
             />
             <CategoryCard
-              label="Youth Room"
+              label={categoryLabels[4]}
               src="/images/home/Home-Youth.jpg"
               bg="#3a3530"
               className="aspect-square"
             />
             <CategoryCard
-              label="Accessories"
+              label={categoryLabels[5]}
               src="/images/home/Home-Accessories.jpg"
               bg="#2e2a26"
               className="aspect-square"
@@ -242,39 +278,27 @@ const Home = () => {
         <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading uppercase text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.025em] md:tracking-[0.08em] leading-[1.3] md:leading-[1.4] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
-              }`}
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.025em] md:tracking-[0.08em] leading-[1.3] md:leading-[1.4] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+              } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
-              <span className="whitespace-nowrap">WE ARE KNOWN AS ONE</span> <br />
-              OF THE TOP KD MANUFACTURERS <br />
-              IN VIETNAM.
+              <span className="whitespace-nowrap">{h.promoLineMobile1[lang]}</span> <br />
+              {h.promoLineMobile2[lang]} <br />
+              {h.promoLineMobile3[lang]}
             </span>
             <span className="hidden md:inline">
-              WE ARE KNOWN AS ONE OF THE TOP <br />
-              KD MANUFACTURERS IN VIETNAM.
+              {h.promoLineDesktop1[lang]} <br />
+              {h.promoLineDesktop2[lang]}
             </span>
           </h2>
 
           {/* 4 images */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
-              {
-                src: "/images/home/Quality.jpg",
-                text: "Cam kết chất lượng",
-              },
-              {
-                src: "/images/home/InternationalStandard.jpg",
-                text: "Tiêu chuẩn quốc tế",
-              },
-              {
-                src: "/images/home/SustainableProduction.jpg",
-                text: "Sản xuất bền vững",
-              },
-              {
-                src: "/images/home/ExportRegulations.jpg",
-                text: "Tuân thủ quy định xuất khẩu",
-              },
+              { src: "/images/home/Quality.jpg" },
+              { src: "/images/home/InternationalStandard.jpg" },
+              { src: "/images/home/SustainableProduction.jpg" },
+              { src: "/images/home/ExportRegulations.jpg" },
             ].map((item, i) => (
               <div
                 key={i}
@@ -282,7 +306,7 @@ const Home = () => {
               >
                 <Img
                   src={item.src}
-                  alt={item.text}
+                  alt={promoCaptions[i]}
                 className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
 
@@ -291,7 +315,7 @@ const Home = () => {
 
                 {/* caption */}
                 <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
-                  {item.text}
+                  {promoCaptions[i]}
                 </p>
               </div>
             ))}
@@ -308,53 +332,42 @@ const Home = () => {
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-2">
               <div className="text-center md:text-left">
-                <p className="text-sm tracking-wide text-[#3f4a2f] mb-2 font-bold font-sans">
-                  About the Company
+                <p className="text-[15px] md:text-base tracking-wide text-[#3f4a2f] mb-2 font-bold font-sans">
+                  {siteCopy.home.aboutKicker[lang]}
                 </p>
                 <h2
-                  className="font-heading font-light uppercase text-[#3f4a2f] mb-4 md:mb-8 leading-snug mx-auto md:mx-0 max-w-[280px] md:max-w-none"
+                  className={`font-heading font-light text-[#3f4a2f] mb-4 md:mb-8 leading-snug mx-auto md:mx-0 max-w-xl md:max-w-none ${lang === "vi" ? "normal-case" : "uppercase"}`}
                   style={{
-                    fontSize: "clamp(1.4rem, 2.5vw, 2.3rem)",
-                    letterSpacing: "0.01em",
+                    fontSize: "clamp(1.5rem, 2.8vw, 2.45rem)",
+                    letterSpacing: lang === "vi" ? "0" : "0.01em",
                   }}
                 >
-                  A TRUSTED FURNITURE
-                  <br />
-                  MANUFACTURING PARTNER
+                  {lang === "vi" ? (
+                    "Đối tác sản xuất nội thất đáng tin cậy"
+                  ) : (
+                    <>
+                      A TRUSTED FURNITURE
+                      <br />
+                      MANUFACTURING PARTNER
+                    </>
+                  )}
                 </h2>
               </div>
-              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed mb-3 text-justify md:text-left">
-                Founded in 2005, Happy Furniture is a Vietnam-based manufacturer
-                specializing in knock-down (KD) wooden furniture for global
-                markets. With nearly two decades of experience, we have built a
-                strong reputation as a reliable partner for international
-                furniture brands, retailers, and importers.
-              </p>
-              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed mb-3 text-justify md:text-left">
-                Our product range focuses on mid- to high-end indoor furniture
-                collections, including dining, bedroom, and living room
-                furniture. In addition to finished furniture, we also supply
-                selected wood materials, particularly pine and oak, supporting
-                partners with both manufacturing and material sourcing
-                solutions. At Happy Furniture, we combine skilled craftsmanship
-                with efficient production processes to deliver consistent
-                quality at competitive prices. Our team continuously improves
-                production systems, quality control, and supply chain management
-                to meet the expectations of international customers.
-              </p>
-              <p className="text-[12px] md:text-[12px] text-stone-800 font-medium leading-relaxed text-justify md:text-left">
-                Today, Happy Furniture is recognized as one of Vietnam's leading
-                knock-down (KD) furniture manufacturers, serving partners across
-                the United States, the United Kingdom, Ireland, Italy,
-                Australia, and other global markets.
-              </p>
+              {aboutParagraphs.map((text, idx) => (
+                <p
+                  key={idx}
+                  className={`text-[15px] md:text-[17px] text-stone-800 font-medium leading-relaxed text-justify md:text-left ${idx < aboutParagraphs.length - 1 ? "mb-4" : ""}`}
+                >
+                  {text}
+                </p>
+              ))}
             </div>
 
             {/* Right: image */}
             <div className="lg:col-span-7 overflow-hidden w-full mt-2 md:mt-0">
               <Img
                 src="/images/home/AboutCompany.jpg"
-                alt="About Happy Furniture"
+                alt={h.aboutImageAlt[lang]}
                 placeholderBg="#b5a898"
                 className="aspect-[4/3] w-full"
               />
@@ -372,26 +385,9 @@ const Home = () => {
 
           <div className="bg-[rgb(241,240,238)]">
             <div className="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x divide-[#c9c5be]">
-              {[
-                {
-                  title: "Delivery",
-                  desc: "Efficient year-round shipping with clear production schedules and reliable lead times",
-                },
-                {
-                  title: "Order",
-                  desc: "A diverse collection of 500+ designs available with flexible MOQ for global partners",
-                },
-                {
-                  title: "OEM",
-                  desc: "Professional design support from concept development to technical drawings and sample creation",
-                },
-                {
-                  title: "Packaging and Dispatch",
-                  desc: "International-standard packaging solutions tailored to client requirements and shipping safety",
-                },
-              ].map((item, index) => (
+              {featureColumns.map((item, index) => (
                 <div
-                  key={item.title}
+                  key={`${item.title}-${index}`}
                   className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${index < 2 ? 'border-b md:border-b-0 border-[#c9c5be]' : ''
                     } ${index % 2 === 0 ? 'border-r md:border-r-0 border-[#c9c5be]' : ''
                     }`}
@@ -445,7 +441,7 @@ const Home = () => {
         >
           <Img
             src="/images/home/InsideFactoryBackGround.jpg"
-            alt="Inside our factory"
+            alt={h.factoryImageAlt[lang]}
             className="w-full h-full object-cover"
           />
 
@@ -467,15 +463,13 @@ const Home = () => {
 
         <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
           <h2
-            className="font-serif text-[#f4ecd8] md:text-white uppercase tracking-[0.03em] md:tracking-widest mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.02] whitespace-nowrap"
+            className={`font-serif text-[#f4ecd8] md:text-white tracking-[0.03em] md:tracking-widest mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.02] whitespace-nowrap ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
-            Inside Our Factory
+            {h.factoryHeading[lang]}
           </h2>
 
           <p className="text-[#e5e5e5] md:text-white/60 text-[9px] md:text-sm max-w-[330px] md:max-w-3xl mx-auto leading-[1.28] md:leading-relaxed">
-            A look inside our operations, from office and product development to
-            white wood production, finishing, packaging, showroom and warehouse
-            facilities
+            {h.factorySub[lang]}
           </p>
         </div>
       </section>
@@ -487,57 +481,53 @@ const Home = () => {
         <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-8 md:mb-16">
-            <h3 className="text-[13px] sm:text-sm md:text-sm font-extrabold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-normal uppercase">
-              Our Global Partners
+            <h3 className={`text-[13px] sm:text-sm md:text-sm font-extrabold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}>
+              {h.partnersHeading[lang]}
             </h3>
 
             <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-10"></div>
 
-            <div className="flex justify-center gap-4 sm:gap-8 md:gap-12">
-              {[
-                "/images/home/GlobalPartners.jpg",
-                "/images/home/GlobalPartners.jpg",
-                "/images/home/GlobalPartners.jpg",
-              ].map((src, i) => (
-                <div key={i} className="w-20 h-20 sm:w-24 sm:h-24 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 shadow-sm md:shadow-none">
-                  <Img
-                    src={src}
-                    alt={`Global partner ${i + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            {/* Mobile / tablet: hàng 3 + hàng 2; md+: một hàng như cũ */}
+            <div className="md:hidden flex flex-col items-center gap-4 sm:gap-5">
+              <div className="flex justify-center gap-4 sm:gap-8">
+                {PARTNER_LOGO_SRCS.slice(0, 3).map((src, i) => (
+                  <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
+                ))}
+              </div>
+              <div className="flex justify-center gap-4 sm:gap-8">
+                {PARTNER_LOGO_SRCS.slice(3, 5).map((src, i) => (
+                  <PartnerLogoCircle key={src} src={src} index={i + 3} altPrefix={h.partnerLogoAlt[lang]} />
+                ))}
+              </div>
+            </div>
+            <div className="hidden md:flex justify-center gap-12">
+              {PARTNER_LOGO_SRCS.map((src, i) => (
+                <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
               ))}
             </div>
           </div>
 
           {/* ===== Certifications ===== */}
           <div className="text-center">
-            <h3 className="text-[13px] sm:text-sm md:text-sm font-extrabold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-normal uppercase">
-              Our Certifications
+            <h3 className="text-[15px] sm:text-base md:text-lg font-extrabold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-normal uppercase">
+              {siteCopy.home.certificationsHeading[lang]}
             </h3>
 
-            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-12"></div>
+            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-8"></div>
 
-            <div
-              className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-4 sm:gap-8 md:gap-12"
-            >
-              <Img
-                src="/images/home/CTPAT.jpg"
-                alt="CTPAT"
-                className="h-8 sm:h-10 md:h-10 object-contain"
-              />
+            <p className="text-[15px] md:text-[17px] text-stone-700 font-medium leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12 text-left md:text-center">
+              {siteCopy.home.certificationsIntro[lang]}
+            </p>
 
-              <Img
-                src="/images/home/Amfori.jpg"
-                alt="BSCI"
-                className="h-7 sm:h-10 md:h-10 object-contain"
-              />
-
-              <Img
-                src="/images/home/SMETA.jpg"
-                alt="SMETA Sedex"
-                className="h-9 sm:h-12 md:h-12 object-contain"
-              />
+            <div className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-4 sm:gap-8 md:gap-12">
+              {certItems.map((item, i) => (
+                <Img
+                  key={item.title}
+                  src={CERT_LOGO_SRCS[i]}
+                  alt={item.title}
+                  className="h-8 sm:h-10 md:h-12 object-contain"
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -552,38 +542,32 @@ const Home = () => {
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className="font-serif lg:font-sans uppercase whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] lg:font-semibold"
+                className={`font-serif lg:font-sans whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] lg:font-semibold ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.02em",
                   lineHeight: "1.08",
                 }}
               >
-                TIMBER MERCHANDISING
+                {h.timberHeading[lang]}
               </h2>
 
               <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
-                <p className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
-                  We enjoy advantages of having large warehousing facilities,
-                  with storage capacity of up to 10,000 cubic meter of raw
-                  material and more than 60 containers.
-                </p>
-                <p className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
-                  We have established long-term relationship with our licensed
-                  suppliers in New Zealand, Chile, Brazil, Germany, and Uruguay.
-                  All sourced timber is 100% FSC certified and passing relevant
-                  controlled wood regulatory requirements.
-                </p>
+                {h.timberBody[lang].map((para, idx) => (
+                  <p key={idx} className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
+                    {para}
+                  </p>
+                ))}
               </div>
 
               {/* QUALITY */}
               <div className="mb-2 md:mb-6">
                 <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
-                  Quality
+                  {h.timberQuality[lang]}
                 </p>
 
                 <div className="grid grid-cols-3 md:flex md:flex-wrap gap-1.5 md:gap-3 w-full">
-                  {["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"].map((tag) => (
+                  {timberTags.map((tag) => (
                     <span
                       key={tag}
                       className="w-full md:w-auto bg-white text-stone-800 md:text-stone-600 text-[11px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-1.5 md:py-1.5 px-2.5 md:px-6 md:min-w-[85px] text-center rounded-sm shadow-sm flex items-center justify-center"
@@ -597,10 +581,10 @@ const Home = () => {
               {/* SIZE */}
               <div className="mb-2.5 md:mb-8">
                 <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
-                  Size
+                  {h.timberSize[lang]}
                 </p>
                 <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal md:font-light">
-                  Varied thickness (11mm to 50mm)
+                  {h.timberThickness[lang]}
                 </p>
               </div>
 
@@ -610,7 +594,7 @@ const Home = () => {
                   to="/product"
                   className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
                 >
-                  LEARN MORE
+                  {h.timberCta[lang]}
                 </Link>
               </div>
             </div>
@@ -621,7 +605,7 @@ const Home = () => {
               <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
                   src="/images/home/Timber.jpg"
-                  alt="Bedroom furniture"
+                  alt={timberAlts[0]}
                   className="w-full h-full object-cover"
                   placeholderBg="#b5a898"
                 />
@@ -632,7 +616,7 @@ const Home = () => {
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
                     src="/images/home/Timber2.jpg"
-                    alt="Dining tables"
+                    alt={timberAlts[1]}
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
                   />
@@ -640,7 +624,7 @@ const Home = () => {
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
                     src="/images/home/Timber3.jpg"
-                    alt="Dining specific"
+                    alt={timberAlts[2]}
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
                   />
@@ -661,7 +645,7 @@ const Home = () => {
             <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
               <Img
                 src="/images/home/Furniture.jpg"
-                alt="Furniture showroom"
+                alt={h.newsletterImageAlt[lang]}
                 className="w-full h-full object-cover"
                 placeholderBg="#d1cec7"
               />
@@ -670,27 +654,26 @@ const Home = () => {
             {/* RIGHT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className="font-sans uppercase mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-semibold"
+                className={`font-sans mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-semibold ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
                 style={{
                   fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
                   letterSpacing: "0.03em",
                   lineHeight: "1.2",
                 }}
               >
-                LET’S BUILD YOUR NEXT <br />
-                COLLECTION TOGETHER
+                {h.newsletterTitleLine1[lang]} <br />
+                {h.newsletterTitleLine2[lang]}
               </h2>
 
               <p className="text-[12px] md:text-[17px] font-medium text-[#303030] md:text-stone-500 mb-5 max-w-full md:max-w-[500px] leading-[1.35] md:leading-relaxed">
-                Contact our team to receive product catalogs, technical
-                specifications, and partnership information.
+                {h.newsletterBody[lang]}
               </p>
 
               {/* EMAIL FORM */}
               <div className="flex w-full mb-5 md:mb-4">
                 <input
                   type="email"
-                  placeholder="Enter Your Email"
+                  placeholder={h.newsletterEmailPh[lang]}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 min-w-0 px-4 md:px-5 h-[44px] md:h-[42px] text-[13px] md:text-[14px]
@@ -701,22 +684,26 @@ const Home = () => {
                                                 text-stone-700 font-medium"
                 />
                 <button
+                  type="button"
                   className="shrink-0 md:ml-2 bg-[#314028] md:bg-[#2d3a2d] text-white text-[13px] md:text-[13px]
                                                 tracking-wide md:tracking-widest capitalize md:uppercase font-medium
                                                 px-7 md:px-5 h-[44px] md:h-[42px]
                                                 hover:bg-[#222c22] transition duration-300"
                 >
-                  Send
+                  {h.newsletterSend[lang]}
                 </button>
               </div>
 
               {/* CONTACT LINK */}
-              <div className="flex items-center gap-4 text-[#314028] md:text-[#2d3a2d] hover:opacity-80 transition cursor-pointer group">
+              <Link
+                to="/contact"
+                className="flex items-center gap-4 text-[#314028] md:text-[#2d3a2d] hover:opacity-80 transition cursor-pointer group w-fit"
+              >
                 <span className="w-8 h-[1px] bg-[#314028] md:bg-[#2d3a2d] transition-all group-hover:w-10" />
                 <span className="text-[14px] md:text-[13px] leading-none capitalize md:uppercase tracking-normal md:tracking-widest font-semibold md:font-medium">
-                  Contact now
+                  {h.newsletterContactLink[lang]}
                 </span>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
