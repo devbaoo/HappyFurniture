@@ -1,10 +1,16 @@
 import { useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
+import { siteCopy } from "../i18n/siteCopy";
 
 /* ── icon helpers ── */
 
 /* ── underline input (for dark panel) ── */
 
 const Contact = () => {
+    const { lang } = useLanguage();
+    const t = siteCopy.contact;
+    const L = t.labels;
+    const P = t.placeholders;
     const [captcha, setCaptcha] = useState("");
 
     return (
@@ -18,45 +24,45 @@ const Contact = () => {
                 <div className="w-full px-4 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8">
                     {/* Form panel */}
                     <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:translate-y-[85px]">
-                        <h2 className="text-white text-xl font-light tracking-[0.14em] uppercase mb-6">YOUR DETAIL</h2>
+                        <h2 className={`text-white text-xl font-light tracking-[0.14em] mb-6 ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.formTitle[lang]}</h2>
                         <form className="flex flex-col justify-between flex-1">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-6">
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Name (*)</label>
-                                    <input placeholder="Your Name" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.name[lang]}</label>
+                                    <input placeholder={P.name[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Phone number</label>
-                                    <input placeholder="Your Phone number" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="tel" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.phone[lang]}</label>
+                                    <input placeholder={P.phone[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="tel" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Subject (*)</label>
-                                    <input placeholder="Your Subject" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.subject[lang]}</label>
+                                    <input placeholder={P.subject[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Address</label>
-                                    <input placeholder="Your Address" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.address[lang]}</label>
+                                    <input placeholder={P.address[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Email (*)</label>
-                                    <input placeholder="Your Email" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="email" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.email[lang]}</label>
+                                    <input placeholder={P.email[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="email" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">Content (*)</label>
-                                    <input placeholder="Your Content" className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.content[lang]}</label>
+                                    <input placeholder={P.content[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                             </div>
                             <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-start sm:items-end">
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <div className="bg-white px-3 py-1 text-[#3c4a28] font-mono text-base tracking-[0.3em] font-bold select-none" data-measuring="true">SAVQO</div>
-                                        <button type="button" aria-label="Refresh captcha" className="text-white/60 hover:text-white text-lg leading-none">↻</button>
+                                        <button type="button" aria-label={t.refreshCaptchaAria[lang]} className="text-white/60 hover:text-white text-lg leading-none">↻</button>
                                     </div>
-                                    <input placeholder="Enter the text you see above" className="w-full bg-transparent border-b border-white/30 pb-1 text-white text-xs placeholder:text-white/40 focus:outline-none" type="text" value={captcha} onChange={(e) => setCaptcha(e.target.value)} />
+                                    <input placeholder={P.captcha[lang]} className="w-full bg-transparent border-b border-white/30 pb-1 text-white text-xs placeholder:text-white/40 focus:outline-none" type="text" value={captcha} onChange={(e) => setCaptcha(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col items-start sm:items-end gap-2">
-                                    <p className="text-[10px] text-white/40">(*) Required information</p>
-                                    <button type="submit" className="bg-[#d6cec6] text-[#3c4a28] text-[11px] tracking-[0.25em] uppercase px-10 py-2.5 hover:opacity-90 transition">Send</button>
+                                    <p className="text-[10px] text-white/40">{t.requiredNote[lang]}</p>
+                                    <button type="submit" className={`bg-[#d6cec6] text-[#3c4a28] text-[11px] tracking-[0.25em] px-10 py-2.5 hover:opacity-90 transition ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.send[lang]}</button>
                                 </div>
                             </div>
                         </form>
@@ -64,10 +70,10 @@ const Contact = () => {
 
                     {/* GET IN TOUCH — desktop only (bên phải form, giữ nguyên layout gốc) */}
                     <div className="hidden lg:block px-12 pt-10" style={{ height: "560.766px", transform: "translate(-5px, 62px)", width: "672.391px" }}>
-                        <h2 className="font-heading uppercase font-semibold text-black mb-5" style={{ fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", letterSpacing: "0.1em" }}>GET IN TOUCH</h2>
-                        <p className="text-sm font-medium text-gray-900 leading-relaxed mb-8 max-w-sm" style={{ height: "0.375px", transform: "translate(0px, -32px)", width: "434px" }}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                        <h2 className={`font-heading font-semibold text-black mb-5 ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", letterSpacing: "0.1em" }}>{t.getInTouch[lang]}</h2>
+                        <p className="text-sm font-medium text-gray-900 leading-relaxed mb-8 max-w-sm" style={{ height: "0.375px", transform: "translate(0px, -32px)", width: "434px" }}>{t.intro[lang]}</p>
                         <div>
-                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal">Uyen Tran (Ms.)</h3>
+                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal">{t.contactMs[lang]}</h3>
                             <div className="space-y-2 text-[12px] font-medium text-gray-900" style={{ height: "54.5625px", transform: "translate(0px, -9px)" }}>
                                 <div className="flex items-center gap-2">
                                     <svg className="w-3.5 h-3.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
@@ -85,7 +91,7 @@ const Contact = () => {
                         </div>
                         <div>
                             <div className="border-t border-stone-300 my-5"></div>
-                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal" style={{ height: "0px", transform: "translate(0px, -30px)" }}>Colin Phan (Ông)</h3>
+                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal" style={{ height: "0px", transform: "translate(0px, -30px)" }}>{t.contactMr[lang]}</h3>
                             <div className="space-y-2 text-[12px] font-medium text-gray-900" style={{ height: "53.562px", transform: "translate(0px, -25px)" }}>
                                 <div className="flex items-center gap-2">
                                     <svg className="w-3.5 h-3.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
@@ -107,11 +113,11 @@ const Contact = () => {
 
             {/* ══ GET IN TOUCH — mobile/tablet only (hiện dưới form) ══ */}
             <section className="block lg:hidden px-4 sm:px-8 md:px-14 pt-2 pb-2">
-                <h2 className="font-heading uppercase font-semibold text-black mb-2 text-2xl sm:text-3xl" style={{ letterSpacing: "0.1em" }}>GET IN TOUCH</h2>
-                <p className="text-xs sm:text-sm font-medium text-gray-900 leading-relaxed mb-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                <h2 className={`font-heading font-semibold text-black mb-2 text-2xl sm:text-3xl ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ letterSpacing: "0.1em" }}>{t.getInTouch[lang]}</h2>
+                <p className="text-xs sm:text-sm font-medium text-gray-900 leading-relaxed mb-3">{t.intro[lang]}</p>
                 <div className="grid grid-cols-2 gap-3 sm:gap-8">
                     <div className="min-w-0 overflow-hidden">
-                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">Uyen Tran (Ms.)</h3>
+                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">{t.contactMs[lang]}</h3>
                         <div className="space-y-1.5 font-medium text-gray-900">
                             <div className="flex items-center gap-1">
                                 <svg className="w-2.5 h-2.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
@@ -128,7 +134,7 @@ const Contact = () => {
                         </div>
                     </div>
                     <div className="min-w-0 overflow-hidden">
-                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">Colin Phan (Ông)</h3>
+                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">{t.contactMr[lang]}</h3>
                         <div className="space-y-1.5 font-medium text-gray-900">
                             <div className="flex items-center gap-1">
                                 <svg className="w-2.5 h-2.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
@@ -150,7 +156,7 @@ const Contact = () => {
             {/* ══ GOOGLE MAP ══ */}
             <section className="mt-2 lg:mt-12">
                 <iframe
-                    title="Happy Furniture Location"
+                    title={siteCopy.common.mapTitle[lang]}
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.134!2d106.8918!3d10.9423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d86d2fa97311%3A0xb11780c0c2e43c34!2zQ8O0bmcgVHkgVE5ISCBHbyBIYW5oIFBodWMgKEhhcHB5IEZ1cm5pdHVyZSk!5e0!3m2!1sen!2s!4v1699000000000!5m2!1sen!2s"
                     width="100%"
                     height="260"

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const PLACEHOLDER_COUNT = 5;
 
@@ -11,11 +12,38 @@ const ProductCard = ({
     images = [],
     className = "",
 }) => {
-    const primaryImage = images.find((img) => img.isPrimary) ?? images[0] ?? null;
+    const sortedImages = useMemo(() => {
+        if (!images?.length) return [];
+        return [...images].sort(
+            (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
+        );
+    }, [images]);
+
+    const [activeIndex, setActiveIndex] = useState(0);
     const [imgError, setImgError] = useState(false);
 
-    const swatches = images.length > 0
-        ? images.slice(0, PLACEHOLDER_COUNT)
+    const resetKey = `${id}:${sortedImages.length}`;
+    const [prevResetKey, setPrevResetKey] = useState(resetKey);
+    if (resetKey !== prevResetKey) {
+        setPrevResetKey(resetKey);
+        setActiveIndex(0);
+        setImgError(false);
+    }
+
+    const currentImage =
+        sortedImages[activeIndex] ?? sortedImages[0] ?? null;
+    const n = sortedImages.length;
+    const canNavigate = n > 1;
+
+    const go = (e, delta) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!canNavigate) return;
+        setActiveIndex((i) => (i + delta + n) % n);
+    };
+
+    const swatches = sortedImages.length > 0
+        ? sortedImages.slice(0, PLACEHOLDER_COUNT)
         : Array.from({ length: PLACEHOLDER_COUNT });
 
     return (
@@ -25,16 +53,55 @@ const ProductCard = ({
             aria-label={name}
         >
             {/* Main image */}
-            <div className="relative overflow-hidden bg-[#666] aspect-square mb-3">
-                {primaryImage && !imgError ? (
+            <div className="group/image relative overflow-hidden bg-[#666] aspect-square mb-3">
+                {currentImage && !imgError ? (
                     <img
-                        src={primaryImage.imageUrl}
-                        alt={primaryImage.altText || name}
+                        src={currentImage.imageUrl}
+                        alt={currentImage.altText || name}
                         onError={() => setImgError(true)}
                         className="absolute inset-0 w-full h-full object-cover"
                     />
                 ) : (
                     <div className="absolute inset-0 bg-[#555]" />
+                )}
+
+                {canNavigate && (
+                    <>
+                        <button
+                            type="button"
+                            onClick={(e) => go(e, -1)}
+                            className="absolute left-0 top-1/2 z-20 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/image:opacity-100 hover:bg-stone-50"
+                            aria-label="Previous image"
+                        >
+                            <ChevronLeft
+                                className="h-3 w-3 text-stone-900"
+                                strokeWidth={1}
+                            />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={(e) => go(e, 1)}
+                            className="absolute right-0 top-1/2 z-20 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/image:opacity-100 hover:bg-stone-50"
+                            aria-label="Next image"
+                        >
+                            <ChevronRight
+                                className="h-3 w-3 text-stone-900"
+                                strokeWidth={1}
+                            />
+                        </button>
+                        <div
+                            className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 flex gap-0.5 px-1.5 pb-1.5"
+                            aria-hidden
+                        >
+                            {sortedImages.map((_, i) => (
+                                <div
+                                    key={i}
+                                    className={`h-0.5 flex-1 rounded-full transition-colors ${i === activeIndex ? "bg-stone-800" : "bg-white/60"
+                                        }`}
+                                />
+                            ))}
+                        </div>
+                    </>
                 )}
 
                 {/* Wishlist */}
@@ -44,11 +111,11 @@ const ProductCard = ({
                         e.preventDefault();
                         e.stopPropagation();
                     }}
-                    className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    className="absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                     aria-label="Add to wishlist"
                 >
                     <svg
-                        className="w-5 h-5 text-white"
+                        className="h-5 w-5 text-white"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -64,23 +131,32 @@ const ProductCard = ({
             </div>
 
             {/* Image swatches — thumbnail or placeholder squares */}
-            <div className="flex gap-1 mb-2">
+            <div className="flex gap-2 mb-2.5">
                 {swatches.map((img, i) =>
                     img ? (
-                        <div
+                        <button
                             key={img.id ?? i}
-                            className="w-3 h-3 rounded-sm overflow-hidden bg-[#ccc]"
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setImgError(false);
+                                setActiveIndex(i);
+                            }}
+                            className={`w-6 h-6 shrink-0 overflow-hidden rounded-sm bg-[#ccc] sm:h-[26px] sm:w-[26px] ${i === activeIndex ? "ring-2 ring-primary ring-offset-1" : ""
+                                }`}
+                            aria-label={`Image ${i + 1}`}
                         >
                             <img
                                 src={img.imageUrl}
                                 alt=""
-                                className="w-full h-full object-cover"
+                                className="h-full w-full object-cover"
                             />
-                        </div>
+                        </button>
                     ) : (
                         <div
                             key={i}
-                            className="w-3 h-3 rounded-sm bg-primary"
+                            className="h-6 w-6 shrink-0 rounded-sm bg-primary sm:h-[26px] sm:w-[26px]"
                             style={{ opacity: 0.3 + i * 0.15 }}
                         />
                     )
@@ -88,13 +164,17 @@ const ProductCard = ({
             </div>
 
             {/* Name */}
-            <p className="text-xs font-medium text-primary leading-snug mb-1 line-clamp-2">{name}</p>
+            <p className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-stone-900 sm:text-[15px]">
+                {name}
+            </p>
 
             {/* Price */}
-            <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-primary">{price}</span>
+            <div className="flex flex-wrap items-baseline gap-2">
+                <span className="text-base font-semibold tabular-nums tracking-tight text-primary sm:text-[17px]">
+                    {price}
+                </span>
                 {oldPrice && (
-                    <span className="text-xs text-muted line-through">{oldPrice}</span>
+                    <span className="text-xs text-muted line-through tabular-nums sm:text-sm">{oldPrice}</span>
                 )}
             </div>
         </Link>

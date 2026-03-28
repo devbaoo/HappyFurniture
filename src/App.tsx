@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider, useLanguage } from "./context/LanguageContext";
+import { siteCopy } from "./i18n/siteCopy";
 import MainLayout from "./components/layout/MainLayout";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
@@ -10,21 +12,26 @@ import News from "./pages/News";
 import WhatWeDo from "./pages/WhatWeDo";
 
 // NotFound fallback
-const NotFound = () => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-    <h1 className="font-heading text-5xl font-light text-primary">404</h1>
-    <p className="text-muted text-sm tracking-wide">Page not found</p>
-    <a
-      href="/"
-      className="text-xs uppercase tracking-widest text-primary underline underline-offset-4 hover:text-muted transition-colors">
-      Return Home
-    </a>
-  </div>
-);
+const NotFound = () => {
+  const { lang } = useLanguage();
+  const n = siteCopy.notFound;
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 px-4 text-center">
+      <h1 className="font-heading text-5xl font-light text-primary">{n.title[lang]}</h1>
+      <p className="text-muted text-sm tracking-wide">{n.message[lang]}</p>
+      <a
+        href="/"
+        className="text-xs uppercase tracking-widest text-primary underline underline-offset-4 hover:text-muted transition-colors">
+        {n.returnHome[lang]}
+      </a>
+    </div>
+  );
+};
 
 const App = () => {
   return (
     <BrowserRouter>
+      <LanguageProvider>
       <Routes>
         {/* === CUSTOMER / CLIENT ROUTES === */}
         <Route
@@ -101,6 +108,7 @@ const App = () => {
           }
         />
       </Routes>
+      </LanguageProvider>
     </BrowserRouter>
   );
 };
