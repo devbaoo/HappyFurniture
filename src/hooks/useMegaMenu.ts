@@ -24,7 +24,9 @@ const useMegaMenu = () => {
 
   useEffect(() => {
     api
-      .get<{ items: RootCategory[] }>("/Categories")
+      .get<{ items: RootCategory[] }>("/Categories", {
+        params: { pageSize: 100, pageNumber: 1 },
+      })
       .then((res) => {
         // Keep only root-level categories (parentId === null)
         const roots = res.data.items.filter((c) => c.parentId === null);
