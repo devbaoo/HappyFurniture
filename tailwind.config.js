@@ -60,6 +60,15 @@ export default {
       gridTemplateColumns: {
         12: "repeat(12, minmax(0, 1fr))",
       },
+      keyframes: {
+        fadeInMenu: {
+          "0%": { opacity: "0", transform: "translateX(6px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        fadeInMenu: "fadeInMenu 0.25s ease-out forwards",
+      },
       transitionDuration: {
         DEFAULT: "200ms",
         slow: "400ms",
