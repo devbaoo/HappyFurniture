@@ -10,9 +10,9 @@ export default {
         container: "1320px",
       },
       fontFamily: {
-        sans: ["'Avenir Next'", "'Montserrat'", "sans-serif"],
-        heading: ["'Cormorant Garamond'", "serif"],
-        catalog: ["'Avenir Next'", "'Montserrat'", "sans-serif"],
+        sans: ["'Be Vietnam Pro'", "'Avenir Next'", "'Montserrat'", "sans-serif"],
+        heading: ["'Playfair Display'", "'Cormorant Garamond'", "serif"],
+        catalog: ["'Be Vietnam Pro'", "'Avenir Next'", "'Montserrat'", "sans-serif"],
       },
       colors: {
         primary: "#1a1a1a",

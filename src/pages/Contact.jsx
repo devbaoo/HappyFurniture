@@ -24,31 +24,31 @@ const Contact = () => {
                 <div className="w-full px-4 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8">
                     {/* Form panel */}
                     <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:translate-y-[85px]">
-                        <h2 className={`text-white text-xl font-light tracking-[0.14em] mb-6 ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.formTitle[lang]}</h2>
+                        <h2 className={`font-heading text-white text-[26px] font-normal tracking-[0.08em] mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.formTitle[lang]}</h2>
                         <form className="flex flex-col justify-between flex-1">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-6">
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.name[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.name[lang]}</label>
                                     <input placeholder={P.name[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.phone[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.phone[lang]}</label>
                                     <input placeholder={P.phone[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="tel" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.subject[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.subject[lang]}</label>
                                     <input placeholder={P.subject[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.address[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.address[lang]}</label>
                                     <input placeholder={P.address[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.email[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.email[lang]}</label>
                                     <input placeholder={P.email[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="email" />
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] text-white/70 mb-1 tracking-wide">{L.content[lang]}</label>
+                                    <label className="block text-[10px] text-white/70 mb-1 tracking-[0.12em] uppercase">{L.content[lang]}</label>
                                     <input placeholder={P.content[lang]} className="w-full bg-transparent border-b border-white/30 py-1 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors" type="text" />
                                 </div>
                             </div>
@@ -62,19 +62,19 @@ const Contact = () => {
                                 </div>
                                 <div className="flex flex-col items-start sm:items-end gap-2">
                                     <p className="text-[10px] text-white/40">{t.requiredNote[lang]}</p>
-                                    <button type="submit" className={`bg-[#d6cec6] text-[#3c4a28] text-[11px] tracking-[0.25em] px-10 py-2.5 hover:opacity-90 transition ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.send[lang]}</button>
+                                    <button type="submit" className={`bg-[#d6cec6] text-[#3c4a28] text-[11px] tracking-[0.16em] px-10 py-2.5 hover:opacity-90 transition font-medium ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.send[lang]}</button>
                                 </div>
                             </div>
                         </form>
                     </div>
 
                     {/* GET IN TOUCH — desktop only (bên phải form, giữ nguyên layout gốc) */}
-                    <div className="hidden lg:block px-12 pt-10" style={{ height: "560.766px", transform: "translate(-5px, 62px)", width: "672.391px" }}>
-                        <h2 className={`font-heading font-semibold text-black mb-5 ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", letterSpacing: "0.1em" }}>{t.getInTouch[lang]}</h2>
-                        <p className="text-sm font-medium text-gray-900 leading-relaxed mb-8 max-w-sm" style={{ height: "0.375px", transform: "translate(0px, -32px)", width: "434px" }}>{t.intro[lang]}</p>
+                    <div className="hidden lg:block px-10 xl:px-12 pt-10 lg:translate-y-14 max-w-[680px]">
+                        <h2 className={`font-heading font-normal text-black mb-5 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", letterSpacing: "0.08em" }}>{t.getInTouch[lang]}</h2>
+                        <p className="text-sm font-normal text-gray-900 leading-[1.78] tracking-[0.01em] mb-8 max-w-[44ch]">{t.intro[lang]}</p>
                         <div>
-                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal">{t.contactMs[lang]}</h3>
-                            <div className="space-y-2 text-[12px] font-medium text-gray-900" style={{ height: "54.5625px", transform: "translate(0px, -9px)" }}>
+                            <h3 className="text-sm font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase">{t.contactMs[lang]}</h3>
+                            <div className="space-y-2 text-[12px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
                                 <div className="flex items-center gap-2">
                                     <svg className="w-3.5 h-3.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
                                     <a href="mailto:uyen.tran@happyfurniturenvn.com" className="hover:text-black transition-colors">uyen.tran@happyfurniturenvn.com</a>
@@ -91,8 +91,8 @@ const Contact = () => {
                         </div>
                         <div>
                             <div className="border-t border-stone-300 my-5"></div>
-                            <h3 className="text-sm font-extrabold text-[#3c4a28] mb-3 font-sans tracking-normal" style={{ height: "0px", transform: "translate(0px, -30px)" }}>{t.contactMr[lang]}</h3>
-                            <div className="space-y-2 text-[12px] font-medium text-gray-900" style={{ height: "53.562px", transform: "translate(0px, -25px)" }}>
+                            <h3 className="text-sm font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase">{t.contactMr[lang]}</h3>
+                            <div className="space-y-2 text-[12px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
                                 <div className="flex items-center gap-2">
                                     <svg className="w-3.5 h-3.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
                                     <a href="mailto:colin.phan@happyfurniturenvn.com" className="hover:text-black transition-colors">colin.phan@happyfurniturenvn.com</a>
@@ -113,12 +113,12 @@ const Contact = () => {
 
             {/* ══ GET IN TOUCH — mobile/tablet only (hiện dưới form) ══ */}
             <section className="block lg:hidden px-4 sm:px-8 md:px-14 pt-2 pb-2">
-                <h2 className={`font-heading font-semibold text-black mb-2 text-2xl sm:text-3xl ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ letterSpacing: "0.1em" }}>{t.getInTouch[lang]}</h2>
-                <p className="text-xs sm:text-sm font-medium text-gray-900 leading-relaxed mb-3">{t.intro[lang]}</p>
+                <h2 className={`font-heading font-normal text-black mb-2 text-2xl sm:text-3xl leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ letterSpacing: "0.08em" }}>{t.getInTouch[lang]}</h2>
+                <p className="text-xs sm:text-sm font-normal text-gray-900 leading-[1.75] tracking-[0.01em] mb-3">{t.intro[lang]}</p>
                 <div className="grid grid-cols-2 gap-3 sm:gap-8">
                     <div className="min-w-0 overflow-hidden">
-                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">{t.contactMs[lang]}</h3>
-                        <div className="space-y-1.5 font-medium text-gray-900">
+                        <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em] uppercase">{t.contactMs[lang]}</h3>
+                        <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
                             <div className="flex items-center gap-1">
                                 <svg className="w-2.5 h-2.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
                                 <a href="mailto:uyen.tran@happyfurniturenvn.com" className="text-gray-900 hover:text-black transition-colors text-[8px] sm:text-[10px] whitespace-nowrap overflow-hidden text-ellipsis min-w-0 block">uyen.tran@happyfurniturenvn.com</a>
@@ -134,8 +134,8 @@ const Contact = () => {
                         </div>
                     </div>
                     <div className="min-w-0 overflow-hidden">
-                        <h3 className="text-[13px] sm:text-sm font-extrabold text-[#3c4a28] mb-2 font-sans tracking-normal">{t.contactMr[lang]}</h3>
-                        <div className="space-y-1.5 font-medium text-gray-900">
+                        <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em] uppercase">{t.contactMr[lang]}</h3>
+                        <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
                             <div className="flex items-center gap-1">
                                 <svg className="w-2.5 h-2.5 shrink-0 text-gray-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
                                 <a href="mailto:colin.phan@happyfurniturenvn.com" className="text-gray-900 hover:text-black transition-colors text-[8px] sm:text-[10px] whitespace-nowrap overflow-hidden text-ellipsis min-w-0 block">colin.phan@happyfurniturenvn.com</a>

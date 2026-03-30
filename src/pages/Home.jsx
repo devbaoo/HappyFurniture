@@ -41,7 +41,7 @@ const CategoryCard = ({ label, src, bg, className = "" }) => (
     />
     {/* Gradient layer to make text pop */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-    <span className="absolute bottom-4 right-5 text-white text-[16px] md:text-[18px] tracking-[0.15em] uppercase font-medium drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right">
+    <span className="absolute bottom-4 right-5 font-heading text-white text-[18px] md:text-[22px] tracking-[0.08em] uppercase font-normal drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right leading-none">
       {label}
     </span>
   </div>
@@ -58,7 +58,7 @@ const PromoCard = ({ label, src, bg, className = "" }) => (
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
     {label && (
-      <span className="absolute bottom-3 left-4 text-white text-[10px] tracking-widest uppercase font-light transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+      <span className="absolute bottom-3 left-4 text-white text-[10px] tracking-[0.14em] uppercase font-medium transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
         {label}
       </span>
     )}
@@ -171,10 +171,10 @@ const Home = () => {
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mt-16 md:mt-0">
           {/* TITLE */}
           <h1
-            className={`text-white font-light leading-snug md:leading-tight text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] ${lang === 'vi' ? '' : 'uppercase'}`}
+            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] md:whitespace-nowrap ${lang === 'vi' ? '' : 'uppercase'}`}
             style={{
-              letterSpacing: "0.02em",
+              letterSpacing: "0.05em",
               transitionDelay: "0.3s"
             }}
           >
@@ -184,7 +184,7 @@ const Home = () => {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <p className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             style={{ transitionDelay: "0.6s" }}>
             {h.heroSubtitle[lang]}
@@ -196,7 +196,7 @@ const Home = () => {
             style={{ transitionDelay: "0.9s" }}>
             <Link
               to="/product"
-              className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.1em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
+              className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.12em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
             >
               {h.heroCta[lang]}
             </Link>
@@ -212,11 +212,11 @@ const Home = () => {
           {/* Section title */}
           <div className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
-            <h2 className={`font-heading text-[18px] md:text-4xl font-light tracking-widest text-[#3f4a2f] mb-3 md:mb-3 ${lang === 'vi' ? '' : 'uppercase'}`}>
+            <h2 className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-3 md:mb-3 leading-[1.08] ${lang === 'vi' ? '' : 'uppercase'}`}>
               {h.categoriesHeading[lang]}
             </h2>
 
-            <p className="text-[11px] md:text-lg text-stone-600 max-w-3xl mx-auto leading-snug md:leading-relaxed mb-1 md:mb-0">
+            <p className="text-[12px] md:text-lg text-stone-600 max-w-3xl mx-auto leading-[1.75] tracking-[0.01em] mb-1 md:mb-0">
               {h.categoriesSubBeforeBreak[lang]}
               <br className="hidden md:block" />
               {` ${h.categoriesSubAfterBreak[lang]}`}
@@ -278,7 +278,7 @@ const Home = () => {
         <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.025em] md:tracking-[0.08em] leading-[1.3] md:leading-[1.4] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
@@ -314,7 +314,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
 
                 {/* caption */}
-                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
+                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md">
                   {promoCaptions[i]}
                 </p>
               </div>
@@ -332,11 +332,11 @@ const Home = () => {
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-2">
               <div className="text-center md:text-left">
-                <p className="text-[15px] md:text-base tracking-wide text-[#3f4a2f] mb-2 font-bold font-sans">
+                <p className="text-[14px] md:text-[15px] tracking-[0.12em] text-[#3f4a2f] mb-2 font-semibold uppercase font-sans">
                   {siteCopy.home.aboutKicker[lang]}
                 </p>
                 <h2
-                  className={`font-heading font-light text-[#3f4a2f] mb-4 md:mb-8 leading-snug mx-auto md:mx-0 max-w-xl md:max-w-none ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                  className={`font-heading font-normal text-[#3f4a2f] mb-4 md:mb-8 leading-[1.1] mx-auto md:mx-0 max-w-xl md:max-w-none ${lang === "vi" ? "normal-case" : "uppercase"}`}
                   style={{
                     fontSize: "clamp(1.5rem, 2.8vw, 2.45rem)",
                     letterSpacing: lang === "vi" ? "0" : "0.01em",
@@ -356,7 +356,7 @@ const Home = () => {
               {aboutParagraphs.map((text, idx) => (
                 <p
                   key={idx}
-                  className={`text-[15px] md:text-[17px] text-stone-800 font-medium leading-relaxed text-justify md:text-left ${idx < aboutParagraphs.length - 1 ? "mb-4" : ""}`}
+                  className={`text-[15px] md:text-[17px] text-stone-800 font-normal leading-[1.82] tracking-[0.01em] text-justify md:text-left ${idx < aboutParagraphs.length - 1 ? "mb-4" : ""}`}
                 >
                   {text}
                 </p>
@@ -463,12 +463,12 @@ const Home = () => {
 
         <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
           <h2
-            className={`font-serif text-[#f4ecd8] md:text-white tracking-[0.03em] md:tracking-widest mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.02] whitespace-nowrap ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+            className={`font-heading text-[#f4ecd8] md:text-white tracking-[0.05em] md:tracking-[0.08em] mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.04] whitespace-nowrap font-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             {h.factoryHeading[lang]}
           </h2>
 
-          <p className="text-[#e5e5e5] md:text-white/60 text-[9px] md:text-sm max-w-[330px] md:max-w-3xl mx-auto leading-[1.28] md:leading-relaxed">
+          <p className="text-[#e5e5e5] md:text-white/60 text-[10px] md:text-sm max-w-[330px] md:max-w-3xl mx-auto leading-[1.7] tracking-[0.01em]">
             {h.factorySub[lang]}
           </p>
         </div>
@@ -481,7 +481,7 @@ const Home = () => {
         <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-8 md:mb-16">
-            <h3 className={`text-[13px] sm:text-sm md:text-sm font-extrabold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}>
+            <h3 className={`text-[13px] sm:text-sm md:text-sm font-semibold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-[0.12em] ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}>
               {h.partnersHeading[lang]}
             </h3>
 
@@ -509,13 +509,13 @@ const Home = () => {
 
           {/* ===== Certifications ===== */}
           <div className="text-center">
-            <h3 className="text-[15px] sm:text-base md:text-lg font-extrabold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-normal uppercase">
+            <h3 className="text-[15px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase">
               {siteCopy.home.certificationsHeading[lang]}
             </h3>
 
             <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-8"></div>
 
-            <p className="text-[15px] md:text-[17px] text-stone-700 font-medium leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12 text-left md:text-center">
+            <p className="text-[15px] md:text-[17px] text-stone-700 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto mb-8 md:mb-12 text-left md:text-center">
               {siteCopy.home.certificationsIntro[lang]}
             </p>
 
@@ -542,11 +542,11 @@ const Home = () => {
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className={`font-serif lg:font-sans whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] lg:font-semibold ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
-                  letterSpacing: "0.02em",
-                  lineHeight: "1.08",
+                  letterSpacing: "0.05em",
+                  lineHeight: "1.1",
                 }}
               >
                 {h.timberHeading[lang]}
@@ -554,7 +554,7 @@ const Home = () => {
 
               <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
-                  <p key={idx} className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
+                  <p key={idx} className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0">
                     {para}
                   </p>
                 ))}
@@ -562,7 +562,7 @@ const Home = () => {
 
               {/* QUALITY */}
               <div className="mb-2 md:mb-6">
-                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
+                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
                   {h.timberQuality[lang]}
                 </p>
 
@@ -580,10 +580,10 @@ const Home = () => {
 
               {/* SIZE */}
               <div className="mb-2.5 md:mb-8">
-                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
+                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   {h.timberSize[lang]}
                 </p>
-                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal md:font-light">
+                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal leading-[1.7] tracking-[0.01em]">
                   {h.timberThickness[lang]}
                 </p>
               </div>
@@ -654,18 +654,18 @@ const Home = () => {
             {/* RIGHT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className={`font-sans mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-semibold ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+                className={`font-heading mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
                 style={{
                   fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
-                  letterSpacing: "0.03em",
-                  lineHeight: "1.2",
+                  letterSpacing: "0.06em",
+                  lineHeight: "1.12",
                 }}
               >
                 {h.newsletterTitleLine1[lang]} <br />
                 {h.newsletterTitleLine2[lang]}
               </h2>
 
-              <p className="text-[12px] md:text-[17px] font-medium text-[#303030] md:text-stone-500 mb-5 max-w-full md:max-w-[500px] leading-[1.35] md:leading-relaxed">
+              <p className="text-[12px] md:text-[17px] font-normal text-[#303030] md:text-stone-500 mb-5 max-w-full md:max-w-[500px] leading-[1.75] tracking-[0.01em]">
                 {h.newsletterBody[lang]}
               </p>
 

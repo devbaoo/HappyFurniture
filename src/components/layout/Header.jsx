@@ -13,7 +13,7 @@ const StaticNavItem = ({ to, label, end, isDark }) => (
       to={to}
       end={end}
       className={`
-        text-[12px] tracking-[0.25em] uppercase pb-1
+        text-[12px] tracking-[0.18em] uppercase pb-1
         transition-colors duration-200
         ${
           isDark
@@ -148,16 +148,16 @@ const Header = () => {
                 isDark ? "text-white" : "text-stone-800"
               }`}
             >
-              <span className="text-2xl md:text-3xl font-light">HP</span>
+              <span className="font-heading text-[28px] md:text-[34px] font-normal leading-none tracking-[0.06em]">HP</span>
               <div className="flex flex-col text-left">
-                <span className="text-xs md:text-sm tracking-widest leading-tight">
+                <span className="text-[11px] md:text-[12px] tracking-[0.18em] leading-tight uppercase">
                   HAPPY
                 </span>
-                <span className="text-xs md:text-sm tracking-widest leading-tight">
+                <span className="text-[11px] md:text-[12px] tracking-[0.18em] leading-tight uppercase">
                   FURNITURE
                 </span>
                 <span
-                  className={`text-[7px] md:text-[9px] leading-tight ${
+                  className={`text-[8px] md:text-[10px] tracking-[0.08em] leading-tight ${
                     isDark ? "text-white/70" : "text-stone-400"
                   }`}
                 >
@@ -247,7 +247,7 @@ const Header = () => {
               aria-label="Open favourites"
             >
               <Heart size={15} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
-              <span className="text-[11px] tracking-[0.16em] uppercase">
+              <span className="text-[11px] tracking-[0.14em] uppercase font-medium">
                 My Favourites
               </span>
               {favorites.length > 0 && (

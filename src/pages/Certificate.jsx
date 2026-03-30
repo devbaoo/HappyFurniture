@@ -19,7 +19,7 @@ const Certificate = () => {
         @media (max-width: 1279px) { .cert-breadcrumb { display: none !important; } }
       `}</style>
       <div className="cert-breadcrumb w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] pt-[130px] pb-4">
-        <nav className="flex items-center gap-2 text-[12px] md:text-[13px] text-stone-400 tracking-wide uppercase">
+        <nav className="flex items-center gap-2 text-[12px] md:text-[13px] text-stone-400 tracking-[0.08em] uppercase">
           <Link to="/" className="hover:text-stone-600 transition-colors">
             {c.breadcrumbHome[lang]}
           </Link>
@@ -38,12 +38,12 @@ const Certificate = () => {
             />
           </div>
           <h1
-            className="font-heading uppercase font-light mb-6 text-[#3a3530] tracking-[0.06em] md:tracking-[0.1em]"
+            className="font-heading uppercase font-normal mb-6 text-[#3a3530] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
             style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)" }}
           >
             {c.heroTitle[lang]}
           </h1>
-          <p className="text-[15px] md:text-[18px] text-stone-800 font-medium leading-relaxed max-w-3xl mx-auto text-left md:text-center">
+          <p className="text-[15px] md:text-[18px] text-stone-800 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto text-left md:text-center">
             {c.heroIntro[lang]}
           </p>
         </div>
@@ -86,10 +86,10 @@ const Certificate = () => {
                   className="h-16 md:h-20 object-contain object-left mb-4"
                   src={CERT_MEDIA[b.key]}
                 />
-                <h2 className="font-heading font-semibold text-[#2c2c2c] mb-3 text-lg md:text-xl tracking-wide leading-snug uppercase">
+                <h2 className="font-heading font-normal text-[#2c2c2c] mb-3 text-xl md:text-[22px] tracking-[0.06em] leading-[1.08] uppercase">
                   {b.heading}
                 </h2>
-                <p className="text-[15px] md:text-[17px] font-medium text-stone-600 leading-relaxed max-w-xl">
+                <p className="text-[15px] md:text-[17px] font-normal text-stone-600 leading-[1.8] tracking-[0.01em] max-w-xl">
                   {b.text}
                 </p>
               </article>
