@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useLocation, Link, NavLink } from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
-import { Menu, X } from "lucide-react";
+import { Heart, Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
@@ -209,11 +209,25 @@ const Header = () => {
             {/* Show my Favorite button */}
             <button
               onClick={() => setShowFavorites(true)}
-              className="hidden md:flex items-center gap-1.5 bg-[#2f3e2f] text-white text-[10px] tracking-widest uppercase px-3 py-1.5 hover:bg-[#1e2a1e] transition-colors whitespace-nowrap"
+              className={`hidden md:flex items-center gap-2.5 border px-4 py-2 transition-all duration-200 whitespace-nowrap ${
+                isDark
+                  ? "border-white/35 bg-white/10 text-white hover:bg-white hover:text-stone-900"
+                  : "border-stone-300 bg-white text-stone-800 hover:border-stone-800 hover:bg-stone-900 hover:text-white"
+              }`}
+              aria-label="Open favourites"
             >
-              Show my Favorite
+              <Heart size={15} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
+              <span className="text-[11px] tracking-[0.16em] uppercase">
+                My Favourites
+              </span>
               {favorites.length > 0 && (
-                <span className="bg-white text-[#2f3e2f] text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                <span
+                  className={`flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold ${
+                    isDark
+                      ? "bg-white text-stone-900"
+                      : "bg-stone-900 text-white"
+                  }`}
+                >
                   {favorites.length}
                 </span>
               )}
