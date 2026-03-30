@@ -150,8 +150,9 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Right: flags */}
-          <div className="flex items-center gap-2 md:gap-3 w-auto md:w-[300px] justify-end">
+          {/* Right: flags + favorite button */}
+          <div className="flex flex-col items-end gap-2 w-auto md:w-[300px] justify-end">
+            <div className="flex items-center gap-2 md:gap-3">
             {/* Vietnam flag */}
             <button
               type="button"
@@ -200,6 +201,16 @@ const Header = () => {
                 ))}
               </svg>
             </button>
+
+            </div>
+
+            {/* Show my Favorite button */}
+            <Link
+              to="/favorite"
+              className="hidden md:flex items-center gap-1.5 bg-[#2f3e2f] text-white text-[10px] tracking-widest uppercase px-3 py-1.5 hover:bg-[#1e2a1e] transition-colors whitespace-nowrap"
+            >
+              Show my Favorite
+            </Link>
           </div>
         </div>
       </div>
