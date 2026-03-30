@@ -41,7 +41,7 @@ const CategoryCard = ({ label, src, bg, className = "" }) => (
     />
     {/* Gradient layer to make text pop */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-    <span className="absolute bottom-4 right-5 font-heading text-white text-[18px] md:text-[22px] tracking-[0.08em] uppercase font-normal drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right leading-none">
+    <span className="absolute bottom-4 right-5 font-sans text-white text-[13px] md:text-[15px] tracking-[0.08em] uppercase font-normal drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right leading-none">
       {label}
     </span>
   </div>
@@ -307,7 +307,7 @@ const Home = () => {
                 <Img
                   src={item.src}
                   alt={promoCaptions[i]}
-                className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
+                  className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
 
                 {/* overlay */}
