@@ -8,6 +8,7 @@ const LENS_PCT = 34;
 
 /**
  * Thumbnails + main image with hover magnifier + zoom result panel (desktop).
+ * Mobile keeps the same structure: thumbnails left, main right; swatches below the image row.
  */
 const ProductGalleryMagnifier = ({
   images = [],
@@ -68,9 +69,9 @@ const ProductGalleryMagnifier = ({
   };
 
   return (
-    <div className="flex min-w-0 gap-4 overflow-visible">
+    <div className="flex min-w-0 flex-row gap-1.5 overflow-visible lg:gap-4">
       {canNavigate && (
-        <div className="flex w-20 shrink-0 flex-col gap-3">
+        <div className="flex w-14 shrink-0 flex-col gap-1.5 lg:w-20 lg:gap-3">
           {sorted.map((img, i) => {
             const isActive = activeIndex === i;
             return (
@@ -78,10 +79,10 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => onActiveIndexChange(i)}
-                  className={`h-16 w-16 shrink-0 overflow-hidden border-2 transition-all duration-300 ${
+                  className={`h-14 w-14 shrink-0 overflow-hidden border-2 transition-all duration-300 lg:h-16 lg:w-16 ${
                     isActive
                       ? "border-stone-900 opacity-100"
-                      : "border-border opacity-[0.38] hover:opacity-[0.72] hover:border-stone-400"
+                      : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
                   }`}
                   aria-label={`View image ${i + 1}`}
                   aria-current={isActive ? "true" : undefined}
@@ -106,7 +107,6 @@ const ProductGalleryMagnifier = ({
         </div>
       )}
 
-      {/* Main column: ảnh + thanh màu bên dưới (không overlay) */}
       <div className="relative flex min-w-0 flex-1 flex-col overflow-visible">
         <div className="relative w-full">
           <div
@@ -128,7 +128,7 @@ const ProductGalleryMagnifier = ({
 
             {zoomActive && url && (
               <div
-                className="pointer-events-none absolute z-[8] border border-white/70 bg-white/25 shadow-sm backdrop-blur-[0.5px]"
+                className="pointer-events-none absolute z-[8] hidden border border-white/70 bg-white/25 shadow-sm backdrop-blur-[0.5px] lg:block"
                 style={{
                   width: `${LENS_PCT}%`,
                   height: `${LENS_PCT}%`,
@@ -145,7 +145,7 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => go(-1)}
-                  className="absolute left-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
+                  className="absolute left-0 top-1/2 z-10 hidden h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white shadow-sm transition-opacity duration-200 hover:bg-stone-50 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Previous image"
                 >
                   <ChevronLeft
@@ -156,7 +156,7 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => go(1)}
-                  className="absolute right-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
+                  className="absolute right-0 top-1/2 z-10 hidden h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white shadow-sm transition-opacity duration-200 hover:bg-stone-50 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Next image"
                 >
                   <ChevronRight
@@ -181,7 +181,6 @@ const ProductGalleryMagnifier = ({
             )}
           </div>
 
-          {/* Zoom result: chỉ hiện khi hover ảnh chính (desktop) */}
           {zoomActive && url && (
             <div
               className="pointer-events-none absolute left-full top-0 z-20 ml-3 hidden overflow-hidden border border-border bg-white shadow-md lg:block"
@@ -204,7 +203,13 @@ const ProductGalleryMagnifier = ({
         </div>
 
         {showColorBar && (
-          <div className="w-full border-t border-border pt-3">
+          <div
+            className={`w-full border-t-2 border-[#3c4a28] pt-3 mt-3 lg:mt-4 ${
+              canNavigate
+                ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
+                : ""
+            }`}
+          >
             <div className="flex flex-wrap items-center gap-2">
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
@@ -215,7 +220,7 @@ const ProductGalleryMagnifier = ({
                     title={v.colorName}
                     aria-label={v.colorName}
                     onClick={() => onSelectVariant(v)}
-                    className={`h-2.5 min-w-[4.5rem] shrink-0 rounded-sm border-2 shadow-sm transition-all sm:h-3 sm:min-w-[5.5rem] ${
+                    className={`h-3 min-w-[5rem] shrink-0 rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
                       selected
                         ? "border-primary ring-1 ring-primary ring-offset-1"
                         : "border-border hover:border-secondary"
