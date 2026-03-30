@@ -5,10 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const PLACEHOLDER_COUNT = 5;
 
 const ProductCard = ({
-    id = "1",       // accepts slug string or numeric id fallback
+    id = "1",
     name = "Bocce Taupe Sheepskin Upholstered Bench",
-    price = "1000$",
-    oldPrice = null,
     images = [],
     className = "",
     isFavorited = false,
@@ -112,7 +110,7 @@ const ProductCard = ({
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        onToggleFavorite?.({ id, name, images, price, oldPrice });
+                        onToggleFavorite?.({ id, name, images });
                     }}
                     className={`absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center transition-opacity duration-200 ${isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                     aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
@@ -170,16 +168,6 @@ const ProductCard = ({
             <p className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-stone-900 sm:text-[15px]">
                 {name}
             </p>
-
-            {/* Price */}
-            <div className="flex flex-wrap items-baseline gap-2">
-                <span className="text-base font-semibold tabular-nums tracking-tight text-primary sm:text-[17px]">
-                    {price}
-                </span>
-                {oldPrice && (
-                    <span className="text-xs text-muted line-through tabular-nums sm:text-sm">{oldPrice}</span>
-                )}
-            </div>
         </Link>
     );
 };

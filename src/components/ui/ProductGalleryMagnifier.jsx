@@ -14,6 +14,9 @@ const ProductGalleryMagnifier = ({
   activeIndex,
   onActiveIndexChange,
   productName = "",
+  variants = [],
+  selectedVariant = null,
+  onSelectVariant = null,
 }) => {
   const containerRef = useRef(null);
   const [zoomActive, setZoomActive] = useState(false);
@@ -24,6 +27,15 @@ const ProductGalleryMagnifier = ({
   const current = sorted[activeIndex];
   const url = current?.imageUrl ?? null;
   const canNavigate = n > 1;
+  const activeVariants = variants?.filter((v) => v.isActive) ?? [];
+  const showColorBar =
+    activeVariants.length > 0 && typeof onSelectVariant === "function";
+
+  const swatchBg = (v) => {
+    const c = v?.colorCode;
+    if (!c) return "#888";
+    return String(c).startsWith("#") ? c : `#${c}`;
+  };
 
   const handleMove = useCallback(
     (e) => {
@@ -39,7 +51,7 @@ const ProductGalleryMagnifier = ({
         y: Math.max(0, Math.min(100, y)),
       });
     },
-    [url]
+    [url],
   );
 
   const handleEnter = useCallback(() => {
@@ -58,121 +70,161 @@ const ProductGalleryMagnifier = ({
   return (
     <div className="flex min-w-0 gap-4 overflow-visible">
       {canNavigate && (
-        <div className="flex w-20 shrink-0 flex-col gap-2">
-          {sorted.map((img, i) => (
-            <button
-              key={img.id ?? i}
-              type="button"
-              onClick={() => onActiveIndexChange(i)}
-              className={`h-16 w-16 shrink-0 overflow-hidden border-2 transition-all duration-200 ${
-                activeIndex === i
-                  ? "border-primary"
-                  : "border-border hover:border-secondary"
-              }`}
-              aria-label={`View image ${i + 1}`}
-            >
-              <img
-                src={img.imageUrl}
-                alt={img.altText || productName}
-                className="h-full w-full object-cover"
-              />
-            </button>
-          ))}
+        <div className="flex w-20 shrink-0 flex-col gap-3">
+          {sorted.map((img, i) => {
+            const isActive = activeIndex === i;
+            return (
+              <div key={img.id ?? i} className="flex flex-col gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => onActiveIndexChange(i)}
+                  className={`h-16 w-16 shrink-0 overflow-hidden border-2 transition-all duration-300 ${
+                    isActive
+                      ? "border-stone-900 opacity-100"
+                      : "border-border opacity-[0.38] hover:opacity-[0.72] hover:border-stone-400"
+                  }`}
+                  aria-label={`View image ${i + 1}`}
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  <img
+                    src={img.imageUrl}
+                    alt={img.altText || productName}
+                    className={`h-full w-full object-cover transition-[filter] duration-300 ${
+                      isActive ? "" : "blur-[0.85px]"
+                    }`}
+                  />
+                </button>
+                <div
+                  aria-hidden
+                  className={`h-[3px] w-full shrink-0 transition-colors duration-300 ${
+                    isActive ? "bg-stone-900" : "bg-transparent"
+                  }`}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
 
-      {/* Main image uses full gallery column width again; zoom panel is flyout (absolute) */}
-      <div className="relative min-w-0 flex-1 overflow-visible">
-        <div
-          ref={containerRef}
-          className="group/main relative aspect-square w-full cursor-default overflow-hidden bg-surface lg:cursor-crosshair"
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-          onMouseMove={handleMove}
-        >
-          {current ? (
-            <img
-              src={current.imageUrl}
-              alt={current.altText || productName}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="h-full w-full bg-surface" />
-          )}
+      {/* Main column: ảnh + thanh màu bên dưới (không overlay) */}
+      <div className="relative flex min-w-0 flex-1 flex-col overflow-visible">
+        <div className="relative w-full">
+          <div
+            ref={containerRef}
+            className="group/main relative aspect-square w-full cursor-default overflow-hidden bg-surface lg:cursor-crosshair"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+            onMouseMove={handleMove}
+          >
+            {current ? (
+              <img
+                src={current.imageUrl}
+                alt={current.altText || productName}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="h-full w-full bg-surface" />
+            )}
 
+            {zoomActive && url && (
+              <div
+                className="pointer-events-none absolute z-[8] border border-white/70 bg-white/25 shadow-sm backdrop-blur-[0.5px]"
+                style={{
+                  width: `${LENS_PCT}%`,
+                  height: `${LENS_PCT}%`,
+                  left: `${pos.x}%`,
+                  top: `${pos.y}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+                aria-hidden
+              />
+            )}
+
+            {canNavigate && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => go(-1)}
+                  className="absolute left-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft
+                    className="h-3 w-3 text-stone-900"
+                    strokeWidth={1}
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => go(1)}
+                  className="absolute right-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
+                  aria-label="Next image"
+                >
+                  <ChevronRight
+                    className="h-3 w-3 text-stone-900"
+                    strokeWidth={1}
+                  />
+                </button>
+                <div
+                  className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] flex gap-0.5 px-1.5 pb-1.5"
+                  aria-hidden
+                >
+                  {sorted.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-0.5 flex-1 rounded-full transition-colors ${
+                        i === activeIndex ? "bg-stone-800" : "bg-white/60"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Zoom result: chỉ hiện khi hover ảnh chính (desktop) */}
           {zoomActive && url && (
             <div
-              className="pointer-events-none absolute z-[8] border border-white/70 bg-white/25 shadow-sm backdrop-blur-[0.5px]"
+              className="pointer-events-none absolute left-full top-0 z-20 ml-3 hidden overflow-hidden border border-border bg-white shadow-md lg:block"
               style={{
-                width: `${LENS_PCT}%`,
-                height: `${LENS_PCT}%`,
-                left: `${pos.x}%`,
-                top: `${pos.y}%`,
-                transform: "translate(-50%, -50%)",
+                height: "min(100%, 420px)",
+                width: "min(100%, 420px)",
               }}
               aria-hidden
-            />
-          )}
-
-          {canNavigate && (
-            <>
-              <button
-                type="button"
-                onClick={() => go(-1)}
-                className="absolute left-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
-                aria-label="Previous image"
-              >
-                <ChevronLeft
-                  className="h-3 w-3 text-stone-900"
-                  strokeWidth={1}
-                />
-              </button>
-              <button
-                type="button"
-                onClick={() => go(1)}
-                className="absolute right-0 top-1/2 z-10 flex h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white opacity-0 shadow-sm transition-opacity duration-200 group-hover/main:opacity-100 hover:bg-stone-50"
-                aria-label="Next image"
-              >
-                <ChevronRight
-                  className="h-3 w-3 text-stone-900"
-                  strokeWidth={1}
-                />
-              </button>
+            >
               <div
-                className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] flex gap-0.5 px-1.5 pb-1.5"
-                aria-hidden
-              >
-                {sorted.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`h-0.5 flex-1 rounded-full transition-colors ${
-                      i === activeIndex ? "bg-stone-800" : "bg-white/60"
-                    }`}
-                  />
-                ))}
-              </div>
-            </>
+                className="h-full w-full bg-no-repeat"
+                style={{
+                  backgroundImage: `url(${JSON.stringify(url)})`,
+                  backgroundSize: `${ZOOM_BG_SIZE_PCT}%`,
+                  backgroundPosition: `${pos.x}% ${pos.y}%`,
+                }}
+              />
+            </div>
           )}
         </div>
 
-        {/* Zoom result: chỉ hiện khi hover ảnh chính (desktop) */}
-        {zoomActive && url && (
-          <div
-            className="pointer-events-none absolute left-full top-0 z-20 ml-3 hidden overflow-hidden border border-border bg-white shadow-md lg:block"
-            style={{
-              height: "min(100%, 420px)",
-              width: "min(100%, 420px)",
-            }}
-            aria-hidden
-          >
-            <div
-              className="h-full w-full bg-no-repeat"
-              style={{
-                backgroundImage: `url(${JSON.stringify(url)})`,
-                backgroundSize: `${ZOOM_BG_SIZE_PCT}%`,
-                backgroundPosition: `${pos.x}% ${pos.y}%`,
-              }}
-            />
+        {showColorBar && (
+          <div className="w-full border-t border-border pt-3">
+            <div className="flex flex-wrap items-center gap-2">
+              {activeVariants.map((v) => {
+                const selected = selectedVariant?.id === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    title={v.colorName}
+                    aria-label={v.colorName}
+                    onClick={() => onSelectVariant(v)}
+                    className={`h-2.5 min-w-[4.5rem] shrink-0 rounded-sm border-2 shadow-sm transition-all sm:h-3 sm:min-w-[5.5rem] ${
+                      selected
+                        ? "border-primary ring-1 ring-primary ring-offset-1"
+                        : "border-border hover:border-secondary"
+                    }`}
+                    style={{ backgroundColor: swatchBg(v) }}
+                  />
+                );
+              })}
+            </div>
           </div>
         )}
       </div>
