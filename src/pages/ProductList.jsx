@@ -8,9 +8,6 @@ import useMegaMenu from "../hooks/useMegaMenu";
 import { useFavorites } from "../context/FavoritesContext";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
-const formatPrice = (price) =>
-  price != null ? `${Number(price).toLocaleString()}$` : null;
-
 const SORT_OPTIONS = [
   { value: "", label: "Default" },
   { value: "price_asc", label: "Price: Low → High" },
@@ -508,8 +505,6 @@ const ProductList = () => {
                   key={p.id}
                   id={p.slug ?? String(p.id)}
                   name={p.name}
-                  price={formatPrice(p.price)}
-                  oldPrice={formatPrice(p.oldPrice)}
                   images={p.images ?? []}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
@@ -535,8 +530,6 @@ const ProductList = () => {
                   name={p.name}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
-                  price={formatPrice(p.price)}
-                  oldPrice={formatPrice(p.oldPrice)}
                   images={p.images ?? []}
                 />
               ))}
