@@ -32,12 +32,12 @@ const Footer = () => {
                     {/* LOGO */}
                     <div className="col-span-2 md:col-span-1">
                         <div className="flex items-center gap-4 mb-3">
-                            <div className="text-3xl font-bold">HP</div>
+                            <div className="font-heading text-[34px] font-normal leading-none tracking-[0.06em]">HP</div>
                             <div>
-                                <p className="text-base font-semibold leading-none">
+                                <p className="text-base font-semibold leading-none tracking-[0.12em] uppercase">
                                     HAPPY<br />FURNITURE
                                 </p>
-                                <p className={`text-[10px] ${isLightFooter ? 'text-stone-500' : 'text-white/70'}`}>
+                                <p className={`text-[10px] tracking-[0.06em] ${isLightFooter ? 'text-stone-500' : 'text-white/70'}`}>
                                     Make life more convenient
                                 </p>
                             </div>
@@ -46,7 +46,7 @@ const Footer = () => {
 
                     {/* PRODUCT */}
                     <div>
-                        <h3 className="font-semibold mb-3 text-base">PRODUCT</h3>
+                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">PRODUCT</h3>
                         <ul className={`space-y-1.5 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
                             {footerLinks.Product.map((link, index) => (
                                 <li key={index}>{link}</li>
@@ -56,7 +56,7 @@ const Footer = () => {
 
                     {/* SUPPORT */}
                     <div>
-                        <h3 className="font-semibold mb-3 text-base">SUPPORT</h3>
+                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">SUPPORT</h3>
                         <ul className={`space-y-1.5 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
                             {footerLinks.Support.map((link, index) => (
                                 <li key={index}>{link}</li>
@@ -66,9 +66,9 @@ const Footer = () => {
 
                     {/* CONTACT */}
                     <div className="col-span-2 md:col-span-1">
-                        <h3 className="font-semibold mb-3 text-base">CONTACT US</h3>
+                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">CONTACT US</h3>
 
-                        <div className={`space-y-4 text-sm leading-relaxed font-light ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
+                        <div className={`space-y-4 text-sm leading-[1.75] tracking-[0.01em] font-normal ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
 
                             <div className="flex gap-4">
                                 <svg className="w-2 h-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@ const Footer = () => {
                 <div className={`mt-0 md:mt-2 pb-6 md:pb-4 border-t md:border-t-0 ${isLightFooter ? 'border-stone-200' : 'border-white/10'}`}>
 
                     <div className="flex items-center gap-6 mb-4 pt-5 md:pt-0">
-                        <span className="text-sm font-semibold">Social</span>
+                        <span className="text-sm font-semibold tracking-[0.12em] uppercase">Social</span>
                         <div className={`flex-1 h-px ${isLightFooter ? 'bg-stone-500' : 'bg-white/30'}`}></div>
                     </div>
 
@@ -154,7 +154,7 @@ const Footer = () => {
                         </div>
 
                         {/* COPYRIGHT */}
-                        <p className={`text-[12px] md:text-[13px] md:whitespace-nowrap md:ml-auto md:text-right leading-relaxed ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
+                        <p className={`text-[12px] md:text-[13px] md:whitespace-nowrap md:ml-auto md:text-right leading-[1.75] tracking-[0.01em] ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
                             ©2026 All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 

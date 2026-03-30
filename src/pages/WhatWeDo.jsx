@@ -68,7 +68,7 @@ export default function WhatWeDo() {
         {/* subtle dark gradient at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-center pb-[5%]">
-          <h1 className={`hidden md:block font-heading text-white text-4xl md:text-5xl tracking-[0.25em] font-light ${lang === "vi" ? "normal-case" : "uppercase"}`}>
+          <h1 className={`hidden md:block font-heading text-white text-4xl md:text-5xl tracking-[0.1em] font-normal leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
             {w.heroTitle[lang]}
           </h1>
         </div>
@@ -129,7 +129,7 @@ export default function WhatWeDo() {
       <section className="bg-[#d8d1c9] py-5 md:py-24">
         <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <h2
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.025em] md:tracking-[0.08em] leading-[1.3] md:leading-[1.4] md:-translate-y-[33.3334px] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] md:-translate-y-[33.3334px] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
           >
             <span className="md:hidden">
               <span className="whitespace-nowrap">{h.promoLineMobile1[lang]}</span> <br />
@@ -159,7 +159,7 @@ export default function WhatWeDo() {
                   className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
-                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-wide drop-shadow-md">
+                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md">
                   {promoCaptions[i]}
                 </p>
               </div>
@@ -231,11 +231,11 @@ export default function WhatWeDo() {
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className={`font-serif lg:font-sans whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] lg:font-semibold ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
-                  letterSpacing: "0.02em",
-                  lineHeight: "1.08",
+                  letterSpacing: "0.05em",
+                  lineHeight: "1.1",
                 }}
               >
                 {h.timberHeading[lang]}
@@ -243,7 +243,7 @@ export default function WhatWeDo() {
 
               <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
-                  <p key={idx} className="leading-[1.38] md:leading-relaxed text-left md:text-left pr-1 md:pr-0">
+                  <p key={idx} className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0">
                     {para}
                   </p>
                 ))}
@@ -251,7 +251,7 @@ export default function WhatWeDo() {
 
               {/* QUALITY */}
               <div className="mb-2 md:mb-6">
-                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
+                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
                   {h.timberQuality[lang]}
                 </p>
 
@@ -269,10 +269,10 @@ export default function WhatWeDo() {
 
               {/* SIZE */}
               <div className="mb-2.5 md:mb-8">
-                <p className="text-[13px] md:text-xs tracking-normal md:tracking-[0.2em] font-bold md:font-medium capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
+                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   {h.timberSize[lang]}
                 </p>
-                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal md:font-light">
+                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal leading-[1.7] tracking-[0.01em]">
                   {h.timberThickness[lang]}
                 </p>
               </div>
@@ -281,7 +281,7 @@ export default function WhatWeDo() {
               <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.12em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
                 >
                   {h.timberCta[lang]}
                 </Link>

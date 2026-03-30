@@ -32,7 +32,7 @@ const AccordionRow = ({ label, children, defaultOpen = false }) => {
         className="flex w-full items-center justify-between py-3.5 text-left hover:bg-surface/50 transition-colors"
         aria-expanded={open}
       >
-        <span className="text-sm font-medium text-primary">{label}</span>
+        <span className="text-sm font-medium tracking-[0.04em] text-primary">{label}</span>
         <svg
           className={`w-4 h-4 text-muted transition-transform duration-200 ${open ? "rotate-90" : ""}`}
           viewBox="0 0 24 24"
@@ -50,7 +50,7 @@ const AccordionRow = ({ label, children, defaultOpen = false }) => {
       <div
         className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[600px] pb-4" : "max-h-0"}`}
       >
-        <div className="text-sm text-secondary leading-relaxed">{children}</div>
+        <div className="text-sm text-secondary leading-[1.78] tracking-[0.01em]">{children}</div>
       </div>
     </div>
   );
@@ -167,7 +167,7 @@ const ProductDetail = () => {
         <p className="text-sm text-red-500">{error ?? "Product not found"}</p>
         <Link
           to="/product"
-          className="text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
+          className="text-xs tracking-[0.14em] uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
         >
           Back to Products
         </Link>
@@ -182,7 +182,7 @@ const ProductDetail = () => {
         <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 py-3 text-left text-xs text-muted"
+            className="flex items-center gap-2 py-3 text-left text-xs text-muted tracking-[0.08em]"
           >
             <Link to="/" className="hover:text-primary transition-colors">
               Home
@@ -229,10 +229,10 @@ const ProductDetail = () => {
             {/* ── RIGHT: Product info ───────────────────────────── */}
             <div className="flex flex-col text-left items-stretch">
               {/* Name */}
-              <h1 className="mb-1 font-heading font-light text-2xl uppercase tracking-wide leading-tight lg:text-3xl">
+              <h1 className="mb-1 font-heading font-normal text-2xl uppercase tracking-[0.07em] leading-[1.08] lg:text-3xl">
                 {product.name}
               </h1>
-              <p className="mb-3 text-sm text-muted tracking-wide">
+              <p className="mb-3 text-sm text-muted tracking-[0.1em] uppercase">
                 #{product.slug || String(product.id)}
               </p>
 
@@ -245,7 +245,7 @@ const ProductDetail = () => {
                     images: sortedImages,
                   })
                 }
-                className="mb-3 flex w-full items-center justify-center gap-2 bg-[#3c4a28] py-3.5 text-xs font-medium uppercase tracking-widest text-white transition-colors hover:bg-[#4a5a34]"
+                className="mb-3 flex w-full items-center justify-center gap-2 bg-[#3c4a28] py-3.5 text-xs font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a5a34]"
               >
                 {isFavorited ? "Saved to favourites" : "Add your favourite"}
                 <svg
@@ -265,7 +265,7 @@ const ProductDetail = () => {
 
               {/* Description */}
               {product.description && (
-                <p className="text-sm text-secondary leading-relaxed mb-4">
+                <p className="text-sm text-secondary leading-[1.8] tracking-[0.01em] mb-4">
                   {product.description}
                 </p>
               )}
@@ -348,7 +348,7 @@ const ProductDetail = () => {
       {recentlyViewed.length > 0 && (
         <section className="py-6 border-t border-border bg-white">
           <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
-            <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
+            <h3 className="font-heading text-lg uppercase tracking-[0.08em] font-normal mb-4 text-primary leading-[1.08]">
               Recently Viewed
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">

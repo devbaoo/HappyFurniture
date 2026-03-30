@@ -29,10 +29,10 @@ const FavoriteModal = () => {
               <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
             </svg>
             <div>
-              <h2 className="font-heading text-[30px] md:text-[34px] font-light tracking-[0.12em] uppercase text-[#222] leading-none">
+              <h2 className="font-heading text-[30px] md:text-[34px] font-normal tracking-[0.08em] uppercase text-[#222] leading-[0.98]">
                 My Favourites
               </h2>
-              <p className="text-xs md:text-[13px] tracking-[0.18em] text-[#777] mt-2 uppercase font-sans">
+              <p className="text-xs md:text-[13px] tracking-[0.14em] text-[#777] mt-2 uppercase font-sans">
                 {favorites.length} {favorites.length === 1 ? "item" : "items"} saved
               </p>
             </div>
@@ -97,10 +97,10 @@ const FavoriteModal = () => {
 
                     {/* Info */}
                     <div className="flex-1 min-w-0 self-start pt-1">
-                      <p className="font-heading text-[21px] md:text-[22px] font-medium text-[#252525] line-clamp-2 leading-[1.05] tracking-[0.03em]">
+                      <p className="font-heading text-[21px] md:text-[22px] font-normal text-[#252525] line-clamp-2 leading-[1.08] tracking-[0.02em]">
                         {p.name}
                       </p>
-                      <p className="font-sans text-xs md:text-[13px] text-[#7b7b7b] mt-2 tracking-[0.16em] uppercase">
+                      <p className="font-sans text-xs md:text-[13px] text-[#7b7b7b] mt-2 tracking-[0.12em] uppercase">
                         Ref. {String(p.id).toUpperCase()}
                       </p>
                       {p.price && (
@@ -130,12 +130,12 @@ const FavoriteModal = () => {
         {/* ── Footer ── */}
         {favorites.length > 0 && (
           <div className="border-t border-[#f0f0f0] px-6 py-4 md:px-8 md:py-5 flex items-center justify-between print:hidden">
-            <p className="font-sans text-xs text-[#8a8a8a] tracking-[0.14em] uppercase">
+            <p className="font-sans text-xs text-[#8a8a8a] tracking-[0.12em] uppercase">
               {favorites.length} saved item{favorites.length !== 1 ? "s" : ""}
             </p>
             <button
               onClick={() => setShowFavorites(false)}
-              className="font-sans text-xs tracking-[0.16em] uppercase text-[#7d7d7d] hover:text-[#1a1a1a] transition-colors"
+              className="font-sans text-xs tracking-[0.12em] uppercase text-[#7d7d7d] hover:text-[#1a1a1a] transition-colors"
             >
               Close
             </button>

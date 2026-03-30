@@ -42,7 +42,7 @@ const PriceFilter = ({ min, max, onChange }) => {
         onChange={(e) => setLocalMin(e.target.value)}
         onBlur={commit}
         onKeyDown={(e) => e.key === "Enter" && commit()}
-        className="w-24 border border-border px-3 py-1.5 text-xs outline-none focus:border-primary transition-colors"
+        className="w-24 border border-border px-3 py-1.5 text-xs tracking-[0.02em] outline-none focus:border-primary transition-colors"
       />
       <span className="text-muted text-xs">—</span>
       <input
@@ -52,7 +52,7 @@ const PriceFilter = ({ min, max, onChange }) => {
         onChange={(e) => setLocalMax(e.target.value)}
         onBlur={commit}
         onKeyDown={(e) => e.key === "Enter" && commit()}
-        className="w-24 border border-border px-3 py-1.5 text-xs outline-none focus:border-primary transition-colors"
+        className="w-24 border border-border px-3 py-1.5 text-xs tracking-[0.02em] outline-none focus:border-primary transition-colors"
       />
     </div>
   );
@@ -82,7 +82,7 @@ const FilterDropdown = ({ label, active, children }) => {
           }`}
         style={{ border: "1px solid #d8d8d8" }}
       >
-        <span className="font-light tracking-wide">{label}</span>
+        <span className="font-medium tracking-[0.08em]">{label}</span>
         <ChevronDown
           size={14}
           strokeWidth={1}
@@ -281,7 +281,7 @@ const ProductList = () => {
       {/* ── Breadcrumb ───────────────────────────────────────────── */}
       <div className="border-b border-border">
         <Container>
-          <nav aria-label="Breadcrumb" className="py-3 flex items-center gap-2 text-xs text-muted">
+          <nav aria-label="Breadcrumb" className="py-3 flex items-center gap-2 text-xs text-muted tracking-[0.08em]">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
             <Link to="/product" className="hover:text-primary transition-colors">Products</Link>
@@ -324,7 +324,7 @@ const ProductList = () => {
                       : "bg-[#aaa] group-hover:bg-[#888]"
                       }`}
                   >
-                    <span className="text-white text-[10px] font-semibold tracking-wider px-2 pb-2 uppercase text-center w-full truncate">
+                    <span className="text-white text-[10px] font-semibold tracking-[0.12em] px-2 pb-2 uppercase text-center w-full truncate">
                       All
                     </span>
                   </div>
@@ -355,7 +355,7 @@ const ProductList = () => {
                         <div className="absolute inset-0 bg-[#888] group-hover:bg-[#666] transition-colors duration-300" />
                       )}
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
-                      <span className="relative text-white text-[10px] font-semibold tracking-wider text-center leading-tight px-2 pb-2 uppercase z-10 w-full truncate">
+                      <span className="relative text-white text-[10px] font-semibold tracking-[0.12em] text-center leading-tight px-2 pb-2 uppercase z-10 w-full truncate">
                         {cat.name.trim()}
                       </span>
                     </div>
@@ -388,11 +388,11 @@ const ProductList = () => {
 
             {/* Left side: FILTER button */}
             <button
-              className="flex items-center justify-center gap-2 px-6 h-[40px] min-w-[120px] text-[14px] bg-white text-[#333] tracking-widest hover:border-[#a0a0a0] transition-colors mr-3"
+              className="flex items-center justify-center gap-2 px-6 h-[40px] min-w-[120px] text-[14px] bg-white text-[#333] tracking-[0.14em] hover:border-[#a0a0a0] transition-colors mr-3"
               style={{ border: "1px solid #d8d8d8" }}
             >
               <SlidersHorizontal size={14} strokeWidth={1.2} />
-              <span className="font-light">FILTER</span>
+              <span className="font-medium">FILTER</span>
             </button>
 
             {/* Middle: Dropdowns all aligned to the left next to Filter */}
@@ -401,7 +401,7 @@ const ProductList = () => {
             </FilterDropdown>
 
             <FilterDropdown label="Price" active={!!(minPrice || maxPrice)}>
-              <p className="text-[10px] tracking-widest uppercase text-muted mb-3">Price Range</p>
+              <p className="text-[10px] tracking-[0.12em] uppercase text-muted mb-3">Price Range</p>
               <PriceFilter
                 min={minPrice}
                 max={maxPrice}
@@ -410,7 +410,7 @@ const ProductList = () => {
               {(minPrice || maxPrice) && (
                 <button
                   onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}
-                  className="mt-4 text-[11px] text-muted hover:text-primary tracking-wide border border-border w-full py-1.5"
+                  className="mt-4 text-[11px] text-muted hover:text-primary tracking-[0.08em] border border-border w-full py-1.5"
                 >
                   Clear Price
                 </button>
@@ -439,19 +439,19 @@ const ProductList = () => {
           <Container>
             <div className="flex items-center gap-2 py-2 flex-wrap">
               {nameFilter && (
-                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Name: {nameFilter}
                   <button onClick={() => applyFilter(() => setNameFilter(""))}><X size={10} /></button>
                 </span>
               )}
               {(minPrice || maxPrice) && (
-                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Price: {minPrice || "0"}$ – {maxPrice || "∞"}$
                   <button onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}><X size={10} /></button>
                 </span>
               )}
               {sortBy && (
-                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-wide uppercase">
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Sort: {SORT_OPTIONS.find((o) => o.value === sortBy)?.label}
                   <button onClick={() => applyFilter(() => setSortBy(""))}><X size={10} /></button>
                 </span>
@@ -475,7 +475,7 @@ const ProductList = () => {
               <p className="text-sm text-red-500 mb-4">Failed to load products: {error}</p>
               <button
                 onClick={fetchProducts}
-                className="text-xs tracking-widest uppercase border border-primary px-6 py-2 hover:bg-primary hover:text-white transition-colors"
+                className="text-xs tracking-[0.14em] uppercase border border-primary px-6 py-2 hover:bg-primary hover:text-white transition-colors"
               >
                 Retry
               </button>
@@ -485,12 +485,12 @@ const ProductList = () => {
           {!loading && !error && products.length === 0 && (
             <div className="py-16 text-center">
               <SlidersHorizontal size={32} className="mx-auto text-muted mb-4" strokeWidth={1} />
-              <p className="text-sm text-muted tracking-wide mb-2">No products found</p>
+              <p className="text-sm text-muted tracking-[0.02em] mb-2">No products found</p>
               <p className="text-xs text-muted/60">Try adjusting your filters</p>
               {hasActiveFilters && (
                 <button
                   onClick={clearAll}
-                  className="mt-4 text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
+                  className="mt-4 text-xs tracking-[0.14em] uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
                 >
                   Clear filters
                 </button>
@@ -519,7 +519,7 @@ const ProductList = () => {
       {recentlyViewed.length > 0 && (
         <section className="py-6 border-t border-border">
           <Container>
-            <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
+            <h3 className="font-heading text-lg uppercase tracking-[0.08em] font-normal mb-4 text-primary leading-[1.08]">
               Recently Viewed
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-2">

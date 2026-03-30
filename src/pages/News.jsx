@@ -12,20 +12,20 @@ const News = () => {
 
     return (
         <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-4 pt-28 font-sans bg-white relative">
-            <h1 className={`text-3xl lg:text-4xl tracking-widest font-light mb-4 text-center ${lang === "vi" ? "normal-case" : "uppercase"}`}>
+            <h1 className={`font-heading text-3xl lg:text-4xl tracking-[0.08em] font-normal mb-4 text-center leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
                 {n.title[lang]}
             </h1>
 
-            <div className="mb-6 text-sm text-gray-500 tracking-wide text-left">
+            <div className="mb-6 text-sm text-gray-500 tracking-[0.08em] text-left">
                 <Link to="/" className="hover:text-black transition-colors uppercase">{navHome}</Link>
                 {" / "}
                 <span className="text-black uppercase">{n.breadcrumbCurrent[lang]}</span>
             </div>
 
-            <section className="mb-12" style={{ height: "450.375px", transform: "translate(0px, -62px)" }}>
-                <h2 className={`text-2xl md:text-3xl font-serif text-center tracking-widest mb-6 ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ height: "25px", transform: "translate(0px, 19px)" }}>{n.eventSection[lang]}</h2>
+            <section className="mb-12 pt-2">
+                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-8 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.eventSection[lang]}</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-6" style={{ height: "334.375px" }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-6">
                     {exhibitionYears.map((year, idx) => (
                         <div key={year} className="flex flex-col group cursor-pointer">
                             <div className="w-full h-64 bg-gray-200 overflow-hidden">
@@ -33,19 +33,16 @@ const News = () => {
                                     alt={`${n.altEvent[lang]} ${year}`}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=600&h=400"
-                                    style={idx === 0 ? { width: "474px" } : undefined}
                                 />
                             </div>
                             <div className="bg-gray-50 p-6 flex flex-col flex-1 border border-t-0 border-gray-100">
                                 <h3
-                                    className={`font-bold text-black mb-3 text-lg leading-tight group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}
-                                    style={{ height: "24px", transform: "translate(0px, -28px)" }}
+                                    className={`font-heading font-normal text-black mb-3 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}
                                 >
                                     {n.exhibitionTitle(year)[lang]}
                                 </h3>
                                 <p
-                                    className="text-sm text-gray-500 leading-relaxed"
-                                    style={{ height: "66.375px", transform: "translate(0px, -47px)" }}
+                                    className="text-sm text-gray-500 leading-[1.75] tracking-[0.01em]"
                                 >
                                     {n.exhibitionBody[lang]}
                                 </p>
@@ -55,14 +52,14 @@ const News = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <button type="button" className={`px-8 py-2.5 text-xs font-semibold tracking-widest border border-gray-300 hover:bg-black hover:text-white transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>
+                    <button type="button" className={`px-8 py-2.5 text-xs font-semibold tracking-[0.14em] border border-gray-300 hover:bg-black hover:text-white transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>
                         {n.viewMore[lang]}
                     </button>
                 </div>
             </section>
 
-            <section className="mb-12" style={{ height: "666.094px", transform: "translate(0px, -52.123px)" }}>
-                <h2 className={`text-2xl md:text-3xl font-serif text-center tracking-widest mb-6 ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.companyActivities[lang]}</h2>
+            <section className="mb-12">
+                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.companyActivities[lang]}</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 mb-6">
                     <div className="flex flex-col space-y-6">
                         {[1, 2, 3].map((i) => (
@@ -71,8 +68,8 @@ const News = () => {
                                     <img alt={n.altActivity[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&amp;fit=crop&amp;q=80&amp;w=200&amp;h=150" />
                                 </div>
                                 <div className="flex flex-col justify-center">
-                                    <h3 className={`font-bold text-black mb-2 text-sm sm:text-base leading-snug group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.teamBuildingTitle[lang]}</h3>
-                                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-3">{n.teamBuildingBody[lang]}</p>
+                                    <h3 className={`font-heading font-normal text-black mb-2 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.teamBuildingTitle[lang]}</h3>
+                                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em]">{n.teamBuildingBody[lang]}</p>
                                 </div>
                             </div>
                         ))}
@@ -84,15 +81,15 @@ const News = () => {
                                     <img alt={n.altActivity[lang]} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&amp;fit=crop&amp;q=80&amp;w=200&amp;h=150" />
                                 </div>
                                 <div className="flex flex-col justify-center">
-                                    <h3 className={`font-bold text-black mb-2 text-sm sm:text-base leading-snug group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.factoryTourTitle[lang]}</h3>
-                                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-3">{n.factoryTourBody[lang]}</p>
+                                    <h3 className={`font-heading font-normal text-black mb-2 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.factoryTourTitle[lang]}</h3>
+                                    <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em]">{n.factoryTourBody[lang]}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <button type="button" className={`px-8 py-3 text-xs font-semibold tracking-widest border border-gray-300 hover:bg-black hover:text-white transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.viewMore[lang]}</button>
+                    <button type="button" className={`px-8 py-3 text-xs font-semibold tracking-[0.14em] border border-gray-300 hover:bg-black hover:text-white transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.viewMore[lang]}</button>
                 </div>
             </section>
         </div>
