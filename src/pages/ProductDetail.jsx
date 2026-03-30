@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
 import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
@@ -9,8 +8,12 @@ import { useFavorites } from "../context/FavoritesContext";
 /* ─── helpers ─────────────────────────────────────────────────── */
 const RV_KEY = "hp_recently_viewed";
 const loadRecentlyViewed = () => {
-  try { return JSON.parse(localStorage.getItem(RV_KEY) || "[]"); }
-  catch (e) { void e; return []; }
+  try {
+    return JSON.parse(localStorage.getItem(RV_KEY) || "[]");
+  } catch (e) {
+    void e;
+    return [];
+  }
 };
 
 /* ─── Skeleton ────────────────────────────────────────────────── */
@@ -32,12 +35,21 @@ const AccordionRow = ({ label, children, defaultOpen = false }) => {
         <span className="text-sm font-medium text-primary">{label}</span>
         <svg
           className={`w-4 h-4 text-muted transition-transform duration-200 ${open ? "rotate-90" : ""}`}
-          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+          />
         </svg>
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[600px] pb-4" : "max-h-0"}`}>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[600px] pb-4" : "max-h-0"}`}
+      >
         <div className="text-sm text-secondary leading-relaxed">{children}</div>
       </div>
     </div>
@@ -76,10 +88,13 @@ const ProductDetail = () => {
       .then((data) => {
         setProduct(data);
         // Default to first active variant
-        const firstVariant = data.variants?.find((v) => v.isActive) ?? data.variants?.[0] ?? null;
+        const firstVariant =
+          data.variants?.find((v) => v.isActive) ?? data.variants?.[0] ?? null;
         setSelectedVariant(firstVariant);
         // Sort images: primary first
-        const sorted = [...(data.images ?? [])].sort((a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0));
+        const sorted = [...(data.images ?? [])].sort(
+          (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
+        );
         setActiveImg(0);
         // Save to recently viewed
         try {
@@ -91,9 +106,14 @@ const ProductDetail = () => {
             slug: data.slug,
             images: sorted,
           };
-          localStorage.setItem(RV_KEY, JSON.stringify([entry, ...filtered].slice(0, 6)));
+          localStorage.setItem(
+            RV_KEY,
+            JSON.stringify([entry, ...filtered].slice(0, 6)),
+          );
           setRecentlyViewed(loadRecentlyViewed());
-        } catch (e) { void e; }
+        } catch (e) {
+          void e;
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -101,26 +121,31 @@ const ProductDetail = () => {
 
   /* ── Derived values ────────────────────────────────────────── */
   const sortedImages = product
-    ? [...(product.images ?? [])].sort((a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0))
+    ? [...(product.images ?? [])].sort(
+        (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
+      )
     : [];
 
   const categoryName = product?.categories?.[0]?.name?.trim() ?? "Products";
   const categoryId = product?.categories?.[0]?.id ?? null;
 
   const productCardId = product?.slug ?? String(product?.id ?? "");
-  const isFavorited =
-    product && favorites.some((f) => f.id === productCardId);
+  const isFavorited = product && favorites.some((f) => f.id === productCardId);
 
   /* ── Loading skeleton ──────────────────────────────────────── */
   if (loading) {
     return (
       <div className="pt-[130px]">
         <div className="border-b border-border">
-          <Container><div className="py-3 h-6"><Skeleton className="w-48 h-4" /></div></Container>
+          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+            <div className="h-6 py-3">
+              <Skeleton className="h-4 w-48" />
+            </div>
+          </div>
         </div>
         <section className="py-10">
-          <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
               <Skeleton className="aspect-square w-full" />
               <div className="flex flex-col gap-4">
                 <Skeleton className="h-8 w-3/4" />
@@ -140,7 +165,10 @@ const ProductDetail = () => {
     return (
       <div className="pt-[130px] min-h-[50vh] flex flex-col items-center justify-center gap-4">
         <p className="text-sm text-red-500">{error ?? "Product not found"}</p>
-        <Link to="/product" className="text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors">
+        <Link
+          to="/product"
+          className="text-xs tracking-widest uppercase border border-border px-6 py-2 hover:border-primary hover:text-primary transition-colors"
+        >
           Back to Products
         </Link>
       </div>
@@ -149,31 +177,42 @@ const ProductDetail = () => {
 
   return (
     <div className="pt-[130px]">
-
       {/* ── Breadcrumb ─────────────────────────────────────────── */}
       <div className="border-b border-border bg-white">
-        <Container>
-          <nav aria-label="Breadcrumb" className="py-3 flex items-center gap-2 text-xs text-muted">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+        <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-2 py-3 text-left text-xs text-muted"
+          >
+            <Link to="/" className="hover:text-primary transition-colors">
+              Home
+            </Link>
             <span>/</span>
             {categoryId ? (
-              <Link to={`/product?category=${categoryId}`} className="hover:text-primary transition-colors">
+              <Link
+                to={`/product?category=${categoryId}`}
+                className="hover:text-primary transition-colors"
+              >
                 {categoryName}
               </Link>
             ) : (
-              <Link to="/product" className="hover:text-primary transition-colors">Products</Link>
+              <Link
+                to="/product"
+                className="hover:text-primary transition-colors"
+              >
+                Products
+              </Link>
             )}
             <span>/</span>
             <span className="text-primary line-clamp-1">{product.name}</span>
           </nav>
-        </Container>
+        </div>
       </div>
 
       {/* ── Main layout ────────────────────────────────────────── */}
-      <section className="pt-8 pb-4 bg-white">
-        <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
+      <section className="bg-white pb-4 pt-6 lg:pt-8">
+        <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
             {/* ── LEFT: Gallery + hover magnifier (flyout; main image stays full column width) ─ */}
             <div className="min-w-0 overflow-visible">
               <ProductGalleryMagnifier
@@ -188,10 +227,9 @@ const ProductDetail = () => {
             </div>
 
             {/* ── RIGHT: Product info ───────────────────────────── */}
-            <div className="flex flex-col">
-
+            <div className="flex flex-col text-left items-stretch">
               {/* Name */}
-              <h1 className="font-heading font-light text-2xl lg:text-3xl uppercase tracking-wide leading-tight mb-1">
+              <h1 className="mb-1 font-heading font-light text-2xl uppercase tracking-wide leading-tight lg:text-3xl">
                 {product.name}
               </h1>
               <p className="mb-3 text-sm text-muted tracking-wide">
@@ -207,7 +245,7 @@ const ProductDetail = () => {
                     images: sortedImages,
                   })
                 }
-                className="mb-3 flex w-full items-center justify-center gap-2 bg-primary py-3.5 text-xs font-medium uppercase tracking-widest text-white transition-colors hover:bg-accent"
+                className="mb-3 flex w-full items-center justify-center gap-2 bg-[#3c4a28] py-3.5 text-xs font-medium uppercase tracking-widest text-white transition-colors hover:bg-[#4a5a34]"
               >
                 {isFavorited ? "Saved to favourites" : "Add your favourite"}
                 <svg
@@ -227,37 +265,78 @@ const ProductDetail = () => {
 
               {/* Description */}
               {product.description && (
-                <p className="text-sm text-secondary leading-relaxed mb-4">{product.description}</p>
+                <p className="text-sm text-secondary leading-relaxed mb-4">
+                  {product.description}
+                </p>
               )}
 
               {/* Accordions */}
               <div className="border-t border-border">
-
                 <AccordionRow label="1. Size" defaultOpen>
-                  {(product.dimensionsHeight || product.dimensionsWidth || product.dimensionsDepth || product.weight) ? (
+                  {product.dimensionsHeight ||
+                  product.dimensionsWidth ||
+                  product.dimensionsDepth ||
+                  product.weight ? (
                     <div className="flex flex-wrap gap-x-8 gap-y-2 py-1">
-                      {product.dimensionsHeight && <div><span className="text-muted">Height: </span><span className="font-medium">{product.dimensionsHeight} {product.dimensionUnit}</span></div>}
-                      {product.dimensionsWidth && <div><span className="text-muted">Width: </span><span className="font-medium">{product.dimensionsWidth} {product.dimensionUnit}</span></div>}
-                      {product.dimensionsDepth && <div><span className="text-muted">Depth: </span><span className="font-medium">{product.dimensionsDepth} {product.dimensionUnit}</span></div>}
-                      {product.weight && <div><span className="text-muted">Weight: </span><span className="font-medium">{product.weight} kg</span></div>}
+                      {product.dimensionsHeight && (
+                        <div>
+                          <span className="text-muted">Height: </span>
+                          <span className="font-medium">
+                            {product.dimensionsHeight} {product.dimensionUnit}
+                          </span>
+                        </div>
+                      )}
+                      {product.dimensionsWidth && (
+                        <div>
+                          <span className="text-muted">Width: </span>
+                          <span className="font-medium">
+                            {product.dimensionsWidth} {product.dimensionUnit}
+                          </span>
+                        </div>
+                      )}
+                      {product.dimensionsDepth && (
+                        <div>
+                          <span className="text-muted">Depth: </span>
+                          <span className="font-medium">
+                            {product.dimensionsDepth} {product.dimensionUnit}
+                          </span>
+                        </div>
+                      )}
+                      {product.weight && (
+                        <div>
+                          <span className="text-muted">Weight: </span>
+                          <span className="font-medium">
+                            {product.weight} kg
+                          </span>
+                        </div>
+                      )}
                     </div>
                   ) : (
-                    <p className="py-1 text-muted/60 italic">Size information will be added soon.</p>
+                    <p className="py-1 text-muted/60 italic">
+                      Size information will be added soon.
+                    </p>
                   )}
                 </AccordionRow>
 
                 <AccordionRow label="2. Material">
-                  {product.detail
-                    ? <p className="py-1">{product.detail}</p>
-                    : <p className="py-1 text-muted/60 italic">Material details will be added soon.</p>
-                  }
+                  {product.detail ? (
+                    <p className="py-1">{product.detail}</p>
+                  ) : (
+                    <p className="py-1 text-muted/60 italic">
+                      Material details will be added soon.
+                    </p>
+                  )}
                 </AccordionRow>
 
                 <AccordionRow label="3. Delivery &amp; Return">
-                  {product.deliveryInfo
-                    ? <p className="py-1">{product.deliveryInfo}</p>
-                    : <p className="py-1 text-muted/60 italic">Standard delivery: 15–30 days. Returns accepted within 30 days.</p>
-                  }
+                  {product.deliveryInfo ? (
+                    <p className="py-1">{product.deliveryInfo}</p>
+                  ) : (
+                    <p className="py-1 text-muted/60 italic">
+                      Standard delivery: 15–30 days. Returns accepted within 30
+                      days.
+                    </p>
+                  )}
                 </AccordionRow>
               </div>
             </div>
@@ -268,7 +347,7 @@ const ProductDetail = () => {
       {/* ── Recently Viewed ────────────────────────────────────── */}
       {recentlyViewed.length > 0 && (
         <section className="py-6 border-t border-border bg-white">
-          <Container>
+          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
             <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
               Recently Viewed
             </h3>
@@ -282,7 +361,7 @@ const ProductDetail = () => {
                 />
               ))}
             </div>
-          </Container>
+          </div>
         </section>
       )}
     </div>

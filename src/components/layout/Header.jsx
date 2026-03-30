@@ -15,9 +15,10 @@ const StaticNavItem = ({ to, label, end, isDark }) => (
       className={`
         text-[12px] tracking-[0.25em] uppercase pb-1
         transition-colors duration-200
-        ${isDark
-          ? "text-white/80 hover:text-white"
-          : "text-stone-600 hover:text-stone-900"
+        ${
+          isDark
+            ? "text-white/80 hover:text-white"
+            : "text-stone-600 hover:text-stone-900"
         }
       `}
     >
@@ -52,7 +53,7 @@ const Header = () => {
       { to: "/certificate", label: siteCopy.nav[lang].certificate },
       { to: "/what-we-do", label: siteCopy.nav[lang].whatWeDo },
     ],
-    [lang]
+    [lang],
   );
   const NAV_RIGHT = useMemo(
     () => [
@@ -60,11 +61,11 @@ const Header = () => {
       { to: "/order-delivery", label: siteCopy.nav[lang].orderDelivery },
       { to: "/contact", label: siteCopy.nav[lang].contact },
     ],
-    [lang]
+    [lang],
   );
   const ALL_STATIC = useMemo(
     () => [...NAV_LEFT, ...NAV_RIGHT],
-    [NAV_LEFT, NAV_RIGHT]
+    [NAV_LEFT, NAV_RIGHT],
   );
   const pageLabels = useMemo(
     () => ({
@@ -75,7 +76,7 @@ const Header = () => {
       "/order-delivery": siteCopy.nav[lang].orderDelivery,
       "/contact": siteCopy.nav[lang].contact,
     }),
-    [lang]
+    [lang],
   );
 
   return (
@@ -84,27 +85,34 @@ const Header = () => {
     >
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
       <div className="mx-auto max-w-[1800px] px-4 md:px-10 w-full">
-        <div className={`flex items-center justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}>
-
+        <div
+          className={`flex items-center justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+        >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
             {/* Mobile hamburger */}
             <button
               className={`md:hidden p-2 -ml-2 ${isDark ? "text-white" : "text-stone-700"}`}
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label={mobileOpen ? siteCopy.header.ariaCloseMenu[lang] : siteCopy.header.ariaOpenMenu[lang]}
-            >
-              {mobileOpen
-                ? <X size={28} strokeWidth={1} />
-                : <Menu size={28} strokeWidth={1} />
+              aria-label={
+                mobileOpen
+                  ? siteCopy.header.ariaCloseMenu[lang]
+                  : siteCopy.header.ariaOpenMenu[lang]
               }
+            >
+              {mobileOpen ? (
+                <X size={28} strokeWidth={1} />
+              ) : (
+                <Menu size={28} strokeWidth={1} />
+              )}
             </button>
 
             {/* Search — desktop only */}
             <div className="hidden md:block w-full">
               <div
-                className={`flex items-center border px-4 py-1.5 gap-2 ${isDark ? "border-white/50" : "border-stone-300"
-                  }`}
+                className={`flex items-center border px-4 py-1.5 gap-2 ${
+                  isDark ? "border-white/50" : "border-stone-300"
+                }`}
               >
                 <svg
                   className={`w-4 h-4 shrink-0 ${isDark ? "text-white/70" : "text-stone-400"}`}
@@ -122,10 +130,11 @@ const Header = () => {
                 <input
                   type="search"
                   placeholder={siteCopy.header.searchPlaceholder[lang]}
-                  className={`bg-transparent text-[12px] w-full outline-none ${isDark
-                    ? "placeholder-white/70 text-white"
-                    : "placeholder-stone-400 text-stone-700"
-                    }`}
+                  className={`bg-transparent text-[12px] w-full outline-none ${
+                    isDark
+                      ? "placeholder-white/70 text-white"
+                      : "placeholder-stone-400 text-stone-700"
+                  }`}
                 />
               </div>
             </div>
@@ -135,16 +144,22 @@ const Header = () => {
           <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
             <Link
               to="/"
-              className={`flex items-center gap-2 ${isDark ? "text-white" : "text-stone-800"
-                }`}
+              className={`flex items-center gap-2 ${
+                isDark ? "text-white" : "text-stone-800"
+              }`}
             >
               <span className="text-2xl md:text-3xl font-light">HP</span>
               <div className="flex flex-col text-left">
-                <span className="text-xs md:text-sm tracking-widest leading-tight">HAPPY</span>
-                <span className="text-xs md:text-sm tracking-widest leading-tight">FURNITURE</span>
+                <span className="text-xs md:text-sm tracking-widest leading-tight">
+                  HAPPY
+                </span>
+                <span className="text-xs md:text-sm tracking-widest leading-tight">
+                  FURNITURE
+                </span>
                 <span
-                  className={`text-[7px] md:text-[9px] leading-tight ${isDark ? "text-white/70" : "text-stone-400"
-                    }`}
+                  className={`text-[7px] md:text-[9px] leading-tight ${
+                    isDark ? "text-white/70" : "text-stone-400"
+                  }`}
                 >
                   {siteCopy.header.tagline[lang]}
                 </span>
@@ -155,55 +170,70 @@ const Header = () => {
           {/* Right: flags + favorite button */}
           <div className="flex flex-col items-end gap-2 w-auto md:w-[300px] justify-end">
             <div className="flex items-center gap-2 md:gap-3">
-            {/* Vietnam flag */}
-            <button
-              type="button"
-              aria-label="Tiếng Việt"
-              aria-pressed={lang === "vi"}
-              onClick={() => setLang("vi")}
-              className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "vi" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
-              style={{ width: 28, height: 20 }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 20" width="28" height="20">
-                <rect width="28" height="20" fill="#DA251D" />
-                <polygon
-                  points="14,4 15.76,9.42 21.41,9.42 16.83,12.7 18.58,18.12 14,14.84 9.42,18.12 11.17,12.7 6.59,9.42 12.24,9.42"
-                  fill="#FFFF00"
-                />
-              </svg>
-            </button>
+              {/* Vietnam flag */}
+              <button
+                type="button"
+                aria-label="Tiếng Việt"
+                aria-pressed={lang === "vi"}
+                onClick={() => setLang("vi")}
+                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "vi" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
+                style={{ width: 28, height: 20 }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 28 20"
+                  width="28"
+                  height="20"
+                >
+                  <rect width="28" height="20" fill="#DA251D" />
+                  <polygon
+                    points="14,4 15.76,9.42 21.41,9.42 16.83,12.7 18.58,18.12 14,14.84 9.42,18.12 11.17,12.7 6.59,9.42 12.24,9.42"
+                    fill="#FFFF00"
+                  />
+                </svg>
+              </button>
 
-            {/* US flag */}
-            <button
-              type="button"
-              aria-label="English"
-              aria-pressed={lang === "en"}
-              onClick={() => setLang("en")}
-              className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "en" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
-              style={{ width: 28, height: 20 }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 20" width="28" height="20">
-                <rect width="28" height="20" fill="#B22234" />
-                <rect y="1.54" width="28" height="1.54" fill="#fff" />
-                <rect y="4.62" width="28" height="1.54" fill="#fff" />
-                <rect y="7.69" width="28" height="1.54" fill="#fff" />
-                <rect y="10.77" width="28" height="1.54" fill="#fff" />
-                <rect y="13.85" width="28" height="1.54" fill="#fff" />
-                <rect y="16.92" width="28" height="1.54" fill="#fff" />
-                <rect width="11" height="10.77" fill="#3C3B6E" />
-                {[1.1, 3.3, 5.5, 7.7, 9.9].map((x, i) => (
-                  <g key={i}>
-                    {[1, 3, 5, 7, 9].map(
-                      (y, j) =>
-                        (i + j) % 2 === 0 && (
-                          <circle key={j} cx={x} cy={y * 0.95} r="0.55" fill="#fff" />
-                        )
-                    )}
-                  </g>
-                ))}
-              </svg>
-            </button>
-
+              {/* US flag */}
+              <button
+                type="button"
+                aria-label="English"
+                aria-pressed={lang === "en"}
+                onClick={() => setLang("en")}
+                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "en" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
+                style={{ width: 28, height: 20 }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 28 20"
+                  width="28"
+                  height="20"
+                >
+                  <rect width="28" height="20" fill="#B22234" />
+                  <rect y="1.54" width="28" height="1.54" fill="#fff" />
+                  <rect y="4.62" width="28" height="1.54" fill="#fff" />
+                  <rect y="7.69" width="28" height="1.54" fill="#fff" />
+                  <rect y="10.77" width="28" height="1.54" fill="#fff" />
+                  <rect y="13.85" width="28" height="1.54" fill="#fff" />
+                  <rect y="16.92" width="28" height="1.54" fill="#fff" />
+                  <rect width="11" height="10.77" fill="#3C3B6E" />
+                  {[1.1, 3.3, 5.5, 7.7, 9.9].map((x, i) => (
+                    <g key={i}>
+                      {[1, 3, 5, 7, 9].map(
+                        (y, j) =>
+                          (i + j) % 2 === 0 && (
+                            <circle
+                              key={j}
+                              cx={x}
+                              cy={y * 0.95}
+                              r="0.55"
+                              fill="#fff"
+                            />
+                          ),
+                      )}
+                    </g>
+                  ))}
+                </svg>
+              </button>
             </div>
 
             {/* Show my Favorite button */}
@@ -227,11 +257,20 @@ const Header = () => {
         <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
           <ul className="flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
             {NAV_LEFT.map(({ to, label, end }) => (
-              <StaticNavItem key={to} to={to} label={label} end={end} isDark={isDark} />
+              <StaticNavItem
+                key={to}
+                to={to}
+                label={label}
+                end={end}
+                isDark={isDark}
+              />
             ))}
 
             {/* ← "Product" with mega-dropdown → */}
-            <ProductNavItem isDark={isDark} productLabel={pageLabels["/product"]} />
+            <ProductNavItem
+              isDark={isDark}
+              productLabel={pageLabels["/product"]}
+            />
 
             {NAV_RIGHT.map(({ to, label }) => (
               <StaticNavItem key={to} to={to} label={label} isDark={isDark} />
@@ -248,21 +287,24 @@ const Header = () => {
             `}
           >
             <ul
-              className={`px-6 pt-4 pb-4 border-t ${isDark ? "border-white/10" : "border-stone-100"
-                }`}
+              className={`px-6 pt-4 pb-4 border-t ${
+                isDark ? "border-white/10" : "border-stone-100"
+              }`}
             >
               {ALL_STATIC.slice(0, 3).map(({ to, label, end }) => (
                 <li
                   key={to}
-                  className={`border-b py-3 ${isDark ? "border-white/10" : "border-stone-100"
-                    }`}
+                  className={`border-b py-3 ${
+                    isDark ? "border-white/10" : "border-stone-100"
+                  }`}
                 >
                   <NavLink
                     to={to}
                     end={end}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${isDark ? "text-white/80" : "text-stone-700"
-                      }`}
+                    className={`text-[12px] tracking-[0.2em] uppercase ${
+                      isDark ? "text-white/80" : "text-stone-700"
+                    }`}
                   >
                     {label}
                   </NavLink>
@@ -279,14 +321,16 @@ const Header = () => {
               {ALL_STATIC.slice(3).map(({ to, label }) => (
                 <li
                   key={to}
-                  className={`border-b py-3 ${isDark ? "border-white/10" : "border-stone-100"
-                    }`}
+                  className={`border-b py-3 ${
+                    isDark ? "border-white/10" : "border-stone-100"
+                  }`}
                 >
                   <NavLink
                     to={to}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${isDark ? "text-white/80" : "text-stone-700"
-                      }`}
+                    className={`text-[12px] tracking-[0.2em] uppercase ${
+                      isDark ? "text-white/80" : "text-stone-700"
+                    }`}
                   >
                     {label}
                   </NavLink>
