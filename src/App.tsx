@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider, useLanguage } from "./context/LanguageContext";
+import { FavoritesProvider } from "./context/FavoritesContext";
 import { siteCopy } from "./i18n/siteCopy";
 import MainLayout from "./components/layout/MainLayout";
 import Home from "./pages/Home";
@@ -32,6 +33,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <LanguageProvider>
+      <FavoritesProvider>
       <Routes>
         {/* === CUSTOMER / CLIENT ROUTES === */}
         <Route
@@ -108,6 +110,7 @@ const App = () => {
           }
         />
       </Routes>
+      </FavoritesProvider>
       </LanguageProvider>
     </BrowserRouter>
   );

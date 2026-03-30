@@ -11,6 +11,8 @@ const ProductCard = ({
     oldPrice = null,
     images = [],
     className = "",
+    isFavorited = false,
+    onToggleFavorite = null,
 }) => {
     const sortedImages = useMemo(() => {
         if (!images?.length) return [];
@@ -110,15 +112,16 @@ const ProductCard = ({
                     onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
+                        onToggleFavorite?.({ id, name, images, price, oldPrice });
                     }}
-                    className="absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                    aria-label="Add to wishlist"
+                    className={`absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center transition-opacity duration-200 ${isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                    aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
                 >
                     <svg
-                        className="h-5 w-5 text-white"
+                        className={`h-5 w-5 drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-rose-500" : "text-white"}`}
                         viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
+                        fill={isFavorited ? "currentColor" : "none"}
+                        stroke={isFavorited ? "none" : "currentColor"}
                         strokeWidth={1.5}
                     >
                         <path

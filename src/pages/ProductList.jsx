@@ -5,6 +5,7 @@ import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
 import { productService } from "../services/product.service";
 import useMegaMenu from "../hooks/useMegaMenu";
+import { useFavorites } from "../context/FavoritesContext";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
 const formatPrice = (price) =>
@@ -157,6 +158,9 @@ const ProductList = () => {
 
   /* ── Recently viewed ─────────────────────────────────────────── */
   const [recentlyViewed, setRecentlyViewed] = useState(loadRecentlyViewed);
+
+  /* ── Favorites ───────────────────────────────────────────────── */
+  const { favorites, toggleFavorite: handleToggleFavorite } = useFavorites();
 
   /* ── Category scroll (horizontal) ───────────────────────────── */
   const scrollRef = useRef(null);
@@ -507,6 +511,8 @@ const ProductList = () => {
                   price={formatPrice(p.price)}
                   oldPrice={formatPrice(p.oldPrice)}
                   images={p.images ?? []}
+                  isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
+                  onToggleFavorite={handleToggleFavorite}
                 />
               ))}
             </div>
@@ -527,6 +533,8 @@ const ProductList = () => {
                   key={p.id}
                   id={p.slug ?? String(p.id)}
                   name={p.name}
+                  isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
+                  onToggleFavorite={handleToggleFavorite}
                   price={formatPrice(p.price)}
                   oldPrice={formatPrice(p.oldPrice)}
                   images={p.images ?? []}

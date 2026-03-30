@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useLocation, Link, NavLink } from "react-router-dom";
+import { useFavorites } from "../../context/FavoritesContext";
 import { Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
@@ -41,6 +42,7 @@ const StaticNavItem = ({ to, label, end, isDark }) => (
 const Header = () => {
   const { pathname } = useLocation();
   const { lang, setLang } = useLanguage();
+  const { favorites, setShowFavorites } = useFavorites();
   const isDark = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -205,12 +207,17 @@ const Header = () => {
             </div>
 
             {/* Show my Favorite button */}
-            <Link
-              to="/favorite"
+            <button
+              onClick={() => setShowFavorites(true)}
               className="hidden md:flex items-center gap-1.5 bg-[#2f3e2f] text-white text-[10px] tracking-widest uppercase px-3 py-1.5 hover:bg-[#1e2a1e] transition-colors whitespace-nowrap"
             >
               Show my Favorite
-            </Link>
+              {favorites.length > 0 && (
+                <span className="bg-white text-[#2f3e2f] text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  {favorites.length}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
