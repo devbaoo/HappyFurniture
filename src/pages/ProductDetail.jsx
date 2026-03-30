@@ -137,14 +137,14 @@ const ProductDetail = () => {
     return (
       <div className="pt-[130px]">
         <div className="border-b border-border">
-          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+          <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
             <div className="h-6 py-3">
               <Skeleton className="h-4 w-48" />
             </div>
           </div>
         </div>
         <section className="py-10">
-          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+          <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
               <Skeleton className="aspect-square w-full" />
               <div className="flex flex-col gap-4">
@@ -179,7 +179,7 @@ const ProductDetail = () => {
     <div className="pt-[130px]">
       {/* ── Breadcrumb ─────────────────────────────────────────── */}
       <div className="border-b border-border bg-white">
-        <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+        <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 py-3 text-left text-xs text-muted"
@@ -211,7 +211,7 @@ const ProductDetail = () => {
 
       {/* ── Main layout ────────────────────────────────────────── */}
       <section className="bg-white pb-4 pt-6 lg:pt-8">
-        <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+        <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
             {/* ── LEFT: Gallery + hover magnifier (flyout; main image stays full column width) ─ */}
             <div className="min-w-0 overflow-visible">
@@ -347,7 +347,7 @@ const ProductDetail = () => {
       {/* ── Recently Viewed ────────────────────────────────────── */}
       {recentlyViewed.length > 0 && (
         <section className="py-6 border-t border-border bg-white">
-          <div className="mx-auto w-full max-w-[1800px] pl-3 pr-8 md:px-14 lg:px-24">
+          <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
             <h3 className="font-heading text-lg uppercase tracking-widest font-medium mb-4 text-primary">
               Recently Viewed
             </h3>
