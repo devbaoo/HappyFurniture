@@ -14,12 +14,13 @@ const Img = ({
   className = "",
   style = {},
   placeholderBg = "#c8bfb0",
+  objectFit = "cover",
 }) =>
   src ? (
     <img
       src={src}
       alt={alt}
-      className={`w-full h-full object-cover ${className}`}
+      className={`w-full h-full ${objectFit === "contain" ? "object-contain" : "object-cover"} ${className}`}
       style={style}
     />
   ) : (
@@ -481,11 +482,11 @@ const Home = () => {
         <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-8 md:mb-16">
-            <h3 className={`text-[13px] sm:text-sm md:text-sm font-semibold text-[#3c4a28] mb-2 md:mb-3 font-sans tracking-[0.12em] ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}>
+            <h3 className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}>
               {h.partnersHeading[lang]}
             </h3>
 
-            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-10"></div>
+            <div className="w-32 md:w-48 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-10"></div>
 
             {/* Mobile / tablet: hàng 3 + hàng 2; md+: một hàng như cũ */}
             <div className="md:hidden flex flex-col items-center gap-4 sm:gap-5">
@@ -525,7 +526,8 @@ const Home = () => {
                   key={item.title}
                   src={CERT_LOGO_SRCS[i]}
                   alt={item.title}
-                  className="h-8 sm:h-10 md:h-12 object-contain"
+                  className="h-8 sm:h-10 md:h-12"
+                  objectFit="contain"
                 />
               ))}
             </div>
