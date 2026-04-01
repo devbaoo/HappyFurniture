@@ -24,28 +24,25 @@ const Footer = () => {
 
     return (
         <footer className={isLightFooter ? "bg-[rgba(237,233,233,0.75)] text-stone-800 border-t border-stone-200 pt-4" : "bg-[#3c4a28] text-white pt-2"}>
-            <div className="mx-auto max-w-[1700px] px-2 md:px-6 w-full">
+            <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full">
+
 
                 {/* TOP GRID */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-12 py-8 md:py-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-12 py-8 md:py-3 justify-items-center md:justify-items-start">
 
                     {/* LOGO */}
-                    <div className="col-span-2 md:col-span-1">
+                    <div className="col-span-2 md:col-span-1 w-full flex flex-col items-center md:items-start">
                         <div className="flex items-center gap-4 mb-3">
-                            <div className="font-heading text-[34px] font-normal leading-none tracking-[0.06em]">HP</div>
-                            <div>
-                                <p className="text-base font-semibold leading-none tracking-[0.12em] uppercase">
-                                    HAPPY<br />FURNITURE
-                                </p>
-                                <p className={`text-[10px] tracking-[0.06em] ${isLightFooter ? 'text-stone-500' : 'text-white/70'}`}>
-                                    Make life more convenient
-                                </p>
-                            </div>
+                            <img
+                                src="/images/logo-brown.png"
+                                alt="Happy Furniture Logo"
+                                className={`h-[40px] w-auto object-contain ${isLightFooter ? '' : 'brightness-0 invert'}`}
+                            />
                         </div>
                     </div>
 
                     {/* PRODUCT */}
-                    <div>
+                    <div className="flex flex-col items-center md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">PRODUCT</h3>
                         <ul className={`space-y-1.5 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
                             {footerLinks.Product.map((link, index) => (
@@ -55,7 +52,7 @@ const Footer = () => {
                     </div>
 
                     {/* SUPPORT */}
-                    <div>
+                    <div className="flex flex-col items-center md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">SUPPORT</h3>
                         <ul className={`space-y-1.5 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
                             {footerLinks.Support.map((link, index) => (
@@ -65,7 +62,7 @@ const Footer = () => {
                     </div>
 
                     {/* CONTACT */}
-                    <div className="col-span-2 md:col-span-1">
+                    <div className="col-span-2 md:col-span-1 w-full flex flex-col items-center md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">CONTACT US</h3>
 
                         <div className={`space-y-4 text-sm leading-[1.75] tracking-[0.01em] font-normal ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
@@ -116,7 +113,7 @@ const Footer = () => {
                         <div className={`flex-1 h-px ${isLightFooter ? 'bg-stone-500' : 'bg-white/30'}`}></div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-4 md:gap-8">
+                    <div className="flex flex-col md:flex-row md:flex-wrap items-center md:items-center gap-4 md:gap-8">
 
                         {/* ICONS */}
                         <div className="flex gap-4">
@@ -154,7 +151,7 @@ const Footer = () => {
                         </div>
 
                         {/* COPYRIGHT */}
-                        <p className={`text-[12px] md:text-[13px] md:whitespace-nowrap md:ml-auto md:text-right leading-[1.75] tracking-[0.01em] ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
+                        <p className={`text-[12px] md:text-[13px] md:whitespace-nowrap md:ml-auto text-center md:text-right leading-[1.75] tracking-[0.01em] ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
                             ©2026 All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 

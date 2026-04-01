@@ -51,7 +51,7 @@ const OrderDelivery = () => {
 
             {/* ══ DELIVERY ══════════════════════════════════════════════ */}
             <section className="bg-white py-20 md:py-24">
-                <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full ">
+                <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full ">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
                         <div>
                             <div className="bg-[#111] text-white p-4 md:p-5 mb-8 w-full min-h-[180px]">
@@ -138,7 +138,7 @@ const OrderDelivery = () => {
 
             {/* ══ PACKAGING AND DISPATCH ════════════════════════════════ */}
             <section className="bg-[#111] py-20 md:py-24">
-                <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full ">
+                <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full ">
                     <div className="text-center max-w-2xl mx-auto mb-12">
                         <h2 className="font-heading font-normal uppercase text-2xl md:text-3xl text-white mb-5 tracking-[0.08em] leading-[1.08]">
                             Packaging and Dispatch

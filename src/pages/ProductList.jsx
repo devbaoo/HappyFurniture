@@ -32,25 +32,25 @@ const FilterDropdown = ({ label, active, children }) => {
   }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative shrink-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center justify-center min-w-[85px] h-[40px] gap-2 px-3 text-[14px] bg-white transition-colors ${active
-          ? "border-primary text-primary font-medium"
-          : "border-[#d8d8d8] text-[#333] hover:border-[#a0a0a0]"
-          }`}
-        style={{ border: "1px solid #d8d8d8" }}
+        className={`flex items-center justify-center h-[36px] md:h-[40px] gap-1.5 px-3 text-[12px] md:text-[14px] bg-white transition-all duration-200 whitespace-nowrap ${
+          active
+            ? "ring-[0.5px] ring-primary text-primary font-medium"
+            : "ring-[0.5px] ring-stone-400 text-stone-800 hover:ring-[#3c4a28] hover:text-[#3c4a28]"
+        }`}
       >
-        <span className="font-medium tracking-[0.08em]">{label}</span>
+        <span className="font-medium tracking-[0.06em] md:tracking-[0.08em] max-w-[90px] md:max-w-none truncate">{label}</span>
         <ChevronDown
-          size={14}
+          size={12}
           strokeWidth={1}
-          className={`transition-transform duration-200 text-[#666] ${open ? "rotate-180" : ""}`}
+          className={`transition-transform duration-200 text-[#666] shrink-0 ${open ? "rotate-180" : ""}`}
         />
       </button>
       {open && (
-        <div className="absolute top-full left-0 mt-1 bg-white border border-[#d8d8d8] shadow-xl z-[40] w-max px-3 py-2">
+        <div className="absolute top-full left-0 mt-1 bg-white ring-[0.5px] ring-stone-300 shadow-xl z-[40] w-max max-w-[calc(100vw-1rem)] px-3 py-2 max-h-[60vh] overflow-y-auto">
           {children}
         </div>
       )}
@@ -312,8 +312,8 @@ const ProductList = () => {
 
       {/* ── Category scroll strip ────────────────────────────────── */}
       {megaCategories.length > 0 && (
-        <section className="border-b border-border">
-          <div className="mx-auto max-w-[1800px] px-8 md:px-14 lg:px-24 w-full">
+        <section>
+          <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full">
             <div className="pt-6 pb-1">
               <div
                 ref={scrollRef}
@@ -322,7 +322,7 @@ const ProductList = () => {
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseMove={onMouseMove}
-                className={`grid grid-flow-col auto-cols-[calc((100%-6*12px)/7.5)] gap-3 overflow-x-auto select-none pb-2 bg-scroll ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                className={`grid grid-flow-col auto-cols-[calc((100%-2*12px)/3)] md:auto-cols-[calc((100%-6*12px)/7.5)] gap-3 overflow-x-auto select-none pb-2 bg-scroll ${isDragging ? "cursor-grabbing" : "cursor-grab"
                   }`}
                 style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
               >
@@ -397,16 +397,15 @@ const ProductList = () => {
       )}
 
       {/* ── Filter bar ───────────────────────────────────────────── */}
-      <section className="border-b border-border bg-white py-1.5 z-[30] relative">
+      <section className="bg-white py-1.5 z-[30] relative">
         <Container>
-          <div className="flex flex-wrap items-center justify-start gap-[6px]">
+          <div className="flex items-center gap-[6px] flex-wrap">
 
             {/* Left side: FILTER button */}
             <button
-              className="flex items-center justify-center gap-2 px-6 h-[40px] min-w-[120px] text-[14px] bg-white text-[#333] tracking-[0.14em] hover:border-[#a0a0a0] transition-colors mr-3"
-              style={{ border: "1px solid #d8d8d8" }}
+              className="flex items-center justify-center gap-1.5 px-3 md:px-6 h-[36px] md:h-[40px] text-[12px] md:text-[14px] bg-white text-stone-800 tracking-[0.1em] md:tracking-[0.14em] ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:text-[#3c4a28] transition-all duration-200 mr-1 md:mr-3 shrink-0 whitespace-nowrap"
             >
-              <SlidersHorizontal size={14} strokeWidth={1.2} />
+              <SlidersHorizontal size={13} strokeWidth={1.2} />
               <span className="font-medium">FILTER</span>
             </button>
 

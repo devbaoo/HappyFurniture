@@ -145,23 +145,23 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => go(-1)}
-                  className="absolute left-0 top-1/2 z-10 hidden h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white shadow-sm transition-opacity duration-200 hover:bg-stone-50 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
+                  className="absolute left-0 top-1/2 z-10 hidden h-10 w-6 -translate-y-1/2 items-center justify-center transition-opacity duration-200 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Previous image"
                 >
                   <ChevronLeft
-                    className="h-3 w-3 text-stone-900"
-                    strokeWidth={1}
+                    className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
+                    strokeWidth={2}
                   />
                 </button>
                 <button
                   type="button"
                   onClick={() => go(1)}
-                  className="absolute right-0 top-1/2 z-10 hidden h-7 w-[15px] -translate-y-1/2 items-center justify-center bg-white shadow-sm transition-opacity duration-200 hover:bg-stone-50 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
+                  className="absolute right-0 top-1/2 z-10 hidden h-10 w-6 -translate-y-1/2 items-center justify-center transition-opacity duration-200 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Next image"
                 >
                   <ChevronRight
-                    className="h-3 w-3 text-stone-900"
-                    strokeWidth={1}
+                    className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
+                    strokeWidth={2}
                   />
                 </button>
                 <div
