@@ -5,11 +5,12 @@ import "@fontsource/playfair-display/400.css";
 import "@fontsource/playfair-display/500.css";
 import "@fontsource/playfair-display/600.css";
 import { createRoot } from "react-dom/client";
+import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 import App from "./App";
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-
+  <HelmetProvider>
     <App />
-
+  </HelmetProvider>
 );

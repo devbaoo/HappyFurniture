@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import SEOHead from "../components/SEOHead";
 
 const CERT_MEDIA = {
   ctpat: "/images/ctpat.png",
@@ -15,6 +16,11 @@ const Certificate = () => {
 
   return (
     <div className="w-full bg-white">
+      <SEOHead
+        title="Certificates"
+        description="Happy Furniture holds internationally recognized quality certifications including C-TPAT, BSCI, and SMETA — ensuring ethical sourcing and manufacturing standards."
+        canonical="/certificate"
+      />
       <style>{`
         @media (max-width: 1279px) { .cert-breadcrumb { display: none !important; } }
       `}</style>

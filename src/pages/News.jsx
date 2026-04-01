@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import SEOHead from "../components/SEOHead";
 
 const News = () => {
     const { lang } = useLanguage();
@@ -12,6 +13,11 @@ const News = () => {
 
     return (
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-4 pt-28 font-sans bg-white relative">
+            <SEOHead
+                title="News"
+                description="Latest news, updates, and exhibition highlights from Happy Furniture. Stay informed about our newest collections and industry events."
+                canonical="/news"
+            />
             <h1 className={`font-heading text-3xl lg:text-4xl tracking-[0.08em] font-normal mb-4 text-center leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
                 {n.title[lang]}
             </h1>

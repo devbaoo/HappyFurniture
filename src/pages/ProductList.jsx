@@ -8,6 +8,7 @@ import { categoryService } from "../services/category.service";
 import { materialService } from "../services/material.service";
 import useMegaMenu from "../hooks/useMegaMenu";
 import { useFavorites } from "../context/FavoritesContext";
+import SEOHead from "../components/SEOHead";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
 const SORT_OPTIONS = [
@@ -290,6 +291,11 @@ const ProductList = () => {
 
   return (
     <div>
+      <SEOHead
+        title={activeCat ? `${activeCat.name.trim()} — Collections` : "Collections"}
+        description="Browse Happy Furniture's full collection of premium handcrafted furniture. Filter by category, material, and more to find your perfect piece."
+        canonical={categoryId ? `/product?category=${categoryId}` : "/product"}
+      />
       {/* ── Spacer — offsets absolute header (~130px tall) ────────── */}
       <div className="pt-[130px]" />
 

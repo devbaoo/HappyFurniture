@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Warehouse, Users, PackageOpen, Factory, Armchair } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import SEOHead from "../components/SEOHead";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
@@ -55,6 +56,11 @@ export default function WhatWeDo() {
 
   return (
     <main className="bg-white text-primary">
+      <SEOHead
+        title="What We Do"
+        description="Discover Happy Furniture's craft, materials, and production philosophy. From raw timber to finished luxury pieces — built with passion and precision."
+        canonical="/what-we-do"
+      />
       {/* ══ HERO ══════════════════════════════════════════════════════════ */}
       <section
         className="relative w-full overflow-hidden h-[clamp(220px,45vw,580px)] md:h-[70vh] md:min-h-[480px]"
