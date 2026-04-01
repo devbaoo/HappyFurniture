@@ -11,7 +11,7 @@ const News = () => {
     const exhibitionYears = [2024, 2025, 2026];
 
     return (
-        <div className="w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-4 pt-28 font-sans bg-white relative">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-4 pt-28 font-sans bg-white relative">
             <h1 className={`font-heading text-3xl lg:text-4xl tracking-[0.08em] font-normal mb-4 text-center leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
                 {n.title[lang]}
             </h1>

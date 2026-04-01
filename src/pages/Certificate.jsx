@@ -29,7 +29,7 @@ const Certificate = () => {
       </div>
 
       <section className="pt-[72px] lg:pt-12 pb-8 md:pb-12 text-center">
-        <div className="w-full px-6 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="flex justify-center mb-6">
             <img
               alt=""
@@ -50,7 +50,7 @@ const Certificate = () => {
       </section>
 
       <section className="pb-16 md:pb-24">
-        <div className="w-full px-6 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div className="relative overflow-hidden rounded-sm w-full aspect-[2/1] lg:aspect-auto lg:min-h-[280px]">
             <img
               alt=""

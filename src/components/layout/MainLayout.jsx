@@ -3,6 +3,78 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useFavorites } from "../../context/FavoritesContext";
 
+/* ─── Print helper ──────────────────────────────────────────────── */
+const printQuoteList = (favorites) => {
+  const rows = favorites.map((p, idx) => {
+    const primaryImg = p.images?.find((i) => i.isPrimary) ?? p.images?.[0];
+    const imgHtml = primaryImg
+      ? `<img src="${primaryImg.imageUrl}" alt="${p.name}" style="width:90px;height:90px;object-fit:cover;display:block;" />`
+      : `<div style="width:90px;height:90px;background:#e0e0e0;"></div>`;
+    const priceHtml = p.price
+      ? `<p style="font-size:15px;font-weight:600;margin:6px 0 0;color:#232323;">${
+          typeof p.price === "number"
+            ? `${Number(p.price).toLocaleString()}$`
+            : p.price
+        }</p>`
+      : "";
+    const borderRight = idx % 2 === 0 ? "border-right:1px solid #f0f0f0;" : "";
+    return `
+      <div style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid #f0f0f0;${borderRight}break-inside:avoid;page-break-inside:avoid;">
+        <div style="width:90px;height:90px;flex-shrink:0;overflow:hidden;background:#f5f5f5;border:1px solid #ece7e1;">
+          ${imgHtml}
+        </div>
+        <div style="flex:1;min-width:0;">
+          <p style="font-family:Georgia,serif;font-size:18px;font-weight:400;color:#252525;margin:0 0 4px;line-height:1.15;">${p.name}</p>
+          <p style="font-size:11px;color:#7b7b7b;margin:0;letter-spacing:0.1em;text-transform:uppercase;">Ref. ${String(p.id).toUpperCase()}</p>
+          ${priceHtml}
+        </div>
+      </div>`;
+  });
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>My Quote List — Happy Furniture</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #222; background: #fff; }
+    .header { padding: 20px 24px 16px; border-bottom: 2px solid #3c4a28; display: flex; align-items: center; gap: 12px; }
+    .header h1 { font-family: Georgia, serif; font-size: 28px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+    .header p  { font-size: 11px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; margin-top: 4px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .footer-note { padding: 12px 24px; font-size: 10px; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px solid #f0f0f0; margin-top: 4px; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>My Quote List</h1>
+      <p>${favorites.length} ${favorites.length === 1 ? "item" : "items"} — Happy Furniture</p>
+    </div>
+  </div>
+  <div class="grid">
+    ${rows.join("")}
+  </div>
+  <div class="footer-note">Happy Furniture &mdash; happyfurniture.com.vn &mdash; Printed ${new Date().toLocaleDateString()}</div>
+</body>
+</html>`;
+
+  const win = window.open("", "_blank", "width=900,height=700");
+  if (!win) return;
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  // slight delay so images can load before print dialog
+  setTimeout(() => {
+    win.print();
+    win.close();
+  }, 600);
+};
+
 /* ─── Favorite Modal ───────────────────────────────────────────── */
 const FavoriteModal = () => {
   const { favorites, removeFavorite, showFavorites, setShowFavorites } = useFavorites();
@@ -15,8 +87,6 @@ const FavoriteModal = () => {
       style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(2px)" }}
       onClick={(e) => e.target === e.currentTarget && setShowFavorites(false)}
     >
-      <style dangerouslySetInnerHTML={{ __html: `@media print{body{visibility:hidden!important}#fav-print-area,#fav-print-area *{visibility:visible!important}#fav-print-area{position:fixed!important;top:0!important;left:0!important;width:100%!important;max-height:none!important;overflow:visible!important;box-shadow:none!important}}` }} />
-
       <div
         className="bg-white w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl"
         id="fav-print-area"
@@ -38,14 +108,16 @@ const FavoriteModal = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-3 print:hidden">
-            <button
-              onClick={() => window.print()}
-              className="hidden sm:flex items-center gap-2 border border-[#2f3e2f] text-[#2f3e2f] text-xs tracking-[0.16em] uppercase px-4 py-2.5 hover:bg-[#2f3e2f] hover:text-white transition-all duration-200 font-sans"
-            >
-              <Printer size={13} />
-              Print list
-            </button>
+          <div className="flex items-center gap-2 md:gap-3">
+            {favorites.length > 0 && (
+              <button
+                onClick={() => printQuoteList(favorites)}
+                className="hidden sm:flex items-center gap-2 border border-[#2f3e2f] text-[#2f3e2f] text-xs tracking-[0.16em] uppercase px-4 py-2.5 hover:bg-[#2f3e2f] hover:text-white transition-all duration-200 font-sans"
+              >
+                <Printer size={13} />
+                Print list
+              </button>
+            )}
             <button
               onClick={() => setShowFavorites(false)}
               className="flex items-center justify-center w-10 h-10 text-[#8d8d8d] hover:text-[#1a1a1a] hover:bg-[#f5f5f5] transition-colors"
@@ -115,7 +187,7 @@ const FavoriteModal = () => {
                     {/* Remove */}
                     <button
                       onClick={() => removeFavorite(p.id)}
-                      className="shrink-0 self-start mt-1 print:hidden flex items-center justify-center w-9 h-9 text-[#b5b5b5] hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+                      className="shrink-0 self-start mt-1 flex items-center justify-center w-9 h-9 text-[#b5b5b5] hover:text-red-500 hover:bg-red-50 transition-all duration-200"
                       aria-label="Remove from Quote List"
                     >
                       <Trash2 size={16} />
@@ -129,7 +201,7 @@ const FavoriteModal = () => {
 
         {/* ── Footer ── */}
         {favorites.length > 0 && (
-          <div className="border-t border-[#f0f0f0] px-6 py-4 md:px-8 md:py-5 flex items-center justify-between print:hidden">
+          <div className="border-t border-[#f0f0f0] px-6 py-4 md:px-8 md:py-5 flex items-center justify-between">
             <p className="font-sans text-xs text-[#8a8a8a] tracking-[0.12em] uppercase">
               {favorites.length} saved item{favorites.length !== 1 ? "s" : ""}
             </p>

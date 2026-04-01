@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Certificate from "./pages/Certificate";
 import News from "./pages/News";
 import WhatWeDo from "./pages/WhatWeDo";
+import ScrollToTop from "./components/ScrollToTop";
 
 // NotFound fallback
 const NotFound = () => {
@@ -32,6 +33,7 @@ const NotFound = () => {
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <LanguageProvider>
       <FavoritesProvider>
       <Routes>

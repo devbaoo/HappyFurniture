@@ -86,15 +86,15 @@ const Header = () => {
       className={`absolute top-0 left-0 w-full z-50 ${isDark ? "bg-transparent" : "bg-white"}`}
     >
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
-      <div className="mx-auto max-w-[1800px] px-4 md:px-10 w-full">
+      <div className="mx-auto max-w-[1800px] px-2 md:px-10 w-full">
         <div
-          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
             {/* Mobile hamburger */}
             <button
-              className={`md:hidden p-2 -ml-2 ${isDark ? "text-white" : "text-stone-700"}`}
+              className={`md:hidden p-2 -ml-1 ${isDark ? "text-white" : "text-stone-700"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={
                 mobileOpen
@@ -112,7 +112,7 @@ const Header = () => {
             {/* Search — desktop only */}
             <div className="hidden md:block w-full">
               <div
-                className={`flex items-center border px-4 py-1.5 gap-2 ${
+                className={`flex items-center h-[38px] border px-4 gap-2 ${
                   isDark ? "border-white/50" : "border-stone-300"
                 }`}
               >
@@ -154,26 +154,13 @@ const Header = () => {
           <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
             <Link
               to="/"
-              className={`flex items-center gap-2 ${
-                isDark ? "text-white" : "text-stone-800"
-              }`}
+              className="flex items-center gap-2"
             >
-              <span className="font-heading text-[28px] md:text-[34px] font-normal leading-none tracking-[0.06em]">HP</span>
-              <div className="flex flex-col text-left">
-                <span className="text-[11px] md:text-[12px] tracking-[0.18em] leading-tight uppercase">
-                  HAPPY
-                </span>
-                <span className="text-[11px] md:text-[12px] tracking-[0.18em] leading-tight uppercase">
-                  FURNITURE
-                </span>
-                <span
-                  className={`text-[8px] md:text-[10px] tracking-[0.08em] leading-tight ${
-                    isDark ? "text-white/70" : "text-stone-400"
-                  }`}
-                >
-                  {siteCopy.header.tagline[lang]}
-                </span>
-              </div>
+              <img
+                src="/images/logo-brown.png"
+                alt="Happy Furniture Logo"
+                className={`h-[36px] md:h-[42px] w-auto object-contain ${isDark ? "brightness-0 invert" : ""}`}
+              />
             </Link>
           </div>
 
@@ -249,7 +236,7 @@ const Header = () => {
             {/* Show my Favorite button */}
             <button
               onClick={() => setShowFavorites(true)}
-              className={`hidden md:flex items-center gap-2.5 px-4 py-2 transition-all duration-200 whitespace-nowrap ${
+              className={`hidden md:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-200 whitespace-nowrap ${
                 isDark
                   ? "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
                   : "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"

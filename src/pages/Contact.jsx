@@ -21,7 +21,7 @@ const Contact = () => {
 
             {/* ══ MAIN 2-COL (desktop: form + GET IN TOUCH side by side) ══ */}
             <section className="pb-2 pt-14 lg:py-14">
-                <div className="w-full px-4 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8">
+                <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8">
                     {/* Form panel */}
                     <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:translate-y-[85px]">
                         <h2 className={`font-heading text-white text-[26px] font-normal tracking-[0.08em] mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{t.formTitle[lang]}</h2>
@@ -112,7 +112,7 @@ const Contact = () => {
             </section>
 
             {/* ══ GET IN TOUCH — mobile/tablet only (hiện dưới form) ══ */}
-            <section className="block lg:hidden px-4 sm:px-8 md:px-14 pt-2 pb-2">
+            <section className="block lg:hidden px-2 sm:px-8 md:px-14 pt-2 pb-2">
                 <h2 className={`font-heading font-normal text-black mb-2 text-2xl sm:text-3xl leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`} style={{ letterSpacing: "0.08em" }}>{t.getInTouch[lang]}</h2>
                 <p className="text-xs sm:text-sm font-normal text-gray-900 leading-[1.75] tracking-[0.01em] mb-3">{t.intro[lang]}</p>
                 <div className="grid grid-cols-2 gap-3 sm:gap-8">
@@ -157,7 +157,7 @@ const Contact = () => {
             <section className="mt-2 lg:mt-12">
                 <iframe
                     title={siteCopy.common.mapTitle[lang]}
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.134!2d106.8918!3d10.9423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d86d2fa97311%3A0xb11780c0c2e43c34!2zQ8O0bmcgVHkgVE5ISCBHbyBIYW5oIFBodWMgKEhhcHB5IEZ1cm5pdHVyZSk!5e0!3m2!1sen!2s!4v1699000000000!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.245353164999!2d106.94629277579998!3d10.86890835773121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174e02f311ac7f1%3A0xa3663c46604b2ff!2sHappy%20Furniture!5e0!3m2!1svi!2svn!4v1711977123456!5m2!1svi!2svn"
                     width="100%"
                     height="260"
                     className="sm:!h-[360px]"

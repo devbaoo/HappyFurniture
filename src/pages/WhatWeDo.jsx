@@ -76,7 +76,7 @@ export default function WhatWeDo() {
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
       <section className="wwd-mfg-section">
-        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="wwd-mfg-inner">
             {/* ── LEFT: green block + photo ── */}
             <div className="wwd-mfg-left">
@@ -127,7 +127,7 @@ export default function WhatWeDo() {
           3. DARK PROMO — Full-width dark bg + 4-col images beneath
          ══════════════════════════════════════════════ */}
       <section className="bg-[#d8d1c9] py-5 md:py-24">
-        <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <h2
             className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] md:-translate-y-[33.3334px] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
           >
@@ -170,7 +170,7 @@ export default function WhatWeDo() {
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
       <section className="wwd-specs-section">
-        <div className="mx-auto max-w-[1800px] px-4 md:px-14 lg:px-24 w-full">
+        <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full">
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start">
             {/* Ảnh ẩn trên mobile, hiện từ lg trở lên */}
             <div className="hidden lg:block w-full lg:w-[40%] flex-shrink-0">
@@ -226,7 +226,7 @@ export default function WhatWeDo() {
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
       <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
-        <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
@@ -281,7 +281,7 @@ export default function WhatWeDo() {
               <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.12em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-white text-stone-800 text-[12px] tracking-[0.1em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200"
                 >
                   {h.timberCta[lang]}
                 </Link>

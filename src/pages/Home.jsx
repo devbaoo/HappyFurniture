@@ -209,7 +209,7 @@ const Home = () => {
           2. OUR PRODUCT CATEGORIES — White bg, 2-row grid
          ══════════════════════════════════════════════ */}
       <section className="bg-white py-6 md:py-16 md:mt-0" data-animate id="categories">
-        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
           <div className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}>
@@ -276,7 +276,7 @@ const Home = () => {
           3. DARK PROMO — Full-width dark bg + 3-col images beneath
          ══════════════════════════════════════════════ */}
       <section className="bg-[#d8d1c9] py-5 md:py-24" data-animate id="promo">
-        <div className="w-full px-3 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
             className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
@@ -328,7 +328,7 @@ const Home = () => {
           4. ABOUT THE COMPANY — White bg, 2-col (text left, image right)
          ══════════════════════════════════════════════ */}
       <section className="bg-white pt-8 md:pt-20 pb-2 md:pb-20">
-        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-20 items-center">
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-2">
@@ -381,7 +381,7 @@ const Home = () => {
           5. 4-COLUMN FEATURES — White bg, thin rule, vertical dividers
          ══════════════════════════════════════════════ */}
       <section className="bg-white pb-4 md:pb-10 pt-2 md:pt-6">
-        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="border-t-[3px] border-[#5a564f] mb-0" />
 
           <div className="bg-[rgb(241,240,238)]">
@@ -479,7 +479,7 @@ const Home = () => {
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
       <section className="bg-white pt-2 pb-4 md:py-20">
-        <div className="w-full px-4 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
           <div className="text-center mb-8 md:mb-16">
             <h3 className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}>
@@ -539,7 +539,7 @@ const Home = () => {
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
       <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
-        <div className="w-full px-5 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
@@ -593,8 +593,8 @@ const Home = () => {
               {/* BUTTON */}
               <div className="w-full md:w-auto">
                 <Link
-                  to="/product"
-                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#314028] md:bg-[#273927] text-white text-[12px] md:text-[12px] tracking-[0.05em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 rounded-sm hover:bg-[#1f2d1f] transition duration-300"
+                  to="/what-we-do"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-white text-stone-800 text-[12px] tracking-[0.1em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200"
                 >
                   {h.timberCta[lang]}
                 </Link>
@@ -641,7 +641,7 @@ const Home = () => {
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
       <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-8 md:py-24 font-sans">
-        <div className="w-full pl-2 pr-3 md:px-14 lg:px-24 md:mx-auto md:max-w-[1700px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 md:mx-auto md:max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-20 items-center">
             {/* LEFT IMAGE - 60% */}
             <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
