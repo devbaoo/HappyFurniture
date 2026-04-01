@@ -608,7 +608,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-18 w-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-18 lg:pb-18 w-full">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
