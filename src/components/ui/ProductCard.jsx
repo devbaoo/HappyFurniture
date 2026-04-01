@@ -53,7 +53,7 @@ const ProductCard = ({
             aria-label={name}
         >
             {/* Main image */}
-            <div className="group/image relative overflow-hidden bg-[#666] aspect-square mb-3">
+            <div className="group/image relative overflow-hidden bg-[#666] aspect-square mb-1.5">
                 {currentImage && !imgError ? (
                     <img
                         src={currentImage.imageUrl}
@@ -132,7 +132,7 @@ const ProductCard = ({
             </div>
 
             {/* Image swatches — thumbnail or placeholder squares */}
-            <div className="flex gap-2 mb-2.5">
+            <div className="flex gap-1.5 mb-2">
                 {swatches.map((img, i) =>
                     img ? (
                         <button
@@ -144,20 +144,27 @@ const ProductCard = ({
                                 setImgError(false);
                                 setActiveIndex(i);
                             }}
-                            className={`w-6 h-6 shrink-0 overflow-hidden rounded-sm bg-[#ccc] sm:h-[26px] sm:w-[26px] ${i === activeIndex ? "ring-2 ring-primary ring-offset-1" : ""
+                            className={`group/thumb relative h-8 w-8 shrink-0 overflow-hidden rounded-sm border border-transparent bg-white p-[1px] transition-all duration-300 outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 sm:h-[40px] sm:w-[40px] ${i === activeIndex
+                                ? "shadow-none"
+                                : "opacity-[0.42] hover:opacity-[0.72]"
                                 }`}
                             aria-label={`Image ${i + 1}`}
+                            aria-current={i === activeIndex ? "true" : undefined}
+                            style={{ WebkitTapHighlightColor: "transparent" }}
                         >
                             <img
                                 src={img.imageUrl}
                                 alt=""
-                                className="h-full w-full object-cover"
+                                className={`h-full w-full rounded-[2px] object-cover transition-[filter,transform] duration-300 ${i === activeIndex
+                                    ? "scale-100 blur-0"
+                                    : "scale-[0.98] blur-[0.85px]"
+                                    }`}
                             />
                         </button>
                     ) : (
                         <div
                             key={i}
-                            className="h-6 w-6 shrink-0 rounded-sm bg-primary sm:h-[26px] sm:w-[26px]"
+                            className="h-8 w-8 shrink-0 rounded-sm border border-transparent bg-primary/20 sm:h-[40px] sm:w-[40px]"
                             style={{ opacity: 0.3 + i * 0.15 }}
                         />
                     )
@@ -165,7 +172,7 @@ const ProductCard = ({
             </div>
 
             {/* Name */}
-            <p className="mb-1.5 line-clamp-2 text-sm font-medium leading-snug text-stone-900 sm:text-[15px]">
+            <p className="mb-1.5 line-clamp-2 text-[15px] font-medium leading-snug text-stone-900 sm:text-[17px]">
                 {name}
             </p>
         </Link>

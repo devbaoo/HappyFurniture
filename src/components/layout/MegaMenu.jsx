@@ -279,8 +279,30 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => 
   useEffect(() => {
     measureHeader();
     window.addEventListener("resize", measureHeader);
-    return () => window.removeEventListener("resize", measureHeader);
+    return () => {
+      window.removeEventListener("resize", measureHeader);
+      clearTimeout(closeTimer.current);
+    };
   }, [measureHeader]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const closePanel = () => {
+      clearTimeout(closeTimer.current);
+      setOpen(false);
+    };
+
+    window.addEventListener("scroll", closePanel, { passive: true });
+    window.addEventListener("wheel", closePanel, { passive: true });
+    window.addEventListener("touchmove", closePanel, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", closePanel);
+      window.removeEventListener("wheel", closePanel);
+      window.removeEventListener("touchmove", closePanel);
+    };
+  }, [open]);
 
   const openPanel = useCallback(() => {
     clearTimeout(closeTimer.current);
@@ -289,6 +311,7 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => 
   }, [measureHeader]);
 
   const scheduleClose = useCallback(() => {
+    clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setOpen(false), 120);
   }, []);
 

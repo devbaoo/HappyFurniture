@@ -69,17 +69,17 @@ const ProductGalleryMagnifier = ({
   };
 
   return (
-    <div className="flex min-w-0 flex-row gap-1.5 overflow-visible lg:gap-4">
+    <div className="flex min-w-0 flex-row gap-1 overflow-visible lg:gap-2">
       {canNavigate && (
-        <div className="flex w-14 shrink-0 flex-col gap-1.5 lg:w-20 lg:gap-3">
+        <div className="flex w-14 shrink-0 flex-col gap-1 lg:w-16 lg:gap-2">
           {sorted.map((img, i) => {
             const isActive = activeIndex === i;
             return (
-              <div key={img.id ?? i} className="flex flex-col gap-1.5">
+              <div key={img.id ?? i} className="flex flex-col gap-1">
                 <button
                   type="button"
                   onClick={() => onActiveIndexChange(i)}
-                  className={`h-14 w-14 shrink-0 overflow-hidden border-2 transition-all duration-300 lg:h-16 lg:w-16 ${
+                  className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-16 lg:w-16 ${
                     isActive
                       ? "border-stone-900 opacity-100"
                       : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
@@ -90,7 +90,7 @@ const ProductGalleryMagnifier = ({
                   <img
                     src={img.imageUrl}
                     alt={img.altText || productName}
-                    className={`h-full w-full object-cover transition-[filter] duration-300 ${
+                    className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${
                       isActive ? "" : "blur-[0.85px]"
                     }`}
                   />
