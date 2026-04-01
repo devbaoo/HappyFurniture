@@ -75,14 +75,14 @@ const useScrollAnimation = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleElements(prev => new Set([...prev, entry.target.id]));
+            setVisibleElements((prev) => new Set([...prev, entry.target.id]));
           }
         });
       },
-      { threshold: 0.1, rootMargin: '-50px' }
+      { threshold: 0.1, rootMargin: "-50px" },
     );
 
-    const elements = document.querySelectorAll('[data-animate]');
+    const elements = document.querySelectorAll("[data-animate]");
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
@@ -151,32 +151,43 @@ const Home = () => {
         className="relative flex items-center justify-center overflow-hidden"
         style={{ minHeight: "100vh" }}
       >
-        {/* Background */}
-        <div className="absolute inset-0">
-          <div
-            className={`absolute inset-0 bg-no-repeat transition-all duration-2000 ease-out ${isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
-              }`}
+        {/* Background Video */}
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            src="https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false"
             style={{
-              backgroundImage: "url('/images/home/Home-main.jpg')",
-              backgroundSize: "cover", /* Changed to cover for better mobile view */
-              backgroundPosition: "center"
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "100vw",
+              height: "56.25vw" /* 16:9 ratio */,
+              minHeight: "100vh",
+              minWidth: "177.78vh" /* 16:9 ratio */,
+              transform: "translate(-50%, -50%)",
+              border: "none",
+              pointerEvents: "none",
             }}
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowFullScreen
+            frameBorder="0"
+            className={`transition-opacity duration-2000 ease-out ${
+              isLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
-
-          {/* overlay - Đã tắt hoàn toàn để ảnh sáng nhất có thể */}
-          <div className={`absolute inset-0 transition-opacity duration-1500 ${isLoaded ? 'opacity-0' : 'opacity-0'
-            }`} />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
         {/* Content */}
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mt-16 md:mt-0">
           {/* TITLE */}
           <h1
-            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] md:whitespace-nowrap ${lang === 'vi' ? '' : 'uppercase'}`}
+            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${
+              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] md:whitespace-nowrap ${lang === "vi" ? "" : "uppercase"}`}
             style={{
               letterSpacing: "0.05em",
-              transitionDelay: "0.3s"
+              transitionDelay: "0.3s",
             }}
           >
             {h.heroTitleLine1[lang]}
@@ -185,16 +196,22 @@ const Home = () => {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <p
+            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${
+              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
-            style={{ transitionDelay: "0.6s" }}>
+            style={{ transitionDelay: "0.6s" }}
+          >
             {h.heroSubtitle[lang]}
           </p>
 
           {/* BUTTON */}
-          <div className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          <div
+            className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${
+              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
-            style={{ transitionDelay: "0.9s" }}>
+            style={{ transitionDelay: "0.9s" }}
+          >
             <Link
               to="/product"
               className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.12em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
@@ -208,12 +225,23 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           2. OUR PRODUCT CATEGORIES — White bg, 2-row grid
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-6 md:py-16 md:mt-0" data-animate id="categories">
+      <section
+        className="bg-white py-6 md:py-16 md:mt-0"
+        data-animate
+        id="categories"
+      >
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
-          <div className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
-            <h2 className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-3 md:mb-3 leading-[1.08] ${lang === 'vi' ? '' : 'uppercase'}`}>
+          <div
+            className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${
+              visibleElements.has("categories")
+                ? "translate-y-0 opacity-100"
+                : "translate-y-8 opacity-0"
+            }`}
+          >
+            <h2
+              className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-3 md:mb-3 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
+            >
               {h.categoriesHeading[lang]}
             </h2>
 
@@ -225,8 +253,14 @@ const Home = () => {
           </div>
 
           {/* Top row — 2 large equal images */}
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: "0.2s" }}>
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${
+              visibleElements.has("categories")
+                ? "translate-y-0 opacity-100"
+                : "translate-y-8 opacity-0"
+            }`}
+            style={{ transitionDelay: "0.2s" }}
+          >
             <CategoryCard
               label={categoryLabels[0]}
               src="/images/home/Home-Dining.jpg"
@@ -242,8 +276,14 @@ const Home = () => {
           </div>
 
           {/* Bottom row — 4 smaller equal images */}
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has('categories') ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: "0.4s" }}>
+          <div
+            className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${
+              visibleElements.has("categories")
+                ? "translate-y-0 opacity-100"
+                : "translate-y-8 opacity-0"
+            }`}
+            style={{ transitionDelay: "0.4s" }}
+          >
             <CategoryCard
               label={categoryLabels[2]}
               src="/images/home/Home-Dining.jpg"
@@ -279,11 +319,16 @@ const Home = () => {
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
-              } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${
+              visibleElements.has("promo") ? "opacity-100" : "opacity-0"
+            } ${lang === "vi" ? "normal-case" : "uppercase"}`}
           >
             <span className="md:hidden">
-              <span className="whitespace-nowrap">{h.promoLineMobile1[lang]}</span> <br />
+              <span className="whitespace-nowrap">
+                {h.promoLineMobile1[lang]}
+              </span>{" "}
+              <br />
               {h.promoLineMobile2[lang]} <br />
               {h.promoLineMobile3[lang]}
             </span>
@@ -389,9 +434,13 @@ const Home = () => {
               {featureColumns.map((item, index) => (
                 <div
                   key={`${item.title}-${index}`}
-                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${index < 2 ? 'border-b md:border-b-0 border-[#c9c5be]' : ''
-                    } ${index % 2 === 0 ? 'border-r md:border-r-0 border-[#c9c5be]' : ''
-                    }`}
+                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${
+                    index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
+                  } ${
+                    index % 2 === 0
+                      ? "border-r md:border-r-0 border-[#c9c5be]"
+                      : ""
+                  }`}
                 >
                   <h3
                     className="mb-1 md:mb-2 font-semibold"
@@ -437,9 +486,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/35 md:bg-black/0 z-0"></div>
         <div className="absolute top-0 left-0 right-0 h-8 md:hidden bg-white z-[1]"></div>
 
-        <div
-          className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px]"
-        >
+        <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px]">
           <Img
             src="/images/home/InsideFactoryBackGround.jpg"
             alt={h.factoryImageAlt[lang]}
@@ -459,12 +506,11 @@ const Home = () => {
               </svg>
             </button>
           </div>
-
         </div>
 
         <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
           <h2
-            className={`font-heading text-[#f4ecd8] md:text-white tracking-[0.05em] md:tracking-[0.08em] mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.04] whitespace-nowrap font-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+            className={`font-heading text-[#f4ecd8] md:text-white tracking-[0.05em] md:tracking-[0.08em] mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.04] whitespace-nowrap font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
           >
             {h.factoryHeading[lang]}
           </h2>
@@ -483,6 +529,7 @@ const Home = () => {
           {/* ===== Partners ===== */}
           <div className="text-center mb-4 md:mb-7">
             <h3 className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}>
+
               {h.partnersHeading[lang]}
             </h3>
 
@@ -492,18 +539,33 @@ const Home = () => {
             <div className="md:hidden flex flex-col items-center gap-2.5 sm:gap-3">
               <div className="flex justify-center gap-3 sm:gap-5">
                 {PARTNER_LOGO_SRCS.slice(0, 3).map((src, i) => (
-                  <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
+                  <PartnerLogoCircle
+                    key={src}
+                    src={src}
+                    index={i}
+                    altPrefix={h.partnerLogoAlt[lang]}
+                  />
                 ))}
               </div>
               <div className="flex justify-center gap-3 sm:gap-5">
                 {PARTNER_LOGO_SRCS.slice(3, 5).map((src, i) => (
-                  <PartnerLogoCircle key={src} src={src} index={i + 3} altPrefix={h.partnerLogoAlt[lang]} />
+                  <PartnerLogoCircle
+                    key={src}
+                    src={src}
+                    index={i + 3}
+                    altPrefix={h.partnerLogoAlt[lang]}
+                  />
                 ))}
               </div>
             </div>
             <div className="hidden md:flex justify-center gap-8">
               {PARTNER_LOGO_SRCS.map((src, i) => (
-                <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
+                <PartnerLogoCircle
+                  key={src}
+                  src={src}
+                  index={i}
+                  altPrefix={h.partnerLogoAlt[lang]}
+                />
               ))}
             </div>
           </div>
@@ -556,7 +618,10 @@ const Home = () => {
 
               <div className="mb-3 md:mb-4 flex flex-col gap-2 md:gap-2.5 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
-                  <p key={idx} className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0">
+                  <p
+                    key={idx}
+                    className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0"
+                  >
                     {para}
                   </p>
                 ))}
@@ -656,7 +721,7 @@ const Home = () => {
             {/* RIGHT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className={`font-heading mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-normal ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+                className={`font-heading mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
                   letterSpacing: "0.06em",
