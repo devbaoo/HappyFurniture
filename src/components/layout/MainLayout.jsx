@@ -24,13 +24,13 @@ const FavoriteModal = () => {
         {/* ── Header ── */}
         <div className="flex items-start justify-between gap-6 px-6 py-5 md:px-8 md:py-6 border-b border-[#e8e8e8]">
           <div className="flex items-center gap-4 md:gap-5">
-            {/* Heart icon */}
-            <svg className="w-7 h-7 text-rose-400 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+            {/* Bookmark icon */}
+            <svg className="w-7 h-7 text-[#3c4a28] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
             </svg>
             <div>
               <h2 className="font-heading text-[30px] md:text-[34px] font-normal tracking-[0.08em] uppercase text-[#222] leading-[0.98]">
-                My Favourites
+                My Quote List
               </h2>
               <p className="text-xs md:text-[13px] tracking-[0.14em] text-[#777] mt-2 uppercase font-sans">
                 {favorites.length} {favorites.length === 1 ? "item" : "items"} saved
@@ -63,10 +63,10 @@ const FavoriteModal = () => {
           {favorites.length === 0 && (
             <div className="flex flex-col items-center justify-center py-24 gap-4">
               <svg className="w-12 h-12 text-[#ddd]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
               </svg>
-              <p className="font-heading text-2xl font-light text-[#8f8f8f] tracking-[0.14em] uppercase">No favourites yet</p>
-              <p className="text-sm text-[#a8a8a8] tracking-wide font-sans">Click the heart on any product to save it here</p>
+              <p className="font-heading text-2xl font-light text-[#8f8f8f] tracking-[0.14em] uppercase">No items in Quote List yet</p>
+              <p className="text-sm text-[#a8a8a8] tracking-wide font-sans">Click the save icon on any product to add it here</p>
             </div>
           )}
 
@@ -116,7 +116,7 @@ const FavoriteModal = () => {
                     <button
                       onClick={() => removeFavorite(p.id)}
                       className="shrink-0 self-start mt-1 print:hidden flex items-center justify-center w-9 h-9 text-[#b5b5b5] hover:text-red-500 hover:bg-red-50 transition-all duration-200"
-                      aria-label="Remove from favourites"
+                      aria-label="Remove from Quote List"
                     >
                       <Trash2 size={16} />
                     </button>

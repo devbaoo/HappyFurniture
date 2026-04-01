@@ -4,6 +4,8 @@ import { SlidersHorizontal, ChevronDown, X } from "lucide-react";
 import Container from "../components/ui/Container";
 import ProductCard from "../components/ui/ProductCard";
 import { productService } from "../services/product.service";
+import { categoryService } from "../services/category.service";
+import { materialService } from "../services/material.service";
 import useMegaMenu from "../hooks/useMegaMenu";
 import { useFavorites } from "../context/FavoritesContext";
 
@@ -15,48 +17,6 @@ const SORT_OPTIONS = [
   { value: "name_asc", label: "Name A–Z" },
   { value: "name_desc", label: "Name Z–A" },
 ];
-
-const PAGE_SIZES = [12, 24, 48];
-
-/* ─── Price range slider (simple dual-input) ──────────────────── */
-const PriceFilter = ({ min, max, onChange }) => {
-  const [localMin, setLocalMin] = useState(min ?? "");
-  const [localMax, setLocalMax] = useState(max ?? "");
-
-  // sync props → local state when parent clears the filter
-  if (localMin !== (min ?? "") && document.activeElement?.tagName !== "INPUT") {
-    setLocalMin(min ?? "");
-  }
-  if (localMax !== (max ?? "") && document.activeElement?.tagName !== "INPUT") {
-    setLocalMax(max ?? "");
-  }
-
-  const commit = () => onChange(localMin || null, localMax || null);
-
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        type="number"
-        placeholder="Min $"
-        value={localMin}
-        onChange={(e) => setLocalMin(e.target.value)}
-        onBlur={commit}
-        onKeyDown={(e) => e.key === "Enter" && commit()}
-        className="w-24 border border-border px-3 py-1.5 text-xs tracking-[0.02em] outline-none focus:border-primary transition-colors"
-      />
-      <span className="text-muted text-xs">—</span>
-      <input
-        type="number"
-        placeholder="Max $"
-        value={localMax}
-        onChange={(e) => setLocalMax(e.target.value)}
-        onBlur={commit}
-        onKeyDown={(e) => e.key === "Enter" && commit()}
-        className="w-24 border border-border px-3 py-1.5 text-xs tracking-[0.02em] outline-none focus:border-primary transition-colors"
-      />
-    </div>
-  );
-};
 
 /* ─── Dropdown wrapper ─────────────────────────────────────────── */
 const FilterDropdown = ({ label, active, children }) => {
@@ -140,11 +100,19 @@ const ProductList = () => {
   /* ── URL-driven state ────────────────────────────────────────── */
   const categoryId = searchParams.get("category") || "";
   const [nameFilter, setNameFilter] = useState(searchParams.get("name") || "");
-  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || null);
-  const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || null);
   const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
   const [pageNumber, setPageNumber] = useState(Number(searchParams.get("page") || 1));
   const [pageSize] = useState(Number(searchParams.get("pageSize") || 12));
+  const [subCatId, setSubCatId] = useState(searchParams.get("subcat") || "");
+  const [materialId, setMaterialId] = useState(searchParams.get("material") || "");
+
+  /* ── Filter categories (Type dropdown) ───────────────────────── */
+  const [filterCategories, setFilterCategories] = useState([]);
+  const [filterCatLoading, setFilterCatLoading] = useState(false);
+
+  /* ── Materials (Material dropdown) ───────────────────────────── */
+  const [materials, setMaterials] = useState([]);
+  const [materialsLoading, setMaterialsLoading] = useState(false);
 
   /* ── Products state ──────────────────────────────────────────── */
   const [products, setProducts] = useState([]);
@@ -171,6 +139,12 @@ const ProductList = () => {
   // pageTitle reserved for future use (e.g. <title> tag)
   void (activeCat ? activeCat.name.trim() : "All Products");
 
+  /* ── Sync nameFilter from URL (e.g. header search navigates here) */
+  useEffect(() => {
+    const urlName = searchParams.get("name") || "";
+    setNameFilter(urlName);
+  }, [searchParams]);
+
   /* ── Build params & fetch ────────────────────────────────────── */
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -180,12 +154,13 @@ const ProductList = () => {
       ? sortBy.split("_")
       : [undefined, undefined];
 
+    const effectiveCatId = subCatId || categoryId;
+
     try {
       const data = await productService.getProducts({
-        ...(categoryId ? { CategoryId: categoryId } : {}),
+        ...(effectiveCatId ? { CategoryId: effectiveCatId } : {}),
+        ...(materialId ? { MaterialId: materialId } : {}),
         ...(nameFilter ? { Name: nameFilter } : {}),
-        ...(minPrice != null ? { MinPrice: minPrice } : {}),
-        ...(maxPrice != null ? { MaxPrice: maxPrice } : {}),
         ...(sortField ? { SortBy: sortField } : {}),
         ...(sortOrder ? { SortOrder: sortOrder } : {}),
         PageNumber: pageNumber,
@@ -203,7 +178,7 @@ const ProductList = () => {
     } finally {
       setLoading(false);
     }
-  }, [categoryId, nameFilter, minPrice, maxPrice, sortBy, pageNumber, pageSize]);
+  }, [categoryId, subCatId, materialId, nameFilter, sortBy, pageNumber, pageSize]);
 
   useEffect(() => {
     fetchProducts();
@@ -213,14 +188,14 @@ const ProductList = () => {
   useEffect(() => {
     const params = {};
     if (categoryId) params.category = categoryId;
+    if (subCatId) params.subcat = subCatId;
+    if (materialId) params.material = materialId;
     if (nameFilter) params.name = nameFilter;
-    if (minPrice) params.minPrice = minPrice;
-    if (maxPrice) params.maxPrice = maxPrice;
     if (sortBy) params.sortBy = sortBy;
     if (pageNumber > 1) params.page = pageNumber;
     if (pageSize !== 12) params.pageSize = pageSize;
     setSearchParams(params, { replace: true });
-  }, [categoryId, nameFilter, minPrice, maxPrice, sortBy, pageNumber, pageSize, setSearchParams]);
+  }, [categoryId, subCatId, materialId, nameFilter, sortBy, pageNumber, pageSize, setSearchParams]);
 
   /* ── Reset to page 1 whenever any filter changes ─────────────── */
   const applyFilter = (fn) => { fn(); setPageNumber(1); };
@@ -262,14 +237,54 @@ const ProductList = () => {
     return () => window.removeEventListener("resize", handleScroll);
   }, [megaCategories, handleScroll]);
 
+  /* ── Fetch filter categories based on current categoryId ─────── */
+  const prevCategoryIdRef = useRef(categoryId);
+  useEffect(() => {
+    if (prevCategoryIdRef.current !== categoryId) {
+      setSubCatId("");
+      prevCategoryIdRef.current = categoryId;
+    }
+  }, [categoryId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setFilterCatLoading(true);
+    (async () => {
+      try {
+        if (!categoryId) {
+          const roots = await categoryService.getRootCategories();
+          if (!cancelled) setFilterCategories(roots);
+        } else {
+          const cat = await categoryService.getCategoryById(categoryId);
+          if (!cancelled) setFilterCategories(cat.children || []);
+        }
+      } catch {
+        if (!cancelled) setFilterCategories([]);
+      } finally {
+        if (!cancelled) setFilterCatLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [categoryId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setMaterialsLoading(true);
+    materialService.getActiveMaterials()
+      .then((data) => { if (!cancelled) setMaterials(data); })
+      .catch(() => { if (!cancelled) setMaterials([]); })
+      .finally(() => { if (!cancelled) setMaterialsLoading(false); });
+    return () => { cancelled = true; };
+  }, []);
+
   /* ── Active filters summary (pill chips) ─────────────────────── */
-  const hasActiveFilters = nameFilter || minPrice || maxPrice || sortBy;
+  const hasActiveFilters = nameFilter || sortBy || subCatId || materialId;
 
   const clearAll = () => {
     setNameFilter("");
-    setMinPrice(null);
-    setMaxPrice(null);
     setSortBy("");
+    setSubCatId("");
+    setMaterialId("");
     setPageNumber(1);
   };
 
@@ -396,37 +411,94 @@ const ProductList = () => {
             </button>
 
             {/* Middle: Dropdowns all aligned to the left next to Filter */}
-            <FilterDropdown label="Type" active={false}>
-              <div className="text-[12px] text-muted">Filter by type</div>
-            </FilterDropdown>
-
-            <FilterDropdown label="Price" active={!!(minPrice || maxPrice)}>
-              <p className="text-[10px] tracking-[0.12em] uppercase text-muted mb-3">Price Range</p>
-              <PriceFilter
-                min={minPrice}
-                max={maxPrice}
-                onChange={(mn, mx) => applyFilter(() => { setMinPrice(mn); setMaxPrice(mx); })}
-              />
-              {(minPrice || maxPrice) && (
-                <button
-                  onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}
-                  className="mt-4 text-[11px] text-muted hover:text-primary tracking-[0.08em] border border-border w-full py-1.5"
-                >
-                  Clear Price
-                </button>
+            <FilterDropdown
+              label={filterCategories.find(c => String(c.id) === subCatId)?.name?.trim() || "Type"}
+              active={!!subCatId}
+            >
+              {filterCatLoading ? (
+                <div className="text-[11px] text-muted py-1 px-1">Loading...</div>
+              ) : filterCategories.length === 0 ? (
+                <div className="text-[11px] text-muted py-1 px-1">No sub-categories</div>
+              ) : (
+                <ul className="min-w-[160px]">
+                  {!categoryId && filterCategories.map((cat) => (
+                    <li key={cat.id}>
+                      <button
+                        onClick={() => {
+                          setSearchParams((prev) => {
+                            const p = new URLSearchParams(prev);
+                            p.set("category", String(cat.id));
+                            p.delete("subcat");
+                            p.delete("page");
+                            return p;
+                          });
+                        }}
+                        className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors text-[#333]"
+                      >
+                        {cat.name.trim()}
+                      </button>
+                    </li>
+                  ))}
+                  {categoryId && (
+                    <>
+                      {subCatId && (
+                        <li>
+                          <button
+                            onClick={() => applyFilter(() => setSubCatId(""))}
+                            className="w-full text-left py-1.5 px-2 text-[11px] tracking-[0.08em] uppercase text-muted hover:text-primary transition-colors border-b border-border mb-1"
+                          >
+                            Clear
+                          </button>
+                        </li>
+                      )}
+                      {filterCategories.map((cat) => (
+                        <li key={cat.id}>
+                          <button
+                            onClick={() => applyFilter(() => setSubCatId(String(cat.id) === subCatId ? "" : String(cat.id)))}
+                            className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(cat.id) === subCatId ? "text-primary font-medium" : "text-[#333]"}`}
+                          >
+                            {cat.name.trim()}
+                          </button>
+                        </li>
+                      ))}
+                    </>
+                  )}
+                </ul>
               )}
             </FilterDropdown>
 
-            <FilterDropdown label="Width" active={false}>
-              <div className="text-[12px] text-muted">Filter by width</div>
-            </FilterDropdown>
-
-            <FilterDropdown label="Material" active={false}>
-              <div className="text-[12px] text-muted">Filter by material</div>
-            </FilterDropdown>
-
-            <FilterDropdown label="Color" active={false}>
-              <div className="text-[12px] text-muted">Filter by color</div>
+            <FilterDropdown
+              label={materials.find(m => String(m.id) === materialId)?.name || "Material"}
+              active={!!materialId}
+            >
+              {materialsLoading ? (
+                <div className="text-[11px] text-muted py-1 px-1">Loading...</div>
+              ) : materials.length === 0 ? (
+                <div className="text-[11px] text-muted py-1 px-1">No materials</div>
+              ) : (
+                <ul className="min-w-[160px]">
+                  {materialId && (
+                    <li>
+                      <button
+                        onClick={() => applyFilter(() => setMaterialId(""))}
+                        className="w-full text-left py-1.5 px-2 text-[11px] tracking-[0.08em] uppercase text-muted hover:text-primary transition-colors border-b border-border mb-1"
+                      >
+                        Clear
+                      </button>
+                    </li>
+                  )}
+                  {materials.map((m) => (
+                    <li key={m.id}>
+                      <button
+                        onClick={() => applyFilter(() => setMaterialId(String(m.id) === materialId ? "" : String(m.id)))}
+                        className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(m.id) === materialId ? "text-primary font-medium" : "text-[#333]"}`}
+                      >
+                        {m.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </FilterDropdown>
 
           </div>
@@ -438,16 +510,22 @@ const ProductList = () => {
         <div className="border-b border-border">
           <Container>
             <div className="flex items-center gap-2 py-2 flex-wrap">
+              {subCatId && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
+                  Type: {filterCategories.find(c => String(c.id) === subCatId)?.name?.trim() || subCatId}
+                  <button onClick={() => applyFilter(() => setSubCatId(""))}><X size={10} /></button>
+                </span>
+              )}
+              {materialId && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
+                  Material: {materials.find(m => String(m.id) === materialId)?.name || materialId}
+                  <button onClick={() => applyFilter(() => setMaterialId(""))}><X size={10} /></button>
+                </span>
+              )}
               {nameFilter && (
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Name: {nameFilter}
                   <button onClick={() => applyFilter(() => setNameFilter(""))}><X size={10} /></button>
-                </span>
-              )}
-              {(minPrice || maxPrice) && (
-                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
-                  Price: {minPrice || "0"}$ – {maxPrice || "∞"}$
-                  <button onClick={() => applyFilter(() => { setMinPrice(null); setMaxPrice(null); })}><X size={10} /></button>
                 </span>
               )}
               {sortBy && (
