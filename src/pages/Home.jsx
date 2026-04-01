@@ -275,11 +275,11 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           3. DARK PROMO — Full-width dark bg + 3-col images beneath
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#d8d1c9] py-5 md:py-24" data-animate id="promo">
+      <section className="bg-[#d8d1c9] py-4 md:py-16" data-animate id="promo">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Title */}
           <h2
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
@@ -327,7 +327,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           4. ABOUT THE COMPANY — White bg, 2-col (text left, image right)
          ══════════════════════════════════════════════ */}
-      <section className="bg-white pt-8 md:pt-20 pb-2 md:pb-20">
+      <section className="bg-white pt-6 md:pt-14 pb-2 md:pb-14">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-20 items-center">
             {/* Left: Text */}
@@ -478,30 +478,30 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
          ══════════════════════════════════════════════ */}
-      <section className="bg-white pt-2 pb-4 md:py-20">
+      <section className="bg-white pt-3 pb-4 md:py-7">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
           {/* ===== Partners ===== */}
-          <div className="text-center mb-8 md:mb-16">
+          <div className="text-center mb-4 md:mb-7">
             <h3 className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}>
               {h.partnersHeading[lang]}
             </h3>
 
-            <div className="w-32 md:w-48 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-10"></div>
+            <div className="w-32 md:w-48 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
 
             {/* Mobile / tablet: hàng 3 + hàng 2; md+: một hàng như cũ */}
-            <div className="md:hidden flex flex-col items-center gap-4 sm:gap-5">
-              <div className="flex justify-center gap-4 sm:gap-8">
+            <div className="md:hidden flex flex-col items-center gap-2.5 sm:gap-3">
+              <div className="flex justify-center gap-3 sm:gap-5">
                 {PARTNER_LOGO_SRCS.slice(0, 3).map((src, i) => (
                   <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
                 ))}
               </div>
-              <div className="flex justify-center gap-4 sm:gap-8">
+              <div className="flex justify-center gap-3 sm:gap-5">
                 {PARTNER_LOGO_SRCS.slice(3, 5).map((src, i) => (
                   <PartnerLogoCircle key={src} src={src} index={i + 3} altPrefix={h.partnerLogoAlt[lang]} />
                 ))}
               </div>
             </div>
-            <div className="hidden md:flex justify-center gap-12">
+            <div className="hidden md:flex justify-center gap-8">
               {PARTNER_LOGO_SRCS.map((src, i) => (
                 <PartnerLogoCircle key={src} src={src} index={i} altPrefix={h.partnerLogoAlt[lang]} />
               ))}
@@ -514,13 +514,13 @@ const Home = () => {
               {siteCopy.home.certificationsHeading[lang]}
             </h3>
 
-            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-4 md:mb-8"></div>
+            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
 
-            <p className="text-[15px] md:text-[17px] text-stone-700 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto mb-8 md:mb-12 text-left md:text-center">
+            <p className="text-[15px] md:text-[17px] text-stone-700 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto mb-4 md:mb-6 text-left md:text-center">
               {siteCopy.home.certificationsIntro[lang]}
             </p>
 
-            <div className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-4 sm:gap-8 md:gap-12">
+            <div className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-3 sm:gap-5 md:gap-8">
               {certItems.map((item, i) => (
                 <Img
                   key={item.title}
@@ -538,13 +538,13 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-18 w-full">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
@@ -554,7 +554,7 @@ const Home = () => {
                 {h.timberHeading[lang]}
               </h2>
 
-              <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
+              <div className="mb-3 md:mb-4 flex flex-col gap-2 md:gap-2.5 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
                   <p key={idx} className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0">
                     {para}
@@ -563,7 +563,7 @@ const Home = () => {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-2 md:mb-6">
+              <div className="mb-2 md:mb-4">
                 <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
                   {h.timberQuality[lang]}
                 </p>
@@ -581,7 +581,7 @@ const Home = () => {
               </div>
 
               {/* SIZE */}
-              <div className="mb-2.5 md:mb-8">
+              <div className="mb-2.5 md:mb-6">
                 <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   {h.timberSize[lang]}
                 </p>
@@ -640,11 +640,11 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-8 md:py-24 font-sans">
+      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-7 md:py-18 font-sans">
         <div className="w-full px-2 md:px-14 lg:px-24 md:mx-auto md:max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 lg:gap-16 items-center">
             {/* LEFT IMAGE - 60% */}
-            <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[380px] lg:h-[460px]">
+            <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[360px] lg:h-[420px]">
               <Img
                 src="/images/home/Furniture.jpg"
                 alt={h.newsletterImageAlt[lang]}
