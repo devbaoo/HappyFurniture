@@ -24,7 +24,7 @@ const Footer = () => {
 
     return (
         <footer className={isLightFooter ? "bg-[rgba(237,233,233,0.75)] text-stone-800 border-t border-stone-200 pt-4" : "bg-[#3c4a28] text-white pt-2"}>
-            <div className="mx-auto max-w-[1700px] px-6 w-full">
+            <div className="mx-auto max-w-[1700px] px-2 md:px-6 w-full">
 
                 {/* TOP GRID */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-12 py-8 md:py-3">
