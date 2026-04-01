@@ -84,7 +84,7 @@
 @layer components {
   /* ── Specs section wrapper ─────────────────────────────────────── */
   .wwd-specs-section {
-    @apply py-20 md:py-32 bg-white;
+    @apply py-16 md:py-20 bg-white;
   }
 
   /* Two-column grid inside the specs section */
@@ -102,19 +102,23 @@
     }
 
     .wwd-specs-section {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+      padding-top: 1.75rem;
+      padding-bottom: 1.75rem;
     }
 
     /* Product Range block: remove border-top trên mobile vì nó nằm dưới cùng 1 cột */
     .wwd-specs-right .wwd-spec-block {
       border-top: 1px solid #e0e0dc;
-      padding-top: 40px;
+      padding-top: 28px;
+    }
+
+    .wwd-specs-right {
+      padding-left: 0;
     }
 
     .wwd-spec-block {
-      padding-top: 28px;
-      padding-bottom: 28px;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
 
     .wwd-spec-block:first-child {
@@ -122,11 +126,12 @@
     }
 
     .wwd-spec-list {
-      gap: 12px;
+      gap: 8px;
     }
 
     .wwd-spec-list li {
       font-size: 14px;
+      line-height: 1.65;
     }
   }
 
@@ -141,6 +146,7 @@
     display: flex;
     flex-direction: column;
     padding-top: 4px; /* optical alignment with left column first heading */
+    padding-left: 20px;
   }
 
   /* ── Individual spec block ─────────────────────────────────────── */

@@ -28,9 +28,9 @@ const Certificate = () => {
         </nav>
       </div>
 
-      <section className="pt-[72px] lg:pt-12 pb-8 md:pb-12 text-center">
+      <section className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4 md:mb-5">
             <img
               alt=""
               className="object-contain w-40 h-40 md:w-48 md:h-48"
@@ -38,7 +38,7 @@ const Certificate = () => {
             />
           </div>
           <h1
-            className="font-heading uppercase font-normal mb-6 text-[#3a3530] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
+            className="font-heading uppercase font-normal mb-2 md:mb-3 text-[#3a3530] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
             style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)" }}
           >
             {c.heroTitle[lang]}
@@ -50,11 +50,11 @@ const Certificate = () => {
       </section>
 
       <section className="pb-16 md:pb-24">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <div className="relative overflow-hidden rounded-sm w-full aspect-[2/1] lg:aspect-auto lg:min-h-[280px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start">
+          <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px]">
             <img
               alt=""
-              className="object-cover w-full h-full min-h-[200px]"
+              className="object-cover w-full h-full"
               src="/images/cert-workshop.jpg"
             />
             <div className="absolute inset-0 bg-black/20" />
@@ -75,18 +75,18 @@ const Certificate = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-10 lg:gap-12">
+          <div className="flex flex-col gap-2.5 lg:gap-3">
             {blocks.map((b, index) => (
               <article
                 key={b.key}
-                className={`${index > 0 ? "pt-10 border-t border-stone-200" : ""}`}
+                className={`${index > 0 ? "pt-2.5 lg:pt-3 border-t border-stone-200" : ""}`}
               >
                 <img
                   alt=""
-                  className="h-16 md:h-20 object-contain object-left mb-4"
+                  className="h-8 md:h-9 object-contain object-left mb-0.5"
                   src={CERT_MEDIA[b.key]}
                 />
-                <h2 className="font-heading font-normal text-[#2c2c2c] mb-3 text-xl md:text-[22px] tracking-[0.06em] leading-[1.08] uppercase">
+                <h2 className="font-heading font-normal text-[#2c2c2c] mb-0 text-xl md:text-[22px] tracking-[0.06em] leading-[1.08] uppercase">
                   {b.heading}
                 </h2>
                 <p className="text-[15px] md:text-[17px] font-normal text-stone-600 leading-[1.8] tracking-[0.01em] max-w-xl">

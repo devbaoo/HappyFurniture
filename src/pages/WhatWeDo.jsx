@@ -8,11 +8,40 @@ import { siteCopy } from "../i18n/siteCopy";
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
 import manufacturingImg from "/images/about-us/FurnitureManufacturing.jpg";
 import finishingImg from "/images/about-us/Finishing.jpg";
-import timber1Img from "/images/about-us/Timber.jpg";
-import timber2Img from "/images/about-us/Timber2.jpg";
-import timber3Img from "/images/about-us/Timber3.jpg";
 
 const iconProps = { size: 22, strokeWidth: 1.4 };
+
+const Img = ({ src, alt = "", className = "" }) => (
+  <img
+    src={src}
+    alt={alt}
+    className={`w-full h-full object-cover ${className}`}
+  />
+);
+
+const useScrollAnimation = () => {
+  const [visibleElements, setVisibleElements] = useState(new Set());
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleElements((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "-50px" }
+    );
+
+    const elements = document.querySelectorAll("[data-animate]");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return visibleElements;
+};
 
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function WhatWeDo() {
@@ -20,6 +49,7 @@ export default function WhatWeDo() {
   const h = siteCopy.home;
   const w = siteCopy.whatWeDoPage;
   const specs = w.specs;
+  const visibleElements = useScrollAnimation();
 
   const stats = useMemo(() => {
     const icons = [
@@ -126,13 +156,19 @@ export default function WhatWeDo() {
       {/* ══════════════════════════════════════════════
           3. DARK PROMO — Full-width dark bg + 4-col images beneath
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#d8d1c9] py-5 md:py-24">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="bg-[#d8d1c9] py-4 md:py-16" data-animate id="promo">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
+          {/* Title */}
           <h2
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] md:-translate-y-[33.3334px] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+              } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
-              <span className="whitespace-nowrap">{h.promoLineMobile1[lang]}</span> <br />
+              <span className="whitespace-nowrap">
+                {h.promoLineMobile1[lang]}
+              </span>{" "}
+              <br />
               {h.promoLineMobile2[lang]} <br />
               {h.promoLineMobile3[lang]}
             </span>
@@ -142,6 +178,7 @@ export default function WhatWeDo() {
             </span>
           </h2>
 
+          {/* 4 images */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               { src: "/images/home/Quality.jpg" },
@@ -153,12 +190,16 @@ export default function WhatWeDo() {
                 key={i}
                 className="relative overflow-hidden rounded-sm group"
               >
-                <img
+                <Img
                   src={item.src}
                   alt={promoCaptions[i]}
                   className="w-full h-[175px] md:h-[290px] object-cover transition duration-500 group-hover:scale-105"
                 />
+
+                {/* overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80" />
+
+                {/* caption */}
                 <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md">
                   {promoCaptions[i]}
                 </p>
@@ -225,13 +266,13 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-2 lg:py-24 w-full">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-18 lg:pb-18 w-full">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full">
               <h2
-                className={`font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-5 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
@@ -241,16 +282,19 @@ export default function WhatWeDo() {
                 {h.timberHeading[lang]}
               </h2>
 
-              <div className="mb-3 md:mb-6 flex flex-col gap-2 md:gap-3 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
+              <div className="mb-3 md:mb-4 flex flex-col gap-2 md:gap-2.5 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
-                  <p key={idx} className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0">
+                  <p
+                    key={idx}
+                    className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0"
+                  >
                     {para}
                   </p>
                 ))}
               </div>
 
               {/* QUALITY */}
-              <div className="mb-2 md:mb-6">
+              <div className="mb-2 md:mb-4">
                 <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
                   {h.timberQuality[lang]}
                 </p>
@@ -268,7 +312,7 @@ export default function WhatWeDo() {
               </div>
 
               {/* SIZE */}
-              <div className="mb-2.5 md:mb-8">
+              <div className="mb-2.5 md:mb-6">
                 <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   {h.timberSize[lang]}
                 </p>
@@ -280,7 +324,7 @@ export default function WhatWeDo() {
               {/* BUTTON */}
               <div className="w-full md:w-auto">
                 <Link
-                  to="/product"
+                  to="/what-we-do"
                   className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#3c4a28] text-white text-[12px] tracking-[0.1em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 ring-[0.5px] ring-[#3c4a28] hover:bg-white hover:text-[#3c4a28] hover:ring-stone-400 transition-all duration-200"
                 >
                   {h.timberCta[lang]}
@@ -290,26 +334,32 @@ export default function WhatWeDo() {
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
             <div className="lg:col-span-3 flex flex-col gap-1.5 md:gap-1 mt-1 md:mt-0 w-full mb-0 pb-0">
+              {/* TOP IMAGE */}
               <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
-                <img
-                  src={timber1Img}
+                <Img
+                  src="/images/home/Timber.jpg"
                   alt={timberAlts[0]}
                   className="w-full h-full object-cover"
+                  placeholderBg="#b5a898"
                 />
               </div>
+
+              {/* BOTTOM IMAGES */}
               <div className="grid grid-cols-2 gap-2 md:gap-1 w-full">
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
-                  <img
-                    src={timber2Img}
+                  <Img
+                    src="/images/home/Timber2.jpg"
                     alt={timberAlts[1]}
                     className="w-full h-full object-cover"
+                    placeholderBg="#b5a898"
                   />
                 </div>
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
-                  <img
-                    src={timber3Img}
+                  <Img
+                    src="/images/home/Timber3.jpg"
                     alt={timberAlts[2]}
                     className="w-full h-full object-cover"
+                    placeholderBg="#b5a898"
                   />
                 </div>
               </div>
