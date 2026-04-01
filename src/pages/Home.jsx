@@ -170,9 +170,8 @@ const Home = () => {
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             frameBorder="0"
-            className={`transition-opacity duration-2000 ease-out ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
+            className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
+              }`}
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/40" />
@@ -182,9 +181,8 @@ const Home = () => {
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mt-16 md:mt-0">
           {/* TITLE */}
           <h1
-            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] md:whitespace-nowrap ${lang === "vi" ? "" : "uppercase"}`}
+            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[44px] md:whitespace-nowrap ${lang === "vi" ? "" : "uppercase"}`}
             style={{
               letterSpacing: "0.05em",
               transitionDelay: "0.3s",
@@ -197,9 +195,8 @@ const Home = () => {
 
           {/* DESCRIPTION */}
           <p
-            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            }`}
+            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.6s" }}
           >
             {h.heroSubtitle[lang]}
@@ -207,9 +204,8 @@ const Home = () => {
 
           {/* BUTTON */}
           <div
-            className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            }`}
+            className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.9s" }}
           >
             <Link
@@ -233,11 +229,10 @@ const Home = () => {
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
           <div
-            className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
           >
             <h2
               className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-3 md:mb-3 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
@@ -254,11 +249,10 @@ const Home = () => {
 
           {/* Top row — 2 large equal images */}
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.2s" }}
           >
             <CategoryCard
@@ -277,11 +271,10 @@ const Home = () => {
 
           {/* Bottom row — 4 smaller equal images */}
           <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.4s" }}
           >
             <CategoryCard
@@ -320,9 +313,8 @@ const Home = () => {
           {/* Title */}
           <h2
 
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-20 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${
-              visibleElements.has("promo") ? "opacity-100" : "opacity-0"
-            } ${lang === "vi" ? "normal-case" : "uppercase"}`}
+            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+              } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
               <span className="whitespace-nowrap">
@@ -434,13 +426,11 @@ const Home = () => {
               {featureColumns.map((item, index) => (
                 <div
                   key={`${item.title}-${index}`}
-                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${
-                    index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
-                  } ${
-                    index % 2 === 0
+                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
+                    } ${index % 2 === 0
                       ? "border-r md:border-r-0 border-[#c9c5be]"
                       : ""
-                  }`}
+                    }`}
                 >
                   <h3
                     className="mb-1 md:mb-2 font-semibold"
