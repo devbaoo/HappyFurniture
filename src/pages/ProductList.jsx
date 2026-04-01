@@ -542,7 +542,7 @@ const ProductList = () => {
       <section className="pt-4 pb-6">
         <Container>
           {loading && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
+            <div className="grid grid-cols-2 gap-x-1 gap-y-4 md:grid-cols-4 md:gap-x-2 md:gap-y-5">
               {Array.from({ length: pageSize }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
           )}
@@ -576,7 +576,7 @@ const ProductList = () => {
           )}
 
           {!loading && !error && products.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2">
+            <div className="grid grid-cols-2 gap-x-1 gap-y-4 md:grid-cols-3 md:gap-x-2 md:gap-y-5 lg:grid-cols-4">
               {products.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -599,7 +599,7 @@ const ProductList = () => {
             <h3 className="font-heading text-lg uppercase tracking-[0.08em] font-normal mb-4 text-primary leading-[1.08]">
               Recently Viewed
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 md:gap-2">
+            <div className="grid grid-cols-2 gap-x-1 gap-y-4 md:grid-cols-3 md:gap-x-2 md:gap-y-5 lg:grid-cols-6">
               {recentlyViewed.map((p) => (
                 <ProductCard
                   key={p.id}
