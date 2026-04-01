@@ -89,6 +89,7 @@ const Header = () => {
       <div className="mx-auto max-w-[1800px] px-2 md:px-10 w-full">
         <div
           className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -237,6 +238,7 @@ const Header = () => {
             <button
               onClick={() => setShowFavorites(true)}
               className={`hidden md:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-200 whitespace-nowrap ${
+
                 isDark
                   ? "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
                   : "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"

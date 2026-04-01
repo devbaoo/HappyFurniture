@@ -188,6 +188,7 @@ const FavoriteModal = () => {
                     <button
                       onClick={() => removeFavorite(p.id)}
                       className="shrink-0 self-start mt-1 flex items-center justify-center w-9 h-9 text-[#b5b5b5] hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+
                       aria-label="Remove from Quote List"
                     >
                       <Trash2 size={16} />
