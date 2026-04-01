@@ -112,11 +112,11 @@ const ProductCard = ({
                         e.stopPropagation();
                         onToggleFavorite?.({ id, name, images });
                     }}
-                    className={`absolute top-3 right-3 z-20 flex h-7 w-7 items-center justify-center transition-opacity duration-200 ${isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                    aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+                    className={`absolute top-1.5 right-1.5 z-20 flex h-[36px] w-[36px] items-center justify-center transition-opacity duration-200 ${isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                    aria-label={isFavorited ? "Remove from Quote List" : "Add to Quote List"}
                 >
                     <svg
-                        className={`h-5 w-5 drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-rose-500" : "text-white"}`}
+                        className={`h-[28px] w-[28px] drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-[#3c4a28]" : "text-white"}`}
                         viewBox="0 0 24 24"
                         fill={isFavorited ? "currentColor" : "none"}
                         stroke={isFavorited ? "none" : "currentColor"}
@@ -125,7 +125,7 @@ const ProductCard = ({
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                            d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
                         />
                     </svg>
                 </button>

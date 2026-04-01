@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { useLocation, Link, NavLink } from "react-router-dom";
+import { useLocation, Link, NavLink, useNavigate } from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
-import { Heart, Menu, X } from "lucide-react";
+import { Bookmark, Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
@@ -45,6 +45,8 @@ const Header = () => {
   const { lang, setLang } = useLanguage();
   const { favorites, setShowFavorites } = useFavorites();
   const isDark = pathname === "/";
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const NAV_LEFT = useMemo(
@@ -86,7 +88,7 @@ const Header = () => {
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
       <div className="mx-auto max-w-[1800px] px-4 md:px-10 w-full">
         <div
-          className={`flex items-center justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-4 px-4 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -130,6 +132,14 @@ const Header = () => {
                 <input
                   type="search"
                   placeholder={siteCopy.header.searchPlaceholder[lang]}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && searchQuery.trim()) {
+                      navigate(`/product?name=${encodeURIComponent(searchQuery.trim())}`);
+                      setSearchQuery("");
+                    }
+                  }}
                   className={`bg-transparent text-[12px] w-full outline-none ${
                     isDark
                       ? "placeholder-white/70 text-white"
@@ -187,7 +197,7 @@ const Header = () => {
                 >
                   <rect width="28" height="20" fill="#DA251D" />
                   <polygon
-                    points="14,4 15.76,9.42 21.41,9.42 16.83,12.7 18.58,18.12 14,14.84 9.42,18.12 11.17,12.7 6.59,9.42 12.24,9.42"
+                    points="14,4 15.35,8.15 19.71,8.15 16.18,10.71 17.53,14.85 14,12.29 10.47,14.85 11.82,10.71 8.29,8.15 12.65,8.15"
                     fill="#FFFF00"
                   />
                 </svg>
@@ -239,16 +249,16 @@ const Header = () => {
             {/* Show my Favorite button */}
             <button
               onClick={() => setShowFavorites(true)}
-              className={`hidden md:flex items-center gap-2.5 border px-4 py-2 transition-all duration-200 whitespace-nowrap ${
+              className={`hidden md:flex items-center gap-2.5 px-4 py-2 transition-all duration-200 whitespace-nowrap ${
                 isDark
-                  ? "border-white/35 bg-white/10 text-white hover:bg-white hover:text-stone-900"
-                  : "border-stone-300 bg-white text-stone-800 hover:border-stone-800 hover:bg-stone-900 hover:text-white"
+                  ? "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
+                  : "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
               }`}
-              aria-label="Open favourites"
+              aria-label="Open Quote List"
             >
-              <Heart size={15} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
+              <Bookmark size={15} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
               <span className="text-[11px] tracking-[0.14em] uppercase font-medium">
-                My Favourites
+                My Quote List
               </span>
               {favorites.length > 0 && (
                 <span
