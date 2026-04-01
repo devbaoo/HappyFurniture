@@ -281,7 +281,7 @@ export default function WhatWeDo() {
               <div className="w-full md:w-auto">
                 <Link
                   to="/product"
-                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-white text-stone-800 text-[12px] tracking-[0.1em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200"
+                  className="inline-flex justify-center items-center whitespace-nowrap w-[160px] md:w-[200px] bg-[#3c4a28] text-white text-[12px] tracking-[0.1em] md:tracking-[0.2em] font-medium uppercase px-4 md:px-8 py-2.5 ring-[0.5px] ring-[#3c4a28] hover:bg-white hover:text-[#3c4a28] hover:ring-stone-400 transition-all duration-200"
                 >
                   {h.timberCta[lang]}
                 </Link>
