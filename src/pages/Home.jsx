@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "../components/ui/Container";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import SEOHead from "../components/SEOHead";
 
 /* ─────────────────────────────────────────────
    Reusable image placeholder
@@ -143,6 +144,23 @@ const Home = () => {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Premium Luxury Furniture"
+        description="Make life more comfortable. Discover handcrafted luxury furniture crafted to perfection — beds, sofas, dining sets, and more at Happy Furniture."
+        canonical="/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Happy Furniture",
+          url: "http://happyfurniturenvn.com",
+          logo: "http://happyfurniturenvn.com/favicon.svg",
+          description: "Premium luxury furniture crafted to perfection.",
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+          },
+        }}
+      />
       {/* ══════════════════════════════════════════════
           1. HERO — Full-width background image + text + 2 CTA buttons
          ══════════════════════════════════════════════ */}

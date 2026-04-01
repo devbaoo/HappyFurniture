@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../components/ui/Container";
+import SEOHead from "../components/SEOHead";
 
 /* ─── static data ──────────────────────────────────────────────── */
 
@@ -36,6 +37,11 @@ const OrderDelivery = () => {
 
     return (
         <div className="overflow-x-hidden">
+            <SEOHead
+                title="Order & Delivery"
+                description="Learn about Happy Furniture's ordering process, shipping options, lead times, and delivery policies. Contact us to place a custom order today."
+                canonical="/order-delivery"
+            />
 
             {/* ══ HERO ══════════════════════════════════════════════════ */}
             <section

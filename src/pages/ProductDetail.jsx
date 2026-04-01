@@ -4,6 +4,7 @@ import ProductCard from "../components/ui/ProductCard";
 import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
 import { useFavorites } from "../context/FavoritesContext";
+import SEOHead from "../components/SEOHead";
 
 const RV_KEY = "hp_recently_viewed";
 
@@ -218,6 +219,27 @@ const ProductDetail = () => {
 
   return (
     <div className="pt-[130px]">
+      <SEOHead
+        title={product.name}
+        description={
+          product.description
+            ? product.description.slice(0, 155)
+            : `${product.name} — Premium handcrafted luxury furniture by Happy Furniture.`
+        }
+        canonical={`/product/${product.slug}`}
+        ogImage={sortedImages[0]?.imageUrl}
+        ogType="product"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.name,
+          description: product.description || `${product.name} — Premium luxury furniture by Happy Furniture.`,
+          image: sortedImages[0]?.imageUrl,
+          brand: { "@type": "Brand", name: "Happy Furniture" },
+          category: categoryName,
+          url: `http://happyfurniturenvn.com/product/${product.slug}`,
+        }}
+      />
       <div className="border-b border-border bg-white">
         <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
           <nav

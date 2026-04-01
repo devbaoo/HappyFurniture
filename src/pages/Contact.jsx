@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import SEOHead from "../components/SEOHead";
 
 /* ── icon helpers ── */
 
@@ -15,6 +16,11 @@ const Contact = () => {
 
     return (
         <div className="w-full bg-white">
+            <SEOHead
+                title="Contact Us"
+                description="Get in touch with Happy Furniture for product catalogs, specifications, custom orders, or partnership inquiries. Our team responds promptly."
+                canonical="/contact"
+            />
 
             {/* header offset */}
             <div className="pt-[80px] lg:pt-[130px]" />
