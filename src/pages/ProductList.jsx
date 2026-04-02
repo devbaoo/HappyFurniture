@@ -37,11 +37,10 @@ const FilterDropdown = ({ label, active, children }) => {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center justify-center h-[36px] md:h-[40px] gap-1.5 px-3 text-[12px] md:text-[14px] bg-white transition-all duration-200 whitespace-nowrap ${
-          active
-            ? "ring-[0.5px] ring-primary text-primary font-medium"
-            : "ring-[0.5px] ring-stone-400 text-stone-800 hover:ring-[#3c4a28] hover:text-[#3c4a28]"
-        }`}
+        className={`flex items-center justify-center h-[36px] md:h-[40px] gap-1.5 px-3 text-[12px] md:text-[14px] bg-white transition-all duration-200 whitespace-nowrap ${active
+          ? "ring-[0.5px] ring-primary text-primary font-medium"
+          : "ring-[0.5px] ring-stone-400 text-stone-800 hover:ring-[#3c4a28] hover:text-[#3c4a28]"
+          }`}
       >
         <span className="font-medium tracking-[0.06em] md:tracking-[0.08em] max-w-[90px] md:max-w-none truncate">{label}</span>
         <ChevronDown
@@ -297,19 +296,22 @@ const ProductList = () => {
         canonical={categoryId ? `/product?category=${categoryId}` : "/product"}
       />
       {/* ── Spacer — offsets absolute header (~130px tall) ────────── */}
-      <div className="pt-[130px]" />
+      <div className="pt-[130px] md:pt-[162px]" />
 
       {/* ── Breadcrumb ───────────────────────────────────────────── */}
-      <div className="border-b border-border">
+      <div className="hidden border-b border-border">
         <Container>
-          <nav aria-label="Breadcrumb" className="py-3 flex items-center gap-2 text-xs text-muted tracking-[0.08em]">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/product" className="hover:text-primary transition-colors">Products</Link>
+          <nav
+            aria-label="Breadcrumb"
+            className="pt-4 pb-3 flex items-center gap-2 text-[12px] text-stone-400 tracking-[0.08em] uppercase"
+          >
+            <Link to="/" className="hover:text-stone-600 transition-colors">Home</Link>
+            <span className="text-stone-300">/</span>
+            <Link to="/product" className="hover:text-stone-600 transition-colors">Product</Link>
             {activeCat && (
               <>
-                <span>/</span>
-                <span className="text-primary">{activeCat.name.trim()}</span>
+                <span className="text-stone-300">/</span>
+                <span className="text-stone-600">{activeCat.name.trim()}</span>
               </>
             )}
           </nav>
@@ -337,10 +339,10 @@ const ProductList = () => {
                   to="/product"
                   onClick={(e) => isDragging && e.preventDefault()}
                   draggable={false}
-                  className="group"
+                  className="group relative block w-full overflow-hidden"
                 >
                   <div
-                    className={`w-full aspect-square flex items-end justify-center transition-all duration-300 ${!categoryId
+                    className={`w-full aspect-square md:aspect-[1/1.40] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${!categoryId
                       ? "bg-primary"
                       : "bg-[#aaa] group-hover:bg-[#888]"
                       }`}
@@ -357,10 +359,10 @@ const ProductList = () => {
                     to={`/product?category=${cat.id}`}
                     onClick={(e) => isDragging && e.preventDefault()}
                     draggable={false}
-                    className="group relative overflow-hidden"
+                    className="group relative block w-full overflow-hidden"
                   >
                     <div
-                      className={`w-full aspect-square flex items-end justify-center transition-all duration-300 relative overflow-hidden ${String(cat.id) === categoryId
+                      className={`w-full aspect-square md:aspect-[1/1.40] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${String(cat.id) === categoryId
                         ? "ring-2 ring-primary ring-inset"
                         : ""
                         }`}
@@ -369,7 +371,7 @@ const ProductList = () => {
                         <img
                           src={cat.imageUrl}
                           alt={cat.name.trim()}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
                           draggable={false}
                         />
                       ) : (

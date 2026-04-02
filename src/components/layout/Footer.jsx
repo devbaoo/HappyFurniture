@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../ui/Container";
 
 const footerLinks = {
@@ -19,11 +19,8 @@ const footerLinks = {
 };
 
 const Footer = () => {
-    const location = useLocation();
-    const isLightFooter = location.pathname.startsWith('/product') || location.pathname.startsWith('/news');
-
     return (
-        <footer className={isLightFooter ? "bg-[rgba(237,233,233,0.75)] text-stone-800 border-t border-stone-200 pt-4" : "bg-[#3c4a28] text-white pt-2"}>
+        <footer className="bg-[#3c4a28] text-white pt-2">
             <div className="mx-auto max-w-[1600px] px-4 md:px-14 lg:px-24 w-full">
 
 
@@ -36,7 +33,7 @@ const Footer = () => {
                             <img
                                 src="/images/logo-brown.png"
                                 alt="Happy Furniture Logo"
-                                className={`h-[58px] w-auto object-contain md:h-[40px] ${isLightFooter ? '' : 'brightness-0 invert'}`}
+                                className="h-[58px] w-auto object-contain brightness-0 invert md:h-[40px]"
                             />
                         </div>
                     </div>
@@ -44,7 +41,7 @@ const Footer = () => {
                     {/* PRODUCT */}
                     <div className="flex flex-col items-start md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">PRODUCT</h3>
-                        <ul className={`space-y-2 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
+                        <ul className="space-y-2 text-sm text-white/80">
                             {footerLinks.Product.map((link, index) => (
                                 <li key={index}>{link}</li>
                             ))}
@@ -54,7 +51,7 @@ const Footer = () => {
                     {/* SUPPORT */}
                     <div className="flex flex-col items-start md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">SUPPORT</h3>
-                        <ul className={`space-y-2 text-sm ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
+                        <ul className="space-y-2 text-sm text-white/80">
                             {footerLinks.Support.map((link, index) => (
                                 <li key={index}>{link}</li>
                             ))}
@@ -65,7 +62,7 @@ const Footer = () => {
                     <div className="col-span-2 md:col-span-1 w-full flex flex-col items-start md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">CONTACT US</h3>
 
-                        <div className={`w-full space-y-4 text-sm leading-[1.75] tracking-[0.01em] font-normal ${isLightFooter ? 'text-stone-600' : 'text-white/80'}`}>
+                        <div className="w-full space-y-4 text-sm font-normal leading-[1.75] tracking-[0.01em] text-white/80">
 
                             <div className="grid w-full grid-cols-[16px_minmax(0,1fr)] gap-x-4">
                                 <svg className="w-2 h-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -84,11 +81,11 @@ const Footer = () => {
                                 </svg>
                                 <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(110px,1fr)] gap-x-4 gap-y-1">
                                     <span>(+84) 2516 280 180</span>
-                                    <span className={isLightFooter ? 'text-stone-300' : 'text-white/20'}>|</span>
+                                    <span className="text-white/20">|</span>
                                     <span>Việt Nam</span>
 
                                     <span>(+84) 986 229 279</span>
-                                    <span className={isLightFooter ? 'text-stone-300' : 'text-white/20'}>|</span>
+                                    <span className="text-white/20">|</span>
                                     <span>Tiếng Anh</span>
                                 </div>
                             </div>
@@ -106,11 +103,11 @@ const Footer = () => {
                 </div>
 
                 {/* SOCIAL */}
-                <div className={`mx-auto mt-1 max-w-[1450px] md:mt-2 pb-6 md:pb-4 border-t md:border-t-0 ${isLightFooter ? 'border-stone-200' : 'border-white/10'}`}>
+                <div className="mx-auto mt-1 max-w-[1450px] border-t border-white/10 pb-6 md:mt-2 md:border-t-0 md:pb-4">
 
                     <div className="flex items-center gap-4 md:gap-6 mb-4 pt-5 md:pt-0">
                         <span className="text-sm font-semibold tracking-[0.12em] uppercase">Social</span>
-                        <div className={`flex-1 h-px ${isLightFooter ? 'bg-stone-500' : 'bg-white/30'}`}></div>
+                        <div className="flex-1 h-px bg-white/30"></div>
                     </div>
 
                     <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-2 md:flex md:flex-row md:flex-wrap md:items-center md:gap-8">
@@ -120,38 +117,35 @@ const Footer = () => {
 
                             {/* Facebook */}
                             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                                className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${isLightFooter ? 'bg-[#3c4a28] hover:bg-[#3c4a28]/80' : 'bg-white hover:bg-white/80'
-                                    }`}>
-                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isLightFooter ? 'white' : '#3c4a28'}>
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
+                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#3c4a28">
                                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                                 </svg>
                             </a>
 
                             {/* Instagram */}
                             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                                className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${isLightFooter ? 'bg-[#3c4a28] hover:bg-[#3c4a28]/80' : 'bg-white hover:bg-white/80'
-                                    }`}>
-                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke={isLightFooter ? 'white' : '#3c4a28'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
+                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3c4a28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                                     <circle cx="12" cy="12" r="4" />
-                                    <circle cx="17.5" cy="6.5" r="0.5" fill={isLightFooter ? 'white' : '#3c4a28'} stroke="none" />
+                                    <circle cx="17.5" cy="6.5" r="0.5" fill="#3c4a28" stroke="none" />
                                 </svg>
                             </a>
 
                             {/* YouTube */}
                             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
-                                className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${isLightFooter ? 'bg-[#3c4a28] hover:bg-[#3c4a28]/80' : 'bg-white hover:bg-white/80'
-                                    }`}>
-                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill={isLightFooter ? 'white' : '#3c4a28'}>
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
+                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#3c4a28">
                                     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-                                    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill={isLightFooter ? '#3c4a28' : 'white'} />
+                                    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
                                 </svg>
                             </a>
 
                         </div>
 
                         {/* COPYRIGHT */}
-                        <p className={`min-w-0 max-w-[210px] text-[11px] leading-[1.5] tracking-[0.01em] text-left md:max-w-none md:flex-1 md:ml-auto md:text-[13px] md:whitespace-nowrap md:text-right md:leading-[1.75] ${isLightFooter ? 'text-stone-400' : 'text-white/50'}`}>
+                        <p className="min-w-0 max-w-[210px] text-left text-[11px] leading-[1.5] tracking-[0.01em] text-white/50 md:ml-auto md:max-w-none md:flex-1 md:whitespace-nowrap md:text-right md:text-[13px] md:leading-[1.75]">
                             ©2026 All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 

@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { useLocation, Link, NavLink, useNavigate } from "react-router-dom";
+import { useLocation, Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
 import { Bookmark, Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
+import useMegaMenu from "../../hooks/useMegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
 
@@ -42,8 +43,10 @@ const StaticNavItem = ({ to, label, end, isDark }) => (
 /* ─── Header ───────────────────────────────────────────────────── */
 const Header = () => {
   const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
   const { lang, setLang } = useLanguage();
   const { favorites, setShowFavorites } = useFavorites();
+  const { categories: megaCategories } = useMegaMenu();
   const isDark = pathname === "/";
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,6 +83,14 @@ const Header = () => {
     }),
     [lang],
   );
+  const productCategoryId = searchParams.get("category") || "";
+  const productCategoryLabel = useMemo(() => {
+    if (!productCategoryId) return "";
+    const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
+    const match = allCategories.find((c) => String(c.id) === productCategoryId);
+    return match?.name?.trim() || "";
+  }, [megaCategories, productCategoryId]);
+  const showDesktopMenuLine = ["/product", "/news", "/contact"].includes(pathname);
 
   return (
     <header
@@ -287,7 +298,11 @@ const Header = () => {
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
-        <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
+        <div
+          className={`mx-auto max-w-[1800px] px-10 w-full hidden md:block ${
+            showDesktopMenuLine ? "border-b border-stone-300" : ""
+          }`}
+        >
           <ul className="flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
             {NAV_LEFT.map(({ to, label, end }) => (
               <StaticNavItem
@@ -375,6 +390,38 @@ const Header = () => {
       </nav>
 
       {/* ── Breadcrumb — only on /certificate ──────────────────── */}
+      {pathname === "/product" && (
+        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
+          <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
+            <Link to="/" className="hover:text-stone-600 transition-colors">
+              {siteCopy.nav[lang].home}
+            </Link>
+            <span className="text-stone-300">/</span>
+            <Link to="/product" className="hover:text-stone-600 transition-colors">
+              {pageLabels["/product"]}
+            </Link>
+            {productCategoryLabel && (
+              <>
+                <span className="text-stone-300">/</span>
+                <span className="text-stone-600">{productCategoryLabel}</span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {(pathname === "/news" || pathname === "/contact") && (
+        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
+          <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
+            <Link to="/" className="hover:text-stone-600 transition-colors">
+              {siteCopy.nav[lang].home}
+            </Link>
+            <span className="text-stone-300">/</span>
+            <span className="text-stone-600">{pageLabels[pathname]}</span>
+          </div>
+        </div>
+      )}
+
       {pathname === "/certificate" && (
         <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pb-3">
           <div className="h-px bg-stone-300 mb-2" />
