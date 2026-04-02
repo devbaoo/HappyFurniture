@@ -25,49 +25,62 @@ const formatMeasurement = (value, unit = "cm") => {
   if (value == null || Number.isNaN(Number(value))) return null;
 
   const numeric = Number(value);
+  const normalizedUnit = String(unit).toLowerCase();
   const metric = Number.isInteger(numeric)
     ? numeric.toString()
     : numeric.toFixed(2).replace(/\.?0+$/, "");
-
-  if (String(unit).toLowerCase() !== "cm") {
-    return { primary: `${metric} ${unit}`, secondary: null };
-  }
-
-  const inches = numeric / 2.54;
-  const imperial = Number.isInteger(inches)
-    ? inches.toString()
-    : inches.toFixed(2).replace(/\.?0+$/, "");
-
+  const unitToCm = {
+    cm: 1,
+    m: 100,
+    mm: 0.1,
+  };
+  const valueInCm = unitToCm[normalizedUnit]
+    ? numeric * unitToCm[normalizedUnit]
+    : null;
+  const inches = valueInCm != null ? valueInCm / 2.54 : null;
+  const imperialValue =
+    inches == null
+      ? null
+      : Number.isInteger(inches)
+        ? inches.toString()
+        : inches.toFixed(2).replace(/\.?0+$/, "");
   return {
-    primary: `${metric} cm`,
-    secondary: `${imperial} inch`,
+    primary: `${metric} ${unit}`,
+    secondary: imperialValue ? `${imperialValue} inch` : null,
   };
 };
 
 const MeasurementGrid = ({ items = [] }) => (
-  <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-8">
+  <div className="grid grid-cols-3 gap-3 sm:gap-4">
     {items.map((item) => (
-      <div key={item.label}>
-        <p className="text-[13px] font-semibold text-stone-700 sm:text-[14px]">
+      <div
+        key={item.label}
+        className="grid min-w-0 grid-cols-[auto_1fr] pb-2 sm:grid-cols-[58px_1fr]"
+      >
+        <span className="text-[12px] text-stone-700 sm:text-[14px]">
           {item.label}
-        </p>
-        <p className="mt-1 text-[16px] text-stone-900">{item.value.primary}</p>
+        </span>
+        <span className="min-w-0 text-[14px] font-normal leading-[1.25] text-stone-900 sm:text-[17px]">
+          {item.value.primary}
+        </span>
         {item.value.secondary && (
-          <p className="text-[12px] text-stone-400">{item.value.secondary}</p>
+          <span className="col-start-2 mt-0.5 text-[11px] leading-[1.2] text-stone-400 sm:mt-1 sm:text-[12px]">
+            {item.value.secondary}
+          </span>
         )}
       </div>
     ))}
   </div>
 );
 
-const DetailSection = ({ title, children, first = false }) => (
-  <div className={`${first ? "" : "border-t border-stone-200"} pt-6`}>
-    <h3 className="text-[15px] font-semibold text-stone-800 sm:text-[16px]">
+const DetailSection = ({ title, children, first = false, className = "" }) => (
+  <div
+    className={`${first ? "" : "border-t border-stone-200"} pt-4 ${className}`}
+  >
+    <h3 className="mb-2 font-sans text-[15px] font-semibold uppercase tracking-[0.12em] text-[#3c4a28]">
       {title}
     </h3>
-    <div className="mt-3 text-[15px] leading-[1.65] text-stone-700 sm:text-[16px]">
-      {children}
-    </div>
+    <div className="text-[15px] leading-[1.4] text-stone-700">{children}</div>
   </div>
 );
 
@@ -172,7 +185,8 @@ const ProductDetail = () => {
   const materialNames = (product?.materials ?? [])
     .map((material) => material.name?.trim())
     .filter(Boolean);
-  const productMaterialsText = materialNames.length > 0 ? materialNames.join(", ") : "";
+  const productMaterialsText =
+    materialNames.length > 0 ? materialNames.join(", ") : "";
   const productCardId = product?.slug ?? String(product?.id ?? "");
   const isFavorited = product && favorites.some((f) => f.id === productCardId);
 
@@ -233,7 +247,9 @@ const ProductDetail = () => {
           "@context": "https://schema.org",
           "@type": "Product",
           name: product.name,
-          description: product.description || `${product.name} — Premium luxury furniture by Happy Furniture.`,
+          description:
+            product.description ||
+            `${product.name} — Premium luxury furniture by Happy Furniture.`,
           image: sortedImages[0]?.imageUrl,
           brand: { "@type": "Brand", name: "Happy Furniture" },
           category: categoryName,
@@ -258,7 +274,10 @@ const ProductDetail = () => {
                 {categoryName}
               </Link>
             ) : (
-              <Link to="/product" className="transition-colors hover:text-primary">
+              <Link
+                to="/product"
+                className="transition-colors hover:text-primary"
+              >
                 Products
               </Link>
             )}
@@ -324,50 +343,63 @@ const ProductDetail = () => {
                 </p>
               )}
 
-              <div className="mt-2 border-t border-stone-900/80 pt-6">
+              <div className="mt-1 border-t border-stone-300 pt-3">
                 <section>
-                  <h2 className="text-[24px] font-semibold tracking-[-0.02em] text-stone-800">
+                  <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
                     1. Product Information
                   </h2>
 
-                  <DetailSection title="Product Dimensions:" first>
+                  <DetailSection title="Product Dimensions:" first className="pt-4">
                     {productMeasurements.length > 0 ? (
                       <MeasurementGrid items={productMeasurements} />
                     ) : (
-                      <p className="text-stone-400">Size information will be added soon.</p>
+                      <p className="text-stone-400">
+                        Size information will be added soon.
+                      </p>
                     )}
                   </DetailSection>
 
                   <DetailSection title="Product Materials">
                     {productMaterialsText || product.detail ? (
-                      <div className="space-y-2">
+                      <div className="space-y-1">
                         {productMaterialsText && <p>{productMaterialsText}</p>}
                         {product.detail && <p>{product.detail}</p>}
                       </div>
                     ) : (
-                      <p className="text-stone-400">Material information will be added soon.</p>
+                      <p className="text-stone-400">
+                        Material information will be added soon.
+                      </p>
                     )}
                   </DetailSection>
 
                   <DetailSection title="ASSEMBLY">
-                    <p>{product.description || product.detail || "Assembly information will be added soon."}</p>
+                    <p>
+                      {product.description ||
+                        product.detail ||
+                        "Assembly information will be added soon."}
+                    </p>
                   </DetailSection>
                 </section>
 
-                <section className="mt-8 border-t border-stone-900/80 pt-8">
-                  <h2 className="text-[24px] font-semibold tracking-[-0.02em] text-stone-800">
+                <section className="mt-4 border-t border-stone-300 pt-4">
+                  <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
                     2. Packaging Information
                   </h2>
 
-                  <DetailSection title="Packaging Standard" first>
-                    <p>{product.deliveryInfo || "Packaging information will be added soon."}</p>
+                  <DetailSection title="Packaging Standard" first className="pt-4">
+                    <p>
+                      {product.deliveryInfo ||
+                        "Packaging information will be added soon."}
+                    </p>
                   </DetailSection>
 
                   <DetailSection title="Carton Size">
                     {cartonMeasurements.length > 0 ? (
                       <MeasurementGrid items={cartonMeasurements} />
                     ) : (
-                      <p className="text-stone-400">Carton size will be added soon.</p>
+                      <p className="text-stone-400">
+                        Carton size will be added soon.
+                      </p>
                     )}
                   </DetailSection>
                 </section>

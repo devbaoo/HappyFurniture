@@ -38,6 +38,11 @@ const ProductGalleryMagnifier = ({
     return String(c).startsWith("#") ? c : `#${c}`;
   };
 
+  const variantThumb = (v) => {
+    const src = v?.imageUrl?.trim?.();
+    return src || null;
+  };
+
   const handleMove = useCallback(
     (e) => {
       const el = containerRef.current;
@@ -213,6 +218,7 @@ const ProductGalleryMagnifier = ({
             <div className="flex flex-wrap items-center gap-2">
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
+                const thumb = variantThumb(v);
                 return (
                   <button
                     key={v.id}
@@ -220,13 +226,21 @@ const ProductGalleryMagnifier = ({
                     title={v.colorName}
                     aria-label={v.colorName}
                     onClick={() => onSelectVariant(v)}
-                    className={`h-3 min-w-[5rem] shrink-0 rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
+                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
                       selected
                         ? "border-primary ring-1 ring-primary ring-offset-1"
                         : "border-border hover:border-secondary"
                     }`}
-                    style={{ backgroundColor: swatchBg(v) }}
-                  />
+                    style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
+                  >
+                    {thumb && (
+                      <img
+                        src={thumb}
+                        alt={v.colorName}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    )}
+                  </button>
                 );
               })}
             </div>
