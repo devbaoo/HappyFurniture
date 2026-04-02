@@ -40,8 +40,15 @@
 
   p {
     @apply font-sans;
+    font-size: 12px !important;
     line-height: 1.72;
     letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 15px !important;
+    }
   }
 
   /* Reset image and button borders that might appear accidentally */

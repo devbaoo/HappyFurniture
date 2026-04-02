@@ -153,8 +153,10 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
-      <section className="wwd-mfg-section">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section className="wwd-mfg-section" data-animate id="wwd-mfg">
+        <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${
+          visibleElements.has("wwd-mfg") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}>
           <div className="wwd-mfg-inner">
             {/* ── LEFT: green block + photo ── */}
             <div className="wwd-mfg-left">
@@ -273,8 +275,10 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
-      <section className="wwd-specs-section lg:h-[692px]">
-        <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full lg:h-full">
+      <section className="wwd-specs-section lg:h-[692px]" data-animate id="wwd-specs">
+        <div className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full lg:h-full transform transition-all duration-1000 ease-out ${
+          visibleElements.has("wwd-specs") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}>
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start lg:h-full">
             {/* Ảnh ẩn trên mobile, hiện từ lg trở lên */}
             <div className="hidden lg:block w-full lg:w-[40%] flex-shrink-0 lg:h-full">
@@ -329,8 +333,10 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full lg:h-[826px]">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full lg:h-[826px]" data-animate id="wwd-timber">
+        <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full transform transition-all duration-1000 ease-out ${
+          visibleElements.has("wwd-timber") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full lg:h-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full lg:h-full">

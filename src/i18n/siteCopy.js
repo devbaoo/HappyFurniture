@@ -410,6 +410,135 @@ export const siteCopy = {
     altActivity: { en: "Activity", vi: "Hoạt động" },
   },
 
+  orderDeliveryPage: {
+    seoTitle: { en: "Order & Delivery", vi: "Đặt hàng & giao hàng" },
+    seoDescription: {
+      en: "Learn about Happy Furniture's ordering process, shipping options, lead times, and delivery policies. Contact us to place a custom order today.",
+      vi: "Tìm hiểu quy trình đặt hàng, thời gian sản xuất, phương thức giao hàng và tiêu chuẩn đóng gói của Happy Furniture.",
+    },
+    deliveryTitle: { en: "Delivery", vi: "Giao hàng" },
+    deliveryIntro: {
+      en: "Our goal is to achieve optimal delivery efficiency, which means the shortest delivery time while minimizing delivery error. We are able to ship year round, except for Lunar New Year. To actively arrange orders, Happy always notices customers three months ahead.",
+      vi: "Mục tiêu của chúng tôi là tối ưu hiệu quả giao hàng, nghĩa là rút ngắn thời gian giao hàng trong khi vẫn hạn chế tối đa sai sót. Chúng tôi có thể giao hàng quanh năm, ngoại trừ dịp Tết Nguyên Đán. Để chủ động kế hoạch đơn hàng, Happy luôn thông báo cho khách trước ba tháng.",
+    },
+    deliveryBullets: {
+      en: [
+        { prefix: "Samples are usually made within", strong: "15 to 30 days" },
+        { prefix: "New order lead time takes", strong: "60 to 75 days" },
+        { prefix: "Reorder takes", strong: "45 to 50 days" },
+      ],
+      vi: [
+        { prefix: "Thời gian làm mẫu thường trong", strong: "15 đến 30 ngày" },
+        { prefix: "Thời gian sản xuất đơn hàng mới là", strong: "60 đến 75 ngày" },
+        { prefix: "Thời gian tái đặt hàng là", strong: "45 đến 50 ngày" },
+      ],
+    },
+    deliveryImageAlt: {
+      en: "Happy Furniture delivery and shipping logistics",
+      vi: "Hoạt động giao nhận và logistics của Happy Furniture",
+    },
+    orderTitle: { en: "Order", vi: "Đặt hàng" },
+    orderImageAlt: {
+      en: "Happy Furniture product showroom display",
+      vi: "Khu trưng bày sản phẩm của Happy Furniture",
+    },
+    orderImageBadge: {
+      en: "There are approximately 500 designs",
+      vi: "Hiện có khoảng 500 mẫu thiết kế",
+    },
+    orderIntro: {
+      en: "Our current and past product ranges are displayed in our showroom for your references.",
+      vi: "Các dòng sản phẩm hiện tại và trước đây đều được trưng bày tại showroom để khách hàng tham khảo.",
+    },
+    orderBody: {
+      en: "Orders made for any of these designs are subject to MOQ, which is at least 200 for chairs and 50 for other products.",
+      vi: "Các đơn hàng cho những mẫu thiết kế này sẽ áp dụng MOQ, tối thiểu 200 chiếc đối với ghế và 50 chiếc đối với các sản phẩm khác.",
+    },
+    orderGalleryAlt: {
+      en: ["Furniture design sample", "Furniture design sample"],
+      vi: ["Mẫu thiết kế nội thất", "Mẫu thiết kế nội thất"],
+    },
+    oemTitle: { en: "OEM", vi: "OEM" },
+    oemIntro: {
+      en: "Our experienced and highly skilled designers can assist clients from product customisation through to furniture structure. Our team members refine modifications multiple times to provide complete technical drawings within 3-5 days.",
+      vi: "Đội ngũ thiết kế giàu kinh nghiệm và tay nghề cao của chúng tôi có thể hỗ trợ khách hàng từ khâu tùy chỉnh sản phẩm đến kết cấu nội thất. Các phương án được rà soát và điều chỉnh nhiều lần để cung cấp bộ bản vẽ kỹ thuật hoàn chỉnh trong vòng 3-5 ngày.",
+    },
+    oemGalleryAlt: {
+      en: [
+        "Furniture crafting process",
+        "OEM chair prototype in workshop",
+        "Furniture material and detail close-up",
+      ],
+      vi: [
+        "Quy trình gia công nội thất",
+        "Mẫu ghế OEM trong xưởng",
+        "Cận cảnh vật liệu và chi tiết nội thất",
+      ],
+    },
+    packagingTitle: {
+      en: "Packaging and Dispatch",
+      vi: "Đóng gói và gửi hàng",
+    },
+    packagingIntro: {
+      en: "We are committed to offering our clients international standards packaging and dispatch processes through internationally accredited practices.",
+      vi: "Chúng tôi cam kết mang đến cho khách hàng quy trình đóng gói và gửi hàng đạt tiêu chuẩn quốc tế, được triển khai theo các thông lệ đã được công nhận.",
+    },
+    packagingCards: {
+      en: [
+        {
+          title: "Standard Transit Packaging",
+          body: "Designed to meet ISTA 1A standards, ensuring reliable protection throughout transportation.",
+        },
+        {
+          title: "Advanced Transit Testing",
+          body: "Tested to ISTA 3A standards to ensure durability for e-commerce distribution.",
+        },
+        {
+          title: "E-commerce Packaging",
+          body: "Optimized to withstand parcel shipping and multi-stop handling conditions.",
+        },
+        {
+          title: "Flexible Packaging Standards",
+          body: "Customized packaging solutions balancing quality, safety, and cost efficiency.",
+        },
+        {
+          title: "Client-specific Solutions",
+          body: "Tailored packaging solutions based on product characteristics and target markets.",
+        },
+        {
+          title: "Packaging Design & Approval",
+          body: "Detailed packaging design and strict approval process before mass production.",
+        },
+      ],
+      vi: [
+        {
+          title: "Đóng gói vận chuyển tiêu chuẩn",
+          body: "Thiết kế đáp ứng tiêu chuẩn ISTA 1A, bảo vệ sản phẩm đáng tin cậy trong suốt quá trình vận chuyển.",
+        },
+        {
+          title: "Kiểm thử vận chuyển nâng cao",
+          body: "Thử nghiệm theo tiêu chuẩn ISTA 3A để đảm bảo độ bền cho kênh phân phối thương mại điện tử.",
+        },
+        {
+          title: "Đóng gói cho thương mại điện tử",
+          body: "Tối ưu để chịu được quá trình giao hàng nhiều chặng và điều kiện xử lý bưu kiện.",
+        },
+        {
+          title: "Tiêu chuẩn đóng gói linh hoạt",
+          body: "Giải pháp đóng gói tùy chỉnh, cân bằng giữa chất lượng, an toàn và hiệu quả chi phí.",
+        },
+        {
+          title: "Giải pháp theo yêu cầu khách hàng",
+          body: "Giải pháp đóng gói riêng theo đặc tính sản phẩm và thị trường mục tiêu.",
+        },
+        {
+          title: "Thiết kế & phê duyệt bao bì",
+          body: "Thiết kế bao bì chi tiết và quy trình phê duyệt chặt chẽ trước khi sản xuất hàng loạt.",
+        },
+      ],
+    },
+  },
+
   whatWeDoPage: {
     heroTitle: { en: "What we do", vi: "Hoạt động của chúng tôi" },
     heroAlt: { en: "Factory floor", vi: "Nhà máy sản xuất" },

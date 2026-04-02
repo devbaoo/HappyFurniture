@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
 const CERT_MEDIA = {
   ctpat: "/images/ctpat.png",
@@ -13,6 +14,7 @@ const Certificate = () => {
   const { lang } = useLanguage();
   const c = siteCopy.certificatePage;
   const blocks = c.blocks[lang];
+  const visibleElements = useScrollAnimation();
 
   return (
     <div className="w-full bg-white">
@@ -34,8 +36,18 @@ const Certificate = () => {
         </nav>
       </div>
 
-      <section className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+      <section
+        className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center"
+        data-animate
+        id="certificate-hero"
+      >
+        <div
+          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${
+            visibleElements.has("certificate-hero")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+          }`}
+        >
           <div className="flex justify-center mb-4 md:mb-5">
             <img
               alt=""
@@ -55,8 +67,14 @@ const Certificate = () => {
         </div>
       </section>
 
-      <section className="pb-16 md:pb-24">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start">
+      <section className="pb-16 md:pb-24" data-animate id="certificate-blocks">
+        <div
+          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start transform transition-all duration-1000 ease-out ${
+            visibleElements.has("certificate-blocks")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+          }`}
+        >
           <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px]">
             <img
               alt=""
