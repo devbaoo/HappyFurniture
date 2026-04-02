@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
 const News = () => {
     const { lang } = useLanguage();
     const n = siteCopy.newsPage;
     const navHome = siteCopy.nav[lang].home;
+    const visibleElements = useScrollAnimation();
 
     const exhibitionYears = [2024, 2025, 2026];
 
@@ -24,7 +26,8 @@ const News = () => {
                 <span className="text-black uppercase">{n.breadcrumbCurrent[lang]}</span>
             </div>
 
-            <section className="mb-6 md:mb-7 pt-1">
+            <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
+                <div className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-events") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
                 <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 md:mb-7 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.eventSection[lang]}</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-2 md:mb-2.5">
@@ -58,9 +61,11 @@ const News = () => {
                         {n.viewMore[lang]}
                     </button>
                 </div>
+                </div>
             </section>
 
-            <section className="mb-6 md:mb-7">
+            <section className="mb-6 md:mb-7" data-animate id="news-activities">
+                <div className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-activities") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
                 <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.companyActivities[lang]}</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-6 mb-2 md:mb-2.5">
                     <div className="flex flex-col space-y-3">
@@ -92,6 +97,7 @@ const News = () => {
                 </div>
                 <div className="mt-7 md:mt-8 flex justify-center">
                     <button type="button" className={`inline-flex items-center justify-center px-8 py-2.5 text-xs font-semibold tracking-[0.14em] bg-white text-stone-800 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200 ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.viewMore[lang]}</button>
+                </div>
                 </div>
             </section>
         </div>
