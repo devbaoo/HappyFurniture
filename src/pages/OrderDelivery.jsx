@@ -116,7 +116,7 @@ const OrderDelivery = () => {
 
       {/* ══ ORDER ═════════════════════════════════════════════════ */}
       <section className="bg-[#f5f5f3] overflow-hidden">
-        <div className="flex flex-col md:h-[430px] md:flex-row md:items-stretch">
+        <div className="flex flex-col md:h-[400px] md:flex-row md:items-stretch">
           <div className="relative hidden w-full min-h-[260px] md:block md:h-full md:w-1/2">
             <img
               src="/images/order/order-03.jpg"
@@ -140,7 +140,7 @@ const OrderDelivery = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center bg-[#f5f5f3] px-4 py-8 md:w-1/2 md:px-6 md:py-8 lg:px-8">
+          <div className="flex items-center bg-[#f5f5f3] px-4 py-6 md:w-1/2 md:px-6 md:py-6 lg:px-8">
             <div className="flex w-full max-w-[760px] flex-col justify-center">
               <div className="max-w-none md:max-w-[560px]">
                 <h2
@@ -158,7 +158,7 @@ const OrderDelivery = () => {
                   is at least 200 for chairs and 50 for other products.
                 </p>
               </div>
-              <div className="mt-3 grid w-full max-w-none grid-cols-2 gap-2 md:mt-4 md:max-w-[560px] md:gap-3">
+              <div className="mt-2.5 grid w-full max-w-none grid-cols-2 gap-2 md:mt-3 md:max-w-[560px] md:gap-3">
                 <img
                   src="/images/order/order-04.jpg"
                   alt="Furniture design sample"
@@ -176,7 +176,7 @@ const OrderDelivery = () => {
       </section>
 
       {/* ══ OEM ═══════════════════════════════════════════════════ */}
-      <section className="bg-white pt-4 pb-6 md:pt-24 md:pb-16">
+      <section className="bg-white pt-4 pb-6 md:pt-[4.5rem] md:pb-16">
         <Container>
           {/* centered text block */}
           <div className="mx-auto mb-1 max-w-[760px] text-center md:mb-3">
@@ -226,7 +226,7 @@ const OrderDelivery = () => {
         <div className="absolute inset-0 bg-black/55" />
         <div className="relative mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full">
           <div className="text-center max-w-2xl mx-auto mb-6">
-            <h2 className="font-heading font-normal uppercase whitespace-nowrap text-[20px] md:text-3xl text-white mb-5 tracking-[0.03em] md:tracking-[0.08em] leading-[1.08]">
+            <h2 className="font-heading font-normal uppercase whitespace-nowrap text-[20px] md:text-3xl text-white mb-2 md:mb-2.5 tracking-[0.03em] md:tracking-[0.08em] leading-[1.08]">
               Packaging and Dispatch
             </h2>
             <p className="mx-auto w-full max-w-[760px] font-sans text-[14px] md:w-[750px] md:text-[18px] text-white/100 leading-[1.45] tracking-[0.01em] md:-translate-x-[39px]">
@@ -236,56 +236,56 @@ const OrderDelivery = () => {
             </p>
           </div>
           <div className="mx-auto grid max-w-[1020px] grid-cols-2 justify-items-center gap-3 md:gap-x-4 md:gap-y-3">
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 Standard Transit Packaging
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Designed to meet ISTA 1A standards, ensuring reliable protection
                 throughout transportation.
               </p>
             </div>
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 Advanced Transit Testing
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Tested to ISTA 3A standards to ensure durability for e-commerce
                 distribution.
               </p>
             </div>
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 E-commerce Packaging
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Optimized to withstand parcel shipping and multi-stop handling
                 conditions.
               </p>
             </div>
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 Flexible Packaging Standards
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Customized packaging solutions balancing quality, safety, and
                 cost efficiency.
               </p>
             </div>
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 Client-specific Solutions
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Tailored packaging solutions based on product characteristics
                 and target markets.
               </p>
             </div>
-            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-4 text-center text-white cursor-default md:h-[132.297px] md:w-[496px] md:px-6 md:py-6">
-              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px]">
+            <div className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5">
+              <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                 Packaging Design &amp; Approval
               </h3>
-              <p className="mt-2 font-sans text-[11px] md:mt-3 md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px]">
+              <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                 Detailed packaging design and strict approval process before
                 mass production.
               </p>
