@@ -608,7 +608,7 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-18 lg:pb-18 w-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full">
             {/* LEFT CONTENT - 40% */}
@@ -713,9 +713,9 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-7 md:py-18 font-sans">
+      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-7 md:pt-20 md:pb-16 font-sans">
         <div className="w-full px-2 md:px-14 lg:px-24 md:mx-auto md:max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 lg:gap-16 items-center lg:h-[365px] lg:-translate-y-[35px]">
             {/* LEFT IMAGE - 60% */}
             <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[360px] lg:h-[420px]">
               <Img
