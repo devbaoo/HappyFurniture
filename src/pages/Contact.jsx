@@ -29,7 +29,7 @@ const Contact = () => {
       <section className="pb-2 pt-14 lg:py-14">
         <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:relative lg:top-[10px] lg:h-[613.25px]">
           {/* Form panel */}
-          <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:h-[561.641px] lg:translate-y-[141px]">
+          <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:h-[579.641px] lg:translate-y-[141px]">
             <h2
               className={`font-heading text-white text-[30px] lg:text-[34px] font-normal tracking-[0.08em] mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
             >
@@ -149,17 +149,17 @@ const Contact = () => {
             >
               {t.getInTouch[lang]}
             </h2>
-            <p className="text-sm lg:text-[15px] font-normal text-gray-900 leading-[1.78] tracking-[0.01em] mb-8 max-w-[44ch] lg:h-[69.375px] lg:-translate-y-[35px]">
+            <p className="text-sm lg:text-[14px] font-normal text-gray-900 leading-[1.78] tracking-[0.01em] mb-8 max-w-[44ch] lg:h-[69.375px] lg:-translate-y-[35px]">
               {t.intro[lang]}
             </p>
             <div className="lg:-translate-y-[36px] lg:relative lg:-top-3">
-              <h3 className="text-base lg:text-[18px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:top-[18px]">
+              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:top-[18px]">
                 {t.contactMs[lang]}
               </h3>
-              <div className="space-y-3 text-[12px] lg:text-[14px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[17px] lg:translate-x-[2px] lg:w-[462.203px] lg:h-[120.172px]">
+              <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[17px] lg:translate-x-[2px] lg:w-[462.203px] lg:h-[120.172px]">
                 <div className="flex items-center gap-2 lg:relative lg:top-[23px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -180,7 +180,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:top-[8px] lg:left-[2px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -196,7 +196,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[7px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -214,13 +214,13 @@ const Contact = () => {
             </div>
             <div className="lg:-translate-y-[44px] lg:relative lg:-top-[55px]">
               <div className="border-t border-stone-300 my-5 lg:relative lg:top-[10px]"></div>
-              <h3 className="text-base lg:text-[18px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:-top-[10px]">
+              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:-top-[10px]">
                 {t.contactMr[lang]}
               </h3>
-              <div className="space-y-3 text-[12px] lg:text-[14px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[21px]">
+              <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[21px]">
                 <div className="flex items-center gap-2 lg:relative lg:-top-[2px] lg:-left-[1px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -241,7 +241,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[20px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -257,7 +257,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[29px]">
                   <svg
-                    className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-gray-800"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"

@@ -79,6 +79,31 @@
   .section-divider {
     @apply border-t border-border;
   }
+
+  .home-categories-subtext {
+    font-size: 13px !important;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .home-categories-subtext {
+      font-size: 18px !important;
+    }
+  }
+
+  .order-packaging-card-body {
+    font-size: 12px !important;
+    font-weight: 400;
+    line-height: 1.38;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .order-packaging-card-body {
+      font-size: 15px !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -158,8 +183,8 @@
 
   /* ── Individual spec block ─────────────────────────────────────── */
   .wwd-spec-block {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     border-top: 1px solid #e0e0dc;
   }
 
@@ -176,7 +201,7 @@
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: #2f3e2f;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
     line-height: 1.45;
   }
 
@@ -187,7 +212,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
   }
 
   .wwd-spec-list li {
@@ -272,14 +297,14 @@
 
   .wwd-mfg-right-inner {
     width: 100%;
-    max-width: 480px;
+    max-width: 580px;
   }
 
   /* Heading — single line, large serif */
   .wwd-mfg-heading {
     font-family: "Playfair Display", "Cormorant Garamond", serif;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 29px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: #1a1a1a;
@@ -295,7 +320,9 @@
     line-height: 1.78;
     letter-spacing: 0.012em;
     margin-bottom: 28px;
-    max-width: 450px;
+    max-width: 580px;
+    text-align: justify;
+    text-wrap: pretty;
   }
 
   /* Stat list — generous vertical spacing */
@@ -334,9 +361,9 @@
 
   .wwd-stat-label {
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.01em;
     color: #1a1a1a;
     margin-bottom: 4px;
   }
@@ -428,7 +455,8 @@
 
     .wwd-stat-label {
       font-size: 12px;
-      letter-spacing: 0.12em;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       margin-bottom: 4px;
     }
 

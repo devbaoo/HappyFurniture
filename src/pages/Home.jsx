@@ -67,6 +67,9 @@ const PromoCard = ({ label, src, bg, className = "" }) => (
   </div>
 );
 
+const FACTORY_VIDEO_SRC =
+  "https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false";
+
 /* ─── Custom hook for scroll animations ─── */
 const useScrollAnimation = () => {
   const [visibleElements, setVisibleElements] = useState(new Set());
@@ -295,12 +298,12 @@ const Home = () => {
               }`}
           >
             <h2
-              className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-3 md:mb-3 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
+              className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-2 md:mb-2 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
             >
               {h.categoriesHeading[lang]}
             </h2>
 
-            <p className="text-[12px] md:text-lg text-stone-600 max-w-3xl mx-auto leading-[1.75] tracking-[0.01em] mb-1 md:mb-0">
+            <p className="home-categories-subtext text-stone-600 max-w-3xl mx-auto mb-1 md:mb-0">
               {h.categoriesSubBeforeBreak[lang]}
               <br className="hidden md:block" />
               {` ${h.categoriesSubAfterBreak[lang]}`}
@@ -541,6 +544,8 @@ const Home = () => {
          ══════════════════════════════════════════════ */}
       <section
         className="pt-0 md:pt-64 mt-4 md:mt-20 pb-2 md:pb-20 relative bg-transparent"
+        data-animate
+        id="factory"
         style={{
           backgroundImage: "url(/images/home/InsideFactoryBackGround.jpg)",
           backgroundSize: "cover",
@@ -552,25 +557,23 @@ const Home = () => {
         <div className="absolute top-0 left-0 right-0 h-8 md:hidden bg-white z-[1]"></div>
 
         <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px]">
-          <Img
-            src="/images/home/InsideFactoryBackGround.jpg"
-            alt={h.factoryImageAlt[lang]}
-            className="w-full h-full object-cover"
+          <iframe
+            src={FACTORY_VIDEO_SRC}
+            title="Happy Furniture factory video"
+            className="absolute left-1/2 top-1/2 border-0"
+            style={{
+              width: "100%",
+              height: "56.25vw",
+              minWidth: "100%",
+              minHeight: "100%",
+              transform: "translate(-50%, -50%)",
+              pointerEvents: "none",
+            }}
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowFullScreen
           />
 
           <div className="absolute inset-0 bg-black/20 md:bg-black/20" />
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <button className="w-20 h-20 md:w-20 md:h-20 md:rounded-full bg-transparent md:bg-white/20 border-0 md:border-2 md:border-white flex items-center justify-center hover:bg-white/10 transition">
-              <svg
-                className="w-16 h-16 md:w-8 md:h-8 text-white ml-2 md:ml-1 drop-shadow-lg md:drop-shadow-none"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
-          </div>
         </div>
 
         <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
