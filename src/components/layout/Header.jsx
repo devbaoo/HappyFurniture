@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { useLocation, Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  useLocation,
+  Link,
+  NavLink,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
 import { Bookmark, Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
@@ -48,6 +54,8 @@ const Header = () => {
   const { favorites, setShowFavorites } = useFavorites();
   const { categories: megaCategories } = useMegaMenu();
   const isDark = pathname === "/";
+  const [isHovered, setIsHovered] = useState(false);
+  const useLightHeader = !isDark || isHovered;
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -86,27 +94,42 @@ const Header = () => {
   const productCategoryId = searchParams.get("category") || "";
   const productCategoryLabel = useMemo(() => {
     if (!productCategoryId) return "";
-    const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
+    const allCategories = megaCategories.flatMap((c) => [
+      c,
+      ...(c.children || []),
+    ]);
     const match = allCategories.find((c) => String(c.id) === productCategoryId);
     return match?.name?.trim() || "";
   }, [megaCategories, productCategoryId]);
-  const showDesktopMenuLine = ["/product", "/news", "/contact"].includes(pathname);
+  const showDesktopMenuLine = ["/product", "/news", "/contact"].includes(
+    pathname,
+  );
 
   return (
     <header
-      className={`absolute top-0 left-0 w-full z-50 ${isDark ? "bg-transparent" : "bg-white"}`}
+      onMouseEnter={() => {
+        if (isDark) setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        if (isDark) setIsHovered(false);
+      }}
+      className="absolute top-0 left-0 w-full z-50"
     >
+      <div
+        className={`absolute inset-0 transition-opacity duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          useLightHeader ? "opacity-100 bg-white" : "opacity-0 bg-white"
+        }`}
+      />
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
-      <div className="mx-auto max-w-[1800px] px-2 md:px-10 w-full">
+      <div className="relative mx-auto max-w-[1800px] px-2 md:px-10 w-full">
         <div
-          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
-
+          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark && !isHovered ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
             {/* Mobile hamburger */}
             <button
-              className={`md:hidden p-2 -ml-1 ${isDark ? "text-white" : "text-stone-700"}`}
+              className={`md:hidden p-2 -ml-1 transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "text-stone-700" : "text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={
                 mobileOpen
@@ -125,11 +148,11 @@ const Header = () => {
             <div className="hidden md:block w-full">
               <div
                 className={`flex items-center h-[38px] border px-4 gap-2 ${
-                  isDark ? "border-white/50" : "border-stone-300"
+                  useLightHeader ? "border-stone-300" : "border-white/50"
                 }`}
               >
                 <svg
-                  className={`w-4 h-4 shrink-0 ${isDark ? "text-white/70" : "text-stone-400"}`}
+                  className={`w-4 h-4 shrink-0 transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "text-stone-400" : "text-white/70"}`}
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -148,14 +171,16 @@ const Header = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && searchQuery.trim()) {
-                      navigate(`/product?name=${encodeURIComponent(searchQuery.trim())}`);
+                      navigate(
+                        `/product?name=${encodeURIComponent(searchQuery.trim())}`,
+                      );
                       setSearchQuery("");
                     }
                   }}
-                  className={`bg-transparent text-[12px] w-full outline-none ${
-                    isDark
-                      ? "placeholder-white/70 text-white"
-                      : "placeholder-stone-400 text-stone-700"
+                  className={`bg-transparent text-[12px] w-full outline-none transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    useLightHeader
+                      ? "placeholder-stone-400 text-stone-700"
+                      : "placeholder-white/70 text-white"
                   }`}
                 />
               </div>
@@ -164,14 +189,11 @@ const Header = () => {
 
           {/* Logo */}
           <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
-            <Link
-              to="/"
-              className="flex items-center gap-2"
-            >
+            <Link to="/" className="flex items-center gap-2">
               <img
                 src="/images/logo-brown.png"
                 alt="Happy Furniture Logo"
-                className={`h-[36px] md:h-[42px] w-auto object-contain ${isDark ? "brightness-0 invert" : ""}`}
+                className={`h-[36px] md:h-[42px] w-auto object-contain transition duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "" : "brightness-0 invert"}`}
               />
             </Link>
           </div>
@@ -185,7 +207,7 @@ const Header = () => {
                 aria-label="Tiếng Việt"
                 aria-pressed={lang === "vi"}
                 onClick={() => setLang("vi")}
-                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "vi" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
+                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${useLightHeader ? "focus-visible:ring-stone-500" : "focus-visible:ring-white"} ${lang === "vi" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
                 style={{ width: 28, height: 20 }}
               >
                 <svg
@@ -208,7 +230,7 @@ const Header = () => {
                 aria-label="English"
                 aria-pressed={lang === "en"}
                 onClick={() => setLang("en")}
-                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "focus-visible:ring-white" : "focus-visible:ring-stone-500"} ${lang === "en" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
+                className={`overflow-hidden rounded-sm hover:opacity-80 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${useLightHeader ? "focus-visible:ring-stone-500" : "focus-visible:ring-white"} ${lang === "en" ? "ring-2 ring-offset-1 ring-amber-400/90" : ""}`}
                 style={{ width: 28, height: 20 }}
               >
                 <svg
@@ -247,19 +269,22 @@ const Header = () => {
 
             <button
               onClick={() => setShowFavorites(true)}
-              className={`flex md:hidden h-[34px] w-[92px] items-center justify-center self-end gap-1.5 border px-2 transition-all duration-200 ${
-                isDark
-                  ? "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
-                  : "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+              className={`flex md:hidden h-[42px] ${favorites.length > 0 ? "w-[72px]" : "w-[48px]"} items-center justify-center self-end gap-2 border px-2.5 transition-all duration-200 ${
+                useLightHeader
+                  ? "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+                  : "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
               }`}
               aria-label="Open Quote List"
             >
-              <Bookmark size={14} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
-              <span className="text-[9px] tracking-[0.01em] font-medium leading-none">
-                My Quote
-              </span>
+              <Bookmark
+                size={18}
+                strokeWidth={1.9}
+                className={favorites.length > 0 ? "fill-current shrink-0" : "shrink-0"}
+              />
               {favorites.length > 0 && (
-                <span className="flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-white px-1 text-[8px] font-semibold text-stone-900">
+                <span className={`flex h-[20px] min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none ${
+                  useLightHeader ? "bg-stone-900 text-white" : "bg-white text-stone-900"
+                }`}>
                   {favorites.length}
                 </span>
               )}
@@ -268,24 +293,27 @@ const Header = () => {
             {/* Show my Favorite button */}
             <button
               onClick={() => setShowFavorites(true)}
-              className={`hidden md:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-200 whitespace-nowrap ${
-
-                isDark
-                  ? "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
-                  : "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+              className={`hidden md:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] whitespace-nowrap ${
+                useLightHeader
+                  ? "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+                  : "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
               }`}
               aria-label="Open Quote List"
             >
-              <Bookmark size={15} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
+              <Bookmark
+                size={15}
+                strokeWidth={1.7}
+                className={favorites.length > 0 ? "fill-current" : ""}
+              />
               <span className="text-[11px] tracking-[0.14em] uppercase font-medium">
                 My Quote List
               </span>
               {favorites.length > 0 && (
                 <span
                   className={`flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold ${
-                    isDark
-                      ? "bg-white text-stone-900"
-                      : "bg-stone-900 text-white"
+                    useLightHeader
+                      ? "bg-stone-900 text-white"
+                      : "bg-white text-stone-900"
                   }`}
                 >
                   {favorites.length}
@@ -310,18 +338,23 @@ const Header = () => {
                 to={to}
                 label={label}
                 end={end}
-                isDark={isDark}
+                isDark={!useLightHeader}
               />
             ))}
 
             {/* ← "Product" with mega-dropdown → */}
             <ProductNavItem
-              isDark={isDark}
+              isDark={!useLightHeader}
               productLabel={pageLabels["/product"]}
             />
 
             {NAV_RIGHT.map(({ to, label }) => (
-              <StaticNavItem key={to} to={to} label={label} isDark={isDark} />
+              <StaticNavItem
+                key={to}
+                to={to}
+                label={label}
+                isDark={!useLightHeader}
+              />
             ))}
           </ul>
         </div>
@@ -397,7 +430,10 @@ const Header = () => {
               {siteCopy.nav[lang].home}
             </Link>
             <span className="text-stone-300">/</span>
-            <Link to="/product" className="hover:text-stone-600 transition-colors">
+            <Link
+              to="/product"
+              className="hover:text-stone-600 transition-colors"
+            >
               {pageLabels["/product"]}
             </Link>
             {productCategoryLabel && (

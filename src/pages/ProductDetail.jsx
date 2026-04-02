@@ -55,7 +55,7 @@ const MeasurementGrid = ({ items = [] }) => (
     {items.map((item) => (
       <div
         key={item.label}
-        className="grid min-w-0 grid-cols-[auto_1fr] pb-2 sm:grid-cols-[58px_1fr]"
+        className="grid min-w-0 grid-cols-[auto_1fr] pb-0.5 sm:grid-cols-[58px_1fr]"
       >
         <span className="text-[12px] text-stone-700 sm:text-[14px]">
           {item.label}
@@ -75,7 +75,7 @@ const MeasurementGrid = ({ items = [] }) => (
 
 const DetailSection = ({ title, children, first = false, className = "" }) => (
   <div
-    className={`${first ? "" : "border-t border-stone-200"} pt-4 ${className}`}
+    className={`${first ? "pt-4" : "mt-5 border-t border-stone-200 pt-5"} ${className}`}
   >
     <h3 className="mb-2 font-sans text-[15px] font-semibold uppercase tracking-[0.12em] text-[#3c4a28]">
       {title}
@@ -343,13 +343,17 @@ const ProductDetail = () => {
                 </p>
               )}
 
-              <div className="mt-1 border-t border-stone-300 pt-3">
+              <div className="mt-1 border-t-2 border-[#3c4a28] pt-3">
                 <section>
                   <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
                     1. Product Information
                   </h2>
 
-                  <DetailSection title="Product Dimensions:" first className="pt-4">
+                  <DetailSection
+                    title="Product Dimensions:"
+                    first
+                    className="pt-4"
+                  >
                     {productMeasurements.length > 0 ? (
                       <MeasurementGrid items={productMeasurements} />
                     ) : (
@@ -381,12 +385,16 @@ const ProductDetail = () => {
                   </DetailSection>
                 </section>
 
-                <section className="mt-4 border-t border-stone-300 pt-4">
+                <section className="mt-4 border-t-2 border-[#3c4a28] pt-4">
                   <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
                     2. Packaging Information
                   </h2>
 
-                  <DetailSection title="Packaging Standard" first className="pt-4">
+                  <DetailSection
+                    title="Packaging Standard"
+                    first
+                    className="pt-4"
+                  >
                     <p>
                       {product.deliveryInfo ||
                         "Packaging information will be added soon."}

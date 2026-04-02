@@ -54,10 +54,13 @@ const OrderDelivery = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-stretch">
             <div className="flex flex-col md:pt-10 lg:pt-14">
               <div className="bg-[#3b442b] text-white px-4 py-3 md:px-5 md:py-4 mb-4 md:mb-5 w-full">
-                <SectionHeading light className="mb-1.5 text-xl md:text-2xl mt-0">
+                <SectionHeading
+                  light
+                  className="mb-1.5 text-xl md:text-2xl mt-0"
+                >
                   {o.deliveryTitle[lang]}
                 </SectionHeading>
-                <p className="font-sans text-white text-sm xl:text-[15px] text-justify leading-[1.55] md:leading-[1.6] tracking-[0.01em]">
+                <p className="font-sans max-w-none text-[15px] md:text-[16px] text-white mb-0 leading-[1.35] tracking-[0.01em]">
                   {o.deliveryIntro[lang]}
                 </p>
               </div>
@@ -66,7 +69,7 @@ const OrderDelivery = () => {
                 {o.deliveryBullets[lang].map((item) => (
                   <li
                     key={item.strong}
-                    className="font-sans flex items-start gap-3 text-sm text-black leading-[1.72] tracking-[0.01em]"
+                    className="font-sans flex items-start gap-3 text-[15px] md:text-[16px] text-black leading-[1.72] tracking-[0.01em]"
                   >
                     <span
                       className="mt-[7px] w-[5px] h-[5px] shrink-0 rounded-full bg-black"
@@ -111,16 +114,14 @@ const OrderDelivery = () => {
               style={{ height: "582px", transform: "translate(0px, -127px)" }}
             />
             <div
-              className="absolute bottom-0 right-0 w-[72%] sm:w-[58%] md:w-auto md:min-w-[340px] md:max-w-[360px] bg-[#35462a] px-4 py-3 md:px-7 md:py-3"
+              className="absolute bottom-0 right-0 flex items-center justify-center w-[72%] sm:w-[58%] md:w-auto md:min-w-[340px] md:max-w-[360px] bg-[#35462a] px-4 py-3 md:px-7 md:py-3"
               style={{
                 width: "313.484px",
-                height: "57.25px",
-                transform: "translate(0px, 7px)",
+                minHeight: "57.25px",
               }}
             >
               <p
                 className="font-sans text-[11px] sm:text-[12px] md:text-[13px] text-white tracking-[0.01em] leading-[1.25] text-center md:whitespace-nowrap"
-                style={{ height: "23.25px", transform: "translate(0px, -7px)" }}
               >
                 {o.orderImageBadge[lang]}
               </p>
@@ -136,7 +137,7 @@ const OrderDelivery = () => {
                 >
                   {o.orderTitle[lang]}
                 </h2>
-                <p className="font-sans max-w-none text-[15px] md:text-[16px] text-secondary mb-4 leading-[1.35] tracking-[0.01em]">
+                <p className="font-sans max-w-none text-[15px] md:text-[16px] text-secondary mb-1 leading-[1.35] tracking-[0.01em]">
                   {o.orderIntro[lang]}
                 </p>
                 <p className="font-sans max-w-none text-[15px] md:text-[16px] text-secondary mb-0 leading-[1.35] tracking-[0.01em]">
@@ -148,12 +149,12 @@ const OrderDelivery = () => {
                 <img
                   src="/images/order/order-04.jpg"
                   alt={o.orderGalleryAlt[lang][0]}
-                  className="aspect-[1.75/1] w-full object-cover object-center md:aspect-[2.35/1]"
+                  className="aspect-[1.75/1] w-full object-cover object-center md:h-[164px] md:aspect-auto md:-translate-y-[11px]"
                 />
                 <img
                   src="/images/order/order-05.jpg"
                   alt={o.orderGalleryAlt[lang][1]}
-                  className="aspect-[1.75/1] w-full object-cover object-center md:aspect-[2.35/1]"
+                  className="aspect-[1.75/1] w-full object-cover object-center md:h-[164px] md:aspect-auto md:-translate-y-[11px]"
                 />
               </div>
             </div>
@@ -241,7 +242,7 @@ const OrderDelivery = () => {
                 <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
                   {card.title}
                 </h3>
-                <p className="mt-1 md:mt-1.5 font-sans text-[11px] md:text-[15px] leading-[1.3] text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
+                <p className="order-packaging-card-body mt-1 md:mt-1.5 font-sans max-w-none text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
                   {card.body}
                 </p>
               </div>

@@ -10,6 +10,9 @@ const CERT_MEDIA = {
   smeta: "/images/smeta.png",
 };
 
+const CERT_VIDEO_SRC =
+  "https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false";
+
 const Certificate = () => {
   const { lang } = useLanguage();
   const c = siteCopy.certificatePage;
@@ -75,28 +78,24 @@ const Certificate = () => {
               : "translate-y-8 opacity-0"
           }`}
         >
-          <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px]">
-            <img
-              alt=""
-              className="object-cover w-full h-full"
-              src="/images/cert-workshop.jpg"
-            />
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button
-                type="button"
-                aria-label={siteCopy.common.playVideo[lang]}
-                className="w-16 h-16 rounded-full bg-white/25 border-2 border-white flex items-center justify-center hover:bg-white/40 transition"
-              >
-                <svg
-                  className="w-6 h-6 text-white ml-1"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-            </div>
+          <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px] bg-black">
+            {visibleElements.has("certificate-blocks") ? (
+              <iframe
+                src={CERT_VIDEO_SRC}
+                title="Happy Furniture certificate video"
+                className="absolute left-1/2 top-1/2 border-0"
+                style={{
+                  width: "100%",
+                  height: "56.25vw",
+                  minWidth: "100%",
+                  minHeight: "100%",
+                  transform: "translate(-50%, -50%)",
+                  pointerEvents: "none",
+                }}
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen
+              />
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-2.5 lg:gap-3">
