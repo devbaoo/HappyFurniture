@@ -384,7 +384,6 @@ export const siteCopy = {
   },
 
   newsPage: {
-    title: { en: "News & events", vi: "Tin tức & sự kiện" },
     breadcrumbCurrent: { en: "News", vi: "Tin tức" },
     eventSection: { en: "Events", vi: "Sự kiện" },
     viewMore: { en: "View more", vi: "Xem thêm" },

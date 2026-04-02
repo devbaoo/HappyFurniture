@@ -112,15 +112,19 @@ const ProductCard = ({
                         e.stopPropagation();
                         onToggleFavorite?.({ id, name, images });
                     }}
-                    className={`absolute top-1.5 right-1.5 z-20 flex h-[36px] w-[36px] items-center justify-center transition-opacity duration-200 ${isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                    className={`absolute top-1.5 right-1.5 z-20 flex h-[36px] w-[36px] items-center justify-center rounded-full border transition-all duration-200 md:border-transparent ${
+                        isFavorited
+                            ? "border-[#3c4a28] bg-white/95 opacity-100"
+                            : "border-white/85 bg-white/15 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                    }`}
                     aria-label={isFavorited ? "Remove from Quote List" : "Add to Quote List"}
                 >
                     <svg
-                        className={`h-[28px] w-[28px] drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-[#3c4a28]" : "text-white"}`}
+                        className={`h-[24px] w-[24px] drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-[#3c4a28]" : "text-white"}`}
                         viewBox="0 0 24 24"
                         fill={isFavorited ? "currentColor" : "none"}
                         stroke={isFavorited ? "none" : "currentColor"}
-                        strokeWidth={1.5}
+                        strokeWidth={1.7}
                     >
                         <path
                             strokeLinecap="round"

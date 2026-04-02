@@ -12,27 +12,23 @@ const News = () => {
     const exhibitionYears = [2024, 2025, 2026];
 
     return (
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-4 pt-28 font-sans bg-white relative">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-3 md:py-3 pt-24 md:pt-24 font-sans bg-white relative">
             <SEOHead
                 title="News"
                 description="Latest news, updates, and exhibition highlights from Happy Furniture. Stay informed about our newest collections and industry events."
                 canonical="/news"
             />
-            <h1 className={`font-heading text-3xl lg:text-4xl tracking-[0.08em] font-normal mb-4 text-center leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
-                {n.title[lang]}
-            </h1>
-
-            <div className="mb-6 text-sm text-gray-500 tracking-[0.08em] text-left">
+            <div className="mb-4 md:mb-5 text-sm text-gray-500 tracking-[0.08em] text-left">
                 <Link to="/" className="hover:text-black transition-colors uppercase">{navHome}</Link>
                 {" / "}
                 <span className="text-black uppercase">{n.breadcrumbCurrent[lang]}</span>
             </div>
 
-            <section className="mb-12 pt-2">
-                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-8 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.eventSection[lang]}</h2>
+            <section className="mb-10 md:mb-11 pt-1">
+                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 md:mb-7 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.eventSection[lang]}</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-6">
-                    {exhibitionYears.map((year, idx) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-5">
+                    {exhibitionYears.map((year) => (
                         <div key={year} className="flex flex-col group cursor-pointer">
                             <div className="w-full h-64 bg-gray-200 overflow-hidden">
                                 <img
@@ -64,9 +60,9 @@ const News = () => {
                 </div>
             </section>
 
-            <section className="mb-12">
-                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.companyActivities[lang]}</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 mb-6">
+            <section className="mb-10 md:mb-11">
+                <h2 className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>{n.companyActivities[lang]}</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-6 mb-5">
                     <div className="flex flex-col space-y-6">
                         {[1, 2, 3].map((i) => (
                             <div key={`tb-l-${i}`} className="flex gap-6 group cursor-pointer">
