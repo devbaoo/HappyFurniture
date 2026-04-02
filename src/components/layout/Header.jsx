@@ -166,8 +166,8 @@ const Header = () => {
           </div>
 
           {/* Right: flags + favorite button */}
-          <div className="flex flex-col items-end gap-2 w-auto md:w-[300px] justify-end">
-            <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex w-[128px] md:w-[300px] flex-col items-end gap-2 justify-end">
+            <div className="flex w-full items-center justify-end gap-2 md:gap-3">
               {/* Vietnam flag */}
               <button
                 type="button"
@@ -233,6 +233,26 @@ const Header = () => {
                 </svg>
               </button>
             </div>
+
+            <button
+              onClick={() => setShowFavorites(true)}
+              className={`flex md:hidden h-[34px] w-[92px] items-center justify-center self-end gap-1.5 border px-2 transition-all duration-200 ${
+                isDark
+                  ? "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
+                  : "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+              }`}
+              aria-label="Open Quote List"
+            >
+              <Bookmark size={14} strokeWidth={1.7} className={favorites.length > 0 ? "fill-current" : ""} />
+              <span className="text-[9px] tracking-[0.01em] font-medium leading-none">
+                My Quote
+              </span>
+              {favorites.length > 0 && (
+                <span className="flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-white px-1 text-[8px] font-semibold text-stone-900">
+                  {favorites.length}
+                </span>
+              )}
+            </button>
 
             {/* Show my Favorite button */}
             <button
