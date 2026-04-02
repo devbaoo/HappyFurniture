@@ -45,19 +45,13 @@ const DropdownPanel = ({
 }) => {
   const { lang } = useLanguage();
 
-  /* Track which parent category is being hovered — default = first category */
-  const [activeCat, setActiveCat] = useState(categories[0] || null);
-
-  /* Reset to first category when panel re-opens */
-  useEffect(() => {
-    if (!open) {
-      /* Small delay so the fade-out animation finishes before we reset */
-      const t = setTimeout(() => setActiveCat(categories[0] || null), 320);
-      return () => clearTimeout(t);
-    }
-  }, [open, categories]);
+  /* Track only the hovered category id and fall back to the first category. */
+  const [hoveredCatId, setHoveredCatId] = useState(null);
 
   if (!categories.length) return null;
+
+  const activeCat =
+    categories.find((cat) => cat.id === hoveredCatId) || categories[0];
 
   /* Determine the category to show the image for */
   const previewCat =
@@ -79,7 +73,10 @@ const DropdownPanel = ({
         marginTop: open ? "0px" : "-6px",
       }}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={() => {
+        setHoveredCatId(null);
+        onMouseLeave();
+      }}
     >
       <div className="mx-auto max-w-[1800px] px-16 py-10">
         <div className="flex items-stretch gap-0 min-h-[320px]">
@@ -98,7 +95,7 @@ const DropdownPanel = ({
                 <Link
                   key={cat.id}
                   to={`/product?category=${cat.id}`}
-                  onMouseEnter={() => setActiveCat(cat)}
+                  onMouseEnter={() => setHoveredCatId(cat.id)}
                   className={`
                     group/parent flex items-center justify-between
                     py-3 pr-6 text-[12px] tracking-[0.2em] uppercase
@@ -268,16 +265,20 @@ const DropdownPanel = ({
 export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => {
   const { categories, loading } = useMegaMenu();
   const [open, setOpen] = useState(false);
-  const [panelTop, setPanelTop] = useState(0);
   const closeTimer = useRef(null);
 
-  const measureHeader = useCallback(() => {
+  const getHeaderBottom = useCallback(() => {
     const header = document.querySelector("header");
-    if (header) setPanelTop(header.getBoundingClientRect().bottom);
+    return header ? header.getBoundingClientRect().bottom : 0;
   }, []);
 
+  const [panelTop, setPanelTop] = useState(() => getHeaderBottom());
+
+  const measureHeader = useCallback(() => {
+    setPanelTop(getHeaderBottom());
+  }, [getHeaderBottom]);
+
   useEffect(() => {
-    measureHeader();
     window.addEventListener("resize", measureHeader);
     return () => {
       window.removeEventListener("resize", measureHeader);
