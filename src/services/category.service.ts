@@ -6,9 +6,11 @@ export interface Category {
   description: string;
   imageUrl?: string;
   parentId: string | null;
+  sortOrder?: number | null;
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;
+  children?: Category[];
 }
 
 export interface PaginatedResponse<T> {
@@ -18,6 +20,19 @@ export interface PaginatedResponse<T> {
   pageSize: number;
   totalPages: number;
 }
+
+export const sortCategoriesByOrder = <T extends {
+  sortOrder?: number | null;
+  name?: string;
+}>(categories: T[]): T[] =>
+  [...categories].sort((a, b) => {
+    const aOrder = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
+    const bOrder = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
+
+    if (aOrder !== bOrder) return aOrder - bOrder;
+
+    return (a.name ?? "").trim().localeCompare((b.name ?? "").trim());
+  });
 
 export const categoryService = {
   // Lấy danh sách thể loại có phân trang
@@ -35,13 +50,21 @@ export const categoryService = {
   // Lấy các thể loại gốc (không có ParentId)
   getRootCategories: async (): Promise<Category[]> => {
     const response = await api.get("/Categories/root");
-    return response.data;
+    const roots = Array.isArray(response.data) ? response.data : [];
+    return sortCategoriesByOrder(roots);
   },
 
   // Lấy chi tiết thể loại theo ID
   getCategoryById: async (id: string): Promise<Category> => {
     const response = await api.get(`/Categories/${id}`);
-    return response.data;
+    const category = response.data;
+
+    return {
+      ...category,
+      children: Array.isArray(category?.children)
+        ? sortCategoriesByOrder(category.children)
+        : [],
+    };
   },
 
   // Tạo mới một thể loại
