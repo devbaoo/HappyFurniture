@@ -1,24 +1,19 @@
 import { Link } from "react-router-dom";
-import Container from "../ui/Container";
-
-const footerLinks = {
-    Product: [
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-    ],
-    Support: [
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-        "Lorem ipsum",
-    ],
-};
+import useMegaMenu from "../../hooks/useMegaMenu";
+import { useLanguage } from "../../context/LanguageContext";
+import { siteCopy } from "../../i18n/siteCopy";
 
 const Footer = () => {
+    const { lang } = useLanguage();
+    const { categories } = useMegaMenu();
+    const supportLinks = [
+        { to: "/certificate", label: siteCopy.nav[lang].certificate },
+        { to: "/what-we-do", label: siteCopy.nav[lang].whatWeDo },
+        { to: "/news", label: siteCopy.nav[lang].news },
+        { to: "/order-delivery", label: siteCopy.nav[lang].orderDelivery },
+        { to: "/contact", label: siteCopy.nav[lang].contact },
+    ];
+
     return (
         <footer className="bg-[#3c4a28] text-white pt-2">
             <div className="mx-auto max-w-[1600px] px-4 md:px-14 lg:px-24 w-full">
@@ -40,20 +35,38 @@ const Footer = () => {
 
                     {/* PRODUCT */}
                     <div className="flex flex-col items-start md:items-start">
-                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">PRODUCT</h3>
+                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">
+                            {lang === "vi" ? "Sản phẩm" : "Product"}
+                        </h3>
                         <ul className="space-y-2 text-sm text-white/80">
-                            {footerLinks.Product.map((link, index) => (
-                                <li key={index}>{link}</li>
+                            {categories.map((category) => (
+                                <li key={category.id}>
+                                    <Link
+                                        to={`/product?category=${category.id}`}
+                                        className="hover:text-white transition-colors"
+                                    >
+                                        {category.name.trim()}
+                                    </Link>
+                                </li>
                             ))}
                         </ul>
                     </div>
 
                     {/* SUPPORT */}
                     <div className="flex flex-col items-start md:items-start">
-                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">SUPPORT</h3>
+                        <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">
+                            Support
+                        </h3>
                         <ul className="space-y-2 text-sm text-white/80">
-                            {footerLinks.Support.map((link, index) => (
-                                <li key={index}>{link}</li>
+                            {supportLinks.map((link) => (
+                                <li key={link.to}>
+                                    <Link
+                                        to={link.to}
+                                        className="hover:text-white transition-colors"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
                             ))}
                         </ul>
                     </div>
