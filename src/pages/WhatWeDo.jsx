@@ -359,13 +359,13 @@ export default function WhatWeDo() {
                 <div className="wwd-specs-right">
                   <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">{specs.productRangeTitle[lang]}</h3>
-                    <ul className="wwd-spec-list">
+                    <ul className="wwd-spec-list wwd-product-range-list">
                       {productRangeLinks.map(({ label, categoryId }) => (
                         <li key={label}>
                           {categoryId ? (
                             <Link
                               to={`/product?category=${categoryId}`}
-                              className="inline-block py-1 transition-colors duration-200 hover:text-[#3c4a28] active:text-[#3c4a28] focus-visible:outline-none focus-visible:text-[#3c4a28]"
+                              className="inline-block py-0 transition-colors duration-200 hover:text-[#3c4a28] active:text-[#3c4a28] focus-visible:outline-none focus-visible:text-[#3c4a28]"
                             >
                               {label}
                             </Link>

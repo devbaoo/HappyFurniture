@@ -63,6 +63,9 @@ const DropdownPanel = ({
   /* Determine the category to show the image for */
   const previewCat =
     activeCat || categories.find((c) => c.imageUrl) || categories[0];
+  const childCount = activeCat?.children?.length ?? 0;
+  const childColumnCount =
+    childCount >= 10 ? 3 : childCount >= 5 ? 2 : 1;
 
   return (
     <div
@@ -163,10 +166,7 @@ const DropdownPanel = ({
                   <ul
                     className="grid gap-x-10 gap-y-3"
                     style={{
-                      gridTemplateColumns: `repeat(${Math.min(
-                        Math.ceil(activeCat.children.length / 5),
-                        3
-                      )}, minmax(160px, 1fr))`,
+                      gridTemplateColumns: `repeat(${childColumnCount}, minmax(160px, 1fr))`,
                     }}
                   >
                     {activeCat.children.map((child) => (
