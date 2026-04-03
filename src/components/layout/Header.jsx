@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   useLocation,
   Link,
@@ -55,10 +55,11 @@ const Header = () => {
   const { categories: megaCategories } = useMegaMenu();
   const isDark = pathname === "/";
   const [isHovered, setIsHovered] = useState(false);
-  const useLightHeader = !isDark || isHovered;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const useLightHeader = !isDark || isHovered || isScrolled || mobileOpen;
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const NAV_LEFT = useMemo(
     () => [
@@ -117,6 +118,17 @@ const Header = () => {
     "/contact",
   ].includes(pathname);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
       onMouseEnter={() => {
@@ -125,17 +137,21 @@ const Header = () => {
       onMouseLeave={() => {
         if (isDark) setIsHovered(false);
       }}
-      className="absolute top-0 left-0 w-full z-50"
+      className="fixed top-0 left-0 w-full z-50"
     >
       <div
         className={`absolute inset-0 transition-opacity duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          useLightHeader ? "opacity-100 bg-white" : "opacity-0 bg-white"
+          useLightHeader
+            ? "opacity-100 bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+            : "opacity-0 bg-white"
         }`}
       />
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
       <div className="relative mx-auto max-w-[1800px] px-2 md:px-10 w-full">
         <div
-          className={`flex items-center md:items-end justify-between py-4 md:py-6 relative ${mobileOpen && isDark && !isHovered ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+          className={`flex items-center md:items-end justify-between relative transition-all duration-300 ${
+            isScrolled ? "py-3 md:py-4" : "py-4 md:py-6"
+          } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -205,7 +221,9 @@ const Header = () => {
               <img
                 src="/images/logo-brown.png"
                 alt="Happy Furniture Logo"
-                className={`h-[36px] md:h-[42px] w-auto object-contain transition duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "" : "brightness-0 invert"}`}
+                className={`w-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isScrolled ? "h-[32px] md:h-[36px]" : "h-[36px] md:h-[42px]"
+                } ${useLightHeader ? "" : "brightness-0 invert"}`}
               />
             </Link>
           </div>
@@ -340,10 +358,14 @@ const Header = () => {
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
         <div
           className={`mx-auto max-w-[1800px] px-10 w-full hidden md:block ${
-            showDesktopMenuLine ? "border-b border-stone-300" : ""
+            showDesktopMenuLine || isScrolled ? "border-b border-stone-300/90" : ""
           }`}
         >
-          <ul className="flex items-center justify-center gap-12 pb-4 whitespace-nowrap">
+          <ul
+            className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${
+              isScrolled ? "gap-10 pb-3" : "gap-12 pb-4"
+            }`}
+          >
             {NAV_LEFT.map(({ to, label, end }) => (
               <StaticNavItem
                 key={to}
@@ -435,7 +457,7 @@ const Header = () => {
       </nav>
 
       {pathname === "/product" && (
-        <div className="hidden md:block relative z-10 bg-white">
+        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
           <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
             <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
               <Link to="/" className="hover:text-stone-600 transition-colors">
@@ -460,7 +482,7 @@ const Header = () => {
       )}
 
       {showSimpleBreadcrumb && (
-        <div className="hidden md:block relative z-10 bg-white">
+        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
           <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
             <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
               <Link to="/" className="hover:text-stone-600 transition-colors">
