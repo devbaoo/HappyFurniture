@@ -28,8 +28,9 @@ const useMegaMenu = () => {
         params: { pageSize: 100, pageNumber: 1 },
       })
       .then((res) => {
+        const items = Array.isArray(res.data?.items) ? res.data.items : [];
         // Keep only root-level categories (parentId === null)
-        const roots = res.data.items.filter((c) => c.parentId === null);
+        const roots = items.filter((c) => c.parentId === null);
         setCategories(roots);
       })
       .catch(console.error)
