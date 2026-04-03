@@ -17,20 +17,21 @@ const normalizeCategoryName = (value) =>
   value
     .toLowerCase()
     .replace(/&/g, "and")
-    .replace(/[\/,-]/g, " ")
+    .replace(/[/,-]/g, " ")
     .replace(/\bfurniture\b/g, "")
     .replace(/\bunits\b/g, "")
     .replace(/\s+/g, " ")
     .trim();
 
 const PRODUCT_RANGE_ALIASES = {
-  "occasional furniture": ["occasional"],
+  occasional: ["occasional"],
   bedroom: ["bedroom"],
   dining: ["dining"],
-  "entertainment units": ["entertainment"],
+  entertainment: ["entertainment"],
   "home office": ["office", "home office"],
-  "youth/kids furniture": ["youth", "kids", "youth kids"],
+  "youth kids": ["youth", "kids", "youth kids"],
   vanity: ["vanity"],
+  "accessory and tray": ["accessory", "tray"],
   "nội thất phụ trợ": ["occasional"],
   "phòng ngủ": ["bedroom"],
   "phòng ăn": ["dining"],
@@ -38,6 +39,7 @@ const PRODUCT_RANGE_ALIASES = {
   "văn phòng tại nhà": ["office", "home office"],
   "nội thất trẻ em": ["youth", "kids", "youth kids"],
   "bàn trang điểm": ["vanity"],
+  "phụ kiện and khay": ["accessory", "tray"],
 };
 
 const Img = ({ src, alt = "", className = "" }) => (
@@ -71,49 +73,6 @@ const useScrollAnimation = () => {
 
   return visibleElements;
 };
-const promoHoverContent = [
-  {
-    title: {
-      en: "Quality Commitment",
-      vi: "Cam kết chất lượng",
-    },
-    body: {
-      en: "Consistent craftsmanship and strict quality control throughout every production stage.",
-      vi: "Tay nghề ổn định cùng hệ thống kiểm soát chất lượng nghiêm ngặt trong toàn bộ quá trình sản xuất.",
-    },
-  },
-  {
-    title: {
-      en: "International Standards",
-      vi: "Tiêu chuẩn quốc tế",
-    },
-    body: {
-      en: "Products developed to meet international standards for global furniture markets.",
-      vi: "Sản phẩm được phát triển theo các tiêu chuẩn quốc tế cho thị trường nội thất toàn cầu.",
-    },
-  },
-  {
-    title: {
-      en: "Sustainable Production",
-      vi: "Sản xuất bền vững",
-    },
-    body: {
-      en: "Responsible manufacturing with sustainable materials and efficient production practices.",
-      vi: "Sản xuất có trách nhiệm với vật liệu bền vững và quy trình tối ưu, thân thiện môi trường.",
-    },
-  },
-  {
-    title: {
-      en: "Export Compliance",
-      vi: "Tuân thủ quy định xuất khẩu",
-    },
-    body: {
-      en: "Fully compliant with export regulations and documentation for international shipments.",
-      vi: "Tuân thủ đầy đủ các quy định và chứng từ xuất khẩu cho các thị trường quốc tế.",
-    },
-  },
-];
-
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function WhatWeDo() {
   const { lang } = useLanguage();
@@ -158,11 +117,46 @@ export default function WhatWeDo() {
       };
     });
   }, [categories, productRangeLabels]);
-  const promoCaptions = h.promoCaptions[lang];
   const timberTags = h.timberTags[lang];
+  const timberTagRows = [
+    timberTags.slice(0, 3),
+    timberTags.slice(3, 6),
+    timberTags.slice(6, 8),
+  ];
   const timberAlts = h.timberAlts[lang];
+  const promoCaptions = h.promoCaptions[lang];
+  const promoHoverContent = [
+    {
+      title: { en: "Quality Commitment", vi: "Cam kết chất lượng" },
+      body: {
+        en: "Consistent craftsmanship and strict quality control throughout every production stage.",
+        vi: "Tay nghề ổn định cùng hệ thống kiểm soát chất lượng nghiêm ngặt trong toàn bộ quá trình sản xuất.",
+      },
+    },
+    {
+      title: { en: "International Standards", vi: "Tiêu chuẩn quốc tế" },
+      body: {
+        en: "Products developed to meet international standards for global furniture markets.",
+        vi: "Sản phẩm được phát triển theo các tiêu chuẩn quốc tế cho thị trường nội thất toàn cầu.",
+      },
+    },
+    {
+      title: { en: "Sustainable Production", vi: "Sản xuất bền vững" },
+      body: {
+        en: "Responsible manufacturing with sustainable materials and efficient production practices.",
+        vi: "Sản xuất có trách nhiệm với vật liệu bền vững và quy trình tối ưu, thân thiện môi trường.",
+      },
+    },
+    {
+      title: { en: "Export Compliance", vi: "Tuân thủ quy định xuất khẩu" },
+      body: {
+        en: "Fully compliant with export regulations and documentation for international shipments.",
+        vi: "Tuân thủ đầy đủ các quy định và chứng từ xuất khẩu cho các thị trường quốc tế.",
+      },
+    },
+  ];
 
-  const [headerH, setHeaderH] = useState(152);
+  const [headerH, setHeaderH] = useState(172);
 
   useEffect(() => {
     const measure = () => {
@@ -202,9 +196,8 @@ export default function WhatWeDo() {
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
       <section className="wwd-mfg-section" data-animate id="wwd-mfg">
-        <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${
-          visibleElements.has("wwd-mfg") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`}>
+        <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${visibleElements.has("wwd-mfg") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}>
           <div className="wwd-mfg-inner">
             {/* ── LEFT: green block + photo ── */}
             <div className="wwd-mfg-left">
@@ -298,8 +291,11 @@ export default function WhatWeDo() {
                   className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
-                {/* overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
+                {/* default image overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-0" />
+
+                {/* green hover overlay */}
+                <div className="absolute inset-x-0 bottom-0 h-full bg-[#3c4a28] translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
 
                 {/* caption */}
                 <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-2">
@@ -307,11 +303,8 @@ export default function WhatWeDo() {
                 </p>
 
                 <div className="absolute inset-0 flex items-end md:items-center justify-center p-3 md:p-5">
-                  <div className="w-full max-w-[280px] text-white text-center opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                    <p className="text-[12px] md:text-[16px] font-semibold tracking-[0.08em] uppercase">
-                      {promoHoverContent[i].title[lang]}
-                    </p>
-                    <p className="mt-1.5 md:mt-2 text-[11px] md:text-[13px] leading-[1.55] md:leading-[1.7] text-white/90">
+                  <div className="relative z-10 w-full max-w-[280px] text-white text-center opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                    <p className="text-[11px] md:text-[13px] leading-[1.55] md:leading-[1.7] text-white/95">
                       {promoHoverContent[i].body[lang]}
                     </p>
                   </div>
@@ -324,9 +317,8 @@ export default function WhatWeDo() {
 
       {/* ══ FINISHING / MATERIALS / PRODUCT RANGE ════════════════════════ */}
       <section className="wwd-specs-section lg:h-[692px]" data-animate id="wwd-specs">
-        <div className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full lg:h-full transform transition-all duration-1000 ease-out ${
-          visibleElements.has("wwd-specs") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`}>
+        <div className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full lg:h-full transform transition-all duration-1000 ease-out ${visibleElements.has("wwd-specs") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}>
           <div className="flex flex-col lg:flex-row gap-12 xl:gap-20 items-start lg:h-full">
             {/* Ảnh ẩn trên mobile, hiện từ lg trở lên */}
             <div className="hidden lg:block w-full lg:w-[40%] flex-shrink-0 lg:h-full">
@@ -392,15 +384,13 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ TIMBER MERCHANDISING ═════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full lg:h-[826px]" data-animate id="wwd-timber">
-        <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full transform transition-all duration-1000 ease-out ${
-          visibleElements.has("wwd-timber") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`}>
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full lg:h-[826px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full lg:h-full">
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full lg:h-full">
               <h2
-                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
@@ -427,14 +417,25 @@ export default function WhatWeDo() {
                   {h.timberQuality[lang]}
                 </p>
 
-                <div className="grid grid-cols-3 md:flex md:flex-wrap gap-1.5 md:gap-3 w-full">
-                  {timberTags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="w-full md:w-auto bg-white text-stone-800 md:text-stone-600 text-[11px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-1.5 md:py-1.5 px-2.5 md:px-6 md:min-w-[85px] text-center rounded-sm shadow-sm flex items-center justify-center"
+                <div className="flex w-full max-w-[560px] flex-col gap-1.5 md:gap-2">
+                  {timberTagRows.map((row, rowIndex) => (
+                    <div
+                      key={`timber-row-${rowIndex}`}
+                      className={`grid gap-1.5 md:gap-2 ${row.length === 3 ? "grid-cols-3" : "grid-cols-2"
+                        }`}
                     >
-                      {tag}
-                    </span>
+                      {row.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
+                            ? "text-[10px] md:text-[9px]"
+                            : "text-[11px] md:text-[10px]"
+                            }`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </div>

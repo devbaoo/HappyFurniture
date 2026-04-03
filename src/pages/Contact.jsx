@@ -23,7 +23,7 @@ const Contact = () => {
       />
 
       {/* header offset */}
-      <div className="pt-[80px] lg:pt-[130px]" />
+      <div className="pt-[80px] lg:pt-[185px]" />
 
       {/* ══ MAIN 2-COL (desktop: form + GET IN TOUCH side by side) ══ */}
       <section className="pb-2 pt-14 lg:py-14">
@@ -233,10 +233,10 @@ const Contact = () => {
                     ></path>
                   </svg>
                   <a
-                    href="mailto:colin.phan@happyfurniturenvn.com"
+                    href="mailto:service03@happyfurniturevn.com"
                     className="hover:text-black transition-colors lg:relative lg:top-px"
                   >
-                    colin.phan@happyfurniturenvn.com
+                    service03@happyfurniturevn.com
                   </a>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[20px]">

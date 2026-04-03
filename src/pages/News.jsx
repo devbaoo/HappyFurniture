@@ -8,27 +8,17 @@ import useScrollAnimation from "../hooks/useScrollAnimation";
 const News = () => {
   const { lang } = useLanguage();
   const n = siteCopy.newsPage;
-  const navHome = siteCopy.nav[lang].home;
   const visibleElements = useScrollAnimation();
 
   const exhibitionYears = [2024, 2025, 2026];
 
   return (
-    <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-3 md:py-3 pt-24 md:pt-24 font-sans bg-white relative">
+    <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-3 md:py-3 pt-24 md:pt-80 font-sans bg-white relative">
       <SEOHead
         title="News"
         description="Latest news, updates, and exhibition highlights from Happy Furniture. Stay informed about our newest collections and industry events."
         canonical="/news"
       />
-      <div className="mb-4 md:mb-5 text-sm text-gray-500 tracking-[0.08em] text-left">
-        <Link to="/" className="hover:text-black transition-colors uppercase">
-          {navHome}
-        </Link>
-        {" / "}
-        <span className="text-black uppercase">
-          {n.breadcrumbCurrent[lang]}
-        </span>
-      </div>
 
       <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
         <div
@@ -42,7 +32,7 @@ const News = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-2 md:mb-2.5">
             {exhibitionYears.map((year) => (
-              <div key={year} className="flex flex-col group cursor-pointer">
+              <Link key={year} to={`/news/${year}`} className="flex flex-col group cursor-pointer">
                 <div className="w-full h-64 bg-gray-200 overflow-hidden">
                   <img
                     alt={`${n.altEvent[lang]} ${year}`}
@@ -60,7 +50,7 @@ const News = () => {
                     {n.exhibitionBody[lang]}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

@@ -158,7 +158,7 @@
     }
 
     .wwd-spec-list {
-      gap: 8px;
+      gap: 2px;
     }
 
     .wwd-spec-list li {
@@ -196,11 +196,11 @@
   /* ── Section heading — catalog style ───────────────────────────── */
   .wwd-spec-heading {
     font-family: "Be Vietnam Pro", "Avenir Next", "Montserrat", sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #2f3e2f;
+    color: #1a1a1a;
     margin-bottom: 4px;
     line-height: 1.45;
   }
@@ -212,7 +212,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 2px;
   }
 
   .wwd-spec-list li {
