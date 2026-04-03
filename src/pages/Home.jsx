@@ -216,6 +216,16 @@ const Home = () => {
       >
         {/* Background Video */}
         <div className="absolute inset-0 overflow-hidden">
+          <video
+            className={`absolute inset-0 h-full w-full object-cover md:hidden transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"}`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={FACTORY_VIDEO_SRC} type="video/mp4" />
+          </video>
           <iframe
             src="https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false"
             style={{
@@ -233,7 +243,7 @@ const Home = () => {
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             frameBorder="0"
-            className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
+            className={`hidden md:block transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
               }`}
           />
           {/* Dark overlay for text readability */}
@@ -298,7 +308,7 @@ const Home = () => {
               }`}
           >
             <h2
-              className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3f4a2f] mb-2 md:mb-2 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
+              className={`font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3c4a28] mb-2 md:mb-2 leading-[1.08] ${lang === "vi" ? "" : "uppercase"}`}
             >
               {h.categoriesHeading[lang]}
             </h2>
@@ -380,7 +390,7 @@ const Home = () => {
           {/* Title */}
           <h2
 
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
@@ -415,8 +425,11 @@ const Home = () => {
                   className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
-                {/* overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
+                {/* default image overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-0" />
+
+                {/* green hover overlay */}
+                <div className="absolute inset-x-0 bottom-0 h-full bg-[#3c4a28] translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
 
                 {/* caption */}
                 <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-2">
@@ -424,11 +437,8 @@ const Home = () => {
                 </p>
 
                 <div className="absolute inset-0 flex items-end md:items-center justify-center p-3 md:p-5">
-                  <div className="w-full max-w-[280px] text-white text-center opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                    <p className="text-[12px] md:text-[16px] font-semibold tracking-[0.08em] uppercase">
-                      {promoHoverContent[i].title[lang]}
-                    </p>
-                    <p className="mt-1.5 md:mt-2 text-[11px] md:text-[13px] leading-[1.55] md:leading-[1.7] text-white/90">
+                  <div className="relative z-10 w-full max-w-[280px] text-white text-center opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                    <p className="text-[11px] md:text-[13px] leading-[1.55] md:leading-[1.7] text-white/95">
                       {promoHoverContent[i].body[lang]}
                     </p>
                   </div>
@@ -448,11 +458,11 @@ const Home = () => {
             {/* Left: Text */}
             <div className="lg:col-span-5 h-full py-1">
               <div className="text-center md:text-left">
-                <p className="text-[14px] md:text-[15px] tracking-[0.12em] text-[#3f4a2f] mb-2 font-semibold uppercase font-sans">
+                <p className="text-[14px] md:text-[15px] tracking-[0.12em] text-[#3c4a28] mb-2 font-semibold uppercase font-sans">
                   {siteCopy.home.aboutKicker[lang]}
                 </p>
                 <h2
-                  className={`font-heading font-normal text-[#3f4a2f] mb-3 md:mb-6 leading-[1.1] mx-auto md:mx-0 max-w-xl md:max-w-none ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                  className={`font-heading font-normal text-[#3c4a28] mb-3 md:mb-6 leading-[1.1] mx-auto md:mx-0 max-w-xl md:max-w-none ${lang === "vi" ? "normal-case" : "uppercase"}`}
                   style={{
                     fontSize: "clamp(1.5rem, 2.8vw, 2.45rem)",
                     letterSpacing: lang === "vi" ? "0" : "0.01em",
@@ -669,7 +679,7 @@ const Home = () => {
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full lg:h-full">
               <h2
-                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#2a2c26] md:text-[#273927] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
@@ -784,7 +794,7 @@ const Home = () => {
             {/* RIGHT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className={`font-heading mb-3 md:mb-3 text-[#314028] md:text-[#2d3a2d] whitespace-normal md:whitespace-nowrap font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className={`font-heading mb-3 md:mb-3 text-[#3c4a28] whitespace-normal md:whitespace-nowrap font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
                 style={{
                   fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
                   letterSpacing: "0.06em",

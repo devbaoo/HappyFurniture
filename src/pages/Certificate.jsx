@@ -45,7 +45,7 @@ const Certificate = () => {
             />
           </div>
           <h1
-            className="font-heading uppercase font-normal mb-1 md:mb-1.5 text-[#3a3530] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
+            className="font-heading uppercase font-normal mb-1 md:mb-1.5 text-[#3c4a28] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
             style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)" }}
           >
             {c.heroTitle[lang]}

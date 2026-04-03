@@ -141,7 +141,7 @@ const Contact = () => {
           {/* GET IN TOUCH — desktop only (bên phải form, giữ nguyên layout gốc) */}
           <div className="hidden lg:block px-10 xl:px-12 pt-10 lg:translate-y-14 max-w-[680px] lg:relative">
             <h2
-              className={`font-heading font-normal text-black mb-5 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+              className={`font-heading font-normal text-[#3c4a28] mb-5 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
               style={{
                 fontSize: "clamp(1.5rem, 2.3vw, 1.95rem)",
                 letterSpacing: "0.08em",
@@ -280,7 +280,7 @@ const Contact = () => {
       {/* ══ GET IN TOUCH — mobile/tablet only (hiện dưới form) ══ */}
       <section className="block lg:hidden px-2 sm:px-8 md:px-14 pt-2 pb-2">
         <h2
-          className={`font-heading font-normal text-black mb-2 text-[26px] sm:text-[30px] leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+          className={`font-heading font-normal text-[#3c4a28] mb-2 text-[26px] sm:text-[30px] leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
           style={{ letterSpacing: "0.08em" }}
         >
           {t.getInTouch[lang]}

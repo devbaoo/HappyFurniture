@@ -26,7 +26,7 @@ const StaticNavItem = ({ to, label, end, isDark, onNavigate }) => (
         ${
           isDark
             ? "text-white/80 hover:text-white"
-            : "text-stone-600 hover:text-stone-900"
+            : "text-stone-600 hover:text-[#3c4a28]"
         }
       `}
     >
@@ -37,7 +37,7 @@ const StaticNavItem = ({ to, label, end, isDark, onNavigate }) => (
             className={`
               absolute left-0 bottom-0 w-full h-[1px]
               transform origin-left transition-transform duration-300
-              ${isDark ? "bg-white" : "bg-stone-900"}
+              ${isDark ? "bg-white" : "bg-[#3c4a28]"}
               ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}
             `}
           />
@@ -427,7 +427,7 @@ const Header = () => {
                     end={end}
                     onClick={handleNavigationStateReset}
                     className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80" : "text-stone-700"
+                      isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
                     }`}
                   >
                     {label}
@@ -453,7 +453,7 @@ const Header = () => {
                     to={to}
                     onClick={handleNavigationStateReset}
                     className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80" : "text-stone-700"
+                      isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
                     }`}
                   >
                     {label}
