@@ -25,7 +25,7 @@ const ImagePanel = ({ category, isDark }) => (
       className={`
         flex items-center gap-1 text-[12px] tracking-[0.15em] uppercase
         transition-colors duration-200
-        ${isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-stone-900"}
+        ${isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"}
       `}
     >
       <span>{category.name.trim()} Collection</span>
@@ -103,10 +103,10 @@ const DropdownPanel = ({
                     ${isActive
                       ? isDark
                         ? "text-white bg-white/5 pl-4"
-                        : "text-stone-900 bg-stone-50 pl-4"
+                        : "text-[#3c4a28] bg-stone-50 pl-4"
                       : isDark
                         ? "text-white/60 hover:text-white hover:bg-white/5 pl-3 hover:pl-4"
-                        : "text-stone-500 hover:text-stone-900 hover:bg-stone-50 pl-3 hover:pl-4"
+                        : "text-stone-500 hover:text-[#3c4a28] hover:bg-stone-50 pl-3 hover:pl-4"
                     }
                   `}
                 >
@@ -117,7 +117,7 @@ const DropdownPanel = ({
                     className={`
                       shrink-0 transition-all duration-200
                       ${isActive
-                        ? isDark ? "text-white opacity-100 translate-x-0" : "text-stone-700 opacity-100 translate-x-0"
+                        ? isDark ? "text-white opacity-100 translate-x-0" : "text-[#3c4a28] opacity-100 translate-x-0"
                         : "opacity-0 -translate-x-1 group-hover/parent:opacity-60 group-hover/parent:translate-x-0"
                       }
                     `}
@@ -139,7 +139,7 @@ const DropdownPanel = ({
                   <h3
                     className={`
                       text-[13px] tracking-[0.25em] uppercase font-semibold
-                      ${isDark ? "text-white" : "text-stone-900"}
+                      ${isDark ? "text-white" : "text-[#3c4a28]"}
                     `}
                   >
                     {activeCat.name.trim()}
@@ -173,7 +173,7 @@ const DropdownPanel = ({
                             py-1
                             ${isDark
                               ? "text-white/60 hover:text-white"
-                              : "text-stone-500 hover:text-stone-900"
+                              : "text-stone-500 hover:text-[#3c4a28]"
                             }
                           `}
                         >
@@ -182,7 +182,7 @@ const DropdownPanel = ({
                               w-1 h-1 rounded-full shrink-0 transition-all duration-200
                               ${isDark
                                 ? "bg-white/20 group-hover/sub:bg-white"
-                                : "bg-stone-300 group-hover/sub:bg-stone-700"
+                                : "bg-stone-300 group-hover/sub:bg-[#3c4a28]"
                               }
                             `}
                           />
@@ -192,7 +192,7 @@ const DropdownPanel = ({
                               className={`
                                 absolute left-0 -bottom-px h-px w-0
                                 transition-all duration-300 group-hover/sub:w-full
-                                ${isDark ? "bg-white/60" : "bg-stone-700"}
+                                ${isDark ? "bg-white/60" : "bg-[#3c4a28]"}
                               `}
                             />
                           </span>
@@ -207,7 +207,7 @@ const DropdownPanel = ({
                     className={`
                       inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase
                       transition-colors duration-200
-                      ${isDark ? "text-white/50 hover:text-white" : "text-stone-400 hover:text-stone-700"}
+                      ${isDark ? "text-white/50 hover:text-white" : "text-stone-400 hover:text-[#3c4a28]"}
                     `}
                   >
                     <span>{siteCopy.common.viewCollection[lang]}</span>
@@ -226,7 +226,7 @@ const DropdownPanel = ({
                         transition-colors duration-200
                         ${isDark
                           ? "text-white/40 hover:text-white"
-                          : "text-stone-400 hover:text-stone-700"
+                          : "text-stone-400 hover:text-[#3c4a28]"
                         }
                       `}
                     >
@@ -352,7 +352,7 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNav
           transition-colors duration-200
           ${isDark
             ? open ? "text-white" : "text-white/80 hover:text-white"
-            : open ? "text-stone-900" : "text-stone-600 hover:text-stone-900"
+            : open ? "text-[#3c4a28]" : "text-stone-600 hover:text-[#3c4a28]"
           }
         `}
         aria-expanded={open}
@@ -364,7 +364,7 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNav
           className={`
             absolute left-0 bottom-0 h-px w-full transform origin-left
             transition-transform duration-300
-            ${isDark ? "bg-white" : "bg-stone-900"}
+            ${isDark ? "bg-white" : "bg-[#3c4a28]"}
             ${open ? "scale-x-100" : "scale-x-0"}
           `}
         />
@@ -403,7 +403,7 @@ export const ProductMobileItem = ({
           to="/product"
           onClick={onClose}
           className={`py-3 text-[12px] tracking-[0.2em] uppercase flex-1 ${
-            isDark ? "text-white/80" : "text-stone-700"
+            isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
           }`}
         >
           {productLabel}
@@ -432,7 +432,7 @@ export const ProductMobileItem = ({
                   to={`/product?category=${cat.id}`}
                   onClick={onClose}
                   className={`block py-2 text-[11px] tracking-[0.18em] uppercase font-semibold flex-1 ${
-                    isDark ? "text-white/70" : "text-stone-600"
+                    isDark ? "text-white/70 hover:text-white" : "text-stone-600 hover:text-[#3c4a28]"
                   }`}
                 >
                   {cat.name.trim()}
@@ -472,7 +472,7 @@ export const ProductMobileItem = ({
                           className={`text-[10px] tracking-[0.14em] uppercase ${
                             isDark
                               ? "text-white/40 hover:text-white"
-                              : "text-stone-400 hover:text-stone-700"
+                              : "text-stone-400 hover:text-[#3c4a28]"
                           } transition-colors duration-200`}
                         >
                           {child.name.trim()}

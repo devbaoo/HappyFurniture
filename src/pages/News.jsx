@@ -80,7 +80,7 @@ const News = () => {
           className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-activities") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
         >
           <h2
-            className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+            className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] text-[#3c4a28] ${lang === "vi" ? "normal-case" : "uppercase"}`}
           >
             {n.companyActivities[lang]}
           </h2>

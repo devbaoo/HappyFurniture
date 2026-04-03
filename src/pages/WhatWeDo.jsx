@@ -4,6 +4,7 @@ import { Warehouse, Users, PackageOpen, Factory, Armchair } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
+import useMegaMenu from "../hooks/useMegaMenu";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
@@ -11,6 +12,33 @@ import manufacturingImg from "/images/about-us/FurnitureManufacturing.jpg";
 import finishingImg from "/images/about-us/Finishing.jpg";
 
 const iconProps = { size: 22, strokeWidth: 1.4 };
+
+const normalizeCategoryName = (value) =>
+  value
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[\/,-]/g, " ")
+    .replace(/\bfurniture\b/g, "")
+    .replace(/\bunits\b/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const PRODUCT_RANGE_ALIASES = {
+  "occasional furniture": ["occasional"],
+  bedroom: ["bedroom"],
+  dining: ["dining"],
+  "entertainment units": ["entertainment"],
+  "home office": ["office", "home office"],
+  "youth/kids furniture": ["youth", "kids", "youth kids"],
+  vanity: ["vanity"],
+  "nội thất phụ trợ": ["occasional"],
+  "phòng ngủ": ["bedroom"],
+  "phòng ăn": ["dining"],
+  "kệ giải trí": ["entertainment"],
+  "văn phòng tại nhà": ["office", "home office"],
+  "nội thất trẻ em": ["youth", "kids", "youth kids"],
+  "bàn trang điểm": ["vanity"],
+};
 
 const Img = ({ src, alt = "", className = "" }) => (
   <img
@@ -89,6 +117,7 @@ const promoHoverContent = [
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function WhatWeDo() {
   const { lang } = useLanguage();
+  const { categories } = useMegaMenu();
   const h = siteCopy.home;
   const w = siteCopy.whatWeDoPage;
   const specs = w.specs;
@@ -110,6 +139,25 @@ export default function WhatWeDo() {
   }, [lang, w]);
 
   const productRangeLabels = w.productRange[lang];
+  const productRangeLinks = useMemo(() => {
+    return productRangeLabels.map((label) => {
+      const normalizedLabel = normalizeCategoryName(label);
+      const aliases = PRODUCT_RANGE_ALIASES[normalizedLabel] || [normalizedLabel];
+
+      const match = categories.find((category) => {
+        const normalizedCategory = normalizeCategoryName(category.name);
+        return aliases.some(
+          (alias) =>
+            normalizedCategory.includes(alias) || alias.includes(normalizedCategory),
+        );
+      });
+
+      return {
+        label,
+        categoryId: match ? String(match.id) : null,
+      };
+    });
+  }, [categories, productRangeLabels]);
   const promoCaptions = h.promoCaptions[lang];
   const timberTags = h.timberTags[lang];
   const timberAlts = h.timberAlts[lang];
@@ -215,7 +263,7 @@ export default function WhatWeDo() {
           {/* Title */}
           <h2
 
-            className={`text-center font-heading text-[#4b4a3f] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
           >
             <span className="md:hidden">
@@ -320,8 +368,19 @@ export default function WhatWeDo() {
                   <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">{specs.productRangeTitle[lang]}</h3>
                     <ul className="wwd-spec-list">
-                      {productRangeLabels.map((item) => (
-                        <li key={item}>{item}</li>
+                      {productRangeLinks.map(({ label, categoryId }) => (
+                        <li key={label}>
+                          {categoryId ? (
+                            <Link
+                              to={`/product?category=${categoryId}`}
+                              className="inline-block py-1 transition-colors duration-200 hover:text-[#3c4a28] active:text-[#3c4a28] focus-visible:outline-none focus-visible:text-[#3c4a28]"
+                            >
+                              {label}
+                            </Link>
+                          ) : (
+                            label
+                          )}
+                        </li>
                       ))}
                     </ul>
                   </div>
