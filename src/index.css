@@ -224,6 +224,14 @@
     letter-spacing: 0.01em;
   }
 
+  .wwd-product-range-list {
+    gap: 14px;
+  }
+
+  .wwd-product-range-list li {
+    line-height: 1.68;
+  }
+
   .wwd-badge {
     @apply inline-block px-3 py-1 text-xs tracking-wider uppercase border border-border text-secondary bg-white;
   }
