@@ -253,10 +253,12 @@ const ProductList = () => {
       try {
         if (!categoryId) {
           const roots = await categoryService.getRootCategories();
-          if (!cancelled) setFilterCategories(roots);
+          const safeRoots = Array.isArray(roots) ? roots : [];
+          if (!cancelled) setFilterCategories(safeRoots);
         } else {
           const cat = await categoryService.getCategoryById(categoryId);
-          if (!cancelled) setFilterCategories(cat.children || []);
+          const safeChildren = Array.isArray(cat?.children) ? cat.children : [];
+          if (!cancelled) setFilterCategories(safeChildren);
         }
       } catch {
         if (!cancelled) setFilterCategories([]);
@@ -271,7 +273,9 @@ const ProductList = () => {
     let cancelled = false;
     setMaterialsLoading(true);
     materialService.getActiveMaterials()
-      .then((data) => { if (!cancelled) setMaterials(data); })
+      .then((data) => {
+        if (!cancelled) setMaterials(Array.isArray(data) ? data : []);
+      })
       .catch(() => { if (!cancelled) setMaterials([]); })
       .finally(() => { if (!cancelled) setMaterialsLoading(false); });
     return () => { cancelled = true; };
