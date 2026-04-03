@@ -14,11 +14,12 @@ import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
 
 /* ─── Reusable static NavLink item ────────────────────────────── */
-const StaticNavItem = ({ to, label, end, isDark }) => (
+const StaticNavItem = ({ to, label, end, isDark, onNavigate }) => (
   <li className="relative group">
     <NavLink
       to={to}
       end={end}
+      onClick={onNavigate}
       className={`
         text-[12px] tracking-[0.18em] uppercase pb-1
         transition-colors duration-200
@@ -117,6 +118,11 @@ const Header = () => {
     "/order-delivery",
     "/contact",
   ].includes(pathname);
+
+  const handleNavigationStateReset = () => {
+    setIsHovered(false);
+    setMobileOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -217,7 +223,7 @@ const Header = () => {
 
           {/* Logo */}
           <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" onClick={handleNavigationStateReset} className="flex items-center gap-2">
               <img
                 src="/images/logo-brown.png"
                 alt="Happy Furniture Logo"
@@ -373,6 +379,7 @@ const Header = () => {
                 label={label}
                 end={end}
                 isDark={!useLightHeader}
+                onNavigate={handleNavigationStateReset}
               />
             ))}
 
@@ -380,6 +387,7 @@ const Header = () => {
             <ProductNavItem
               isDark={!useLightHeader}
               productLabel={pageLabels["/product"]}
+              onNavigate={handleNavigationStateReset}
             />
 
             {NAV_RIGHT.map(({ to, label }) => (
@@ -388,6 +396,7 @@ const Header = () => {
                 to={to}
                 label={label}
                 isDark={!useLightHeader}
+                onNavigate={handleNavigationStateReset}
               />
             ))}
           </ul>
@@ -416,7 +425,7 @@ const Header = () => {
                   <NavLink
                     to={to}
                     end={end}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={handleNavigationStateReset}
                     className={`text-[12px] tracking-[0.2em] uppercase ${
                       isDark ? "text-white/80" : "text-stone-700"
                     }`}
@@ -427,11 +436,11 @@ const Header = () => {
               ))}
 
               {/* Product with expandable categories */}
-              <ProductMobileItem
-                isDark={isDark}
-                onClose={() => setMobileOpen(false)}
-                productLabel={pageLabels["/product"]}
-              />
+                <ProductMobileItem
+                  isDark={isDark}
+                  onClose={handleNavigationStateReset}
+                  productLabel={pageLabels["/product"]}
+                />
 
               {ALL_STATIC.slice(3).map(({ to, label }) => (
                 <li
@@ -442,7 +451,7 @@ const Header = () => {
                 >
                   <NavLink
                     to={to}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={handleNavigationStateReset}
                     className={`text-[12px] tracking-[0.2em] uppercase ${
                       isDark ? "text-white/80" : "text-stone-700"
                     }`}

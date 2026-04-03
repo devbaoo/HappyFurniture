@@ -262,7 +262,7 @@ const DropdownPanel = ({
 };
 
 /* ─── "Product" nav item with mega dropdown ───────────────────── */
-export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => {
+export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNavigate }) => {
   const { categories, loading } = useMegaMenu();
   const [open, setOpen] = useState(false);
   const closeTimer = useRef(null);
@@ -343,6 +343,10 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product" }) => 
       {/* Nav label */}
       <Link
         to="/product"
+        onClick={() => {
+          setOpen(false);
+          onNavigate?.();
+        }}
         className={`
           relative text-[12px] tracking-[0.25em] uppercase pb-1
           transition-colors duration-200
