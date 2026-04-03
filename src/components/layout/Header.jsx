@@ -101,9 +101,21 @@ const Header = () => {
     const match = allCategories.find((c) => String(c.id) === productCategoryId);
     return match?.name?.trim() || "";
   }, [megaCategories, productCategoryId]);
-  const showDesktopMenuLine = ["/product", "/news", "/contact"].includes(
-    pathname,
-  );
+  const showDesktopMenuLine = [
+    "/product",
+    "/news",
+    "/contact",
+    "/certificate",
+    "/what-we-do",
+    "/order-delivery",
+  ].includes(pathname);
+  const showSimpleBreadcrumb = [
+    "/certificate",
+    "/what-we-do",
+    "/news",
+    "/order-delivery",
+    "/contact",
+  ].includes(pathname);
 
   return (
     <header
@@ -422,59 +434,45 @@ const Header = () => {
         )}
       </nav>
 
-      {/* ── Breadcrumb — only on /certificate ──────────────────── */}
       {pathname === "/product" && (
-        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-            <Link to="/" className="hover:text-stone-600 transition-colors">
-              {siteCopy.nav[lang].home}
-            </Link>
-            <span className="text-stone-300">/</span>
-            <Link
-              to="/product"
-              className="hover:text-stone-600 transition-colors"
-            >
-              {pageLabels["/product"]}
-            </Link>
-            {productCategoryLabel && (
-              <>
-                <span className="text-stone-300">/</span>
-                <span className="text-stone-600">{productCategoryLabel}</span>
-              </>
-            )}
+        <div className="hidden md:block relative z-10 bg-white">
+          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
+            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
+              <Link to="/" className="hover:text-stone-600 transition-colors">
+                {siteCopy.nav[lang].home}
+              </Link>
+              <span className="text-stone-300">/</span>
+              <Link
+                to="/product"
+                className="hover:text-stone-600 transition-colors"
+              >
+                {pageLabels["/product"]}
+              </Link>
+              {productCategoryLabel && (
+                <>
+                  <span className="text-stone-300">/</span>
+                  <span className="text-stone-600">{productCategoryLabel}</span>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
 
-      {(pathname === "/news" || pathname === "/contact") && (
-        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-            <Link to="/" className="hover:text-stone-600 transition-colors">
-              {siteCopy.nav[lang].home}
-            </Link>
-            <span className="text-stone-300">/</span>
-            <span className="text-stone-600">{pageLabels[pathname]}</span>
+      {showSimpleBreadcrumb && (
+        <div className="hidden md:block relative z-10 bg-white">
+          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
+            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
+              <Link to="/" className="hover:text-stone-600 transition-colors">
+                {siteCopy.nav[lang].home}
+              </Link>
+              <span className="text-stone-300">/</span>
+              <span className="text-stone-600">{pageLabels[pathname]}</span>
+            </div>
           </div>
         </div>
       )}
 
-      {pathname === "/certificate" && (
-        <div className="hidden md:block mx-auto max-w-[1800px] px-10 w-full pb-3">
-          <div className="h-px bg-stone-300 mb-2" />
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-            <Link to="/" className="hover:text-stone-600 transition-colors">
-              {siteCopy.nav[lang].home}
-            </Link>
-            <span className="text-stone-300">/</span>
-            <span className="text-stone-600">
-              {pageLabels[pathname] ||
-                (pathname.startsWith("/product/")
-                  ? pageLabels["/product"]
-                  : pathname.replace("/", ""))}
-            </span>
-          </div>
-        </div>
-      )}
     </header>
   );
 };

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
@@ -26,19 +25,6 @@ const Certificate = () => {
         description="Happy Furniture holds internationally recognized quality certifications including C-TPAT, BSCI, and SMETA — ensuring ethical sourcing and manufacturing standards."
         canonical="/certificate"
       />
-      <style>{`
-        @media (max-width: 1279px) { .cert-breadcrumb { display: none !important; } }
-      `}</style>
-      <div className="cert-breadcrumb w-full px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] pt-[130px] pb-4">
-        <nav className="flex items-center gap-2 text-[12px] md:text-[13px] text-stone-400 tracking-[0.08em] uppercase">
-          <Link to="/" className="hover:text-stone-600 transition-colors">
-            {c.breadcrumbHome[lang]}
-          </Link>
-          <span>/</span>
-          <span className="text-stone-600">{c.breadcrumbCurrent[lang]}</span>
-        </nav>
-      </div>
-
       <section
         className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center"
         data-animate

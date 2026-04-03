@@ -68,7 +68,7 @@ const PromoCard = ({ label, src, bg, className = "" }) => (
 );
 
 const FACTORY_VIDEO_SRC =
-  "https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false";
+  "https://res.cloudinary.com/djy7tgscw/video/upload/happy_video_ux7k1r.mp4";
 
 /* ─── Custom hook for scroll animations ─── */
 const useScrollAnimation = () => {
@@ -556,22 +556,17 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/35 md:bg-black/0 z-0"></div>
         <div className="absolute top-0 left-0 right-0 h-8 md:hidden bg-white z-[1]"></div>
 
-        <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px]">
-          <iframe
-            src={FACTORY_VIDEO_SRC}
-            title="Happy Furniture factory video"
-            className="absolute left-1/2 top-1/2 border-0"
-            style={{
-              width: "100%",
-              height: "56.25vw",
-              minWidth: "100%",
-              minHeight: "100%",
-              transform: "translate(-50%, -50%)",
-              pointerEvents: "none",
-            }}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-          />
+        <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px] bg-black">
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source src={FACTORY_VIDEO_SRC} type="video/mp4" />
+          </video>
 
           <div className="absolute inset-0 bg-black/20 md:bg-black/20" />
         </div>
