@@ -103,14 +103,7 @@ const Header = () => {
     const match = allCategories.find((c) => String(c.id) === productCategoryId);
     return match?.name?.trim() || "";
   }, [megaCategories, productCategoryId]);
-  const showDesktopMenuLine = [
-    "/product",
-    "/news",
-    "/contact",
-    "/certificate",
-    "/what-we-do",
-    "/order-delivery",
-  ].includes(pathname);
+  const isNewsDetail = pathname.startsWith("/news/");
   const showSimpleBreadcrumb = [
     "/certificate",
     "/what-we-do",
@@ -362,11 +355,7 @@ const Header = () => {
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
-        <div
-          className={`mx-auto max-w-[1800px] px-10 w-full hidden md:block ${
-            showDesktopMenuLine || isScrolled ? "border-b border-stone-300/90" : ""
-          }`}
-        >
+        <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
           <ul
             className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${
               isScrolled ? "gap-10 pb-3" : "gap-12 pb-4"
@@ -403,6 +392,12 @@ const Header = () => {
         </div>
 
         {/* ── Mobile drawer ────────────────────────────────────── */}
+        {pathname !== "/" && (
+          <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
+            <div className="h-px w-full bg-stone-400" />
+          </div>
+        )}
+
         {mobileOpen && (
           <div
             className={`
@@ -467,7 +462,7 @@ const Header = () => {
 
       {pathname === "/product" && (
         <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
-          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
+          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
             <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
               <Link to="/" className="hover:text-stone-600 transition-colors">
                 {siteCopy.nav[lang].home}
@@ -492,13 +487,31 @@ const Header = () => {
 
       {showSimpleBreadcrumb && (
         <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
-          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3 border-t border-stone-300">
+          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
             <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
               <Link to="/" className="hover:text-stone-600 transition-colors">
                 {siteCopy.nav[lang].home}
               </Link>
               <span className="text-stone-300">/</span>
               <span className="text-stone-600">{pageLabels[pathname]}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isNewsDetail && (
+        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
+          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
+            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
+              <Link to="/" className="hover:text-stone-600 transition-colors">
+                {siteCopy.nav[lang].home}
+              </Link>
+              <span className="text-stone-300">/</span>
+              <Link to="/news" className="hover:text-stone-600 transition-colors">
+                {siteCopy.newsPage.breadcrumbCurrent[lang]}
+              </Link>
+              <span className="text-stone-300">/</span>
+              <span className="text-stone-600">{siteCopy.newsPage.breadcrumbEvent[lang]}</span>
             </div>
           </div>
         </div>

@@ -178,6 +178,11 @@ const Home = () => {
     },
   ];
   const timberTags = h.timberTags[lang];
+  const timberTagRows = [
+    timberTags.slice(0, 3),
+    timberTags.slice(3, 6),
+    timberTags.slice(6, 8),
+  ];
   const timberAlts = h.timberAlts[lang];
 
   useEffect(() => {
@@ -216,16 +221,6 @@ const Home = () => {
       >
         {/* Background Video */}
         <div className="absolute inset-0 overflow-hidden">
-          <video
-            className={`absolute inset-0 h-full w-full object-cover md:hidden transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"}`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src={FACTORY_VIDEO_SRC} type="video/mp4" />
-          </video>
           <iframe
             src="https://player.cloudinary.com/embed/?cloud_name=djy7tgscw&public_id=happy_video_ux7k1r&autoplay=true&muted=true&loop=true&controls=false"
             style={{
@@ -243,7 +238,7 @@ const Home = () => {
             allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             frameBorder="0"
-            className={`hidden md:block transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
+            className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
               }`}
           />
           {/* Dark overlay for text readability */}
@@ -706,14 +701,25 @@ const Home = () => {
                   {h.timberQuality[lang]}
                 </p>
 
-                <div className="grid grid-cols-3 md:flex md:flex-wrap gap-1.5 md:gap-3 w-full">
-                  {timberTags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="w-full md:w-auto bg-white text-stone-800 md:text-stone-600 text-[11px] md:text-[11px] font-normal md:font-medium normal-case md:uppercase tracking-normal md:tracking-wider py-1.5 md:py-1.5 px-2.5 md:px-6 md:min-w-[85px] text-center rounded-sm shadow-sm flex items-center justify-center"
+                <div className="flex w-full max-w-[560px] flex-col gap-1.5 md:gap-2">
+                  {timberTagRows.map((row, rowIndex) => (
+                    <div
+                      key={`timber-row-${rowIndex}`}
+                      className={`grid gap-1.5 md:gap-2 ${row.length === 3 ? "grid-cols-3" : "grid-cols-2"
+                        }`}
                     >
-                      {tag}
-                    </span>
+                      {row.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
+                            ? "text-[10px] md:text-[9px]"
+                            : "text-[11px] md:text-[10px]"
+                            }`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </div>

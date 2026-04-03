@@ -19,7 +19,7 @@ const Certificate = () => {
   const visibleElements = useScrollAnimation();
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white pt-24 md:pt-52">
       <SEOHead
         title="Certificates"
         description="Happy Furniture holds internationally recognized quality certifications including C-TPAT, BSCI, and SMETA — ensuring ethical sourcing and manufacturing standards."
@@ -31,11 +31,10 @@ const Certificate = () => {
         id="certificate-hero"
       >
         <div
-          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${
-            visibleElements.has("certificate-hero")
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${visibleElements.has("certificate-hero")
+            ? "translate-y-0 opacity-100"
+            : "translate-y-8 opacity-0"
+            }`}
         >
           <div className="flex justify-center mb-4 md:mb-5">
             <img
@@ -58,11 +57,10 @@ const Certificate = () => {
 
       <section className="pb-16 md:pb-24" data-animate id="certificate-blocks">
         <div
-          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start transform transition-all duration-1000 ease-out ${
-            visibleElements.has("certificate-blocks")
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-start transform transition-all duration-1000 ease-out ${visibleElements.has("certificate-blocks")
+            ? "translate-y-0 opacity-100"
+            : "translate-y-8 opacity-0"
+            }`}
         >
           <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px] bg-black">
             {visibleElements.has("certificate-blocks") ? (

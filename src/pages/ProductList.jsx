@@ -300,7 +300,7 @@ const ProductList = () => {
         canonical={categoryId ? `/product?category=${categoryId}` : "/product"}
       />
       {/* ── Spacer — offsets absolute header (~130px tall) ────────── */}
-      <div className="pt-[130px] md:pt-[162px]" />
+      <div className="pt-[130px] md:pt-[185px]" />
 
       {/* ── Breadcrumb ───────────────────────────────────────────── */}
       <div className="hidden border-b border-border">

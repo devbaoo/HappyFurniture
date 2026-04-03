@@ -10,29 +10,36 @@ const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80";
 
 /* ─── Right image panel ────────────────────────────────────────── */
-const ImagePanel = ({ category, isDark }) => (
-  <div className="flex flex-col gap-3 w-[260px] shrink-0">
-    <div className="overflow-hidden w-full" style={{ aspectRatio: "4/3" }}>
-      <img
-        src={category.imageUrl || FALLBACK_IMG}
-        alt={category.name.trim()}
-        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-        loading="lazy"
-      />
+const ImagePanel = ({ category, isDark }) => {
+  const { lang } = useLanguage();
+  return (
+    <div className="flex flex-col gap-3 w-[260px] shrink-0">
+      <div className="overflow-hidden w-full" style={{ aspectRatio: "4/3" }}>
+        <img
+          src={category.imageUrl || FALLBACK_IMG}
+          alt={category.name.trim()}
+          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+      <Link
+        to={`/product?category=${category.id}`}
+        className={`
+          flex items-center gap-1 text-[12px] tracking-[0.15em] uppercase
+          transition-colors duration-200
+          ${isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"}
+        `}
+      >
+        <span>
+          {lang === "vi"
+            ? `Xem tất cả ${category.name.trim()}`
+            : `View all ${category.name.trim()}`}
+        </span>
+        <ChevronRight size={10} strokeWidth={1.5} className="mt-px shrink-0" />
+      </Link>
     </div>
-    <Link
-      to={`/product?category=${category.id}`}
-      className={`
-        flex items-center gap-1 text-[12px] tracking-[0.15em] uppercase
-        transition-colors duration-200
-        ${isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"}
-      `}
-    >
-      <span>{category.name.trim()} Collection</span>
-      <ChevronRight size={10} strokeWidth={1.5} className="mt-px shrink-0" />
-    </Link>
-  </div>
-);
+  );
+};
 
 /* ─── The full dropdown panel (fixed, full-width) ─────────────── */
 const DropdownPanel = ({
@@ -61,8 +68,7 @@ const DropdownPanel = ({
     <div
       className={`
         fixed left-0 right-0
-        border-t
-        ${isDark ? "border-white/10 bg-[#0c0c0c]" : "border-stone-200 bg-white"}
+        ${isDark ? "bg-[#0c0c0c]" : "bg-white"}
         shadow-2xl
         transition-all duration-300 ease-out
         ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
@@ -215,30 +221,6 @@ const DropdownPanel = ({
                   </Link>
                 )}
 
-                {/* "View all" link at bottom */}
-                {activeCat.children && activeCat.children.length > 0 && (
-                  <div className="mt-8">
-                    <Link
-                      to={`/product?category=${activeCat.id}`}
-                      className={`
-                        inline-flex items-center gap-1.5
-                        text-[11px] tracking-[0.18em] uppercase font-medium
-                        transition-colors duration-200
-                        ${isDark
-                          ? "text-white/40 hover:text-white"
-                          : "text-stone-400 hover:text-[#3c4a28]"
-                        }
-                      `}
-                    >
-                      <span>
-                        {lang === "vi"
-                          ? `Xem tất cả ${activeCat.name.trim()}`
-                          : `View all ${activeCat.name.trim()}`}
-                      </span>
-                      <ChevronRight size={10} strokeWidth={1.5} />
-                    </Link>
-                  </div>
-                )}
               </div>
             ) : (
               /* Fallback — should not happen since we always have a default */

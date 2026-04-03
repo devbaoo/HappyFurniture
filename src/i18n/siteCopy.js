@@ -60,7 +60,7 @@ export const siteCopy = {
       vi: "Liên hệ để nhận catalog, thông số kỹ thuật hoặc trao đổi hợp tác. Đội ngũ của chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
     },
     contactMs: { en: "Uyen Tran (Ms.)", vi: "Uyen Tran (Ms.)" },
-    contactMr: { en: "Colin Phan (Mr.)", vi: "Colin Phan (Ông)" },
+    contactMr: { en: "Thang Nguyen", vi: "Thắng Nguyễn" },
   },
 
   nav: {
@@ -169,10 +169,10 @@ export const siteCopy = {
       en: [
         "Living Room",
         "Bedroom",
-        "Dining Room",
+        "Dining",
         "Vanity",
-        "Youth Room",
-        "Accessories",
+        "Youth",
+        "Accessories/Tray",
       ],
       vi: [
         "Phòng khách",
@@ -304,8 +304,26 @@ export const siteCopy = {
       vi: "Độ dày đa dạng (11mm đến 50mm)",
     },
     timberTags: {
-      en: ["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"],
-      vi: ["Industrial Grade", "Millrun", "COL", "FCOL", "ACOL"],
+      en: [
+        "FAS - First and Second",
+        "Com 1",
+        "Com 2",
+        "Industrial Grade",
+        "Millrun",
+        "COL",
+        "FCOL",
+        "ACOL",
+      ],
+      vi: [
+        "FAS - First and Second",
+        "Com 1",
+        "Com 2",
+        "Industrial Grade",
+        "Millrun",
+        "COL",
+        "FCOL",
+        "ACOL",
+      ],
     },
     timberCta: { en: "Learn more", vi: "Tìm hiểu thêm" },
     timberAlts: {
@@ -385,6 +403,8 @@ export const siteCopy = {
 
   newsPage: {
     breadcrumbCurrent: { en: "News", vi: "Tin tức" },
+    breadcrumbEvent: { en: "Event", vi: "Sự kiện" },
+    relatedNews: { en: "Related news", vi: "Tin liên quan" },
     eventSection: { en: "Events", vi: "Sự kiện" },
     viewMore: { en: "View more", vi: "Xem thêm" },
     companyActivities: { en: "Company activities", vi: "Hoạt động công ty" },
@@ -618,11 +638,13 @@ export const siteCopy = {
       materialsTitle: { en: "Materials", vi: "Chất liệu" },
       materialsItems: {
         en: [
-          "Solid: Pine, Poplar, Oak, Rubberwood, Acacia, Hemlock",
+          "Solid: Oak, Pine, Ash, Hickory, Poplar, Rubberwood, Acacia, Hemlock",
+          "Surface Finishes: Shagreen, Silver / Gold foil, High Gloss Buffing",
           "Veneers: Any type",
         ],
         vi: [
-          "Gỗ đặc: thông, poplar, sồi, cao su, xoài đào, thông đỏ (hemlock)",
+          "Gỗ đặc: sồi, thông, tần bì, hickory, poplar, cao su, xoài đào, thông đỏ (hemlock)",
+          "Hoàn thiện bề mặt: Shagreen, dán bạc / vàng, đánh bóng cao cấp",
           "Veneer: đa dạng chủng loại",
         ],
       },
@@ -635,13 +657,14 @@ export const siteCopy = {
     },
     productRange: {
       en: [
-        "Occasional furniture",
+        "Occasional",
         "Bedroom",
         "Dining",
-        "Entertainment units",
-        "Home office",
-        "Youth/kids furniture",
+        "Entertainment Units",
+        "Home Office",
+        "Youth/Kids Furniture",
         "Vanity",
+        "Accessory & Tray",
       ],
       vi: [
         "Nội thất phụ trợ",
@@ -651,6 +674,7 @@ export const siteCopy = {
         "Văn phòng tại nhà",
         "Nội thất trẻ em",
         "Bàn trang điểm",
+        "Phụ kiện & Khay",
       ],
     },
   },

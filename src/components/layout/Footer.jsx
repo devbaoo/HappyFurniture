@@ -129,7 +129,7 @@ const Footer = () => {
                         <div className="flex gap-3 md:gap-4">
 
                             {/* Facebook */}
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                            <a href="https://www.facebook.com/Happyfurniturevietnamofficial" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                                 className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
                                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#3c4a28">
                                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -137,7 +137,7 @@ const Footer = () => {
                             </a>
 
                             {/* Instagram */}
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                            <a href="https://www.instagram.com/happyfurniturevietnamofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
                                 className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
                                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3c4a28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -146,12 +146,19 @@ const Footer = () => {
                                 </svg>
                             </a>
 
-                            {/* YouTube */}
-                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                            {/* LinkedIn */}
+                            <a href="https://www.linkedin.com/company/happy-furniturevn/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
                                 className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
                                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#3c4a28">
-                                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-                                    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+                                    <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3ZM20.44 12.58c0-3.46-1.85-5.08-4.32-5.08-1.99 0-2.88 1.1-3.38 1.87V8.5H9.38c.04.58 0 11.5 0 11.5h3.37v-6.42c0-.34.02-.69.12-.94.27-.69.88-1.4 1.9-1.4 1.34 0 1.88 1.02 1.88 2.52V20H20v-6.83c0-.37.01-.74.01-.59Z" />
+                                </svg>
+                            </a>
+
+                            {/* TikTok */}
+                            <a href="https://www.tiktok.com/@happyfurniturevietnam0" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                                className="flex h-6 w-6 items-center justify-center rounded-full bg-white transition-colors hover:bg-white/80">
+                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="#3c4a28">
+                                    <path d="M16.88 3h-2.53v10.21a2.64 2.64 0 1 1-2.64-2.64c.23 0 .45.03.66.08V8.08a5.18 5.18 0 0 0-.66-.04A5.18 5.18 0 1 0 16.88 13V7.7A6.08 6.08 0 0 0 20.44 8.9V6.38A3.57 3.57 0 0 1 16.88 3Z" />
                                 </svg>
                             </a>
 
