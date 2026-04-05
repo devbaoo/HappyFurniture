@@ -203,7 +203,7 @@ const Home = () => {
           "@type": "Organization",
           name: "Happy Furniture",
           url: "http://happyfurniturenvn.com",
-          logo: "http://happyfurniturenvn.com/favicon.svg",
+          logo: "http://happyfurniturenvn.com/images/logo-brown.png",
           description: "Premium luxury furniture crafted to perfection.",
           contactPoint: {
             "@type": "ContactPoint",
