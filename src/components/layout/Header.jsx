@@ -335,7 +335,7 @@ const Header = () => {
                 className={favorites.length > 0 ? "fill-current" : ""}
               />
               <span className="text-[11px] tracking-[0.14em] uppercase font-medium">
-                My Quote List
+                {siteCopy.header.quoteList[lang]}
               </span>
               {favorites.length > 0 && (
                 <span

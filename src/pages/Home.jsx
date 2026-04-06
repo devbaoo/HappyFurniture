@@ -67,8 +67,6 @@ const PromoCard = ({ label, src, bg, className = "" }) => (
   </div>
 );
 
-const FACTORY_VIDEO_SRC =
-  "https://res.cloudinary.com/djy7tgscw/video/upload/happy_video_ux7k1r.mp4";
 
 /* ─── Custom hook for scroll animations ─── */
 const useScrollAnimation = () => {
@@ -121,6 +119,7 @@ const CERT_LOGO_SRCS = [
   "/images/home/CTPAT.jpg",
   "/images/home/Amfori.jpg",
   "/images/home/SMETA.jpg",
+  "/images/home/FSC.png",
 ];
 
 const Home = () => {
@@ -325,7 +324,7 @@ const Home = () => {
           >
             <CategoryCard
               label={categoryLabels[0]}
-              src="/images/home/Home-Dining.jpg"
+              src="/images/home/Home-LivingRoom.jpg"
               bg="#3a3530"
               className="aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]"
             />
@@ -562,18 +561,16 @@ const Home = () => {
         <div className="absolute top-0 left-0 right-0 h-8 md:hidden bg-white z-[1]"></div>
 
         <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px] bg-black">
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src={FACTORY_VIDEO_SRC} type="video/mp4" />
-          </video>
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src="https://www.youtube.com/embed/kB50RuQ-LFk?controls=1&rel=0"
+            title="Inside Our Factory"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
 
-          <div className="absolute inset-0 bg-black/20 md:bg-black/20" />
+          <div className="pointer-events-none absolute inset-0 bg-black/20 md:bg-black/20" />
         </div>
 
         <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
@@ -650,12 +647,12 @@ const Home = () => {
               {siteCopy.home.certificationsIntro[lang]}
             </p>
 
-            <div className="grid grid-cols-3 items-center justify-items-center max-w-3xl mx-auto gap-3 sm:gap-5 md:gap-8">
-              {certItems.map((item, i) => (
+            <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center max-w-3xl mx-auto gap-3 sm:gap-5 md:gap-8">
+              {CERT_LOGO_SRCS.map((src, i) => (
                 <Img
-                  key={item.title}
-                  src={CERT_LOGO_SRCS[i]}
-                  alt={item.title}
+                  key={src}
+                  src={src}
+                  alt={certItems[i]?.title ?? "FSC"}
                   className="h-8 sm:h-10 md:h-12"
                   objectFit="contain"
                 />
@@ -712,8 +709,8 @@ const Home = () => {
                         <span
                           key={tag}
                           className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
-                            ? "text-[10px] md:text-[9px]"
-                            : "text-[11px] md:text-[10px]"
+                            ? "text-[12px] md:text-[11px]"
+                            : "text-[13px] md:text-[12px]"
                             }`}
                         >
                           {tag}

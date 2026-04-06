@@ -36,11 +36,11 @@ const Certificate = () => {
             : "translate-y-8 opacity-0"
             }`}
         >
-          <div className="flex justify-center mb-4 md:mb-5">
+          <div className="flex justify-center mb-2 md:mb-3">
             <img
               alt=""
-              className="object-contain w-40 h-40 md:w-48 md:h-48"
-              src="/images/cert-hero.png"
+              className="object-contain w-64 h-64 md:w-80 md:h-80"
+              src="/images/certificates/certificate-hero.png"
             />
           </div>
           <h1

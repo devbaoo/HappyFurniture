@@ -512,6 +512,32 @@ const ProductList = () => {
               )}
             </FilterDropdown>
 
+            <FilterDropdown
+              label="Assembly"
+              active={false}
+            >
+              <ul className="min-w-[160px]">
+                <li>
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] text-[#333]/55 cursor-not-allowed"
+                  >
+                    Assembly Required
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    disabled
+                    className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] text-[#333]/55 cursor-not-allowed"
+                  >
+                    No Assembly
+                  </button>
+                </li>
+              </ul>
+            </FilterDropdown>
+
           </div>
         </Container>
       </section>

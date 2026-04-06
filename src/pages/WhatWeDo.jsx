@@ -341,9 +341,11 @@ export default function WhatWeDo() {
                   </div>
                   <div className="wwd-spec-block">
                     <h3 className="wwd-spec-heading">{specs.materialsTitle[lang]}</h3>
-                    <ul className="wwd-spec-list">
+                    <ul className="wwd-spec-list gap-2 md:gap-2.5">
                       {specs.materialsItems[lang].map((line) => (
-                        <li key={line}>{line}</li>
+                        <li key={line} className="leading-[1.82] md:leading-[1.88]">
+                          {line}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -428,8 +430,8 @@ export default function WhatWeDo() {
                         <span
                           key={tag}
                           className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
-                            ? "text-[10px] md:text-[9px]"
-                            : "text-[11px] md:text-[10px]"
+                            ? "text-[12px] md:text-[11px]"
+                            : "text-[13px] md:text-[12px]"
                             }`}
                         >
                           {tag}
