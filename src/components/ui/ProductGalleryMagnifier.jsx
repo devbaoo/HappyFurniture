@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /** Background scale in zoom pane (% of panel size). Higher = more magnification. */
@@ -22,6 +22,7 @@ const ProductGalleryMagnifier = ({
   const containerRef = useRef(null);
   const [zoomActive, setZoomActive] = useState(false);
   const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const sorted = images;
   const n = sorted.length;
@@ -68,10 +69,47 @@ const ProductGalleryMagnifier = ({
     setZoomActive(false);
   }, []);
 
+  const openLightbox = useCallback(() => {
+    if (current) setLightboxOpen(true);
+  }, [current]);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
   const go = (delta) => {
     if (!canNavigate) return;
     onActiveIndexChange((i) => (i + delta + n) % n);
   };
+
+  useEffect(() => {
+    if (!lightboxOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setLightboxOpen(false);
+        return;
+      }
+
+      if (!canNavigate) return;
+
+      if (event.key === "ArrowLeft") {
+        onActiveIndexChange((i) => (i - 1 + n) % n);
+      }
+
+      if (event.key === "ArrowRight") {
+        onActiveIndexChange((i) => (i + 1) % n);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [canNavigate, lightboxOpen, n, onActiveIndexChange]);
 
   return (
     <div className="flex min-w-0 flex-row gap-1 overflow-visible lg:gap-2">
@@ -116,10 +154,11 @@ const ProductGalleryMagnifier = ({
         <div className="relative w-full">
           <div
             ref={containerRef}
-            className="group/main relative aspect-square w-full cursor-default overflow-hidden bg-surface lg:cursor-crosshair"
+            className="group/main relative aspect-square w-full cursor-zoom-in overflow-hidden bg-surface lg:cursor-crosshair"
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
             onMouseMove={handleMove}
+            onClick={openLightbox}
           >
             {current ? (
               <img
@@ -149,7 +188,10 @@ const ProductGalleryMagnifier = ({
               <>
                 <button
                   type="button"
-                  onClick={() => go(-1)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    go(-1);
+                  }}
                   className="absolute left-0 top-1/2 z-10 hidden h-10 w-6 -translate-y-1/2 items-center justify-center transition-opacity duration-200 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Previous image"
                 >
@@ -160,7 +202,10 @@ const ProductGalleryMagnifier = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => go(1)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    go(1);
+                  }}
                   className="absolute right-0 top-1/2 z-10 hidden h-10 w-6 -translate-y-1/2 items-center justify-center transition-opacity duration-200 lg:flex lg:opacity-0 lg:group-hover/main:opacity-100"
                   aria-label="Next image"
                 >
@@ -247,6 +292,64 @@ const ProductGalleryMagnifier = ({
           </div>
         )}
       </div>
+
+      {lightboxOpen && current && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Image preview for ${productName}`}
+          onClick={closeLightbox}
+        >
+          <button
+            type="button"
+            onClick={closeLightbox}
+            className="absolute right-4 top-4 z-[101] flex h-11 w-11 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/20"
+            aria-label="Close image preview"
+          >
+            <span className="text-2xl leading-none">&times;</span>
+          </button>
+
+          {canNavigate && (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                go(-1);
+              }}
+              className="absolute left-3 top-1/2 z-[101] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/20 sm:left-6"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+            </button>
+          )}
+
+          <div
+            className="relative flex max-h-full w-full max-w-6xl items-center justify-center"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              src={current.imageUrl}
+              alt={current.altText || productName}
+              className="max-h-[88vh] w-auto max-w-full object-contain"
+            />
+          </div>
+
+          {canNavigate && (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                go(1);
+              }}
+              className="absolute right-3 top-1/2 z-[101] flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/20 sm:right-6"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-6 w-6" strokeWidth={2} />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
