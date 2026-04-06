@@ -1,12 +1,10 @@
-import { useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { submitContact } from "../services/contact.service";
-
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const initialForm = {
   name: "",
   email: "",
@@ -27,7 +25,7 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const recaptchaRef = useRef(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const validate = () => {
     const newErrors = {};
@@ -66,11 +64,8 @@ const Contact = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    const recaptchaToken = recaptchaRef.current?.getValue();
-    if (!recaptchaToken) {
-      setErrors((prev) => ({ ...prev, recaptcha: E.recaptchaRequired[lang] }));
-      return;
-    }
+    if (!executeRecaptcha) return;
+    const recaptchaToken = await executeRecaptcha("contact");
 
     setLoading(true);
     try {
@@ -85,12 +80,10 @@ const Contact = () => {
       });
       setSuccess(true);
       setForm(initialForm);
-      recaptchaRef.current?.reset();
     } catch (err) {
       const msg =
         err?.response?.data?.message || err?.message || E.general[lang];
       setErrors((prev) => ({ ...prev, general: msg }));
-      recaptchaRef.current?.reset();
     } finally {
       setLoading(false);
     }
@@ -250,20 +243,7 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-start sm:items-end">
-                  <div>
-                    <div className="scale-[0.85] origin-top-left">
-                      <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={RECAPTCHA_SITE_KEY}
-                        theme="dark"
-                      />
-                    </div>
-                    {errors.recaptcha && (
-                      <span className="text-red-300 text-[11px] mt-1 block">
-                        {errors.recaptcha}
-                      </span>
-                    )}
-                  </div>
+                  <div />
                   <div className="flex flex-col items-start sm:items-end gap-2">
                     {errors.general && (
                       <p className="text-red-300 text-[11px] text-right">

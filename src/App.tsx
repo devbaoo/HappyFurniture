@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { LanguageProvider, useLanguage } from "./context/LanguageContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
+
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
 import { siteCopy } from "./i18n/siteCopy";
 import MainLayout from "./components/layout/MainLayout";
 import Home from "./pages/Home";
@@ -33,6 +36,7 @@ const NotFound = () => {
 
 const App = () => {
   return (
+    <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
     <BrowserRouter>
       <ScrollToTop />
       <LanguageProvider>
@@ -124,6 +128,7 @@ const App = () => {
       </FavoritesProvider>
       </LanguageProvider>
     </BrowserRouter>
+    </GoogleReCaptchaProvider>
   );
 };
 
