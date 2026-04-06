@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 const PLACEHOLDER_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800&h=500";
@@ -18,25 +19,21 @@ export default function NewsDetail() {
   const currentYear = EXHIBITION_YEARS.includes(year) ? year : EXHIBITION_YEARS[0];
 
   return (
-    <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-3 pt-24 md:pt-96 pb-16 font-sans bg-white">
+    <div className="w-full bg-white font-sans">
       <SEOHead
         title={n.exhibitionTitle(currentYear)[lang]}
         description={n.exhibitionBody[lang]}
         canonical={`/news/${currentYear}`}
       />
+      <PageBreadcrumb
+        items={[
+          { label: navHome, to: "/" },
+          { label: n.breadcrumbCurrent[lang], to: "/news" },
+          { label: n.breadcrumbEvent[lang] },
+        ]}
+      />
 
-      {/* Breadcrumb — mobile only (desktop handled by Header) */}
-      <div className="md:hidden mb-6 text-[11px] text-gray-400 tracking-[0.08em] uppercase">
-        <Link to="/" className="hover:text-black transition-colors">
-          {navHome}
-        </Link>
-        {" / "}
-        <Link to="/news" className="hover:text-black transition-colors">
-          {n.breadcrumbCurrent[lang]}
-        </Link>
-        {" / "}
-        <span className="text-black">{n.breadcrumbEvent[lang]}</span>
-      </div>
+      <div className="mx-auto w-full max-w-[1650px] px-2 py-3 pb-16 md:px-14 md:py-4 lg:px-24">
 
       {/* 2-col layout */}
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
@@ -121,6 +118,7 @@ export default function NewsDetail() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

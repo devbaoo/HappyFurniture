@@ -9,6 +9,7 @@ import { materialService } from "../services/material.service";
 import useMegaMenu from "../hooks/useMegaMenu";
 import { useFavorites } from "../context/FavoritesContext";
 import SEOHead from "../components/SEOHead";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
 const SORT_OPTIONS = [
@@ -299,34 +300,20 @@ const ProductList = () => {
         description="Browse Happy Furniture's full collection of premium handcrafted furniture. Filter by category, material, and more to find your perfect piece."
         canonical={categoryId ? `/product?category=${categoryId}` : "/product"}
       />
-      {/* ── Spacer — offsets absolute header (~130px tall) ────────── */}
-      <div className="pt-[130px] md:pt-[185px]" />
-
-      {/* ── Breadcrumb ───────────────────────────────────────────── */}
-      <div className="hidden border-b border-border">
-        <Container>
-          <nav
-            aria-label="Breadcrumb"
-            className="pt-4 pb-3 flex items-center gap-2 text-[12px] text-stone-400 tracking-[0.08em] uppercase"
-          >
-            <Link to="/" className="hover:text-stone-600 transition-colors">Home</Link>
-            <span className="text-stone-300">/</span>
-            <Link to="/product" className="hover:text-stone-600 transition-colors">Product</Link>
-            {activeCat && (
-              <>
-                <span className="text-stone-300">/</span>
-                <span className="text-stone-600">{activeCat.name.trim()}</span>
-              </>
-            )}
-          </nav>
-        </Container>
-      </div>
+      <PageBreadcrumb
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Product", to: "/product" },
+          ...(activeCat ? [{ label: activeCat.name.trim() }] : []),
+        ]}
+        containerClassName="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full"
+      />
 
       {/* ── Category scroll strip ────────────────────────────────── */}
       {megaCategories.length > 0 && (
         <section>
           <div className="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full">
-            <div className="pt-6 pb-1">
+            <div className="pt-3 pb-1 md:pt-4">
               <div
                 ref={scrollRef}
                 onScroll={handleScroll}
@@ -345,8 +332,8 @@ const ProductList = () => {
                   draggable={false}
                   className="group relative block w-full overflow-hidden"
                 >
-                  <div
-                    className={`w-full aspect-square md:aspect-[1/1.40] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${!categoryId
+                    <div
+                    className={`w-full aspect-square md:aspect-[1/1.18] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${!categoryId
                       ? "bg-primary"
                       : "bg-[#aaa] group-hover:bg-[#888]"
                       }`}
@@ -366,7 +353,7 @@ const ProductList = () => {
                     className="group relative block w-full overflow-hidden"
                   >
                     <div
-                      className={`w-full aspect-square md:aspect-[1/1.40] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${String(cat.id) === categoryId
+                      className={`w-full aspect-square md:aspect-[1/1.18] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${String(cat.id) === categoryId
                         ? "ring-2 ring-primary ring-inset"
                         : ""
                         }`}

@@ -2,6 +2,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import useScrollAnimation from "../hooks/useScrollAnimation";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 const CERT_MEDIA = {
   ctpat: "/images/ctpat.png",
@@ -19,11 +20,17 @@ const Certificate = () => {
   const visibleElements = useScrollAnimation();
 
   return (
-    <div className="w-full bg-white pt-24 md:pt-52">
+    <div className="w-full bg-white">
       <SEOHead
         title="Certificates"
         description="Happy Furniture holds internationally recognized quality certifications including C-TPAT, BSCI, and SMETA — ensuring ethical sourcing and manufacturing standards."
         canonical="/certificate"
+      />
+      <PageBreadcrumb
+        items={[
+          { label: siteCopy.nav[lang].home, to: "/" },
+          { label: siteCopy.nav[lang].certificate },
+        ]}
       />
       <section
         className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center"

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 /* ── icon helpers ── */
 
@@ -21,9 +22,12 @@ const Contact = () => {
         description="Get in touch with Happy Furniture for product catalogs, specifications, custom orders, or partnership inquiries. Our team responds promptly."
         canonical="/contact"
       />
-
-      {/* header offset */}
-      <div className="pt-[80px] lg:pt-[185px]" />
+      <PageBreadcrumb
+        items={[
+          { label: siteCopy.nav[lang].home, to: "/" },
+          { label: siteCopy.nav[lang].contact },
+        ]}
+      />
 
       {/* ══ MAIN 2-COL (desktop: form + GET IN TOUCH side by side) ══ */}
       <section className="pb-2 pt-14 lg:py-14">
