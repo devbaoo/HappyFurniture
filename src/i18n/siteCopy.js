@@ -62,6 +62,26 @@ export const siteCopy = {
     },
     contactMs: { en: "Uyen Tran (Ms.)", vi: "Uy\u00ean Tr\u1ea7n" },
     contactMr: { en: "THANG NGUYEN (MR.)", vi: "Th\u1eafng Nguy\u1ec5n" },
+    errors: {
+      nameRequired: { en: "Please enter your name", vi: "Vui l\u00f2ng nh\u1eadp h\u1ecd t\u00ean" },
+      nameTooLong: { en: "Name must be at most 100 characters", vi: "H\u1ecd t\u00ean t\u1ed1i \u0111a 100 k\u00fd t\u1ef1" },
+      emailRequired: { en: "Please enter your email", vi: "Vui l\u00f2ng nh\u1eadp email" },
+      emailInvalid: { en: "Invalid email address", vi: "Email kh\u00f4ng h\u1ee3p l\u1ec7" },
+      subjectRequired: { en: "Please enter a subject", vi: "Vui l\u00f2ng nh\u1eadp ti\u00eau \u0111\u1ec1" },
+      subjectTooLong: { en: "Subject must be at most 200 characters", vi: "Ti\u00eau \u0111\u1ec1 t\u1ed1i \u0111a 200 k\u00fd t\u1ef1" },
+      messageRequired: { en: "Please enter your message", vi: "Vui l\u00f2ng nh\u1eadp n\u1ed9i dung" },
+      messageTooLong: { en: "Message must be at most 2000 characters", vi: "N\u1ed9i dung t\u1ed1i \u0111a 2000 k\u00fd t\u1ef1" },
+      phoneTooLong: { en: "Phone number must be at most 20 characters", vi: "S\u1ed1 \u0111i\u1ec7n tho\u1ea1i t\u1ed1i \u0111a 20 k\u00fd t\u1ef1" },
+      addressTooLong: { en: "Address must be at most 300 characters", vi: "\u0110\u1ecba ch\u1ec9 t\u1ed1i \u0111a 300 k\u00fd t\u1ef1" },
+      recaptchaRequired: { en: "Please verify you are not a robot", vi: "Vui l\u00f2ng x\u00e1c nh\u1eadn b\u1ea1n kh\u00f4ng ph\u1ea3i robot" },
+      general: { en: "An error occurred, please try again.", vi: "C\u00f3 l\u1ed7i x\u1ea3y ra, vui l\u00f2ng th\u1eed l\u1ea1i." },
+    },
+    sending: { en: "Sending...", vi: "\u0110ang g\u1eedi..." },
+    successMessage: {
+      en: "Thank you for reaching out! We will get back to you as soon as possible.",
+      vi: "C\u1ea3m \u01a1n b\u1ea1n \u0111\u00e3 li\u00ean h\u1ec7! Ch\u00fang t\u00f4i s\u1ebd ph\u1ea3n h\u1ed3i s\u1edbm nh\u1ea5t c\u00f3 th\u1ec3.",
+    },
+    sendAnother: { en: "Send another message", vi: "G\u1eedi tin nh\u1eafn kh\u00e1c" },
   },
 
   nav: {

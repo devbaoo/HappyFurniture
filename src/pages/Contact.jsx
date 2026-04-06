@@ -1,19 +1,100 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
+import { submitContact } from "../services/contact.service";
 
-/* ── icon helpers ── */
-
-/* ── underline input (for dark panel) ── */
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const initialForm = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+  phoneNumber: "",
+  address: "",
+};
 
 const Contact = () => {
   const { lang } = useLanguage();
   const t = siteCopy.contact;
   const L = t.labels;
   const P = t.placeholders;
-  const [captcha, setCaptcha] = useState("");
+  const E = t.errors;
+
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const recaptchaRef = useRef(null);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = E.nameRequired[lang];
+    else if (form.name.length > 100) newErrors.name = E.nameTooLong[lang];
+
+    if (!form.email.trim()) newErrors.email = E.emailRequired[lang];
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      newErrors.email = E.emailInvalid[lang];
+
+    if (!form.subject.trim()) newErrors.subject = E.subjectRequired[lang];
+    else if (form.subject.length > 200)
+      newErrors.subject = E.subjectTooLong[lang];
+
+    if (!form.message.trim()) newErrors.message = E.messageRequired[lang];
+    else if (form.message.length > 2000)
+      newErrors.message = E.messageTooLong[lang];
+
+    if (form.phoneNumber && form.phoneNumber.length > 20)
+      newErrors.phoneNumber = E.phoneTooLong[lang];
+
+    if (form.address && form.address.length > 300)
+      newErrors.address = E.addressTooLong[lang];
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const recaptchaToken = recaptchaRef.current?.getValue();
+    if (!recaptchaToken) {
+      setErrors((prev) => ({ ...prev, recaptcha: E.recaptchaRequired[lang] }));
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await submitContact({
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+        phoneNumber: form.phoneNumber || undefined,
+        address: form.address || undefined,
+        recaptchaToken,
+      });
+      setSuccess(true);
+      setForm(initialForm);
+      recaptchaRef.current?.reset();
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message || err?.message || E.general[lang];
+      setErrors((prev) => ({ ...prev, general: msg }));
+      recaptchaRef.current?.reset();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full bg-white">
@@ -39,107 +120,170 @@ const Contact = () => {
             >
               {t.formTitle[lang]}
             </h2>
-            <form className="flex flex-col justify-between flex-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-6">
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.name[lang]}
-                  </label>
-                  <input
-                    placeholder={P.name[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.phone[lang]}
-                  </label>
-                  <input
-                    placeholder={P.phone[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="tel"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.subject[lang]}
-                  </label>
-                  <input
-                    placeholder={P.subject[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.address[lang]}
-                  </label>
-                  <input
-                    placeholder={P.address[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.email[lang]}
-                  </label>
-                  <input
-                    placeholder={P.email[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="email"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
-                    {L.content[lang]}
-                  </label>
-                  <input
-                    placeholder={P.content[lang]}
-                    className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
-                    type="text"
-                  />
-                </div>
+
+            {success ? (
+              <div className="flex flex-col flex-1 items-start justify-center gap-4">
+                <p className="text-white text-sm lg:text-[15px] leading-relaxed">
+                  {t.successMessage[lang]}
+                </p>
+                <button
+                  onClick={() => setSuccess(false)}
+                  className={`bg-[#d6cec6] text-[#3c4a28] text-[12px] lg:text-[13px] tracking-[0.16em] px-10 py-2.5 hover:opacity-90 transition font-medium ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                >
+                  {t.sendAnother[lang]}
+                </button>
               </div>
-              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-start sm:items-end">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div
-                      className="bg-white px-3 py-1 text-[#3c4a28] font-mono text-lg tracking-[0.3em] font-bold select-none"
-                      data-measuring="true"
-                    >
-                      SAVQO
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="flex flex-col justify-between flex-1"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-6">
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.name[lang]}
+                    </label>
+                    <input
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder={P.name[lang]}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      type="text"
+                    />
+                    {errors.name && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.name}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.phone[lang]}
+                    </label>
+                    <input
+                      name="phoneNumber"
+                      value={form.phoneNumber}
+                      onChange={handleChange}
+                      placeholder={P.phone[lang]}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      type="tel"
+                    />
+                    {errors.phoneNumber && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.phoneNumber}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.subject[lang]}
+                    </label>
+                    <input
+                      name="subject"
+                      value={form.subject}
+                      onChange={handleChange}
+                      placeholder={P.subject[lang]}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      type="text"
+                    />
+                    {errors.subject && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.subject}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.address[lang]}
+                    </label>
+                    <input
+                      name="address"
+                      value={form.address}
+                      onChange={handleChange}
+                      placeholder={P.address[lang]}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      type="text"
+                    />
+                    {errors.address && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.address}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.email[lang]}
+                    </label>
+                    <input
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder={P.email[lang]}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      type="email"
+                    />
+                    {errors.email && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.email}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                      {L.content[lang]}
+                    </label>
+                    <textarea
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
+                      placeholder={P.content[lang]}
+                      rows={2}
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors resize-none"
+                    />
+                    {errors.message && (
+                      <span className="text-red-300 text-[11px] mt-0.5 block">
+                        {errors.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-start sm:items-end">
+                  <div>
+                    <div className="scale-[0.85] origin-top-left">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={RECAPTCHA_SITE_KEY}
+                        theme="dark"
+                      />
                     </div>
+                    {errors.recaptcha && (
+                      <span className="text-red-300 text-[11px] mt-1 block">
+                        {errors.recaptcha}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col items-start sm:items-end gap-2">
+                    {errors.general && (
+                      <p className="text-red-300 text-[11px] text-right">
+                        {errors.general}
+                      </p>
+                    )}
+                    <p className="text-[11px] lg:text-[12px] text-white/40">
+                      {t.requiredNote[lang]}
+                    </p>
                     <button
-                      type="button"
-                      aria-label={t.refreshCaptchaAria[lang]}
-                      className="text-white/60 hover:text-white text-xl leading-none"
+                      type="submit"
+                      disabled={loading}
+                      className={`bg-[#d6cec6] text-[#3c4a28] text-[12px] lg:text-[13px] tracking-[0.16em] px-10 py-2.5 hover:opacity-90 transition font-medium disabled:opacity-60 ${lang === "vi" ? "normal-case" : "uppercase"}`}
                     >
-                      ↻
+                      {loading ? t.sending[lang] : t.send[lang]}
                     </button>
                   </div>
-                  <input
-                    placeholder={P.captcha[lang]}
-                    className="w-full bg-transparent border-b border-white/30 pb-1 text-white text-sm lg:text-[15px] placeholder:text-white/40 focus:outline-none"
-                    type="text"
-                    value={captcha}
-                    onChange={(e) => setCaptcha(e.target.value)}
-                  />
                 </div>
-                <div className="flex flex-col items-start sm:items-end gap-2">
-                  <p className="text-[11px] lg:text-[12px] text-white/40">
-                    {t.requiredNote[lang]}
-                  </p>
-                  <button
-                    type="submit"
-                    className={`bg-[#d6cec6] text-[#3c4a28] text-[12px] lg:text-[13px] tracking-[0.16em] px-10 py-2.5 hover:opacity-90 transition font-medium ${lang === "vi" ? "normal-case" : "uppercase"}`}
-                  >
-                    {t.send[lang]}
-                  </button>
-                </div>
-              </div>
-            </form>
+              </form>
+            )}
           </div>
 
           {/* GET IN TOUCH — desktop only (bên phải form, giữ nguyên layout gốc) */}
