@@ -6,8 +6,11 @@ import ProductCard from "../components/ui/ProductCard";
 import { productService } from "../services/product.service";
 import { categoryService } from "../services/category.service";
 import { materialService } from "../services/material.service";
+import { assemblyService } from "../services/assembly.service";
 import useMegaMenu from "../hooks/useMegaMenu";
 import { useFavorites } from "../context/FavoritesContext";
+import { useLanguage } from "../context/LanguageContext";
+import { localizeField } from "../utils/i18n";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
@@ -97,6 +100,7 @@ const loadRecentlyViewed = () => {
 const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { categories: megaCategories } = useMegaMenu();
+  const { lang } = useLanguage();
 
   /* ── URL-driven state ────────────────────────────────────────── */
   const categoryId = searchParams.get("category") || "";
@@ -106,6 +110,7 @@ const ProductList = () => {
   const [pageSize] = useState(Number(searchParams.get("pageSize") || 12));
   const [subCatId, setSubCatId] = useState(searchParams.get("subcat") || "");
   const [materialId, setMaterialId] = useState(searchParams.get("material") || "");
+  const [assemblyId, setAssemblyId] = useState(searchParams.get("assembly") || "");
 
   /* ── Filter categories (Type dropdown) ───────────────────────── */
   const [filterCategories, setFilterCategories] = useState([]);
@@ -114,6 +119,10 @@ const ProductList = () => {
   /* ── Materials (Material dropdown) ───────────────────────────── */
   const [materials, setMaterials] = useState([]);
   const [materialsLoading, setMaterialsLoading] = useState(false);
+
+  /* ── Assemblies (Assembly dropdown) ──────────────────────────── */
+  const [assemblies, setAssemblies] = useState([]);
+  const [assembliesLoading, setAssembliesLoading] = useState(false);
 
   /* ── Products state ──────────────────────────────────────────── */
   const [products, setProducts] = useState([]);
@@ -137,8 +146,7 @@ const ProductList = () => {
   /* ── Derive current category label ──────────────────────────── */
   const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
   const activeCat = allCategories.find((c) => String(c.id) === categoryId);
-  // pageTitle reserved for future use (e.g. <title> tag)
-  void (activeCat ? activeCat.name.trim() : "All Products");
+  const activeCatLabel = activeCat ? localizeField(activeCat, "name", lang) : "";
 
   /* ── Sync nameFilter from URL (e.g. header search navigates here) */
   useEffect(() => {
@@ -161,6 +169,7 @@ const ProductList = () => {
       const data = await productService.getProducts({
         ...(effectiveCatId ? { CategoryId: effectiveCatId } : {}),
         ...(materialId ? { MaterialId: materialId } : {}),
+        ...(assemblyId ? { AssemblyId: assemblyId } : {}),
         ...(nameFilter ? { Name: nameFilter } : {}),
         ...(sortField ? { SortBy: sortField } : {}),
         ...(sortOrder ? { SortOrder: sortOrder } : {}),
@@ -171,15 +180,21 @@ const ProductList = () => {
       setProducts(items);
       setTotalCount(data.totalCount ?? 0);
       setTotalPages(data.totalPages ?? 1);
-      // Save first few products of current view to recently viewed
-      saveRecentlyViewed(items.slice(0, 4));
+      // Save first few products of current view to recently viewed (keep nameEn for i18n)
+      saveRecentlyViewed(items.slice(0, 4).map(p => ({
+        id: p.id,
+        name: p.name,
+        nameEn: p.nameEn ?? null,
+        slug: p.slug,
+        images: p.images,
+      })));
       setRecentlyViewed(loadRecentlyViewed());
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [categoryId, subCatId, materialId, nameFilter, sortBy, pageNumber, pageSize]);
+  }, [categoryId, subCatId, materialId, assemblyId, nameFilter, sortBy, pageNumber, pageSize]);
 
   useEffect(() => {
     fetchProducts();
@@ -191,12 +206,13 @@ const ProductList = () => {
     if (categoryId) params.category = categoryId;
     if (subCatId) params.subcat = subCatId;
     if (materialId) params.material = materialId;
+    if (assemblyId) params.assembly = assemblyId;
     if (nameFilter) params.name = nameFilter;
     if (sortBy) params.sortBy = sortBy;
     if (pageNumber > 1) params.page = pageNumber;
     if (pageSize !== 12) params.pageSize = pageSize;
     setSearchParams(params, { replace: true });
-  }, [categoryId, subCatId, materialId, nameFilter, sortBy, pageNumber, pageSize, setSearchParams]);
+  }, [categoryId, subCatId, materialId, assemblyId, nameFilter, sortBy, pageNumber, pageSize, setSearchParams]);
 
   /* ── Reset to page 1 whenever any filter changes ─────────────── */
   const applyFilter = (fn) => { fn(); setPageNumber(1); };
@@ -282,21 +298,34 @@ const ProductList = () => {
     return () => { cancelled = true; };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    setAssembliesLoading(true);
+    assemblyService.getActiveAssemblies()
+      .then((data) => {
+        if (!cancelled) setAssemblies(Array.isArray(data) ? data : []);
+      })
+      .catch(() => { if (!cancelled) setAssemblies([]); })
+      .finally(() => { if (!cancelled) setAssembliesLoading(false); });
+    return () => { cancelled = true; };
+  }, []);
+
   /* ── Active filters summary (pill chips) ─────────────────────── */
-  const hasActiveFilters = nameFilter || sortBy || subCatId || materialId;
+  const hasActiveFilters = nameFilter || sortBy || subCatId || materialId || assemblyId;
 
   const clearAll = () => {
     setNameFilter("");
     setSortBy("");
     setSubCatId("");
     setMaterialId("");
+    setAssemblyId("");
     setPageNumber(1);
   };
 
   return (
     <div>
       <SEOHead
-        title={activeCat ? `${activeCat.name.trim()} — Collections` : "Collections"}
+        title={activeCatLabel ? `${activeCatLabel} — Collections` : "Collections"}
         description="Browse Happy Furniture's full collection of premium handcrafted furniture. Filter by category, material, and more to find your perfect piece."
         canonical={categoryId ? `/product?category=${categoryId}` : "/product"}
       />
@@ -304,7 +333,7 @@ const ProductList = () => {
         items={[
           { label: "Home", to: "/" },
           { label: "Product", to: "/product" },
-          ...(activeCat ? [{ label: activeCat.name.trim() }] : []),
+          ...(activeCatLabel ? [{ label: activeCatLabel }] : []),
         ]}
         containerClassName="mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full"
       />
@@ -361,7 +390,7 @@ const ProductList = () => {
                       {cat.imageUrl ? (
                         <img
                           src={cat.imageUrl}
-                          alt={cat.name.trim()}
+                          alt={localizeField(cat, "name", lang)}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
                           draggable={false}
                         />
@@ -370,7 +399,7 @@ const ProductList = () => {
                       )}
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
                       <span className="relative text-white text-[10px] font-semibold tracking-[0.12em] text-center leading-tight px-2 pb-2 uppercase z-10 w-full truncate">
-                        {cat.name.trim()}
+                        {localizeField(cat, "name", lang)}
                       </span>
                     </div>
                   </Link>
@@ -410,7 +439,7 @@ const ProductList = () => {
 
             {/* Middle: Dropdowns all aligned to the left next to Filter */}
             <FilterDropdown
-              label={filterCategories.find(c => String(c.id) === subCatId)?.name?.trim() || "Type"}
+              label={subCatId ? (localizeField(filterCategories.find(c => String(c.id) === subCatId) || {}, "name", lang) || "Type") : "Type"}
               active={!!subCatId}
             >
               {filterCatLoading ? (
@@ -433,7 +462,7 @@ const ProductList = () => {
                         }}
                         className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors text-[#333]"
                       >
-                        {cat.name.trim()}
+                        {localizeField(cat, "name", lang)}
                       </button>
                     </li>
                   ))}
@@ -455,7 +484,7 @@ const ProductList = () => {
                             onClick={() => applyFilter(() => setSubCatId(String(cat.id) === subCatId ? "" : String(cat.id)))}
                             className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(cat.id) === subCatId ? "text-primary font-medium" : "text-[#333]"}`}
                           >
-                            {cat.name.trim()}
+                            {localizeField(cat, "name", lang)}
                           </button>
                         </li>
                       ))}
@@ -500,29 +529,37 @@ const ProductList = () => {
             </FilterDropdown>
 
             <FilterDropdown
-              label="Assembly"
-              active={false}
+              label={assemblies.find(a => String(a.id) === assemblyId)?.name || "Assembly"}
+              active={!!assemblyId}
             >
-              <ul className="min-w-[160px]">
-                <li>
-                  <button
-                    type="button"
-                    disabled
-                    className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] text-[#333]/55 cursor-not-allowed"
-                  >
-                    Assembly Required
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    disabled
-                    className="w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] text-[#333]/55 cursor-not-allowed"
-                  >
-                    No Assembly
-                  </button>
-                </li>
-              </ul>
+              {assembliesLoading ? (
+                <div className="text-[11px] text-muted py-1 px-1">Loading...</div>
+              ) : assemblies.length === 0 ? (
+                <div className="text-[11px] text-muted py-1 px-1">No assembly types</div>
+              ) : (
+                <ul className="min-w-[160px]">
+                  {assemblyId && (
+                    <li>
+                      <button
+                        onClick={() => applyFilter(() => setAssemblyId(""))}
+                        className="w-full text-left py-1.5 px-2 text-[11px] tracking-[0.08em] uppercase text-muted hover:text-primary transition-colors border-b border-border mb-1"
+                      >
+                        Clear
+                      </button>
+                    </li>
+                  )}
+                  {assemblies.map((a) => (
+                    <li key={a.id}>
+                      <button
+                        onClick={() => applyFilter(() => setAssemblyId(String(a.id) === assemblyId ? "" : String(a.id)))}
+                        className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(a.id) === assemblyId ? "text-primary font-medium" : "text-[#333]"}`}
+                      >
+                        {a.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </FilterDropdown>
 
           </div>
@@ -536,7 +573,7 @@ const ProductList = () => {
             <div className="flex items-center gap-2 py-2 flex-wrap">
               {subCatId && (
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
-                  Type: {filterCategories.find(c => String(c.id) === subCatId)?.name?.trim() || subCatId}
+                  Type: {localizeField(filterCategories.find(c => String(c.id) === subCatId) || {}, "name", lang) || subCatId}
                   <button onClick={() => applyFilter(() => setSubCatId(""))}><X size={10} /></button>
                 </span>
               )}
@@ -544,6 +581,12 @@ const ProductList = () => {
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Material: {materials.find(m => String(m.id) === materialId)?.name || materialId}
                   <button onClick={() => applyFilter(() => setMaterialId(""))}><X size={10} /></button>
+                </span>
+              )}
+              {assemblyId && (
+                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
+                  Assembly: {assemblies.find(a => String(a.id) === assemblyId)?.name || assemblyId}
+                  <button onClick={() => applyFilter(() => setAssemblyId(""))}><X size={10} /></button>
                 </span>
               )}
               {nameFilter && (
@@ -606,7 +649,7 @@ const ProductList = () => {
                 <ProductCard
                   key={p.id}
                   id={p.slug ?? String(p.id)}
-                  name={p.name}
+                  name={localizeField(p, "name", lang)}
                   images={p.images ?? []}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
@@ -629,7 +672,7 @@ const ProductList = () => {
                 <ProductCard
                   key={p.id}
                   id={p.slug ?? String(p.id)}
-                  name={p.name}
+                  name={localizeField(p, "name", lang)}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
                   images={p.images ?? []}

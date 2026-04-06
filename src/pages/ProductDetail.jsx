@@ -4,6 +4,8 @@ import ProductCard from "../components/ui/ProductCard";
 import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
 import { useFavorites } from "../context/FavoritesContext";
+import { useLanguage } from "../context/LanguageContext";
+import { localizeField } from "../utils/i18n";
 import SEOHead from "../components/SEOHead";
 
 const RV_KEY = "hp_recently_viewed";
@@ -96,6 +98,7 @@ const ProductDetail = () => {
   const [recentlyViewed, setRecentlyViewed] = useState(loadRecentlyViewed);
 
   const { favorites, toggleFavorite } = useFavorites();
+  const { lang } = useLanguage();
 
   if (slug !== prevSlug) {
     setPrevSlug(slug);
@@ -128,6 +131,7 @@ const ProductDetail = () => {
           const entry = {
             id: data.id,
             name: data.name,
+            nameEn: data.nameEn ?? null,
             slug: data.slug,
             images: sorted,
           };
@@ -151,8 +155,14 @@ const ProductDetail = () => {
       )
     : [];
 
-  const categoryName = product?.categories?.[0]?.name?.trim() ?? "Products";
+  const categoryName = product?.categories?.[0]
+    ? localizeField(product.categories[0], "name", lang) || "Products"
+    : "Products";
   const categoryId = product?.categories?.[0]?.id ?? null;
+  const productName = product ? localizeField(product, "name", lang) : "";
+  const productDescription = product ? localizeField(product, "description", lang) : "";
+  const productDetail = product ? localizeField(product, "detail", lang) : "";
+  const productDeliveryInfo = product ? localizeField(product, "deliveryInfo", lang) : "";
   const measurementUnit = product?.dimensionUnit || "cm";
   const productMeasurements = [
     {
@@ -234,11 +244,11 @@ const ProductDetail = () => {
   return (
     <div className="pt-[130px]">
       <SEOHead
-        title={product.name}
+        title={productName}
         description={
-          product.description
-            ? product.description.slice(0, 155)
-            : `${product.name} — Premium handcrafted luxury furniture by Happy Furniture.`
+          productDescription
+            ? productDescription.slice(0, 155)
+            : `${productName} — Premium handcrafted luxury furniture by Happy Furniture.`
         }
         canonical={`/product/${product.slug}`}
         ogImage={sortedImages[0]?.imageUrl}
@@ -246,10 +256,10 @@ const ProductDetail = () => {
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: product.name,
+          name: productName,
           description:
-            product.description ||
-            `${product.name} — Premium luxury furniture by Happy Furniture.`,
+            productDescription ||
+            `${productName} — Premium luxury furniture by Happy Furniture.`,
           image: sortedImages[0]?.imageUrl,
           brand: { "@type": "Brand", name: "Happy Furniture" },
           category: categoryName,
@@ -282,7 +292,7 @@ const ProductDetail = () => {
               </Link>
             )}
             <span>/</span>
-            <span className="line-clamp-1 text-primary">{product.name}</span>
+            <span className="line-clamp-1 text-primary">{productName}</span>
           </nav>
         </div>
       </div>
@@ -295,7 +305,7 @@ const ProductDetail = () => {
                 images={sortedImages}
                 activeIndex={activeImg}
                 onActiveIndexChange={setActiveImg}
-                productName={product.name}
+                productName={productName}
                 variants={product.variants ?? []}
                 selectedVariant={selectedVariant}
                 onSelectVariant={setSelectedVariant}
@@ -304,7 +314,7 @@ const ProductDetail = () => {
 
             <div className="flex flex-col items-stretch text-left">
               <h1 className="mb-1 font-heading text-2xl font-normal uppercase leading-[1.08] tracking-[0.07em] lg:text-3xl">
-                {product.name}
+                {productName}
               </h1>
               <p className="mb-3 text-sm uppercase tracking-[0.1em] text-muted">
                 #{product.slug || String(product.id)}
@@ -315,7 +325,7 @@ const ProductDetail = () => {
                 onClick={() =>
                   toggleFavorite({
                     id: productCardId,
-                    name: product.name,
+                    name: productName,
                     images: sortedImages,
                   })
                 }
@@ -337,9 +347,9 @@ const ProductDetail = () => {
                 {isFavorited ? "Saved to Quote List" : "Add to Quote List"}
               </button>
 
-              {product.description && (
+              {productDescription && (
                 <p className="mb-4 text-sm leading-[1.8] tracking-[0.01em] text-secondary">
-                  {product.description}
+                  {productDescription}
                 </p>
               )}
 
@@ -364,10 +374,10 @@ const ProductDetail = () => {
                   </DetailSection>
 
                   <DetailSection title="Product Materials">
-                    {productMaterialsText || product.detail ? (
+                    {productMaterialsText || productDetail ? (
                       <div className="space-y-1">
                         {productMaterialsText && <p>{productMaterialsText}</p>}
-                        {product.detail && <p>{product.detail}</p>}
+                        {productDetail && <p>{productDetail}</p>}
                       </div>
                     ) : (
                       <p className="text-stone-400">
@@ -378,8 +388,7 @@ const ProductDetail = () => {
 
                   <DetailSection title="ASSEMBLY">
                     <p>
-                      {product.description ||
-                        product.detail ||
+                      {product.assembly?.name ||
                         "Assembly information will be added soon."}
                     </p>
                   </DetailSection>
@@ -396,7 +405,7 @@ const ProductDetail = () => {
                     className="pt-4"
                   >
                     <p>
-                      {product.deliveryInfo ||
+                      {productDeliveryInfo ||
                         "Packaging information will be added soon."}
                     </p>
                   </DetailSection>
@@ -428,7 +437,7 @@ const ProductDetail = () => {
                 <ProductCard
                   key={p.id}
                   id={p.slug ?? String(p.id)}
-                  name={p.name}
+                  name={localizeField(p, "name", lang)}
                   images={p.images ?? []}
                 />
               ))}

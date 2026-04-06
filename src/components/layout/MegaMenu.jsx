@@ -4,44 +4,22 @@ import { ChevronRight } from "lucide-react";
 import useMegaMenu from "../../hooks/useMegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
+import { localizeField } from "../../utils/i18n";
 
 /* ─── Fallback image when category has no imageUrl ────────────── */
 const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80";
 
-const ROOT_CATEGORY_VI_LABELS = {
-  "living room": "\u0050\u0048\u00d2\u004e\u0047 \u004b\u0048\u00c1\u0043\u0048",
-  bedroom: "\u0050\u0048\u00d2\u004e\u0047 \u004e\u0047\u1ee6",
-  entertainment: "\u0054\u1ee6 \u0054\u0056",
-  "home office": "\u0056\u0102\u004e \u0050\u0048\u00d2\u004e\u0047 \u0054\u1ea0\u0049 \u004e\u0048\u00c0",
-  "youth kids": "\u004e\u1ed8\u0049 \u0054\u0048\u1ea4\u0054 \u0054\u0052\u1eba \u0045\u004d",
-  vanity: "\u0042\u1ed2\u004e \u004c\u0041\u0056\u0041\u0042\u004f",
-  "accessory and tray": "\u0050\u0048\u1ee4 \u004b\u0049\u1ec6\u004e \u0056\u00c0 \u004b\u0048\u0041\u0059",
-};
-
-const normalizeCategoryLabel = (value = "") =>
-  String(value)
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const getCategoryLabel = (name, lang) => {
-  const fallback = name?.trim?.() || "";
-  if (lang !== "vi") return fallback;
-  return ROOT_CATEGORY_VI_LABELS[normalizeCategoryLabel(name)] || fallback;
-};
-
 /* ─── Right image panel ────────────────────────────────────────── */
 const ImagePanel = ({ category, isDark }) => {
   const { lang } = useLanguage();
-  const categoryLabel = getCategoryLabel(category.name, lang);
+  const categoryLabel = localizeField(category, "name", lang);
   return (
     <div className="flex flex-col gap-3 w-[260px] shrink-0">
       <div className="overflow-hidden w-full" style={{ aspectRatio: "4/3" }}>
         <img
           src={category.imageUrl || FALLBACK_IMG}
-          alt={category.name.trim()}
+          alt={categoryLabel}
           className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
           loading="lazy"
         />
@@ -143,7 +121,7 @@ const DropdownPanel = ({
                     }
                   `}
                 >
-                  <span className="font-medium">{getCategoryLabel(cat.name, lang)}</span>
+                  <span className="font-medium">{localizeField(cat, "name", lang)}</span>
                   <ChevronRight
                     size={12}
                     strokeWidth={1.5}
@@ -175,7 +153,7 @@ const DropdownPanel = ({
                       ${isDark ? "text-white" : "text-[#3c4a28]"}
                     `}
                   >
-                    {getCategoryLabel(activeCat.name, lang)}
+                    {localizeField(activeCat, "name", lang)}
                   </h3>
                   <div
                     className={`
@@ -217,7 +195,7 @@ const DropdownPanel = ({
                             `}
                           />
                           <span className="relative">
-                            {child.name.trim()}
+                            {localizeField(child, "name", lang)}
                             <span
                               className={`
                                 absolute left-0 -bottom-px h-px w-0
@@ -443,7 +421,7 @@ export const ProductMobileItem = ({
                     isDark ? "text-white/70 hover:text-white" : "text-stone-600 hover:text-[#3c4a28]"
                   }`}
                 >
-                  {getCategoryLabel(cat.name, lang)}
+                  {localizeField(cat, "name", lang)}
                 </Link>
                 {cat.children && cat.children.length > 0 && (
                   <button
@@ -456,7 +434,7 @@ export const ProductMobileItem = ({
                     className={`p-1 transition-transform duration-200 ${
                       expandedId === cat.id ? "rotate-90" : ""
                     }`}
-                    aria-label={`Expand ${getCategoryLabel(cat.name, lang)}`}
+                    aria-label={`Expand ${localizeField(cat, "name", lang)}`}
                   >
                     <ChevronRight
                       size={12}
@@ -483,7 +461,7 @@ export const ProductMobileItem = ({
                               : "text-stone-400 hover:text-[#3c4a28]"
                           } transition-colors duration-200`}
                         >
-                          {child.name.trim()}
+                          {localizeField(child, "name", lang)}
                         </Link>
                       </li>
                     ))}

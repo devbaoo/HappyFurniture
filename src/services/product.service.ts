@@ -3,8 +3,10 @@ import api from "./api";
 export interface Product {
   id: string;
   name: string;
+  nameEn?: string | null;
   slug: string;
   description: string;
+  descriptionEn?: string | null;
   price: number;
   oldPrice?: number;
   dimensionsHeight?: number;
@@ -12,10 +14,14 @@ export interface Product {
   dimensionsDepth?: number;
   dimensionUnit?: string;
   detail?: string;
+  detailEn?: string | null;
   deliveryInfo?: string;
+  deliveryInfoEn?: string | null;
   weight?: number;
   isFeatured?: boolean;
   isActive: boolean;
+  assemblyId?: number | null;
+  assembly?: { id: number; name: string; code?: string } | null;
   categoryId?: string;
   categories?: any[];
   images?: any[];

@@ -3,7 +3,9 @@ import api from "./api";
 export interface Category {
   id: string;
   name: string;
+  nameEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   imageUrl?: string;
   parentId: string | null;
   sortOrder?: number | null;

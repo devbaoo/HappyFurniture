@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useMegaMenu from "../../hooks/useMegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
+import { localizeField } from "../../utils/i18n";
 
 const Footer = () => {
     const { lang } = useLanguage();
@@ -45,7 +46,7 @@ const Footer = () => {
                                         to={`/product?category=${category.id}`}
                                         className="hover:text-white transition-colors"
                                     >
-                                        {category.name.trim()}
+                                        {localizeField(category, "name", lang)}
                                     </Link>
                                 </li>
                             ))}
