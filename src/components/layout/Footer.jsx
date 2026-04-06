@@ -36,7 +36,7 @@ const Footer = () => {
                     {/* PRODUCT */}
                     <div className="flex flex-col items-start md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">
-                            {lang === "vi" ? "Sản phẩm" : "Product"}
+                            {lang === "vi" ? "\u0053\u1ea3n ph\u1ea9m" : "Product"}
                         </h3>
                         <ul className="space-y-2 text-sm text-white/80">
                             {categories.map((category) => (
@@ -83,8 +83,17 @@ const Footer = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
                                 </svg>
                                 <p>
-                                    Đường số 9, Khu công nghiệp Tam Phước,<br />
-                                    Thành phố Biên Hòa, Tỉnh Đồng Nai, Việt Nam
+                                    {lang === "vi" ? (
+                                        <>
+                                            {"\u0110\u01b0\u1eddng s\u1ed1 9, Khu c\u00f4ng nghi\u1ec7p Tam Ph\u01b0\u1edbc,"}<br />
+                                            {"Th\u00e0nh ph\u1ed1 Bi\u00ean H\u00f2a, T\u1ec9nh \u0110\u1ed3ng Nai, Vi\u1ec7t Nam"}
+                                        </>
+                                    ) : (
+                                        <>
+                                            Road No. 9, Tam Phuoc Industrial Park,<br />
+                                            Bien Hoa City, Dong Nai Province, Vietnam.
+                                        </>
+                                    )}
                                 </p>
                             </div>
 
@@ -95,11 +104,11 @@ const Footer = () => {
                                 <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(110px,1fr)] gap-x-4 gap-y-1">
                                     <span>(+84) 2516 280 180</span>
                                     <span className="text-white/20">|</span>
-                                    <span>Việt Nam</span>
+                                    <span>{"\u0056\u0069\u1ec7\u0074 \u004e\u0061\u006d"}</span>
 
                                     <span>(+84) 986 229 279</span>
                                     <span className="text-white/20">|</span>
-                                    <span>Tiếng Anh</span>
+                                    <span>{"\u0054\u0069\u1ebf\u006e\u0067 \u0041\u006e\u0068"}</span>
                                 </div>
                             </div>
 
@@ -166,7 +175,7 @@ const Footer = () => {
 
                         {/* COPYRIGHT */}
                         <p className="min-w-0 max-w-[210px] text-left text-[11px] leading-[1.5] tracking-[0.01em] text-white/50 md:ml-auto md:max-w-none md:flex-1 md:whitespace-nowrap md:text-right md:text-[13px] md:leading-[1.75]">
-                            ©2026 All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
+                            {"\u00a92026"} All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 
                     </div>
