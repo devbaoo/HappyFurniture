@@ -27,6 +27,7 @@ const Contact = () => {
   const [success, setSuccess] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
+
   const validate = () => {
     const newErrors = {};
     if (!form.name.trim()) newErrors.name = E.nameRequired[lang];
