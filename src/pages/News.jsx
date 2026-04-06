@@ -4,6 +4,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import useScrollAnimation from "../hooks/useScrollAnimation";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 const News = () => {
   const { lang } = useLanguage();
@@ -13,12 +14,20 @@ const News = () => {
   const exhibitionYears = [2024, 2025, 2026];
 
   return (
-    <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1650px] py-3 md:py-3 pt-24 md:pt-80 font-sans bg-white relative">
+    <div className="w-full bg-white font-sans">
       <SEOHead
         title="News"
         description="Latest news, updates, and exhibition highlights from Happy Furniture. Stay informed about our newest collections and industry events."
         canonical="/news"
       />
+      <PageBreadcrumb
+        items={[
+          { label: siteCopy.nav[lang].home, to: "/" },
+          { label: siteCopy.nav[lang].news },
+        ]}
+      />
+
+      <div className="mx-auto w-full max-w-[1650px] px-2 py-3 md:px-14 lg:px-24 md:py-4 relative">
 
       <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
         <div
@@ -138,6 +147,7 @@ const News = () => {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 };

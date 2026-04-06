@@ -5,6 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import useMegaMenu from "../hooks/useMegaMenu";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
@@ -156,18 +157,6 @@ export default function WhatWeDo() {
     },
   ];
 
-  const [headerH, setHeaderH] = useState(172);
-
-  useEffect(() => {
-    const measure = () => {
-      const el = document.querySelector("header");
-      if (el) setHeaderH(el.getBoundingClientRect().height);
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
   return (
     <main className="bg-white text-primary">
       <SEOHead
@@ -175,10 +164,16 @@ export default function WhatWeDo() {
         description="Discover Happy Furniture's craft, materials, and production philosophy. From raw timber to finished luxury pieces — built with passion and precision."
         canonical="/what-we-do"
       />
+      <PageBreadcrumb
+        items={[
+          { label: siteCopy.nav[lang].home, to: "/" },
+          { label: siteCopy.nav[lang].whatWeDo },
+        ]}
+      />
+
       {/* ══ HERO ══════════════════════════════════════════════════════════ */}
       <section
         className="relative w-full overflow-hidden h-[clamp(220px,45vw,580px)] md:h-[70vh] md:min-h-[480px]"
-        style={{ marginTop: headerH }}
       >
         <img
           src={heroImg}

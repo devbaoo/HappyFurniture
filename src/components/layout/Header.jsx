@@ -4,12 +4,10 @@ import {
   Link,
   NavLink,
   useNavigate,
-  useSearchParams,
 } from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
 import { Bookmark, Menu, X } from "lucide-react";
 import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
-import useMegaMenu from "../../hooks/useMegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
 
@@ -50,10 +48,8 @@ const StaticNavItem = ({ to, label, end, isDark, onNavigate }) => (
 /* ─── Header ───────────────────────────────────────────────────── */
 const Header = () => {
   const { pathname } = useLocation();
-  const [searchParams] = useSearchParams();
   const { lang, setLang } = useLanguage();
   const { favorites, setShowFavorites } = useFavorites();
-  const { categories: megaCategories } = useMegaMenu();
   const isDark = pathname === "/";
   const [isHovered, setIsHovered] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -82,35 +78,6 @@ const Header = () => {
     () => [...NAV_LEFT, ...NAV_RIGHT],
     [NAV_LEFT, NAV_RIGHT],
   );
-  const pageLabels = useMemo(
-    () => ({
-      "/certificate": siteCopy.nav[lang].certificate,
-      "/what-we-do": siteCopy.nav[lang].whatWeDo,
-      "/product": lang === "vi" ? "Sản phẩm" : "Product",
-      "/news": siteCopy.nav[lang].news,
-      "/order-delivery": siteCopy.nav[lang].orderDelivery,
-      "/contact": siteCopy.nav[lang].contact,
-    }),
-    [lang],
-  );
-  const productCategoryId = searchParams.get("category") || "";
-  const productCategoryLabel = useMemo(() => {
-    if (!productCategoryId) return "";
-    const allCategories = megaCategories.flatMap((c) => [
-      c,
-      ...(c.children || []),
-    ]);
-    const match = allCategories.find((c) => String(c.id) === productCategoryId);
-    return match?.name?.trim() || "";
-  }, [megaCategories, productCategoryId]);
-  const isNewsDetail = pathname.startsWith("/news/");
-  const showSimpleBreadcrumb = [
-    "/certificate",
-    "/what-we-do",
-    "/news",
-    "/order-delivery",
-    "/contact",
-  ].includes(pathname);
 
   const handleNavigationStateReset = () => {
     setIsHovered(false);
@@ -375,7 +342,7 @@ const Header = () => {
             {/* ← "Product" with mega-dropdown → */}
             <ProductNavItem
               isDark={!useLightHeader}
-              productLabel={pageLabels["/product"]}
+              productLabel={lang === "vi" ? "Sản phẩm" : "Product"}
               onNavigate={handleNavigationStateReset}
             />
 
@@ -434,7 +401,7 @@ const Header = () => {
                 <ProductMobileItem
                   isDark={isDark}
                   onClose={handleNavigationStateReset}
-                  productLabel={pageLabels["/product"]}
+                  productLabel={lang === "vi" ? "Sản phẩm" : "Product"}
                 />
 
               {ALL_STATIC.slice(3).map(({ to, label }) => (
@@ -459,63 +426,6 @@ const Header = () => {
           </div>
         )}
       </nav>
-
-      {pathname === "/product" && (
-        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
-          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
-            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-              <Link to="/" className="hover:text-stone-600 transition-colors">
-                {siteCopy.nav[lang].home}
-              </Link>
-              <span className="text-stone-300">/</span>
-              <Link
-                to="/product"
-                className="hover:text-stone-600 transition-colors"
-              >
-                {pageLabels["/product"]}
-              </Link>
-              {productCategoryLabel && (
-                <>
-                  <span className="text-stone-300">/</span>
-                  <span className="text-stone-600">{productCategoryLabel}</span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showSimpleBreadcrumb && (
-        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
-          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
-            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-              <Link to="/" className="hover:text-stone-600 transition-colors">
-                {siteCopy.nav[lang].home}
-              </Link>
-              <span className="text-stone-300">/</span>
-              <span className="text-stone-600">{pageLabels[pathname]}</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isNewsDetail && (
-        <div className="hidden md:block relative z-10 bg-white/95 backdrop-blur-md">
-          <div className="mx-auto max-w-[1800px] px-10 w-full pt-3 pb-3">
-            <div className="flex items-center gap-2 text-[10px] tracking-[0.18em] uppercase text-stone-400">
-              <Link to="/" className="hover:text-stone-600 transition-colors">
-                {siteCopy.nav[lang].home}
-              </Link>
-              <span className="text-stone-300">/</span>
-              <Link to="/news" className="hover:text-stone-600 transition-colors">
-                {siteCopy.newsPage.breadcrumbCurrent[lang]}
-              </Link>
-              <span className="text-stone-300">/</span>
-              <span className="text-stone-600">{siteCopy.newsPage.breadcrumbEvent[lang]}</span>
-            </div>
-          </div>
-        </div>
-      )}
 
     </header>
   );

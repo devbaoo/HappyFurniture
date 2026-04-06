@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import Container from "../components/ui/Container";
 import SEOHead from "../components/SEOHead";
 import useScrollAnimation from "../hooks/useScrollAnimation";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
+import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 const SectionHeading = ({ children, light = false, className = "" }) => (
   <h2
@@ -15,19 +15,8 @@ const SectionHeading = ({ children, light = false, className = "" }) => (
 
 const OrderDelivery = () => {
   const { lang } = useLanguage();
-  const [headerH, setHeaderH] = useState(0);
   const visibleElements = useScrollAnimation();
   const o = siteCopy.orderDeliveryPage;
-
-  useEffect(() => {
-    const measure = () => {
-      const el = document.querySelector("header");
-      if (el) setHeaderH(el.getBoundingClientRect().height);
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
   return (
     <div className="overflow-x-hidden">
@@ -36,14 +25,18 @@ const OrderDelivery = () => {
         description={o.seoDescription[lang]}
         canonical="/order-delivery"
       />
+      <PageBreadcrumb
+        items={[
+          { label: siteCopy.nav[lang].home, to: "/" },
+          { label: siteCopy.nav[lang].orderDelivery },
+        ]}
+      />
 
       <section
-        className="bg-white py-6 md:py-24"
+        className="bg-white pt-10 pb-6 md:pt-24 md:pb-24"
         data-animate
         id="order-delivery-delivery"
-        style={{ marginTop: headerH, paddingTop: "0.1rem" }}
       >
-        <div className="mx-auto mb-1 w-[calc(100%-4rem)] max-w-[1800px] border-t border-[#d8d6d1] md:mb-12 md:w-[calc(100%-7rem)] lg:w-[calc(100%-12rem)]" />
         <div
           className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full transform transition-all duration-1000 ease-out ${
             visibleElements.has("order-delivery-delivery")
@@ -120,9 +113,7 @@ const OrderDelivery = () => {
                 minHeight: "57.25px",
               }}
             >
-              <p
-                className="font-sans text-[11px] sm:text-[12px] md:text-[13px] text-white tracking-[0.01em] leading-[1.25] text-center md:whitespace-nowrap"
-              >
+              <p className="font-sans text-[11px] sm:text-[12px] md:text-[13px] text-white tracking-[0.01em] leading-[1.25] text-center md:whitespace-nowrap">
                 {o.orderImageBadge[lang]}
               </p>
             </div>
