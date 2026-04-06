@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import useMegaMenu from "../../hooks/useMegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
@@ -246,8 +246,10 @@ const DropdownPanel = ({
 /* ─── "Product" nav item with mega dropdown ───────────────────── */
 export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNavigate }) => {
   const { categories, loading } = useMegaMenu();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const closeTimer = useRef(null);
+  const isActive = pathname === "/product";
 
   const getHeaderBottom = useCallback(() => {
     const header = document.querySelector("header");
@@ -333,8 +335,8 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNav
           relative text-[12px] tracking-[0.25em] uppercase pb-1
           transition-colors duration-200
           ${isDark
-            ? open ? "text-white" : "text-white/80 hover:text-white"
-            : open ? "text-[#3c4a28]" : "text-stone-600 hover:text-[#3c4a28]"
+            ? open || isActive ? "text-white" : "text-white/80 hover:text-white"
+            : open || isActive ? "text-[#3c4a28]" : "text-stone-600 hover:text-[#3c4a28]"
           }
         `}
         aria-expanded={open}
@@ -347,7 +349,7 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNav
             absolute left-0 bottom-0 h-px w-full transform origin-left
             transition-transform duration-300
             ${isDark ? "bg-white" : "bg-[#3c4a28]"}
-            ${open ? "scale-x-100" : "scale-x-0"}
+            ${open || isActive ? "scale-x-100" : "scale-x-0"}
           `}
         />
       </Link>
