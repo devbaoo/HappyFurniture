@@ -26,7 +26,7 @@ const PageBreadcrumb = ({
     <>
       <div className="md:hidden" style={{ height: headerH }} />
       <div
-        className="hidden md:block border-b border-stone-200 bg-white"
+        className="hidden md:block bg-white"
         style={{ marginTop: headerH }}
       >
         <div className={containerClassName}>

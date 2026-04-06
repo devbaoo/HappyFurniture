@@ -33,7 +33,7 @@ const Certificate = () => {
         ]}
       />
       <section
-        className="pt-[64px] lg:pt-10 pb-6 md:pb-10 text-center"
+        className="pt-0 pb-6 md:pb-10 text-center"
         data-animate
         id="certificate-hero"
       >

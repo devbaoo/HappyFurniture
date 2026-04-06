@@ -111,10 +111,10 @@ const Contact = () => {
       />
 
       {/* ══ MAIN 2-COL (desktop: form + GET IN TOUCH side by side) ══ */}
-      <section className="pb-2 pt-14 lg:py-14">
-        <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:relative lg:top-[10px] lg:h-[613.25px]">
+      <section className="pt-0 pb-2 lg:pt-0 lg:pb-14">
+        <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:relative lg:h-[613.25px]">
           {/* Form panel */}
-          <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:h-[579.641px] lg:translate-y-[141px]">
+          <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:h-[579.641px] lg:translate-y-[56px]">
             <h2
               className={`font-heading text-white text-[30px] lg:text-[34px] font-normal tracking-[0.08em] mb-6 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
             >
