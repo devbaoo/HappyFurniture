@@ -33,7 +33,7 @@ const OrderDelivery = () => {
       />
 
       <section
-        className="bg-white pt-10 pb-6 md:pt-5 md:pb-5"
+        className="bg-white pt-3 pb-3 md:pt-5 md:pb-5"
         data-animate
         id="order-delivery-delivery"
       >
