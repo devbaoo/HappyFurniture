@@ -6,6 +6,7 @@ import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import useMegaMenu from "../hooks/useMegaMenu";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
+import { localizeField } from "../utils/i18n";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
@@ -14,17 +15,7 @@ import finishingImg from "/images/about-us/Finishing.jpg";
 
 const iconProps = { size: 22, strokeWidth: 1.4 };
 
-const normalizeCategoryName = (value) =>
-  value
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[/,-]/g, " ")
-    .replace(/\bfurniture\b/g, "")
-    .replace(/\bunits\b/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const PRODUCT_RANGE_ALIASES = {
+const _PRODUCT_RANGE_ALIASES = {
   occasional: ["occasional"],
   bedroom: ["bedroom"],
   dining: ["dining"],
@@ -98,26 +89,12 @@ export default function WhatWeDo() {
     }));
   }, [lang, w]);
 
-  const productRangeLabels = w.productRange[lang];
   const productRangeLinks = useMemo(() => {
-    return productRangeLabels.map((label) => {
-      const normalizedLabel = normalizeCategoryName(label);
-      const aliases = PRODUCT_RANGE_ALIASES[normalizedLabel] || [normalizedLabel];
-
-      const match = categories.find((category) => {
-        const normalizedCategory = normalizeCategoryName(category.name);
-        return aliases.some(
-          (alias) =>
-            normalizedCategory.includes(alias) || alias.includes(normalizedCategory),
-        );
-      });
-
-      return {
-        label,
-        categoryId: match ? String(match.id) : null,
-      };
-    });
-  }, [categories, productRangeLabels]);
+    return categories.map((category) => ({
+      label: localizeField(category, "name", lang),
+      categoryId: String(category.id),
+    }));
+  }, [categories, lang]);
   const timberTags = h.timberTags[lang];
   const timberTagRows = [
     timberTags.slice(0, 3),

@@ -367,8 +367,12 @@ const ProductList = () => {
                       : "bg-[#aaa] group-hover:bg-[#888]"
                       }`}
                   >
-                    <span className="text-white text-[10px] font-semibold tracking-[0.12em] px-2 pb-2 uppercase text-center w-full truncate">
-                      All
+                    <span
+                      className={`text-white text-[10px] font-semibold px-2 pb-2 text-center w-full leading-[1.35] whitespace-normal break-words line-clamp-2 ${
+                        lang === "vi" ? "normal-case tracking-[0.02em]" : "uppercase tracking-[0.12em]"
+                      }`}
+                    >
+                      {lang === "vi" ? "Tất cả" : "All"}
                     </span>
                   </div>
                 </Link>
@@ -398,7 +402,11 @@ const ProductList = () => {
                         <div className="absolute inset-0 bg-[#888] group-hover:bg-[#666] transition-colors duration-300" />
                       )}
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
-                      <span className="relative text-white text-[10px] font-semibold tracking-[0.12em] text-center leading-tight px-2 pb-2 uppercase z-10 w-full truncate">
+                      <span
+                        className={`relative text-white text-[10px] font-semibold text-center px-2 pb-2 z-10 w-full leading-[1.35] whitespace-normal break-words line-clamp-2 ${
+                          lang === "vi" ? "normal-case tracking-[0.02em]" : "uppercase tracking-[0.12em]"
+                        }`}
+                      >
                         {localizeField(cat, "name", lang)}
                       </span>
                     </div>
