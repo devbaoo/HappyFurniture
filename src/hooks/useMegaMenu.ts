@@ -1,24 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
-import { sortCategoriesByOrder } from "../services/category.service";
+import { Category, sortCategoriesByOrder } from "../services/category.service";
 
-export interface CategoryChild {
-  id: number;
-  name: string;
-  imageUrl: string | null;
-  parentId: number;
-  sortOrder?: number | null;
-  isActive: boolean;
-}
-
-export interface RootCategory {
-  id: number;
-  name: string;
-  imageUrl: string | null;
+export interface RootCategory extends Category {
   parentId: null;
-  sortOrder?: number | null;
-  isActive: boolean;
-  children: CategoryChild[];
+  children: Category[];
 }
 
 const useMegaMenu = () => {
@@ -39,7 +25,7 @@ const useMegaMenu = () => {
             .map((category) => ({
               ...category,
               children: Array.isArray(category.children)
-                ? sortCategoriesByOrder(category.children)
+                ? category.children
                 : [],
             })),
         );
