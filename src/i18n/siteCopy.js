@@ -38,7 +38,7 @@ export const siteCopy = {
       subject: { en: "Subject (*)", vi: "Ti\u00eau \u0111\u1ec1 (*)" },
       address: { en: "Address", vi: "\u0110\u1ecba ch\u1ec9" },
       email: { en: "Email (*)", vi: "Email (*)" },
-      content: { en: "Message (*)", vi: "N\u00e1\u00bb\u2122i dung (*)" },
+      content: { en: "Message (*)", vi: "N\u1ed9i dung (*)" },
     },
     placeholders: {
       name: { en: "Your name", vi: "H\u1ecd v\u00e0 t\u00ean" },
@@ -46,7 +46,7 @@ export const siteCopy = {
       subject: { en: "Your subject", vi: "Ti\u00eau \u0111\u1ec1 li\u00ean h\u1ec7" },
       address: { en: "Your address", vi: "\u0110\u1ecba ch\u1ec9" },
       email: { en: "Your email", vi: "Email" },
-      content: { en: "Your message", vi: "N\u00e1\u00bb\u2122i dung" },
+      content: { en: "Your message", vi: "N\u1ed9i dung" },
       captcha: {
         en: "Enter the text you see above",
         vi: "Nh\u1eadp k\u00fd t\u1ef1 hi\u1ec3n th\u1ecb ph\u00eda tr\u00ean",
@@ -54,7 +54,7 @@ export const siteCopy = {
     },
     refreshCaptchaAria: { en: "Refresh captcha", vi: "L\u00e0m m\u1edbi m\u00e3 x\u00e1c nh\u1eadn" },
     requiredNote: { en: "(*) Required information", vi: "(*) Th\u00f4ng tin b\u1eaft bu\u1ed9c" },
-    send: { en: "Send", vi: "G\u00e1\u00bb\u00adi" },
+    send: { en: "Send", vi: "G\u1eedi" },
     getInTouch: { en: "Get in touch", vi: "Li\u00ean h\u1ec7" },
     intro: {
       en: "Reach out for product catalogs, specifications, or partnership inquiries. Our team will respond as soon as possible.",
@@ -94,7 +94,7 @@ export const siteCopy = {
       contact: "Contact",
     },
     vi: {
-      home: "Trang ch\u00e1\u00bb\u00a7",
+      home: "Trang ch\u1ee7",
       certificate: "Ch\u1ee9ng nh\u1eadn",
       whatWeDo: "Ho\u1ea1t \u0111\u1ed9ng",
       news: "Tin t\u1ee9c",
@@ -368,7 +368,7 @@ export const siteCopy = {
       en: "Enter your email",
       vi: "Nh\u1eadp email c\u1ee7a b\u1ea1n",
     },
-    newsletterSend: { en: "Send", vi: "G\u00e1\u00bb\u00adi" },
+    newsletterSend: { en: "Send", vi: "G\u1eedi" },
     newsletterContactLink: { en: "Contact now", vi: "Li\u00ean h\u1ec7 ngay" },
     newsletterImageAlt: {
       en: "Furniture showroom",
@@ -377,7 +377,7 @@ export const siteCopy = {
   },
 
   certificatePage: {
-    breadcrumbHome: { en: "Home", vi: "Trang ch\u00e1\u00bb\u00a7" },
+    breadcrumbHome: { en: "Home", vi: "Trang ch\u1ee7" },
     breadcrumbCurrent: { en: "Certificates", vi: "Ch\u1ee9ng nh\u1eadn" },
     heroTitle: { en: "Our certifications", vi: "Ch\u1ee9ng nh\u1eadn c\u1ee7a ch\u00fang t\u00f4i" },
     heroIntro: {
