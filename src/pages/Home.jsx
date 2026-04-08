@@ -272,7 +272,7 @@ const Home = () => {
           >
             <Link
               to="/product"
-              className="inline-flex items-center justify-center bg-[#D8D2C9] text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.12em] uppercase w-full max-w-[240px] md:max-w-[280px] h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
+              className="inline-flex min-w-[250px] md:min-w-[305px] items-center justify-center whitespace-nowrap bg-[#D8D2C9] px-5 md:px-6 text-gray-800 text-[14px] md:text-[16px] font-medium tracking-[0.12em] uppercase h-[48px] md:h-[52px] hover:brightness-95 hover:scale-105 hover:shadow-lg transition-all duration-300 transform"
             >
               {h.heroCta[lang]}
             </Link>
