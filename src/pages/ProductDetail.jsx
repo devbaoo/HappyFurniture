@@ -99,6 +99,7 @@ const ProductDetail = () => {
 
   const { favorites, toggleFavorite } = useFavorites();
   const { lang } = useLanguage();
+  const isVietnamese = lang === "vi";
 
   if (slug !== prevSlug) {
     setPrevSlug(slug);
@@ -166,30 +167,30 @@ const ProductDetail = () => {
   const measurementUnit = product?.dimensionUnit || "cm";
   const productMeasurements = [
     {
-      label: "Height:",
-      value: formatMeasurement(product?.dimensionsHeight, measurementUnit),
-    },
-    {
-      label: "Width:",
+      label: isVietnamese ? "Dài:" : "Width:",
       value: formatMeasurement(product?.dimensionsWidth, measurementUnit),
     },
     {
-      label: "Depth:",
+      label: isVietnamese ? "Rộng:" : "Depth:",
       value: formatMeasurement(product?.dimensionsDepth, measurementUnit),
+    },
+    {
+      label: isVietnamese ? "Cao:" : "Height:",
+      value: formatMeasurement(product?.dimensionsHeight, measurementUnit),
     },
   ].filter((item) => item.value);
   const cartonMeasurements = [
     {
-      label: "Height:",
-      value: formatMeasurement(product?.deliveryHeight, measurementUnit),
-    },
-    {
-      label: "Width:",
+      label: isVietnamese ? "Dài:" : "Width:",
       value: formatMeasurement(product?.deliveryWidth, measurementUnit),
     },
     {
-      label: "Depth:",
+      label: isVietnamese ? "Rộng:" : "Depth:",
       value: formatMeasurement(product?.deliveryDepth, measurementUnit),
+    },
+    {
+      label: isVietnamese ? "Cao:" : "Height:",
+      value: formatMeasurement(product?.deliveryHeight, measurementUnit),
     },
   ].filter((item) => item.value);
   const materialNames = (product?.materials ?? [])
@@ -350,7 +351,13 @@ const ProductDetail = () => {
                     d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
                   />
                 </svg>
-                {isFavorited ? "Saved to Quote List" : "Add to Quote List"}
+                {isFavorited
+                  ? isVietnamese
+                    ? "ĐÃ THÊM VÀO DANH SÁCH BÁO GIÁ"
+                    : "Saved to Quote List"
+                  : isVietnamese
+                    ? "THÊM VÀO DANH SÁCH BÁO GIÁ"
+                    : "Add to Quote List"}
               </button>
 
               {productDescription && (
@@ -362,11 +369,17 @@ const ProductDetail = () => {
               <div className="mt-1 border-t-2 border-[#3c4a28] pt-3">
                 <section>
                   <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
-                    1. Product Information
+                    {isVietnamese
+                      ? "1. Thông tin sản phẩm"
+                      : "1. Product Information"}
                   </h2>
 
                   <DetailSection
-                    title="Product Dimensions:"
+                    title={
+                      isVietnamese
+                        ? "Kích thước sản phẩm"
+                        : "Product Dimensions:"
+                    }
                     first
                     className="pt-4"
                   >
@@ -379,7 +392,13 @@ const ProductDetail = () => {
                     )}
                   </DetailSection>
 
-                  <DetailSection title="Product Materials">
+                  <DetailSection
+                    title={
+                      isVietnamese
+                        ? "Nguyên liệu sản phẩm"
+                        : "Product Materials"
+                    }
+                  >
                     {productMaterialsText || productDetail ? (
                       <div className="space-y-1">
                         {productMaterialsText && <p>{productMaterialsText}</p>}
@@ -392,7 +411,9 @@ const ProductDetail = () => {
                     )}
                   </DetailSection>
 
-                  <DetailSection title="ASSEMBLY">
+                  <DetailSection
+                    title={isVietnamese ? "Kết cấu sản phẩm" : "ASSEMBLY"}
+                  >
                     {productAssemblyName || productAssemblyDescription ? (
                       <div className="space-y-1">
                         {productAssemblyName && <p>{productAssemblyName}</p>}
@@ -408,11 +429,17 @@ const ProductDetail = () => {
 
                 <section className="mt-4 border-t-2 border-[#3c4a28] pt-4">
                   <h2 className="mb-2 font-sans text-[18px] font-semibold text-stone-800">
-                    2. Packaging Information
+                    {isVietnamese
+                      ? "2. Thông tin đóng gói"
+                      : "2. Packaging Information"}
                   </h2>
 
                   <DetailSection
-                    title="Packaging Standard"
+                    title={
+                      isVietnamese
+                        ? "Tiêu chuẩn đóng gói"
+                        : "Packaging Standard"
+                    }
                     first
                     className="pt-4"
                   >
@@ -422,7 +449,11 @@ const ProductDetail = () => {
                     </p>
                   </DetailSection>
 
-                  <DetailSection title="Carton Size">
+                  <DetailSection
+                    title={
+                      isVietnamese ? "Kích thước bao bì" : "Carton Size"
+                    }
+                  >
                     {cartonMeasurements.length > 0 ? (
                       <MeasurementGrid items={cartonMeasurements} />
                     ) : (
@@ -442,7 +473,7 @@ const ProductDetail = () => {
         <section className="border-t border-border bg-white py-6">
           <div className="mx-auto w-full max-w-[1800px] px-3 md:px-14 lg:px-24">
             <h3 className="mb-4 font-heading text-lg font-normal uppercase leading-[1.08] tracking-[0.08em] text-primary">
-              Recently Viewed
+              {isVietnamese ? "SẢN PHẨM ĐÃ XEM" : "Recently Viewed"}
             </h3>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-6">
               {recentlyViewed.map((p) => (

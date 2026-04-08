@@ -451,7 +451,7 @@ const Home = () => {
                   {siteCopy.home.aboutKicker[lang]}
                 </p>
                 <h2
-                  className="font-heading font-normal text-[#3c4a28] mb-3 md:mb-6 leading-[1.1] mx-auto md:mx-0 max-w-xl md:max-w-none uppercase"
+                  className={`font-heading font-normal text-[#3c4a28] mb-3 md:mb-6 mx-auto md:mx-0 max-w-xl md:max-w-none uppercase ${lang === "vi" ? "leading-[1.3] md:leading-[1.28] pt-1" : "leading-[1.1]"}`}
                   style={{
                     fontSize: "clamp(1.5rem, 2.8vw, 2.45rem)",
                     letterSpacing: lang === "vi" ? "0" : "0.01em",

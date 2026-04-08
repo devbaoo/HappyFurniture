@@ -105,11 +105,11 @@ const Footer = () => {
                                 <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(110px,1fr)] gap-x-4 gap-y-1">
                                     <span>(+84) 2516 280 180</span>
                                     <span className="text-white/20">|</span>
-                                    <span>{"\u0056\u0069\u1ec7\u0074 \u004e\u0061\u006d"}</span>
+                                    <span>{lang === "vi" ? "Việt Nam" : "Vietnamese"}</span>
 
                                     <span>(+84) 986 229 279</span>
                                     <span className="text-white/20">|</span>
-                                    <span>{"\u0054\u0069\u1ebf\u006e\u0067 \u0041\u006e\u0068"}</span>
+                                    <span>{lang === "vi" ? "Tiếng Anh" : "English"}</span>
                                 </div>
                             </div>
 

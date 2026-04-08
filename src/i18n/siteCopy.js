@@ -201,7 +201,7 @@ export const siteCopy = {
         "Ph\u00f2ng \u0103n",
         "B\u00e0n lavabo",
         "Ph\u00f2ng tr\u1ebb em",
-        "Ph\u1ee5 ki\u1ec7n",
+        "Ph\u1ee5 ki\u1ec7n v\u00e0 khay",
       ],
     },
 
