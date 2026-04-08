@@ -24,9 +24,15 @@ const Skeleton = ({ className = "" }) => (
 );
 
 const formatMeasurement = (value, unit = "cm") => {
-  if (value == null || Number.isNaN(Number(value))) return null;
+  if (value == null || value === "") return null;
 
   const numeric = Number(value);
+
+  // Nếu không phải số thuần (vd: "999 / 333"), hiển thị thẳng giá trị
+  if (Number.isNaN(numeric)) {
+    return { primary: `${value} ${unit}`, secondary: null };
+  }
+
   const normalizedUnit = String(unit).toLowerCase();
   const metric = Number.isInteger(numeric)
     ? numeric.toString()
