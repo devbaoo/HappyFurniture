@@ -193,10 +193,16 @@ const ProductDetail = () => {
     },
   ].filter((item) => item.value);
   const materialNames = (product?.materials ?? [])
-    .map((material) => material.name?.trim())
+    .map((material) => localizeField(material, "name", lang))
     .filter(Boolean);
   const productMaterialsText =
     materialNames.length > 0 ? materialNames.join(", ") : "";
+  const productAssemblyName = product?.assembly
+    ? localizeField(product.assembly, "name", lang)
+    : "";
+  const productAssemblyDescription = product?.assembly
+    ? localizeField(product.assembly, "description", lang)
+    : "";
   const productCardId = product?.slug ?? String(product?.id ?? "");
   const isFavorited = product && favorites.some((f) => f.id === productCardId);
 
@@ -387,10 +393,16 @@ const ProductDetail = () => {
                   </DetailSection>
 
                   <DetailSection title="ASSEMBLY">
-                    <p>
-                      {product.assembly?.name ||
-                        "Assembly information will be added soon."}
-                    </p>
+                    {productAssemblyName || productAssemblyDescription ? (
+                      <div className="space-y-1">
+                        {productAssemblyName && <p>{productAssemblyName}</p>}
+                        {productAssemblyDescription && (
+                          <p>{productAssemblyDescription}</p>
+                        )}
+                      </div>
+                    ) : (
+                      <p>Assembly information will be added soon.</p>
+                    )}
                   </DetailSection>
                 </section>
 

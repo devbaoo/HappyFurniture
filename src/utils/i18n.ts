@@ -20,5 +20,10 @@ export function localizeField<T extends Record<string, unknown>>(
     }
   }
   const base = obj[field];
-  return typeof base === "string" ? base.trim() : "";
+  if (typeof base === "string" && base.trim() !== "") {
+    return base.trim();
+  }
+
+  const viValue = obj[`${field}Vi`];
+  return typeof viValue === "string" ? viValue.trim() : "";
 }

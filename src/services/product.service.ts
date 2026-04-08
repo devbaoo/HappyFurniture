@@ -18,13 +18,34 @@ export interface Product {
   deliveryInfo?: string;
   deliveryInfoEn?: string | null;
   weight?: number;
+  deliveryHeight?: number;
+  deliveryWidth?: number;
+  deliveryDepth?: number;
   isFeatured?: boolean;
   isActive: boolean;
   assemblyId?: number | null;
-  assembly?: { id: number; name: string; code?: string } | null;
+  assembly?: {
+    id: number;
+    name?: string | null;
+    nameVi?: string | null;
+    nameEn?: string | null;
+    code?: string;
+    description?: string | null;
+    descriptionVi?: string | null;
+    descriptionEn?: string | null;
+  } | null;
   categoryId?: string;
   categories?: any[];
   images?: any[];
+  materials?: Array<{
+    id: number;
+    name?: string | null;
+    nameVi?: string | null;
+    nameEn?: string | null;
+    description?: string | null;
+    descriptionVi?: string | null;
+    descriptionEn?: string | null;
+  }>;
   variants?: any[];
 }
 
