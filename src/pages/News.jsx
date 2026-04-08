@@ -34,7 +34,7 @@ const News = () => {
           className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-events") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
         >
           <h2
-            className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 md:mb-7 leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+            className="font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 md:mb-7 leading-[1.08] uppercase"
           >
             {n.eventSection[lang]}
           </h2>
@@ -51,7 +51,7 @@ const News = () => {
                 </div>
                 <div className="bg-gray-50 px-5 py-4 md:px-5 md:py-4 flex flex-col flex-1 border border-t-0 border-gray-100">
                   <h3
-                    className={`font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                    className="font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase"
                   >
                     {n.exhibitionTitle(year)[lang]}
                   </h3>
@@ -66,7 +66,7 @@ const News = () => {
           <div className="mt-4 md:mt-5 flex justify-center">
             <button
               type="button"
-              className={`inline-flex items-center justify-center px-8 py-2.5 text-xs font-semibold tracking-[0.14em] bg-white text-stone-800 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200 ${lang === "vi" ? "normal-case" : "uppercase"}`}
+              className="inline-flex items-center justify-center px-8 py-2.5 text-xs font-semibold tracking-[0.14em] bg-white text-stone-800 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200 uppercase"
             >
               {n.viewMore[lang]}
             </button>
@@ -79,7 +79,7 @@ const News = () => {
           className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-activities") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
         >
           <h2
-            className={`font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] text-[#3c4a28] ${lang === "vi" ? "normal-case" : "uppercase"}`}
+            className="font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-5 md:mb-6 leading-[1.08] text-[#3c4a28] uppercase"
           >
             {n.companyActivities[lang]}
           </h2>
@@ -99,7 +99,7 @@ const News = () => {
                   </div>
                   <div className="flex flex-col justify-center">
                     <h3
-                      className={`font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                      className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase"
                     >
                       {n.teamBuildingTitle[lang]}
                     </h3>
@@ -125,7 +125,7 @@ const News = () => {
                   </div>
                   <div className="flex flex-col justify-center">
                     <h3
-                      className={`font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                      className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase"
                     >
                       {n.factoryTourTitle[lang]}
                     </h3>
@@ -140,7 +140,7 @@ const News = () => {
           <div className="mt-7 md:mt-8 flex justify-center">
             <button
               type="button"
-              className={`inline-flex items-center justify-center px-8 py-2.5 text-xs font-semibold tracking-[0.14em] bg-white text-stone-800 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200 ${lang === "vi" ? "normal-case" : "uppercase"}`}
+              className="inline-flex items-center justify-center px-8 py-2.5 text-xs font-semibold tracking-[0.14em] bg-white text-stone-800 ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white transition-all duration-200 uppercase"
             >
               {n.viewMore[lang]}
             </button>

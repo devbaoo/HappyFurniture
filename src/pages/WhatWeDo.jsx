@@ -160,7 +160,7 @@ export default function WhatWeDo() {
         {/* subtle dark gradient at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-center pb-[5%]">
-          <h1 className={`hidden md:block font-heading text-white text-4xl md:text-5xl tracking-[0.1em] font-normal leading-[1.08] ${lang === "vi" ? "normal-case" : "uppercase"}`}>
+          <h1 className="hidden md:block font-heading text-white text-4xl md:text-5xl tracking-[0.1em] font-normal leading-[1.08] uppercase">
             {w.heroTitle[lang]}
           </h1>
         </div>
@@ -193,7 +193,7 @@ export default function WhatWeDo() {
             {/* ── RIGHT: editorial text content ── */}
             <div className="wwd-mfg-right">
               <div className="wwd-mfg-right-inner">
-                <h2 className={`wwd-mfg-heading ${lang === "vi" ? "normal-case" : ""}`}>{w.mfgHeading[lang]}</h2>
+                <h2 className="wwd-mfg-heading uppercase">{w.mfgHeading[lang]}</h2>
 
                 <p className="wwd-mfg-intro">
                   {w.mfgIntro[lang]}
@@ -229,7 +229,7 @@ export default function WhatWeDo() {
           <h2
 
             className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
-              } ${lang === 'vi' ? 'normal-case' : 'uppercase'}`}
+              } uppercase`}
           >
             <span className="md:hidden">
               <span className="whitespace-nowrap">
@@ -339,7 +339,7 @@ export default function WhatWeDo() {
                           {categoryId ? (
                             <Link
                               to={`/product?category=${categoryId}`}
-                              className="inline-block py-0 transition-colors duration-200 hover:text-[#3c4a28] active:text-[#3c4a28] focus-visible:outline-none focus-visible:text-[#3c4a28]"
+                              className="inline-block py-0 uppercase transition-colors duration-200 hover:text-[#3c4a28] active:text-[#3c4a28] focus-visible:outline-none focus-visible:text-[#3c4a28]"
                             >
                               {label}
                             </Link>
@@ -364,7 +364,7 @@ export default function WhatWeDo() {
             {/* LEFT CONTENT - 40% */}
             <div className="lg:col-span-2 flex flex-col justify-center w-full lg:h-full">
               <h2
-                className={`font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal ${lang === "vi" ? "normal-case" : "uppercase"}`}
+                className="font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal uppercase"
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
