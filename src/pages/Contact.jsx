@@ -112,11 +112,11 @@ const Contact = () => {
 
       {/* ══ MAIN 2-COL (desktop: form + GET IN TOUCH side by side) ══ */}
       <section className="pt-0 pb-2 lg:pt-0 lg:pb-14">
-        <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:relative lg:h-[613.25px]">
+        <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(300px,0.7fr)] xl:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:gap-6 xl:gap-8 lg:relative lg:h-auto xl:h-[613.25px]">
           {/* Form panel */}
-          <div className="bg-[#3c4a28] px-5 sm:px-6 py-6 w-full flex flex-col lg:h-[579.641px] lg:translate-y-[56px]">
+          <div className="bg-[#3c4a28] px-5 sm:px-6 lg:px-8 xl:px-6 py-6 lg:py-7 xl:py-6 w-full flex flex-col lg:h-auto xl:h-[579.641px] lg:translate-y-8 xl:translate-y-[56px]">
             <h2
-              className="font-heading text-white text-[30px] lg:text-[34px] font-normal tracking-[0.08em] mb-6 leading-[1.08] uppercase"
+              className="font-heading text-white text-[30px] lg:text-[30px] xl:text-[34px] font-normal tracking-[0.08em] mb-6 lg:mb-5 xl:mb-6 leading-[1.08] uppercase"
             >
               {t.formTitle[lang]}
             </h2>
@@ -139,9 +139,9 @@ const Contact = () => {
                 noValidate
                 className="flex flex-col justify-between flex-1"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-6">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-6 lg:gap-x-5 gap-y-5 lg:gap-y-4 xl:gap-y-5 mb-6 lg:mb-5 xl:mb-6">
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.name[lang]}
                     </label>
                     <input
@@ -149,7 +149,7 @@ const Contact = () => {
                       value={form.name}
                       onChange={handleChange}
                       placeholder={P.name[lang]}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
                       type="text"
                     />
                     {errors.name && (
@@ -159,7 +159,7 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.phone[lang]}
                     </label>
                     <input
@@ -167,7 +167,7 @@ const Contact = () => {
                       value={form.phoneNumber}
                       onChange={handleChange}
                       placeholder={P.phone[lang]}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
                       type="tel"
                     />
                     {errors.phoneNumber && (
@@ -177,7 +177,7 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.subject[lang]}
                     </label>
                     <input
@@ -185,7 +185,7 @@ const Contact = () => {
                       value={form.subject}
                       onChange={handleChange}
                       placeholder={P.subject[lang]}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
                       type="text"
                     />
                     {errors.subject && (
@@ -195,7 +195,7 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.address[lang]}
                     </label>
                     <input
@@ -203,7 +203,7 @@ const Contact = () => {
                       value={form.address}
                       onChange={handleChange}
                       placeholder={P.address[lang]}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
                       type="text"
                     />
                     {errors.address && (
@@ -213,7 +213,7 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.email[lang]}
                     </label>
                     <input
@@ -221,7 +221,7 @@ const Contact = () => {
                       value={form.email}
                       onChange={handleChange}
                       placeholder={P.email[lang]}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors"
                       type="email"
                     />
                     {errors.email && (
@@ -231,7 +231,7 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-[11px] lg:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
+                    <label className="block text-[11px] lg:text-[11px] xl:text-[12px] text-white/70 mb-1 tracking-[0.12em] uppercase">
                       {L.content[lang]}
                     </label>
                     <textarea
@@ -240,7 +240,7 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder={P.content[lang]}
                       rows={2}
-                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors resize-none"
+                      className="w-full bg-transparent border-b border-white/30 py-1 text-sm lg:text-[14px] xl:text-[15px] text-white placeholder:text-white/30 focus:outline-none focus:border-white/60 transition-colors resize-none"
                     />
                     {errors.message && (
                       <span className="text-red-300 text-[11px] mt-0.5 block">
@@ -249,9 +249,9 @@ const Contact = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-start sm:items-end">
-                  <div>
-                    <div className="scale-[0.85] origin-top-left">
+                <div className="flex flex-col lg:flex-col xl:grid xl:grid-cols-2 gap-4 lg:gap-4 xl:gap-6 items-start xl:items-end">
+                  <div className="w-full overflow-hidden">
+                    <div className="scale-[0.8] xl:scale-[0.85] origin-top-left w-[304px]">
                       <ReCAPTCHA
                         ref={recaptchaRef}
                         sitekey={RECAPTCHA_SITE_KEY}
@@ -264,19 +264,19 @@ const Contact = () => {
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-col items-start sm:items-end gap-2">
+                  <div className="flex w-full flex-col items-start xl:items-end gap-2">
                     {errors.general && (
-                      <p className="text-red-300 text-[11px] text-right">
+                      <p className="text-red-300 text-[11px] xl:text-right">
                         {errors.general}
                       </p>
                     )}
-                    <p className="text-[11px] lg:text-[12px] text-white/40">
+                    <p className="text-[11px] lg:text-[11px] xl:text-[12px] text-white/40">
                       {t.requiredNote[lang]}
                     </p>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#d6cec6] text-[#3c4a28] text-[12px] lg:text-[13px] tracking-[0.16em] px-10 py-2.5 hover:opacity-90 transition font-medium disabled:opacity-60 uppercase"
+                      className="bg-[#d6cec6] text-[#3c4a28] text-[12px] lg:text-[12px] xl:text-[13px] tracking-[0.16em] px-8 xl:px-10 py-2.5 hover:opacity-90 transition font-medium disabled:opacity-60 uppercase"
                     >
                       {loading ? t.sending[lang] : t.send[lang]}
                     </button>
