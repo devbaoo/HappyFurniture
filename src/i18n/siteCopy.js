@@ -188,7 +188,7 @@ export const siteCopy = {
 
     categoryLabels: {
       en: [
-        "Living Room",
+        "Occasional",
         "Bedroom",
         "Dining",
         "Vanity",
