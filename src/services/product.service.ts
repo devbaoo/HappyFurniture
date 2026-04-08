@@ -36,7 +36,14 @@ export interface Product {
   } | null;
   categoryId?: string;
   categories?: any[];
-  images?: any[];
+  images?: Array<{
+    id: number;
+    productId: number;
+    imageUrl: string;
+    altText?: string | null;
+    isPrimary: boolean;
+    sortOrder: number;
+  }>;
   materials?: Array<{
     id: number;
     name?: string | null;
@@ -46,7 +53,22 @@ export interface Product {
     descriptionVi?: string | null;
     descriptionEn?: string | null;
   }>;
-  variants?: any[];
+  variants?: Array<{
+    id: number;
+    productId: number;
+    colorName?: string | null;
+    colorCode?: string | null;
+    imageUrl?: string | null;
+    isActive: boolean;
+    images?: Array<{
+      id: number;
+      variantId: number;
+      imageUrl: string;
+      altText?: string | null;
+      isPrimary: boolean;
+      sortOrder: number;
+    }>;
+  }>;
 }
 
 export interface CreateProductRequest {
