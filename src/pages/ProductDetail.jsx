@@ -130,17 +130,13 @@ const ProductDetail = () => {
         setProduct(data);
         setProductSlug(data.slug);
 
-        // Pre-select variant từ slug URL (variantSlug) hoặc chọn variant đầu tiên
+        // Pre-select variant từ slug URL nếu có, không thì null (hiển thị ảnh product mặc định)
         const preSelected = variantSlug
           ? (data.variants?.find((v) => v.slug === variantSlug && v.isActive)
               ?? data.variants?.find((v) => v.slug === variantSlug)
-              ?? data.variants?.find((v) => v.isActive)
-              ?? data.variants?.[0]
               ?? null)
-          : (data.variants?.find((v) => v.isActive) ?? data.variants?.[0] ?? null);
+          : null;
         setSelectedVariant(preSelected);
-        // Không chọn variant sẵn → gallery mặc định là ảnh product
-        setSelectedVariant(null);
 
         const sorted = [...(data.images ?? [])].sort(
           (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
@@ -190,30 +186,14 @@ const ProductDetail = () => {
     }
   };
 
-  // Ảnh của variant đang chọn (từ variant.images - ProductVariantImage)
-  const variantImages = selectedVariant?.images?.length > 0
-    ? [...selectedVariant.images].sort(
-        (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
-      )
-    : [];
-
-  // Nếu variant không có ProductVariantImage nhưng có imageUrl → dùng nó
-  const variantOwnImage =
-    selectedVariant?.imageUrl && variantImages.length === 0
-      ? [{
-          id: `v-${selectedVariant.id}`,
-          imageUrl: selectedVariant.imageUrl,
-          altText: selectedVariant.colorName,
-          isPrimary: true,
-          sortOrder: 0,
-        }]
   // Gallery: mặc định chỉ dùng ảnh product.
   // Khi chọn variant → chuyển HOÀN TOÀN sang ảnh của variant đó (không mix).
   const variantImages = selectedVariant?.images?.length
     ? [...selectedVariant.images].sort((a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0))
     : selectedVariant?.imageUrl?.trim?.()
-      ? [{ id: `variant-${selectedVariant.id}`, imageUrl: selectedVariant.imageUrl.trim(), altText: selectedVariant.colorName || productName, isPrimary: true }]
+      ? [{ id: `variant-${selectedVariant.id}`, imageUrl: selectedVariant.imageUrl.trim(), altText: selectedVariant.colorName || "", isPrimary: true }]
       : [];
+
   const galleryImages = variantImages.length > 0 ? variantImages : sortedImages;
 
   const categoryName = product?.categories?.[0]
@@ -376,17 +356,7 @@ const ProductDetail = () => {
                 productName={productName}
                 variants={product.variants ?? []}
                 selectedVariant={selectedVariant}
-                onSelectVariant={(variant) => {
-                  if (variant === null) {
-                    // Click nút Default → quay về ảnh product gốc
-                    setSelectedVariant(null);
-                  } else {
-                    // Toggle: click lại variant đang chọn → deselect
-                    const isAlreadySelected = selectedVariant?.id === variant.id;
-                    setSelectedVariant(isAlreadySelected ? null : variant);
-                  }
-                  setActiveImg(0);
-                }}
+                onSelectVariant={handleSelectVariant}
               />
             </div>
 
