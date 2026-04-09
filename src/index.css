@@ -73,6 +73,25 @@
     @apply grid grid-cols-12 gap-4;
   }
 
+  .hero-video::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  .hero-video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+
+  .hero-video::-webkit-media-controls-panel {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  .hero-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
   .nav-link {
     @apply text-xs uppercase text-primary hover:text-muted transition-colors duration-200 font-medium;
     letter-spacing: 0.16em;

@@ -131,6 +131,7 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const visibleElements = useScrollAnimation();
   const heroRef = useRef(null);
+  const heroVideoRef = useRef(null);
   const aboutParagraphs = siteCopy.home.aboutBody[lang];
   const certItems = siteCopy.home.certItems[lang];
   const h = siteCopy.home;
@@ -194,6 +195,26 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const video = heroVideoRef.current;
+
+    if (!video) return undefined;
+
+    const ensurePlayback = () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    };
+
+    ensurePlayback();
+    video.addEventListener("loadeddata", ensurePlayback);
+
+    return () => {
+      video.removeEventListener("loadeddata", ensurePlayback);
+    };
+  }, []);
+
   return (
     <div className="w-full">
       <SEOHead
@@ -224,6 +245,7 @@ const Home = () => {
         {/* Background Video */}
         <div className="absolute inset-0 overflow-hidden">
           <video
+            ref={heroVideoRef}
             autoPlay
             muted
             loop
@@ -231,8 +253,10 @@ const Home = () => {
             preload="auto"
             aria-hidden="true"
             disablePictureInPicture
+            disableRemotePlayback
+            tabIndex={-1}
             className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
-              } absolute inset-0 h-full w-full object-cover`}
+              } hero-video absolute inset-0 h-full w-full object-cover pointer-events-none`}
           >
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
