@@ -10,12 +10,24 @@ import { localizeField } from "../../utils/i18n";
 const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80";
 
+const getChildGridClassName = (childCount) => {
+  if (childCount >= 10) {
+    return "grid-cols-2 2xl:grid-cols-3";
+  }
+
+  if (childCount >= 5) {
+    return "grid-cols-2";
+  }
+
+  return "grid-cols-1";
+};
+
 /* ─── Right image panel ────────────────────────────────────────── */
 const ImagePanel = ({ category, isDark }) => {
   const { lang } = useLanguage();
   const categoryLabel = localizeField(category, "name", lang);
   return (
-    <div className="flex flex-col gap-3 w-[260px] shrink-0">
+    <div className="hidden xl:flex xl:w-[220px] 2xl:w-[260px] shrink-0 flex-col gap-3">
       <div className="overflow-hidden w-full" style={{ aspectRatio: "4/3" }}>
         <img
           src={category.imageUrl || FALLBACK_IMG}
@@ -66,8 +78,7 @@ const DropdownPanel = ({
   const previewCat =
     activeCat || categories.find((c) => c.imageUrl) || categories[0];
   const childCount = activeCat?.children?.length ?? 0;
-  const childColumnCount =
-    childCount >= 10 ? 3 : childCount >= 5 ? 2 : 1;
+  const childGridClassName = getChildGridClassName(childCount);
 
   return (
     <div
@@ -89,13 +100,13 @@ const DropdownPanel = ({
         onMouseLeave();
       }}
     >
-      <div className="mx-auto max-w-[1800px] px-16 py-10">
-        <div className="flex items-stretch gap-0 min-h-[320px]">
+      <div className="mx-auto max-w-[1800px] px-6 xl:px-10 2xl:px-16 py-8 xl:py-10">
+        <div className="flex items-stretch gap-0 min-h-[300px] xl:min-h-[320px]">
 
           {/* ── Left sidebar: parent category list ────────── */}
           <div
             className={`
-              w-[240px] shrink-0 flex flex-col
+              w-[210px] xl:w-[220px] 2xl:w-[240px] shrink-0 flex flex-col
               border-r
               ${isDark ? "border-white/10" : "border-stone-100"}
             `}
@@ -109,7 +120,7 @@ const DropdownPanel = ({
                   onMouseEnter={() => setHoveredCatId(cat.id)}
                   className={`
                     group/parent flex items-center justify-between
-                    py-3 pr-6 text-[12px] tracking-[0.2em] uppercase
+                    py-3 pr-4 xl:pr-5 2xl:pr-6 text-[11px] xl:text-[12px] tracking-[0.16em] xl:tracking-[0.2em] uppercase
                     transition-all duration-200
                     ${isActive
                       ? isDark
@@ -139,7 +150,7 @@ const DropdownPanel = ({
           </div>
 
           {/* ── Middle: children of the hovered parent ────── */}
-          <div className="flex-1 px-10 relative overflow-hidden">
+          <div className="relative flex-1 overflow-hidden px-5 xl:px-7 2xl:px-10">
             {activeCat ? (
               <div
                 key={activeCat.id}
@@ -149,7 +160,7 @@ const DropdownPanel = ({
                 <div className="mb-6">
                   <h3
                     className={`
-                      text-[13px] tracking-[0.25em] uppercase font-semibold
+                      text-[12px] xl:text-[13px] tracking-[0.18em] xl:tracking-[0.25em] uppercase font-semibold
                       ${isDark ? "text-white" : "text-[#3c4a28]"}
                     `}
                   >
@@ -166,17 +177,14 @@ const DropdownPanel = ({
                 {/* Children grid */}
                 {activeCat.children && activeCat.children.length > 0 ? (
                   <ul
-                    className="grid gap-x-10 gap-y-3"
-                    style={{
-                      gridTemplateColumns: `repeat(${childColumnCount}, minmax(160px, 1fr))`,
-                    }}
+                    className={`grid ${childGridClassName} gap-x-6 xl:gap-x-8 2xl:gap-x-10 gap-y-3`}
                   >
                     {activeCat.children.map((child) => (
                       <li key={child.id}>
                         <Link
                           to={`/product?category=${child.id}`}
                           className={`
-                            group/sub relative text-[12px] tracking-[0.1em] uppercase
+                            group/sub relative text-[11px] xl:text-[12px] tracking-[0.06em] xl:tracking-[0.1em] uppercase
                             transition-colors duration-200 flex items-center gap-2
                             py-1
                             ${isDark
@@ -232,7 +240,7 @@ const DropdownPanel = ({
 
           {/* ── Vertical divider ──────────────────────────── */}
           <div
-            className={`w-px self-stretch shrink-0 ${
+            className={`hidden xl:block w-px self-stretch shrink-0 ${
               isDark ? "bg-white/10" : "bg-stone-100"
             }`}
           />
