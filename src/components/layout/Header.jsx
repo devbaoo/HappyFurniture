@@ -366,31 +366,15 @@ const Header = () => {
         )}
 
         {mobileOpen && (
-          <div
-            className={`
-              md:hidden fixed inset-x-0 bottom-0 top-[80px] overflow-y-auto z-[90]
-              ${isDark ? "bg-[#111111]" : "bg-white"}
-            `}
-          >
-            <ul
-              className={`px-6 pt-4 pb-4 border-t ${
-                isDark ? "border-white/10" : "border-stone-100"
-              }`}
-            >
+          <div className="md:hidden fixed inset-x-0 bottom-0 top-[80px] overflow-y-auto z-[90] bg-white">
+            <ul className="px-6 pt-4 pb-4 border-t border-stone-100">
               {ALL_STATIC.slice(0, 3).map(({ to, label, end }) => (
-                <li
-                  key={to}
-                  className={`border-b py-3 ${
-                    isDark ? "border-white/10" : "border-stone-100"
-                  }`}
-                >
+                <li key={to} className="border-b border-stone-100 py-3">
                   <NavLink
                     to={to}
                     end={end}
                     onClick={handleNavigationStateReset}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
-                    }`}
+                    className="text-[12px] tracking-[0.2em] uppercase text-stone-700 hover:text-[#3c4a28]"
                   >
                     {label}
                   </NavLink>
@@ -398,25 +382,18 @@ const Header = () => {
               ))}
 
               {/* Product with expandable categories */}
-                <ProductMobileItem
-                  isDark={isDark}
-                  onClose={handleNavigationStateReset}
-                  productLabel={lang === "vi" ? "Sản phẩm" : "Product"}
-                />
+              <ProductMobileItem
+                isDark={false}
+                onClose={handleNavigationStateReset}
+                productLabel={lang === "vi" ? "Sản phẩm" : "Product"}
+              />
 
               {ALL_STATIC.slice(3).map(({ to, label }) => (
-                <li
-                  key={to}
-                  className={`border-b py-3 ${
-                    isDark ? "border-white/10" : "border-stone-100"
-                  }`}
-                >
+                <li key={to} className="border-b border-stone-100 py-3">
                   <NavLink
                     to={to}
                     onClick={handleNavigationStateReset}
-                    className={`text-[12px] tracking-[0.2em] uppercase ${
-                      isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
-                    }`}
+                    className="text-[12px] tracking-[0.2em] uppercase text-stone-700 hover:text-[#3c4a28]"
                   >
                     {label}
                   </NavLink>

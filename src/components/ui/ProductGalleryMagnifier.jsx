@@ -196,8 +196,8 @@ const ProductGalleryMagnifier = ({
                   aria-label="Previous image"
                 >
                   <ChevronLeft
-                    className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
-                    strokeWidth={2}
+                    className="h-6 w-6 text-[#3c4a28] drop-shadow-[0_1px_3px_rgba(255,255,255,0.8)]"
+                    strokeWidth={2.5}
                   />
                 </button>
                 <button
@@ -210,8 +210,8 @@ const ProductGalleryMagnifier = ({
                   aria-label="Next image"
                 >
                   <ChevronRight
-                    className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
-                    strokeWidth={2}
+                    className="h-6 w-6 text-[#3c4a28] drop-shadow-[0_1px_3px_rgba(255,255,255,0.8)]"
+                    strokeWidth={2.5}
                   />
                 </button>
                 <div
