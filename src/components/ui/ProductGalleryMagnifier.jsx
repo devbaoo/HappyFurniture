@@ -12,6 +12,7 @@ const LENS_PCT = 34;
  */
 const ProductGalleryMagnifier = ({
   images = [],
+  productImages = [],
   activeIndex,
   onActiveIndexChange,
   productName = "",
@@ -43,6 +44,8 @@ const ProductGalleryMagnifier = ({
     const src = v?.imageUrl?.trim?.();
     return src || null;
   };
+
+  const defaultThumb = productImages[0]?.imageUrl ?? null;
 
   const handleMove = useCallback(
     (e) => {
@@ -261,6 +264,28 @@ const ProductGalleryMagnifier = ({
             }`}
           >
             <div className="flex flex-wrap items-center gap-2">
+              {/* Ô Default: hiển thị bộ ảnh product gốc */}
+              {defaultThumb && (
+                <button
+                  type="button"
+                  title="Default"
+                  aria-label="View default product images"
+                  onClick={() => onSelectVariant(null)}
+                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
+                    selectedVariant === null
+                      ? "border-primary ring-1 ring-primary ring-offset-1"
+                      : "border-border hover:border-secondary"
+                  }`}
+                >
+                  <img
+                    src={defaultThumb}
+                    alt="Default"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </button>
+              )}
+
+              {/* Các variant */}
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
                 const thumb = variantThumb(v);
