@@ -72,7 +72,7 @@ const MeasurementGrid = ({ items = [] }) => (
           {item.value.primary}
         </span>
         {item.value.secondary && (
-          <span className="col-start-2 mt-0.5 text-[11px] leading-[1.2] text-stone-400 sm:mt-1 sm:text-[12px]">
+          <span className="col-start-2 mt-0.5 text-[15px] leading-[1.2] text-stone-400 sm:mt-1 sm:text-[16px]">
             {item.value.secondary}
           </span>
         )}
