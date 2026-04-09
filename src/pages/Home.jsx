@@ -131,6 +131,7 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const visibleElements = useScrollAnimation();
   const heroRef = useRef(null);
+  const heroVideoRef = useRef(null);
   const aboutParagraphs = siteCopy.home.aboutBody[lang];
   const certItems = siteCopy.home.certItems[lang];
   const h = siteCopy.home;
@@ -194,6 +195,26 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const video = heroVideoRef.current;
+
+    if (!video) return undefined;
+
+    const ensurePlayback = () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    };
+
+    ensurePlayback();
+    video.addEventListener("loadeddata", ensurePlayback);
+
+    return () => {
+      video.removeEventListener("loadeddata", ensurePlayback);
+    };
+  }, []);
+
   return (
     <div className="w-full">
       <SEOHead
@@ -224,6 +245,7 @@ const Home = () => {
         {/* Background Video */}
         <div className="absolute inset-0 overflow-hidden">
           <video
+            ref={heroVideoRef}
             autoPlay
             muted
             loop
@@ -231,8 +253,10 @@ const Home = () => {
             preload="auto"
             aria-hidden="true"
             disablePictureInPicture
+            disableRemotePlayback
+            tabIndex={-1}
             className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
-              } absolute inset-0 h-full w-full object-cover`}
+              } hero-video absolute inset-0 h-full w-full object-cover pointer-events-none`}
           >
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
@@ -241,11 +265,11 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-28 text-center md:px-6 md:pb-20 md:pt-40 lg:px-8 lg:pt-48 [@media(max-height:820px)]:pt-32 [@media(max-height:720px)]:pt-36">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-28 text-center md:px-6 md:pb-20 md:pt-40 lg:px-8 lg:pt-40 xl:pt-48 [@media(max-height:820px)]:pt-32 [@media(max-height:720px)]:pt-28">
           {/* TITLE */}
           <h1
             className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[40px] xl:text-[44px] xl:whitespace-nowrap [@media(max-height:820px)]:text-[clamp(1.75rem,3.2vw,2.5rem)] uppercase`}
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[36px] xl:text-[44px] xl:whitespace-nowrap [@media(max-height:820px)]:text-[clamp(1.75rem,3.2vw,2.5rem)] [@media(max-height:720px)]:text-[clamp(1.8rem,2.8vw,2.15rem)] uppercase`}
             style={{
               letterSpacing: "0.05em",
               transitionDelay: "0.3s",
@@ -257,7 +281,7 @@ const Home = () => {
 
           {/* DESCRIPTION */}
           <p
-            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out [@media(max-height:720px)]:mt-4 [@media(max-height:720px)]:max-w-xl ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
             style={{ transitionDelay: "0.6s" }}
           >
@@ -266,7 +290,7 @@ const Home = () => {
 
           {/* BUTTON */}
           <div
-            className={`mt-8 md:mt-10 transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            className={`mt-8 md:mt-10 [@media(max-height:720px)]:mt-6 transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
             style={{ transitionDelay: "0.9s" }}
           >
@@ -371,15 +395,15 @@ const Home = () => {
           3. DARK PROMO — Full-width dark bg + 3-col images beneath
          ══════════════════════════════════════════════ */}
       <section
-        className="bg-[#d8d1c9] py-4 md:py-10 lg:h-[498px]"
+        className="bg-[#d8d1c9] py-4 md:py-10 lg:py-8 xl:h-[498px]"
         data-animate
         id="promo"
       >
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] xl:h-full">
           {/* Title */}
           <h2
 
-            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out md:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
+            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out lg:-translate-y-2 xl:-translate-y-[33.3334px] ${visibleElements.has('promo') ? 'opacity-100' : 'opacity-0'
               } uppercase`}
           >
             <span className="md:hidden">
@@ -397,7 +421,7 @@ const Home = () => {
           </h2>
 
           {/* 4 images */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:h-[290px]">
+          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-2 lg:gap-1.5 xl:h-[290px]">
             {[
               { src: "/images/home/Quality.jpg" },
               { src: "/images/home/InternationalStandard.jpg" },
@@ -406,7 +430,7 @@ const Home = () => {
             ].map((item, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-sm group h-[175px] md:h-[290px] lg:h-full"
+                className="relative overflow-hidden rounded-sm group h-[175px] md:h-[290px] lg:h-[250px] xl:h-full"
               >
                 <Img
                   src={item.src}
@@ -421,13 +445,13 @@ const Home = () => {
                 <div className="absolute inset-x-0 bottom-0 h-full bg-[#3c4a28] translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0" />
 
                 {/* caption */}
-                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] font-medium tracking-[0.08em] drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-2">
+                <p className="absolute bottom-2 md:bottom-3 left-0 right-0 text-center text-white text-[12px] md:text-[18px] lg:text-[16px] xl:text-[18px] font-medium tracking-[0.08em] drop-shadow-md transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-2">
                   {promoCaptions[i]}
                 </p>
 
-                <div className="absolute inset-0 flex items-center justify-center p-3 md:p-5">
+                <div className="absolute inset-0 flex items-center justify-center p-3 md:p-5 lg:p-4 xl:p-5">
                   <div className="relative z-10 w-full max-w-[280px] text-white text-center opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                    <p className="text-[11px] md:text-[13px] leading-[1.55] md:leading-[1.7] text-white/95">
+                    <p className="text-[11px] md:text-[13px] lg:text-[12px] xl:text-[13px] leading-[1.55] md:leading-[1.7] lg:leading-[1.55] xl:leading-[1.7] text-white/95">
                       {promoHoverContent[i].body[lang]}
                     </p>
                   </div>
@@ -494,23 +518,23 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           5. 4-COLUMN FEATURES — White bg, thin rule, vertical dividers
          ══════════════════════════════════════════════ */}
-      <section className="bg-white pb-4 md:pb-10 pt-1 md:pt-3 lg:h-[317px]">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full lg:flex lg:flex-col">
+      <section className="bg-white pb-8 md:pb-12 lg:pb-24 2xl:pb-10 pt-1 md:pt-3 2xl:h-[317px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] 2xl:h-full 2xl:flex 2xl:flex-col">
           <div className="border-t-[3px] border-[#5a564f] mb-0" />
 
-          <div className="bg-[rgb(241,240,238)] lg:flex-1">
-            <div className="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x divide-[#c9c5be] lg:h-full">
+          <div className="bg-[rgb(241,240,238)] 2xl:flex-1">
+            <div className="grid grid-cols-2 md:grid-cols-4 text-center md:divide-x divide-[#c9c5be] 2xl:h-full">
               {featureColumns.map((item, index) => (
                 <div
                   key={`${item.title}-${index}`}
-                  className={`px-3 md:px-6 lg:px-10 py-3 md:py-5 flex flex-col justify-center lg:h-full ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
+                  className={`px-3 md:px-6 lg:px-7 2xl:px-10 py-3 md:py-5 lg:py-4 flex flex-col items-center justify-start 2xl:h-full ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
                     } ${index % 2 === 0
                       ? "border-r md:border-r-0 border-[#c9c5be]"
                       : ""
                     }`}
                 >
                   <h3
-                    className="mb-1 md:mb-2 font-semibold"
+                    className="mb-0 min-h-[1.85rem] md:min-h-[2.1rem] font-semibold lg:text-[16px] 2xl:text-[18px] flex items-start justify-center text-center"
                     style={{
                       fontSize: "clamp(15px, 4vw, 18px)",
                       letterSpacing: "0.04em",
@@ -521,11 +545,11 @@ const Home = () => {
                   </h3>
 
                   <p
-                    className="leading-tight md:leading-6 font-medium"
+                    className="leading-[1.34] md:leading-[1.4] lg:leading-[1.42] 2xl:leading-[1.42] font-medium lg:text-[12.5px] 2xl:text-[13.5px]"
                     style={{
                       fontSize: "clamp(12px, 3vw, 13.5px)",
                       color: "#4a4742",
-                      maxWidth: "240px",
+                      maxWidth: "210px",
                       margin: "0 auto",
                     }}
                   >
@@ -542,7 +566,7 @@ const Home = () => {
           6. INSIDE OUR FACTORY — Full-width dark video/image section
          ══════════════════════════════════════════════ */}
       <section
-        className="pt-0 md:pt-64 mt-4 md:mt-20 pb-2 md:pb-20 relative bg-transparent"
+        className="pt-0 md:pt-56 lg:pt-16 2xl:pt-64 mt-8 md:mt-24 lg:mt-24 2xl:mt-20 pb-2 md:pb-20 lg:pb-16 2xl:pb-20 relative bg-transparent"
         data-animate
         id="factory"
         style={{
@@ -555,7 +579,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/35 md:bg-black/0 z-0"></div>
         <div className="absolute top-0 left-0 right-0 h-8 md:hidden bg-white z-[1]"></div>
 
-        <div className="w-[92%] md:w-full md:max-w-5xl mx-auto -mt-1 md:mt-0 relative md:absolute left-0 right-0 top-0 md:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[520px] bg-black">
+        <div className="w-[92%] md:w-full md:max-w-5xl mx-auto mt-2 md:mt-0 relative md:absolute lg:absolute 2xl:absolute left-0 right-0 top-0 md:-top-12 lg:-top-10 2xl:-top-16 overflow-hidden shadow-xl md:shadow-xl z-10 aspect-[2/1] md:aspect-auto md:h-[420px] lg:h-[430px] 2xl:h-[520px] bg-black">
           <iframe
             className="absolute inset-0 h-full w-full"
             src="https://www.youtube.com/embed/kB50RuQ-LFk?controls=1&rel=0"
@@ -568,9 +592,9 @@ const Home = () => {
           <div className="pointer-events-none absolute inset-0 bg-black/20 md:bg-black/20" />
         </div>
 
-        <div className="text-center mt-1 md:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
+        <div className="text-center mt-1 md:mt-44 lg:mt-80 2xl:mt-56 px-5 md:px-6 py-3 md:py-0 relative z-10 container mx-auto">
           <h2
-            className="font-heading text-[#f4ecd8] md:text-white tracking-[0.05em] md:tracking-[0.08em] mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.04] whitespace-nowrap font-normal uppercase"
+            className="font-heading text-[#f4ecd8] md:text-white tracking-[0.05em] md:tracking-[0.08em] mb-2 md:mb-5 text-[26px] md:text-[clamp(1.6rem,6vw,2.5rem)] lg:text-[clamp(1.8rem,3.2vw,2.15rem)] 2xl:text-[clamp(1.6rem,6vw,2.5rem)] leading-[1.04] 2xl:whitespace-nowrap font-normal uppercase"
           >
             {h.factoryHeading[lang]}
           </h2>
@@ -660,13 +684,13 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           8. TIMBER MERCHANDISING — Beige bg, 2-col: text left, image grid right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-14 lg:pb-8 w-full lg:h-[826px]">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] lg:h-full">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 md:gap-12 lg:gap-16 items-center w-full lg:h-full">
+      <section className="bg-[#eae4db] lg:bg-[#d6cec6] pt-6 pb-3 lg:pt-10 xl:pt-14 lg:pb-6 xl:pb-8 w-full xl:h-[826px]">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] xl:h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-5 gap-2 md:gap-12 lg:gap-8 xl:gap-16 items-center w-full xl:h-full">
             {/* LEFT CONTENT - 40% */}
-            <div className="lg:col-span-2 flex flex-col justify-center w-full lg:h-full">
+            <div className="lg:col-span-5 xl:col-span-2 flex flex-col justify-center w-full xl:h-full">
               <h2
-                className="font-heading lg:font-heading whitespace-normal lg:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal uppercase"
+                className="font-heading lg:font-heading whitespace-normal xl:whitespace-nowrap mb-2 md:mb-3 text-[#3c4a28] font-normal uppercase"
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2.05rem)",
                   letterSpacing: "0.05em",
@@ -676,11 +700,11 @@ const Home = () => {
                 {h.timberHeading[lang]}
               </h2>
 
-              <div className="mb-3 md:mb-4 flex flex-col gap-2 md:gap-2.5 text-[12px] md:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
+              <div className="mb-3 md:mb-4 lg:mb-3 xl:mb-4 flex flex-col gap-2 md:gap-2.5 lg:gap-1.5 xl:gap-2.5 text-[12px] md:text-[15px] lg:text-[14px] xl:text-[15px] font-normal md:font-light text-[#303030] md:text-stone-700 text-left">
                 {h.timberBody[lang].map((para, idx) => (
                   <p
                     key={idx}
-                    className="leading-[1.72] md:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0"
+                    className="leading-[1.72] md:leading-[1.82] lg:leading-[1.7] xl:leading-[1.82] tracking-[0.01em] text-left md:text-left pr-1 md:pr-0"
                   >
                     {para}
                   </p>
@@ -688,12 +712,12 @@ const Home = () => {
               </div>
 
               {/* QUALITY */}
-              <div className="mb-2 md:mb-4">
-                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3">
+              <div className="mb-2 md:mb-4 lg:mb-3 xl:mb-4">
+                <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1.5 md:mb-3 lg:mb-2 xl:mb-3">
                   {h.timberQuality[lang]}
                 </p>
 
-                <div className="flex w-full max-w-[560px] flex-col gap-1.5 md:gap-2">
+                <div className="flex w-full max-w-[560px] flex-col gap-1.5 md:gap-2 lg:gap-1.5 xl:gap-2">
                   {timberTagRows.map((row, rowIndex) => (
                     <div
                       key={`timber-row-${rowIndex}`}
@@ -703,9 +727,9 @@ const Home = () => {
                       {row.map((tag) => (
                         <span
                           key={tag}
-                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
+                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] lg:min-h-[28px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
                             ? "text-[12px] md:text-[11px]"
-                            : "text-[13px] md:text-[12px]"
+                            : "text-[13px] md:text-[12px] lg:text-[11px] xl:text-[12px]"
                             }`}
                         >
                           {tag}
@@ -717,11 +741,11 @@ const Home = () => {
               </div>
 
               {/* SIZE */}
-              <div className="mb-2.5 md:mb-6">
+              <div className="mb-2.5 md:mb-6 lg:mb-4 xl:mb-6">
                 <p className="text-[13px] md:text-xs tracking-[0.08em] md:tracking-[0.16em] font-semibold capitalize md:uppercase text-[#1c1c1c] md:text-stone-500 mb-1 md:mb-2">
                   {h.timberSize[lang]}
                 </p>
-                <p className="text-[13px] md:text-[15px] text-[#303030] md:text-stone-700 font-normal leading-[1.7] tracking-[0.01em]">
+                <p className="text-[13px] md:text-[15px] lg:text-[14px] xl:text-[15px] text-[#303030] md:text-stone-700 font-normal leading-[1.7] lg:leading-[1.65] xl:leading-[1.7] tracking-[0.01em]">
                   {h.timberThickness[lang]}
                 </p>
               </div>
@@ -738,9 +762,9 @@ const Home = () => {
             </div>
 
             {/* RIGHT IMAGE LAYOUT - 60% */}
-            <div className="lg:col-span-3 flex flex-col gap-1.5 md:gap-1 mt-1 md:mt-0 w-full mb-0 pb-0 lg:h-full">
+            <div className="lg:col-span-7 xl:col-span-3 flex flex-col gap-1.5 md:gap-1 mt-1 md:mt-0 w-full mb-0 pb-0 xl:h-full">
               {/* TOP IMAGE */}
-              <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
+              <div className="w-full h-[190px] sm:h-[360px] lg:h-[330px] xl:h-[420px] overflow-hidden rounded-sm">
                 <Img
                   src="/images/home/Timber.jpg"
                   alt={timberAlts[0]}
@@ -751,7 +775,7 @@ const Home = () => {
 
               {/* BOTTOM IMAGES */}
               <div className="grid grid-cols-2 gap-2 md:gap-1 w-full">
-                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[190px] xl:h-[280px]">
                   <Img
                     src="/images/home/Timber2.jpg"
                     alt={timberAlts[1]}
@@ -759,7 +783,7 @@ const Home = () => {
                     placeholderBg="#b5a898"
                   />
                 </div>
-                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
+                <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[190px] xl:h-[280px]">
                   <Img
                     src="/images/home/Timber3.jpg"
                     alt={timberAlts[2]}
@@ -776,11 +800,11 @@ const Home = () => {
       {/* ══════════════════════════════════════════════
           9. BE THE FIRST TO KNOW (Newsletter) — 2-col: form left, image right
          ══════════════════════════════════════════════ */}
-      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-7 md:pt-20 md:pb-16 font-sans">
+      <section className="bg-[#fbfcfa] md:bg-white pt-2 pb-7 md:pt-20 lg:pt-14 xl:pt-20 md:pb-16 lg:pb-12 xl:pb-16 font-sans">
         <div className="w-full px-2 md:px-14 lg:px-24 md:mx-auto md:max-w-[1700px]">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-7 lg:gap-16 items-center lg:h-[365px] lg:-translate-y-[35px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 xl:grid-cols-5 gap-7 lg:gap-8 xl:gap-16 items-center xl:h-[365px] lg:-translate-y-2 xl:-translate-y-[35px]">
             {/* LEFT IMAGE - 60% */}
-            <div className="hidden lg:block lg:col-span-3 overflow-hidden rounded-sm shadow-md h-[360px] lg:h-[420px]">
+            <div className="hidden lg:block lg:col-span-7 xl:col-span-3 overflow-hidden rounded-sm shadow-md h-[300px] lg:h-[340px] xl:h-[420px]">
               <Img
                 src="/images/home/Furniture.jpg"
                 alt={h.newsletterImageAlt[lang]}
@@ -790,9 +814,9 @@ const Home = () => {
             </div>
 
             {/* RIGHT CONTENT - 40% */}
-            <div className="lg:col-span-2 flex flex-col justify-center w-full min-w-0">
+            <div className="lg:col-span-5 xl:col-span-2 flex flex-col justify-center w-full min-w-0">
               <h2
-                className="font-heading mb-3 md:mb-3 text-[#3c4a28] whitespace-normal md:whitespace-nowrap font-normal uppercase"
+                className="font-heading mb-3 md:mb-3 text-[#3c4a28] whitespace-normal xl:whitespace-nowrap font-normal uppercase"
                 style={{
                   fontSize: "clamp(1.55rem, 5.5vw, 1.8rem)",
                   letterSpacing: "0.06em",
@@ -803,12 +827,12 @@ const Home = () => {
                 {h.newsletterTitleLine2[lang]}
               </h2>
 
-              <p className="text-[12px] md:text-[17px] font-normal text-[#303030] md:text-stone-500 mb-5 max-w-full md:max-w-[500px] leading-[1.75] tracking-[0.01em]">
+              <p className="text-[12px] md:text-[17px] lg:text-[15px] xl:text-[17px] font-normal text-[#303030] md:text-stone-500 mb-5 lg:mb-4 xl:mb-5 max-w-full md:max-w-[500px] lg:max-w-[440px] xl:max-w-[500px] leading-[1.75] lg:leading-[1.68] xl:leading-[1.75] tracking-[0.01em]">
                 {h.newsletterBody[lang]}
               </p>
 
               {/* EMAIL FORM */}
-              <div className="flex w-full mb-5 md:mb-4">
+              <div className="flex w-full mb-5 md:mb-4 lg:mb-3 xl:mb-4">
                 <input
                   type="email"
                   placeholder={h.newsletterEmailPh[lang]}

@@ -139,6 +139,8 @@ const ProductDetail = () => {
               ?? null)
           : (data.variants?.find((v) => v.isActive) ?? data.variants?.[0] ?? null);
         setSelectedVariant(preSelected);
+        // Không chọn variant sẵn → gallery mặc định là ảnh product
+        setSelectedVariant(null);
 
         const sorted = [...(data.images ?? [])].sort(
           (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
@@ -205,16 +207,14 @@ const ProductDetail = () => {
           isPrimary: true,
           sortOrder: 0,
         }]
+  // Gallery: mặc định chỉ dùng ảnh product.
+  // Khi chọn variant → chuyển HOÀN TOÀN sang ảnh của variant đó (không mix).
+  const variantImages = selectedVariant?.images?.length
+    ? [...selectedVariant.images].sort((a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0))
+    : selectedVariant?.imageUrl?.trim?.()
+      ? [{ id: `variant-${selectedVariant.id}`, imageUrl: selectedVariant.imageUrl.trim(), altText: selectedVariant.colorName || productName, isPrimary: true }]
       : [];
-
-  // Ảnh mặc định của product
-  const defaultImages = sortedImages;
-
-  // Ưu tiên: ảnh variant.images > imageUrl riêng của variant > ảnh product
-  const displayedImages =
-    variantImages.length > 0 ? variantImages :
-    variantOwnImage.length > 0 ? variantOwnImage :
-    defaultImages;
+  const galleryImages = variantImages.length > 0 ? variantImages : sortedImages;
 
   const categoryName = product?.categories?.[0]
     ? localizeField(product.categories[0], "name", lang) || "Products"
@@ -369,13 +369,24 @@ const ProductDetail = () => {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="min-w-0 overflow-visible">
               <ProductGalleryMagnifier
-                images={displayedImages}
+                images={galleryImages}
+                productImages={sortedImages}
                 activeIndex={activeImg}
                 onActiveIndexChange={setActiveImg}
                 productName={productName}
                 variants={product.variants ?? []}
                 selectedVariant={selectedVariant}
-                onSelectVariant={handleSelectVariant}
+                onSelectVariant={(variant) => {
+                  if (variant === null) {
+                    // Click nút Default → quay về ảnh product gốc
+                    setSelectedVariant(null);
+                  } else {
+                    // Toggle: click lại variant đang chọn → deselect
+                    const isAlreadySelected = selectedVariant?.id === variant.id;
+                    setSelectedVariant(isAlreadySelected ? null : variant);
+                  }
+                  setActiveImg(0);
+                }}
               />
             </div>
 

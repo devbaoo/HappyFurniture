@@ -110,7 +110,7 @@ export const siteCopy = {
     },
     aboutBody: {
       en: [
-        "Founded in 2005, Happy Furniture is a premier Vietnam-based manufacturer specializing in knock-down (KD) wooden furniture. We focus on mid- to high-end indoor collections\u2014including dining, bedroom, and living room furniture\u2014for international brands and retailers.",
+        "Founded in 2005, Happy Furniture is a premier Vietnam-based manufacturer specializing in knock-down (KD) wooden furniture. We focus on mid to high-end indoor collections\u2014including dining, bedroom, and living room furniture\u2014for international brands and retailers.",
         "Beyond finished products, we supply a wide variety of high-quality wood materials to support our partners' sourcing needs. By combining skilled craftsmanship with efficient production and rigorous quality control, we deliver consistent excellence at competitive prices.",
         "Today, Happy Furniture is recognized as a leading KD furniture manufacturer, proudly exporting to the US, UK, Ireland, Italy, Australia, and other global markets.",
       ],
@@ -256,8 +256,8 @@ export const siteCopy = {
           desc: "Professional design support from concept development to technical drawings and sample creation",
         },
         {
-          title: "Packaging and dispatch",
-          desc: "International-standard packaging solutions tailored to client requirements and shipping safety",
+          title: "Packaging & Dispatch",
+          desc: "Standard international packaging tailored for safety and client needs.",
         },
       ],
       vi: [
@@ -274,8 +274,8 @@ export const siteCopy = {
           desc: "H\u1ed7 tr\u1ee3 thi\u1ebft k\u1ebf chuy\u00ean nghi\u1ec7p t\u1eeb \u00fd t\u01b0\u1edfng \u0111\u1ebfn b\u1ea3n v\u1ebd k\u1ef9 thu\u1eadt v\u00e0 m\u1eabu th\u1eed",
         },
         {
-          title: "\u0110\u00f3ng g\u00f3i & g\u1eedi h\u00e0ng",
-          desc: "Gi\u1ea3i ph\u00e1p \u0111\u00f3ng g\u00f3i \u0111\u1ea1t chu\u1ea9n qu\u1ed1c t\u1ebf, ph\u00f9 h\u1ee3p y\u00eau c\u1ea7u kh\u00e1ch h\u00e0ng v\u00e0 an to\u00e0n v\u1eadn chuy\u1ec3n",
+          title: "\u0110\u00f3ng g\u00f3i & Giao h\u00e0ng",
+          desc: "\u0110\u00f3ng g\u00f3i chu\u1ea9n qu\u1ed1c t\u1ebf, t\u00f9y ch\u1ec9nh theo y\u00eau c\u1ea7u v\u00e0 \u0111\u1ea3m b\u1ea3o an to\u00e0n.",
         },
       ],
     },
@@ -287,7 +287,7 @@ export const siteCopy = {
     },
 
     partnersHeading: {
-      en: "Our global partners",
+      en: "Our global markets",
       vi: "\u0110\u1ed1i t\u00e1c to\u00e0n c\u1ea7u",
     },
 
@@ -327,8 +327,8 @@ export const siteCopy = {
     timberTags: {
       en: [
         "FAS - First and Second",
-        "Com 1",
-        "Com 2",
+        "1 Com",
+        "2 Com",
         "Industrial Grade",
         "Millrun",
         "COL",
@@ -337,8 +337,8 @@ export const siteCopy = {
       ],
       vi: [
         "FAS - First and Second",
-        "Com 1",
-        "Com 2",
+        "1 Com",
+        "2 Com",
         "Industrial Grade",
         "Millrun",
         "COL",

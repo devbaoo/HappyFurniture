@@ -16,6 +16,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
   body {
@@ -24,6 +25,7 @@
     line-height: 1.72;
     font-weight: 400;
     letter-spacing: 0.005em;
+    overflow-x: hidden;
   }
 
   h1,
@@ -69,6 +71,25 @@
 @layer components {
   .container-grid {
     @apply grid grid-cols-12 gap-4;
+  }
+
+  .hero-video::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  .hero-video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+
+  .hero-video::-webkit-media-controls-panel {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  .hero-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
   }
 
   .nav-link {
