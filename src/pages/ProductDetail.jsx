@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ProductCard from "../components/ui/ProductCard";
 import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
@@ -94,8 +94,14 @@ const DetailSection = ({ title, children, first = false, className = "" }) => (
 
 const ProductDetail = () => {
   const { slug } = useParams();
+  // searchParams / navigate dùng cho ?color= fallback (nếu cần)
+  // eslint-disable-next-line no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
+  // productSlug lưu slug thực của product (không kèm variant)
+  const [productSlug, setProductSlug] = useState(slug);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImg, setActiveImg] = useState(0);
@@ -119,9 +125,20 @@ const ProductDetail = () => {
     if (!slug) return;
 
     productService
-      .getProductBySlug(slug)
-      .then((data) => {
+      .resolveSlug(slug)
+      .then(({ product: data, variantSlug }) => {
         setProduct(data);
+        setProductSlug(data.slug);
+
+        // Pre-select variant từ slug URL (variantSlug) hoặc chọn variant đầu tiên
+        const preSelected = variantSlug
+          ? (data.variants?.find((v) => v.slug === variantSlug && v.isActive)
+              ?? data.variants?.find((v) => v.slug === variantSlug)
+              ?? data.variants?.find((v) => v.isActive)
+              ?? data.variants?.[0]
+              ?? null)
+          : (data.variants?.find((v) => v.isActive) ?? data.variants?.[0] ?? null);
+        setSelectedVariant(preSelected);
         // Không chọn variant sẵn → gallery mặc định là ảnh product
         setSelectedVariant(null);
 
@@ -161,6 +178,35 @@ const ProductDetail = () => {
       )
     : [];
 
+  const handleSelectVariant = (variant) => {
+    setSelectedVariant(variant);
+    setActiveImg(0);
+    // Cập nhật URL: /product/{productSlug}-{variantSlug}
+    const base = productSlug || slug;
+    if (variant?.slug) {
+      navigate(`/product/${base}-${variant.slug}`, { replace: true });
+    } else {
+      navigate(`/product/${base}`, { replace: true });
+    }
+  };
+
+  // Ảnh của variant đang chọn (từ variant.images - ProductVariantImage)
+  const variantImages = selectedVariant?.images?.length > 0
+    ? [...selectedVariant.images].sort(
+        (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
+      )
+    : [];
+
+  // Nếu variant không có ProductVariantImage nhưng có imageUrl → dùng nó
+  const variantOwnImage =
+    selectedVariant?.imageUrl && variantImages.length === 0
+      ? [{
+          id: `v-${selectedVariant.id}`,
+          imageUrl: selectedVariant.imageUrl,
+          altText: selectedVariant.colorName,
+          isPrimary: true,
+          sortOrder: 0,
+        }]
   // Gallery: mặc định chỉ dùng ảnh product.
   // Khi chọn variant → chuyển HOÀN TOÀN sang ảnh của variant đó (không mix).
   const variantImages = selectedVariant?.images?.length
