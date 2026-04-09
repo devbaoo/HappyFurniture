@@ -256,8 +256,8 @@ export const siteCopy = {
           desc: "Professional design support from concept development to technical drawings and sample creation",
         },
         {
-          title: "Packaging and dispatch",
-          desc: "International-standard packaging solutions tailored to client requirements and shipping safety",
+          title: "Packaging & Dispatch",
+          desc: "Standard international packaging tailored for safety and client needs.",
         },
       ],
       vi: [
@@ -274,8 +274,8 @@ export const siteCopy = {
           desc: "H\u1ed7 tr\u1ee3 thi\u1ebft k\u1ebf chuy\u00ean nghi\u1ec7p t\u1eeb \u00fd t\u01b0\u1edfng \u0111\u1ebfn b\u1ea3n v\u1ebd k\u1ef9 thu\u1eadt v\u00e0 m\u1eabu th\u1eed",
         },
         {
-          title: "\u0110\u00f3ng g\u00f3i & g\u1eedi h\u00e0ng",
-          desc: "Gi\u1ea3i ph\u00e1p \u0111\u00f3ng g\u00f3i \u0111\u1ea1t chu\u1ea9n qu\u1ed1c t\u1ebf, ph\u00f9 h\u1ee3p y\u00eau c\u1ea7u kh\u00e1ch h\u00e0ng v\u00e0 an to\u00e0n v\u1eadn chuy\u1ec3n",
+          title: "\u0110\u00f3ng g\u00f3i & Giao h\u00e0ng",
+          desc: "\u0110\u00f3ng g\u00f3i chu\u1ea9n qu\u1ed1c t\u1ebf, t\u00f9y ch\u1ec9nh theo y\u00eau c\u1ea7u v\u00e0 \u0111\u1ea3m b\u1ea3o an to\u00e0n.",
         },
       ],
     },

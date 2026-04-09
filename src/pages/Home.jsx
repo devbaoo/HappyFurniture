@@ -527,14 +527,14 @@ const Home = () => {
               {featureColumns.map((item, index) => (
                 <div
                   key={`${item.title}-${index}`}
-                  className={`px-3 md:px-6 lg:px-7 2xl:px-10 py-3 md:py-5 lg:py-4 flex flex-col justify-center 2xl:h-full ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
+                  className={`px-3 md:px-6 lg:px-7 2xl:px-10 py-3 md:py-5 lg:py-4 flex flex-col items-center justify-start 2xl:h-full ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
                     } ${index % 2 === 0
                       ? "border-r md:border-r-0 border-[#c9c5be]"
                       : ""
                     }`}
                 >
                   <h3
-                    className="mb-1 md:mb-2 font-semibold lg:text-[16px] 2xl:text-[18px]"
+                    className="mb-0 min-h-[1.85rem] md:min-h-[2.1rem] font-semibold lg:text-[16px] 2xl:text-[18px] flex items-start justify-center text-center"
                     style={{
                       fontSize: "clamp(15px, 4vw, 18px)",
                       letterSpacing: "0.04em",
@@ -545,7 +545,7 @@ const Home = () => {
                   </h3>
 
                   <p
-                    className="leading-[1.5] md:leading-6 lg:leading-[1.58] 2xl:leading-6 font-medium lg:text-[12.5px] 2xl:text-[13.5px]"
+                    className="leading-[1.34] md:leading-[1.4] lg:leading-[1.42] 2xl:leading-[1.42] font-medium lg:text-[12.5px] 2xl:text-[13.5px]"
                     style={{
                       fontSize: "clamp(12px, 3vw, 13.5px)",
                       color: "#4a4742",
