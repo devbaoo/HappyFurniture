@@ -60,8 +60,8 @@ export const siteCopy = {
       en: "Reach out for product catalogs, specifications, or partnership inquiries. Our team will respond as soon as possible.",
       vi: "Li\u00ean h\u1ec7 \u0111\u1ec3 nh\u1eadn catalog, th\u00f4ng s\u1ed1 k\u1ef9 thu\u1eadt ho\u1eb7c trao \u0111\u1ed5i h\u1ee3p t\u00e1c. \u0110\u1ed9i ng\u0169 c\u1ee7a ch\u00fang t\u00f4i s\u1ebd ph\u1ea3n h\u1ed3i trong th\u1eddi gian s\u1edbm nh\u1ea5t.",
     },
-    contactMs: { en: "Uyen Tran (Ms.)", vi: "Uy\u00ean Tr\u1ea7n" },
-    contactMr: { en: "THANG NGUYEN (MR.)", vi: "Th\u1eafng Nguy\u1ec5n" },
+    contactMs: { en: "Uyen Tran (Ms.)", vi: "UY\u00caN TR\u1ea6N" },
+    contactMr: { en: "THANG NGUYEN (MR.)", vi: "TH\u1eaeNG NGUY\u1ec4N" },
     errors: {
       nameRequired: { en: "Please enter your name", vi: "Vui l\u00f2ng nh\u1eadp h\u1ecd t\u00ean" },
       nameTooLong: { en: "Name must be at most 100 characters", vi: "H\u1ecd t\u00ean t\u1ed1i \u0111a 100 k\u00fd t\u1ef1" },

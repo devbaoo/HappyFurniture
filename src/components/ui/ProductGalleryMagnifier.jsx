@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const ZOOM_BG_SIZE_PCT = 260;
 /** Lens size relative to main image container. */
 const LENS_PCT = 34;
+/** Additional zoom level when the lightbox image is clicked. */
+const LIGHTBOX_ZOOM_SCALE = 2;
 
 /**
  * Thumbnails + main image with hover magnifier + zoom result panel (desktop).
@@ -21,9 +23,21 @@ const ProductGalleryMagnifier = ({
   onSelectVariant = null,
 }) => {
   const containerRef = useRef(null);
+  const lightboxImageRef = useRef(null);
+  const dragStateRef = useRef({
+    pointerId: null,
+    startX: 0,
+    startY: 0,
+    originX: 0,
+    originY: 0,
+    moved: false,
+  });
   const [zoomActive, setZoomActive] = useState(false);
   const [pos, setPos] = useState({ x: 50, y: 50 });
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxZoomed, setLightboxZoomed] = useState(false);
+  const [lightboxOffset, setLightboxOffset] = useState({ x: 0, y: 0 });
+  const [isDraggingLightbox, setIsDraggingLightbox] = useState(false);
 
   const sorted = images;
   const n = sorted.length;
@@ -46,6 +60,22 @@ const ProductGalleryMagnifier = ({
   };
 
   const defaultThumb = productImages[0]?.imageUrl ?? null;
+
+  const clampLightboxOffset = useCallback((x, y) => {
+    const img = lightboxImageRef.current;
+
+    if (!img || !lightboxZoomed) {
+      return { x: 0, y: 0 };
+    }
+
+    const maxX = Math.max(0, (img.offsetWidth * (LIGHTBOX_ZOOM_SCALE - 1)) / 2);
+    const maxY = Math.max(0, (img.offsetHeight * (LIGHTBOX_ZOOM_SCALE - 1)) / 2);
+
+    return {
+      x: Math.max(-maxX, Math.min(maxX, x)),
+      y: Math.max(-maxY, Math.min(maxY, y)),
+    };
+  }, [lightboxZoomed]);
 
   const handleMove = useCallback(
     (e) => {
@@ -72,16 +102,26 @@ const ProductGalleryMagnifier = ({
     setZoomActive(false);
   }, []);
 
-  const openLightbox = useCallback(() => {
-    if (current) setLightboxOpen(true);
-  }, [current]);
+  const openLightbox = () => {
+    if (current) {
+      setLightboxZoomed(false);
+      setLightboxOffset({ x: 0, y: 0 });
+      setLightboxOpen(true);
+    }
+  };
 
-  const closeLightbox = useCallback(() => {
+  const closeLightbox = () => {
+    setLightboxZoomed(false);
+    setLightboxOffset({ x: 0, y: 0 });
+    setIsDraggingLightbox(false);
     setLightboxOpen(false);
-  }, []);
+  };
 
   const go = (delta) => {
     if (!canNavigate) return;
+    setLightboxZoomed(false);
+    setLightboxOffset({ x: 0, y: 0 });
+    setIsDraggingLightbox(false);
     onActiveIndexChange((i) => (i + delta + n) % n);
   };
 
@@ -90,6 +130,8 @@ const ProductGalleryMagnifier = ({
 
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
+        setLightboxZoomed(false);
+        setLightboxOffset({ x: 0, y: 0 });
         setLightboxOpen(false);
         return;
       }
@@ -97,10 +139,12 @@ const ProductGalleryMagnifier = ({
       if (!canNavigate) return;
 
       if (event.key === "ArrowLeft") {
+        setLightboxZoomed(false);
         onActiveIndexChange((i) => (i - 1 + n) % n);
       }
 
       if (event.key === "ArrowRight") {
+        setLightboxZoomed(false);
         onActiveIndexChange((i) => (i + 1) % n);
       }
     };
@@ -114,6 +158,82 @@ const ProductGalleryMagnifier = ({
     };
   }, [canNavigate, lightboxOpen, n, onActiveIndexChange]);
 
+  useEffect(() => {
+    if (!lightboxOpen) return undefined;
+
+    const handleResize = () => {
+      setLightboxOffset((prev) => clampLightboxOffset(prev.x, prev.y));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [clampLightboxOffset, lightboxOpen]);
+
+  const handleLightboxPointerDown = (event) => {
+    if (!lightboxZoomed) return;
+
+    dragStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: lightboxOffset.x,
+      originY: lightboxOffset.y,
+      moved: false,
+    };
+    setIsDraggingLightbox(true);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handleLightboxPointerMove = (event) => {
+    if (
+      !lightboxZoomed ||
+      !isDraggingLightbox ||
+      dragStateRef.current.pointerId !== event.pointerId
+    ) {
+      return;
+    }
+
+    const nextX =
+      dragStateRef.current.originX + (event.clientX - dragStateRef.current.startX);
+    const nextY =
+      dragStateRef.current.originY + (event.clientY - dragStateRef.current.startY);
+
+    if (
+      !dragStateRef.current.moved &&
+      (Math.abs(event.clientX - dragStateRef.current.startX) > 3 ||
+        Math.abs(event.clientY - dragStateRef.current.startY) > 3)
+    ) {
+      dragStateRef.current.moved = true;
+    }
+
+    setLightboxOffset(clampLightboxOffset(nextX, nextY));
+  };
+
+  const handleLightboxPointerEnd = (event) => {
+    if (dragStateRef.current.pointerId !== event.pointerId) return;
+
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    dragStateRef.current.pointerId = null;
+    setIsDraggingLightbox(false);
+  };
+
+  const handleLightboxImageClick = () => {
+    if (dragStateRef.current.moved) {
+      dragStateRef.current.moved = false;
+      return;
+    }
+
+    if (lightboxZoomed) {
+      setLightboxZoomed(false);
+      setLightboxOffset({ x: 0, y: 0 });
+      setIsDraggingLightbox(false);
+      return;
+    }
+
+    setLightboxOffset({ x: 0, y: 0 });
+    setLightboxZoomed(true);
+  };
+
   return (
     <div className="flex min-w-0 flex-row items-start gap-1 overflow-visible lg:gap-3">
       {canNavigate && (
@@ -126,8 +246,8 @@ const ProductGalleryMagnifier = ({
                   type="button"
                   onClick={() => onActiveIndexChange(i)}
                   className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-14 lg:w-14 xl:h-16 xl:w-16 ${isActive
-                      ? "border-stone-900 opacity-100"
-                      : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
+                    ? "border-stone-900 opacity-100"
+                    : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
                     }`}
                   aria-label={`View image ${i + 1}`}
                   aria-current={isActive ? "true" : undefined}
@@ -254,8 +374,8 @@ const ProductGalleryMagnifier = ({
         {showColorBar && (
           <div
             className={`w-full border-t-2 border-[#3c4a28] pt-3 mt-3 lg:mt-4 ${canNavigate
-                ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
-                : ""
+              ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
+              : ""
               }`}
           >
             <div className="flex flex-wrap items-center gap-2">
@@ -267,8 +387,8 @@ const ProductGalleryMagnifier = ({
                   aria-label="View default product images"
                   onClick={() => onSelectVariant(null)}
                   className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selectedVariant === null
-                      ? "border-primary ring-1 ring-primary ring-offset-1"
-                      : "border-border hover:border-secondary"
+                    ? "border-primary ring-1 ring-primary ring-offset-1"
+                    : "border-border hover:border-secondary"
                     }`}
                 >
                   <img
@@ -291,8 +411,8 @@ const ProductGalleryMagnifier = ({
                     aria-label={v.colorName}
                     onClick={() => onSelectVariant(v)}
                     className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selected
-                        ? "border-primary ring-1 ring-primary ring-offset-1"
-                        : "border-border hover:border-secondary"
+                      ? "border-primary ring-1 ring-primary ring-offset-1"
+                      : "border-border hover:border-secondary"
                       }`}
                     style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
                   >
@@ -343,14 +463,45 @@ const ProductGalleryMagnifier = ({
           )}
 
           <div
-            className="relative flex max-h-full w-full max-w-6xl items-center justify-center"
+            className="relative flex max-h-full w-full max-w-6xl items-center justify-center overflow-auto"
             onClick={(event) => event.stopPropagation()}
           >
-            <img
-              src={current.imageUrl}
-              alt={current.altText || productName}
-              className="max-h-[88vh] w-auto max-w-full object-contain"
-            />
+            <button
+              type="button"
+              onClick={handleLightboxImageClick}
+              onPointerDown={handleLightboxPointerDown}
+              onPointerMove={handleLightboxPointerMove}
+              onPointerUp={handleLightboxPointerEnd}
+              onPointerCancel={handleLightboxPointerEnd}
+              onPointerLeave={handleLightboxPointerEnd}
+              className={`flex items-center justify-center bg-transparent p-0 ${lightboxZoomed
+                  ? isDraggingLightbox
+                    ? "cursor-grabbing"
+                    : "cursor-grab"
+                  : "cursor-zoom-in"
+                }`}
+              aria-label={
+                lightboxZoomed ? "Zoom out preview image" : "Zoom in preview image"
+              }
+              style={{ touchAction: lightboxZoomed ? "none" : "auto" }}
+            >
+              <img
+                ref={lightboxImageRef}
+                src={current.imageUrl}
+                alt={current.altText || productName}
+                draggable={false}
+                className="max-h-[88vh] w-auto max-w-full select-none object-contain transition-transform duration-300 ease-out"
+                style={{
+                  transform: lightboxZoomed
+                    ? `translate(${lightboxOffset.x}px, ${lightboxOffset.y}px) scale(${LIGHTBOX_ZOOM_SCALE})`
+                    : "translate(0px, 0px) scale(1)",
+                  transformOrigin: "center center",
+                }}
+              />
+            </button>
+            <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-white/90">
+              {lightboxZoomed ? "Drag to move • click to zoom out" : "Click image to zoom in"}
+            </span>
           </div>
 
           {canNavigate && (
