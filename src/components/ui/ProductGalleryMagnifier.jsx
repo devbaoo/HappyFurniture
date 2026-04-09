@@ -115,9 +115,9 @@ const ProductGalleryMagnifier = ({
   }, [canNavigate, lightboxOpen, n, onActiveIndexChange]);
 
   return (
-    <div className="flex min-w-0 flex-row gap-1 overflow-visible lg:gap-2">
+    <div className="flex min-w-0 flex-row items-start gap-1 overflow-visible lg:gap-3">
       {canNavigate && (
-        <div className="flex w-14 shrink-0 flex-col gap-1 lg:w-16 lg:gap-2">
+        <div className="flex w-14 shrink-0 flex-col gap-1 lg:w-14 lg:gap-1.5 xl:w-16 xl:gap-2">
           {sorted.map((img, i) => {
             const isActive = activeIndex === i;
             return (
@@ -125,27 +125,24 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => onActiveIndexChange(i)}
-                  className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-16 lg:w-16 ${
-                    isActive
+                  className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-14 lg:w-14 xl:h-16 xl:w-16 ${isActive
                       ? "border-stone-900 opacity-100"
                       : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
-                  }`}
+                    }`}
                   aria-label={`View image ${i + 1}`}
                   aria-current={isActive ? "true" : undefined}
                 >
                   <img
                     src={img.imageUrl}
                     alt={img.altText || productName}
-                    className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${
-                      isActive ? "" : "blur-[0.85px]"
-                    }`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${isActive ? "" : "blur-[0.85px]"
+                      }`}
                   />
                 </button>
                 <div
                   aria-hidden
-                  className={`h-[3px] w-full shrink-0 transition-colors duration-300 ${
-                    isActive ? "bg-stone-900" : "bg-transparent"
-                  }`}
+                  className={`h-[3px] w-full shrink-0 transition-colors duration-300 ${isActive ? "bg-stone-900" : "bg-transparent"
+                    }`}
                 />
               </div>
             );
@@ -154,10 +151,10 @@ const ProductGalleryMagnifier = ({
       )}
 
       <div className="relative flex min-w-0 flex-1 flex-col overflow-visible">
-        <div className="relative w-full">
+        <div className="relative w-full lg:max-w-[32rem] xl:max-w-[36rem]">
           <div
             ref={containerRef}
-            className="group/main relative aspect-square w-full cursor-zoom-in overflow-hidden bg-surface lg:cursor-crosshair"
+            className="group/main relative aspect-square w-full cursor-zoom-in overflow-hidden bg-surface lg:h-[min(52svh,30rem)] lg:w-full lg:aspect-auto lg:cursor-crosshair xl:h-[min(58svh,34rem)]"
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
             onMouseMove={handleMove}
@@ -224,9 +221,8 @@ const ProductGalleryMagnifier = ({
                   {sorted.map((_, i) => (
                     <div
                       key={i}
-                      className={`h-0.5 flex-1 rounded-full transition-colors ${
-                        i === activeIndex ? "bg-stone-800" : "bg-white/60"
-                      }`}
+                      className={`h-0.5 flex-1 rounded-full transition-colors ${i === activeIndex ? "bg-stone-800" : "bg-white/60"
+                        }`}
                     />
                   ))}
                 </div>
@@ -257,11 +253,10 @@ const ProductGalleryMagnifier = ({
 
         {showColorBar && (
           <div
-            className={`w-full border-t-2 border-[#3c4a28] pt-3 mt-3 lg:mt-4 ${
-              canNavigate
+            className={`w-full border-t-2 border-[#3c4a28] pt-3 mt-3 lg:mt-4 ${canNavigate
                 ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
                 : ""
-            }`}
+              }`}
           >
             <div className="flex flex-wrap items-center gap-2">
               {/* Ô Default: hiển thị bộ ảnh product gốc */}
@@ -271,11 +266,10 @@ const ProductGalleryMagnifier = ({
                   title="Default"
                   aria-label="View default product images"
                   onClick={() => onSelectVariant(null)}
-                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
-                    selectedVariant === null
+                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selectedVariant === null
                       ? "border-primary ring-1 ring-primary ring-offset-1"
                       : "border-border hover:border-secondary"
-                  }`}
+                    }`}
                 >
                   <img
                     src={defaultThumb}
@@ -296,11 +290,10 @@ const ProductGalleryMagnifier = ({
                     title={v.colorName}
                     aria-label={v.colorName}
                     onClick={() => onSelectVariant(v)}
-                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
-                      selected
+                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selected
                         ? "border-primary ring-1 ring-primary ring-offset-1"
                         : "border-border hover:border-secondary"
-                    }`}
+                      }`}
                     style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
                   >
                     {thumb && (
