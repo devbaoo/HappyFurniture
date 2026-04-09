@@ -22,6 +22,8 @@ const Contact = () => {
   const L = t.labels;
   const P = t.placeholders;
   const E = t.errors;
+  const contactMsName = lang === "vi" ? "UYÊN TRẦN" : "Uyen Tran (Ms.)";
+  const contactMrName = lang === "vi" ? "THẮNG NGUYỄN" : "THANG NGUYEN (MR.)";
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
@@ -301,8 +303,8 @@ const Contact = () => {
               {t.intro[lang]}
             </p>
             <div className="lg:-translate-y-[36px] lg:relative lg:-top-3">
-              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:top-[18px]">
-                {t.contactMs[lang]}
+              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] lg:relative lg:top-[18px]">
+                {contactMsName}
               </h3>
               <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[17px] lg:translate-x-[2px] lg:w-[462.203px] lg:h-[120.172px]">
                 <div className="flex items-center gap-2 lg:relative lg:top-[23px]">
@@ -362,8 +364,8 @@ const Contact = () => {
             </div>
             <div className="lg:-translate-y-[44px] lg:relative lg:-top-[55px]">
               <div className="border-t border-stone-300 my-5 lg:relative lg:top-[10px]"></div>
-              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] uppercase lg:relative lg:-top-[10px]">
-                {t.contactMr[lang]}
+              <h3 className="text-base lg:text-[17px] font-semibold text-[#3c4a28] mb-3 font-sans tracking-[0.12em] lg:relative lg:-top-[10px]">
+                {contactMrName}
               </h3>
               <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[21px]">
                 <div className="flex items-center gap-2 lg:relative lg:-top-[2px] lg:-left-[1px]">
@@ -438,8 +440,8 @@ const Contact = () => {
         </p>
         <div className="grid grid-cols-2 gap-3 sm:gap-8">
           <div className="min-w-0 overflow-hidden">
-            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em] uppercase">
-              {t.contactMs[lang]}
+            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]">
+              {contactMsName}
             </h3>
             <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
               <div className="flex items-center gap-1">
@@ -502,8 +504,8 @@ const Contact = () => {
             </div>
           </div>
           <div className="min-w-0 overflow-hidden">
-            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em] uppercase">
-              {t.contactMr[lang]}
+            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]">
+              {contactMrName}
             </h3>
             <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
               <div className="flex items-center gap-1">
@@ -521,10 +523,10 @@ const Contact = () => {
                   ></path>
                 </svg>
                 <a
-                  href="mailto:colin.phan@happyfurniturenvn.com"
+                  href="mailto:service03@happyfurniturevn.com"
                   className="text-gray-900 hover:text-black transition-colors text-[8px] sm:text-[10px] whitespace-nowrap overflow-hidden text-ellipsis min-w-0 block"
                 >
-                  colin.phan@happyfurniturenvn.com
+                  service03@happyfurniturevn.com
                 </a>
               </div>
               <div className="flex items-center gap-1">

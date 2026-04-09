@@ -113,11 +113,11 @@ const Header = () => {
         }`}
       />
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
-      <div className="relative mx-auto max-w-[1800px] px-2 md:px-10 w-full">
+      <div className="relative mx-auto max-w-[1800px] px-2 lg:px-10 w-full">
         <div
-          className={`flex items-center md:items-end justify-between relative transition-all duration-300 ${
-            isScrolled ? "py-3 md:py-4" : "py-4 md:py-6"
-          } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] md:mx-0 md:px-0 md:bg-transparent" : ""}`}
+          className={`flex items-center lg:items-end justify-between relative transition-all duration-300 ${
+            isScrolled ? "py-3 lg:py-4" : "py-4 lg:py-6"
+          } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] lg:mx-0 lg:px-0 lg:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -322,10 +322,10 @@ const Header = () => {
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
-        <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
+        <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:block">
           <ul
             className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${
-              isScrolled ? "gap-10 pb-3" : "gap-12 pb-4"
+              isScrolled ? "gap-2 lg:gap-3 xl:gap-10 pb-3" : "gap-2 lg:gap-4 xl:gap-12 pb-4"
             }`}
           >
             {NAV_LEFT.map(({ to, label, end }) => (
@@ -360,7 +360,7 @@ const Header = () => {
 
         {/* ── Mobile drawer ────────────────────────────────────── */}
         {pathname !== "/" && (
-          <div className="mx-auto max-w-[1800px] px-10 w-full hidden md:block">
+          <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:block">
             <div className="h-px w-full bg-stone-400" />
           </div>
         )}
