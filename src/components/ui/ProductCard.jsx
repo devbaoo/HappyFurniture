@@ -79,23 +79,23 @@ const ProductCard = ({
             <button
               type="button"
               onClick={(e) => go(e, -1)}
-              className="absolute left-0 top-1/2 z-20 flex h-10 w-6 -translate-y-1/2 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/image:opacity-100"
+              className="absolute left-0 top-1/2 z-20 flex h-8 w-6 -translate-y-1/2 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/image:opacity-100"
               aria-label="Previous image"
             >
               <ChevronLeft
-                className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
-                strokeWidth={2}
+                className="h-5 w-5 text-[#3c4a28] drop-shadow-[0_1px_3px_rgba(255,255,255,0.8)]"
+                strokeWidth={2.5}
               />
             </button>
             <button
               type="button"
               onClick={(e) => go(e, 1)}
-              className="absolute right-0 top-1/2 z-20 flex h-10 w-6 -translate-y-1/2 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/image:opacity-100"
+              className="absolute right-0 top-1/2 z-20 flex h-8 w-6 -translate-y-1/2 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/image:opacity-100"
               aria-label="Next image"
             >
               <ChevronRight
-                className="h-4 w-4 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
-                strokeWidth={2}
+                className="h-5 w-5 text-[#3c4a28] drop-shadow-[0_1px_3px_rgba(255,255,255,0.8)]"
+                strokeWidth={2.5}
               />
             </button>
             <div
@@ -122,21 +122,21 @@ const ProductCard = ({
             e.stopPropagation();
             onToggleFavorite?.({ id, name, images });
           }}
-          className={`absolute top-1.5 right-1.5 z-20 flex h-[36px] w-[36px] items-center justify-center rounded-full border transition-all duration-200 md:border-transparent ${
+          className={`absolute top-2 right-2 z-20 flex h-[34px] w-[34px] items-center justify-center rounded-full shadow-md transition-all duration-200 md:opacity-0 md:group-hover:opacity-100 ${
             isFavorited
-              ? "border-[#3c4a28] bg-white/95 opacity-100"
-              : "border-white/85 bg-white/15 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+              ? "bg-[#3c4a28] opacity-100"
+              : "bg-[#3c4a28]/80 opacity-100 hover:bg-[#3c4a28]"
           }`}
           aria-label={
             isFavorited ? "Remove from Quote List" : "Add to Quote List"
           }
         >
           <svg
-            className={`h-[24px] w-[24px] drop-shadow-sm transition-colors duration-200 ${isFavorited ? "text-[#3c4a28]" : "text-white"}`}
+            className="h-[18px] w-[18px] text-white transition-colors duration-200"
             viewBox="0 0 24 24"
             fill={isFavorited ? "currentColor" : "none"}
-            stroke={isFavorited ? "none" : "currentColor"}
-            strokeWidth={1.7}
+            stroke="currentColor"
+            strokeWidth={2}
           >
             <path
               strokeLinecap="round"
