@@ -110,7 +110,7 @@ export const siteCopy = {
     },
     aboutBody: {
       en: [
-        "Founded in 2005, Happy Furniture is a premier Vietnam-based manufacturer specializing in knock-down (KD) wooden furniture. We focus on mid- to high-end indoor collections\u2014including dining, bedroom, and living room furniture\u2014for international brands and retailers.",
+        "Founded in 2005, Happy Furniture is a premier Vietnam-based manufacturer specializing in knock-down (KD) wooden furniture. We focus on mid to high-end indoor collections\u2014including dining, bedroom, and living room furniture\u2014for international brands and retailers.",
         "Beyond finished products, we supply a wide variety of high-quality wood materials to support our partners' sourcing needs. By combining skilled craftsmanship with efficient production and rigorous quality control, we deliver consistent excellence at competitive prices.",
         "Today, Happy Furniture is recognized as a leading KD furniture manufacturer, proudly exporting to the US, UK, Ireland, Italy, Australia, and other global markets.",
       ],
@@ -287,7 +287,7 @@ export const siteCopy = {
     },
 
     partnersHeading: {
-      en: "Our global partners",
+      en: "Our global markets",
       vi: "\u0110\u1ed1i t\u00e1c to\u00e0n c\u1ea7u",
     },
 
@@ -327,8 +327,8 @@ export const siteCopy = {
     timberTags: {
       en: [
         "FAS - First and Second",
-        "Com 1",
-        "Com 2",
+        "1 Com",
+        "2 Com",
         "Industrial Grade",
         "Millrun",
         "COL",
@@ -337,8 +337,8 @@ export const siteCopy = {
       ],
       vi: [
         "FAS - First and Second",
-        "Com 1",
-        "Com 2",
+        "1 Com",
+        "2 Com",
         "Industrial Grade",
         "Millrun",
         "COL",
