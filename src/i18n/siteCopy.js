@@ -222,7 +222,7 @@ export const siteCopy = {
       vi: "Ch\u00fang t\u00f4i \u0111\u01b0\u1ee3c bi\u1ebft \u0111\u1ebfn l\u00e0 m\u1ed9t trong nh\u1eefng nh\u00e0 s\u1ea3n xu\u1ea5t KD",
     },
     promoLineDesktop2: {
-      en: "KD manufacturers in Vietnam.",
+      en: "KD manufacturers in Vietnam",
       vi: "h\u00e0ng \u0111\u1ea7u t\u1ea1i Vi\u1ec7t Nam.",
     },
 

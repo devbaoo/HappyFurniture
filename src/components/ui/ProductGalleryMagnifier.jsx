@@ -7,6 +7,7 @@ const ZOOM_BG_SIZE_PCT = 260;
 const LENS_PCT = 34;
 /** Additional zoom level when the lightbox image is clicked. */
 const LIGHTBOX_ZOOM_SCALE = 2;
+const DESKTOP_MEDIA_QUERY = "(min-width: 1024px)";
 
 /**
  * Thumbnails + main image with hover magnifier + zoom result panel (desktop).
@@ -38,6 +39,10 @@ const ProductGalleryMagnifier = ({
   const [lightboxZoomed, setLightboxZoomed] = useState(false);
   const [lightboxOffset, setLightboxOffset] = useState({ x: 0, y: 0 });
   const [isDraggingLightbox, setIsDraggingLightbox] = useState(false);
+  const [isDesktopViewport, setIsDesktopViewport] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches;
+  });
 
   const sorted = images;
   const n = sorted.length;
@@ -106,6 +111,7 @@ const ProductGalleryMagnifier = ({
     if (current) {
       setLightboxZoomed(false);
       setLightboxOffset({ x: 0, y: 0 });
+      setIsDraggingLightbox(false);
       setLightboxOpen(true);
     }
   };
@@ -124,6 +130,25 @@ const ProductGalleryMagnifier = ({
     setIsDraggingLightbox(false);
     onActiveIndexChange((i) => (i + delta + n) % n);
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
+    const handleChange = (event) => {
+      setIsDesktopViewport(event.matches);
+      if (!event.matches) {
+        setLightboxZoomed(false);
+        setLightboxOffset({ x: 0, y: 0 });
+        setIsDraggingLightbox(false);
+      }
+    };
+
+    setIsDesktopViewport(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
     if (!lightboxOpen) return undefined;
@@ -170,7 +195,7 @@ const ProductGalleryMagnifier = ({
   }, [clampLightboxOffset, lightboxOpen]);
 
   const handleLightboxPointerDown = (event) => {
-    if (!lightboxZoomed) return;
+    if (!isDesktopViewport || !lightboxZoomed) return;
 
     dragStateRef.current = {
       pointerId: event.pointerId,
@@ -186,6 +211,7 @@ const ProductGalleryMagnifier = ({
 
   const handleLightboxPointerMove = (event) => {
     if (
+      !isDesktopViewport ||
       !lightboxZoomed ||
       !isDraggingLightbox ||
       dragStateRef.current.pointerId !== event.pointerId
@@ -210,6 +236,7 @@ const ProductGalleryMagnifier = ({
   };
 
   const handleLightboxPointerEnd = (event) => {
+    if (!isDesktopViewport) return;
     if (dragStateRef.current.pointerId !== event.pointerId) return;
 
     event.currentTarget.releasePointerCapture?.(event.pointerId);
@@ -218,6 +245,8 @@ const ProductGalleryMagnifier = ({
   };
 
   const handleLightboxImageClick = () => {
+    if (!isDesktopViewport) return;
+
     if (dragStateRef.current.moved) {
       dragStateRef.current.moved = false;
       return;
@@ -245,24 +274,27 @@ const ProductGalleryMagnifier = ({
                 <button
                   type="button"
                   onClick={() => onActiveIndexChange(i)}
-                  className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-14 lg:w-14 xl:h-16 xl:w-16 ${isActive
-                    ? "border-stone-900 opacity-100"
-                    : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
-                    }`}
+                  className={`relative block h-14 w-14 shrink-0 overflow-hidden border-2 bg-surface transition-all duration-300 lg:h-14 lg:w-14 xl:h-16 xl:w-16 ${
+                    isActive
+                      ? "border-stone-900 opacity-100"
+                      : "border-border opacity-[0.38] hover:border-stone-400 hover:opacity-[0.72]"
+                  }`}
                   aria-label={`View image ${i + 1}`}
                   aria-current={isActive ? "true" : undefined}
                 >
                   <img
                     src={img.imageUrl}
                     alt={img.altText || productName}
-                    className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${isActive ? "" : "blur-[0.85px]"
-                      }`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${
+                      isActive ? "" : "blur-[0.85px]"
+                    }`}
                   />
                 </button>
                 <div
                   aria-hidden
-                  className={`h-[3px] w-full shrink-0 transition-colors duration-300 ${isActive ? "bg-stone-900" : "bg-transparent"
-                    }`}
+                  className={`h-[3px] w-full shrink-0 transition-colors duration-300 ${
+                    isActive ? "bg-stone-900" : "bg-transparent"
+                  }`}
                 />
               </div>
             );
@@ -341,8 +373,9 @@ const ProductGalleryMagnifier = ({
                   {sorted.map((_, i) => (
                     <div
                       key={i}
-                      className={`h-0.5 flex-1 rounded-full transition-colors ${i === activeIndex ? "bg-stone-800" : "bg-white/60"
-                        }`}
+                      className={`h-0.5 flex-1 rounded-full transition-colors ${
+                        i === activeIndex ? "bg-stone-800" : "bg-white/60"
+                      }`}
                     />
                   ))}
                 </div>
@@ -373,23 +406,24 @@ const ProductGalleryMagnifier = ({
 
         {showColorBar && (
           <div
-            className={`w-full border-t-2 border-[#3c4a28] pt-3 mt-3 lg:mt-4 ${canNavigate
-              ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
-              : ""
-              }`}
+            className={`mt-3 w-full border-t-2 border-[#3c4a28] pt-3 lg:mt-4 ${
+              canNavigate
+                ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
+                : ""
+            }`}
           >
             <div className="flex flex-wrap items-center gap-2">
-              {/* Ô Default: hiển thị bộ ảnh product gốc */}
               {defaultThumb && (
                 <button
                   type="button"
                   title="Default"
                   aria-label="View default product images"
                   onClick={() => onSelectVariant(null)}
-                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selectedVariant === null
-                    ? "border-primary ring-1 ring-primary ring-offset-1"
-                    : "border-border hover:border-secondary"
-                    }`}
+                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
+                    selectedVariant === null
+                      ? "border-primary ring-1 ring-primary ring-offset-1"
+                      : "border-border hover:border-secondary"
+                  }`}
                 >
                   <img
                     src={defaultThumb}
@@ -399,7 +433,6 @@ const ProductGalleryMagnifier = ({
                 </button>
               )}
 
-              {/* Các variant */}
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
                 const thumb = variantThumb(v);
@@ -410,10 +443,11 @@ const ProductGalleryMagnifier = ({
                     title={v.colorName}
                     aria-label={v.colorName}
                     onClick={() => onSelectVariant(v)}
-                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${selected
-                      ? "border-primary ring-1 ring-primary ring-offset-1"
-                      : "border-border hover:border-secondary"
-                      }`}
+                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
+                      selected
+                        ? "border-primary ring-1 ring-primary ring-offset-1"
+                        : "border-border hover:border-secondary"
+                    }`}
                     style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
                   >
                     {thumb && (
@@ -474,16 +508,26 @@ const ProductGalleryMagnifier = ({
               onPointerUp={handleLightboxPointerEnd}
               onPointerCancel={handleLightboxPointerEnd}
               onPointerLeave={handleLightboxPointerEnd}
-              className={`flex items-center justify-center bg-transparent p-0 ${lightboxZoomed
+              className={`flex items-center justify-center bg-transparent p-0 ${
+                lightboxZoomed
                   ? isDraggingLightbox
                     ? "cursor-grabbing"
                     : "cursor-grab"
-                  : "cursor-zoom-in"
-                }`}
+                  : isDesktopViewport
+                    ? "cursor-zoom-in"
+                    : "cursor-default"
+              }`}
               aria-label={
-                lightboxZoomed ? "Zoom out preview image" : "Zoom in preview image"
+                isDesktopViewport
+                  ? lightboxZoomed
+                    ? "Zoom out preview image"
+                    : "Zoom in preview image"
+                  : "Preview image"
               }
-              style={{ touchAction: lightboxZoomed ? "none" : "auto" }}
+              style={{
+                touchAction:
+                  isDesktopViewport && lightboxZoomed ? "none" : "auto",
+              }}
             >
               <img
                 ref={lightboxImageRef}
@@ -499,9 +543,13 @@ const ProductGalleryMagnifier = ({
                 }}
               />
             </button>
-            <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-white/90">
-              {lightboxZoomed ? "Drag to move • click to zoom out" : "Click image to zoom in"}
-            </span>
+            {isDesktopViewport && (
+              <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-white/90">
+                {lightboxZoomed
+                  ? "Drag to move - click to zoom out"
+                  : "Click image to zoom in"}
+              </span>
+            )}
           </div>
 
           {canNavigate && (

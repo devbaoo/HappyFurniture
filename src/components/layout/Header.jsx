@@ -21,10 +21,9 @@ const StaticNavItem = ({ to, label, end, isDark, onNavigate }) => (
       className={`
         text-[12px] tracking-[0.18em] uppercase pb-1
         transition-colors duration-200
-        ${
-          isDark
-            ? "text-white/80 hover:text-white"
-            : "text-stone-600 hover:text-[#3c4a28]"
+        ${isDark
+          ? "text-white/80 hover:text-white"
+          : "text-stone-600 hover:text-[#3c4a28]"
         }
       `}
     >
@@ -106,24 +105,22 @@ const Header = () => {
       className="fixed top-0 left-0 w-full z-50"
     >
       <div
-        className={`absolute inset-0 transition-opacity duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          useLightHeader
-            ? "opacity-100 bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
-            : "opacity-0 bg-white"
-        }`}
+        className={`absolute inset-0 transition-opacity duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader
+          ? "opacity-100 bg-white/95 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+          : "opacity-0 bg-white"
+          }`}
       />
       {/* ── Top bar: search / logo / flags ─────────────────────── */}
       <div className="relative mx-auto max-w-[1800px] px-2 lg:px-10 w-full">
         <div
-          className={`flex items-center lg:items-end justify-between relative transition-all duration-300 ${
-            isScrolled ? "py-3 lg:py-4" : "py-4 lg:py-6"
-          } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] lg:mx-0 lg:px-0 lg:bg-transparent" : ""}`}
+          className={`flex items-center lg:items-end justify-between relative transition-all duration-300 ${isScrolled ? "py-3 lg:py-4" : "py-4 lg:py-6"
+            } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] lg:mx-0 lg:px-0 lg:bg-transparent" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
-            {/* Mobile hamburger */}
+            {/* Mobile hamburger - show on mobile and tablet portrait, hide on tablet landscape and desktop */}
             <button
-              className={`md:hidden p-2 -ml-1 transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "text-stone-700" : "text-white"}`}
+              className={`md:landscape:hidden p-2 -ml-1 transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "text-stone-700" : "text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={
                 mobileOpen
@@ -138,12 +135,11 @@ const Header = () => {
               )}
             </button>
 
-            {/* Search — desktop only */}
-            <div className="hidden md:block w-full">
+            {/* Search — desktop and tablet landscape only */}
+            <div className="hidden md:landscape:block w-full">
               <div
-                className={`flex items-center h-[38px] border px-4 gap-2 ${
-                  useLightHeader ? "border-stone-300" : "border-white/50"
-                }`}
+                className={`flex items-center h-[38px] border px-4 gap-2 ${useLightHeader ? "border-stone-300" : "border-white/50"
+                  }`}
               >
                 <svg
                   className={`w-4 h-4 shrink-0 transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader ? "text-stone-400" : "text-white/70"}`}
@@ -171,11 +167,10 @@ const Header = () => {
                       setSearchQuery("");
                     }
                   }}
-                  className={`bg-transparent text-[12px] w-full outline-none transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    useLightHeader
-                      ? "placeholder-stone-400 text-stone-700"
-                      : "placeholder-white/70 text-white"
-                  }`}
+                  className={`bg-transparent text-[12px] w-full outline-none transition-colors duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${useLightHeader
+                    ? "placeholder-stone-400 text-stone-700"
+                    : "placeholder-white/70 text-white"
+                    }`}
                 />
               </div>
             </div>
@@ -187,9 +182,8 @@ const Header = () => {
               <img
                 src="/images/logo-brown.png"
                 alt="Happy Furniture Logo"
-                className={`w-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isScrolled ? "h-[32px] md:h-[36px]" : "h-[36px] md:h-[42px]"
-                } ${useLightHeader ? "" : "brightness-0 invert"}`}
+                className={`w-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${isScrolled ? "h-[32px] md:h-[36px]" : "h-[36px] md:h-[42px]"
+                  } ${useLightHeader ? "" : "brightness-0 invert"}`}
               />
             </Link>
           </div>
@@ -265,11 +259,10 @@ const Header = () => {
 
             <button
               onClick={() => setShowFavorites(true)}
-              className={`flex md:hidden h-[42px] ${favorites.length > 0 ? "w-[72px]" : "w-[48px]"} items-center justify-center self-end gap-2 border px-2.5 transition-all duration-200 ${
-                useLightHeader
-                  ? "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
-                  : "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
-              }`}
+              className={`flex md:landscape:hidden h-[42px] ${favorites.length > 0 ? "w-[72px]" : "w-[48px]"} items-center justify-center self-end gap-2 border px-2.5 transition-all duration-200 ${useLightHeader
+                ? "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+                : "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
+                }`}
               aria-label="Open Quote List"
             >
               <Bookmark
@@ -278,9 +271,8 @@ const Header = () => {
                 className={favorites.length > 0 ? "fill-current shrink-0" : "shrink-0"}
               />
               {favorites.length > 0 && (
-                <span className={`flex h-[20px] min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none ${
-                  useLightHeader ? "bg-stone-900 text-white" : "bg-white text-stone-900"
-                }`}>
+                <span className={`flex h-[20px] min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none ${useLightHeader ? "bg-stone-900 text-white" : "bg-white text-stone-900"
+                  }`}>
                   {favorites.length}
                 </span>
               )}
@@ -289,11 +281,10 @@ const Header = () => {
             {/* Show my Favorite button */}
             <button
               onClick={() => setShowFavorites(true)}
-              className={`hidden md:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] whitespace-nowrap ${
-                useLightHeader
-                  ? "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
-                  : "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
-              }`}
+              className={`hidden md:landscape:flex items-center gap-2.5 px-4 h-[38px] transition-all duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] whitespace-nowrap ${useLightHeader
+                ? "ring-[0.5px] ring-stone-400 bg-white text-stone-800 hover:ring-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
+                : "ring-1 ring-white/80 text-white hover:bg-[#3c4a28] hover:ring-[#3c4a28] hover:text-white"
+                }`}
               aria-label="Open Quote List"
             >
               <Bookmark
@@ -306,11 +297,10 @@ const Header = () => {
               </span>
               {favorites.length > 0 && (
                 <span
-                  className={`flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold ${
-                    useLightHeader
-                      ? "bg-stone-900 text-white"
-                      : "bg-white text-stone-900"
-                  }`}
+                  className={`flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] font-semibold ${useLightHeader
+                    ? "bg-stone-900 text-white"
+                    : "bg-white text-stone-900"
+                    }`}
                 >
                   {favorites.length}
                 </span>
@@ -322,11 +312,10 @@ const Header = () => {
 
       {/* ── Desktop navigation ─────────────────────────────────── */}
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
-        <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:block">
+        <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:landscape:block">
           <ul
-            className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${
-              isScrolled ? "gap-2 lg:gap-3 xl:gap-10 pb-3" : "gap-2 lg:gap-4 xl:gap-12 pb-4"
-            }`}
+            className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${isScrolled ? "gap-2 lg:gap-3 xl:gap-10 pb-3" : "gap-2 lg:gap-4 xl:gap-12 pb-4"
+              }`}
           >
             {NAV_LEFT.map(({ to, label, end }) => (
               <StaticNavItem
@@ -360,13 +349,13 @@ const Header = () => {
 
         {/* ── Mobile drawer ────────────────────────────────────── */}
         {pathname !== "/" && (
-          <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:block">
+          <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:landscape:block">
             <div className="h-px w-full bg-stone-400" />
           </div>
         )}
 
         {mobileOpen && (
-          <div className="md:hidden fixed inset-x-0 bottom-0 top-[80px] overflow-y-auto z-[90] bg-white">
+          <div className="md:landscape:hidden fixed inset-x-0 bottom-0 top-[80px] overflow-y-auto z-[90] bg-white">
             <ul className="px-6 pt-4 pb-4 border-t border-stone-100">
               {ALL_STATIC.slice(0, 3).map(({ to, label, end }) => (
                 <li key={to} className="border-b border-stone-100 py-3">
