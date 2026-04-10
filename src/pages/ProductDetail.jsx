@@ -41,20 +41,40 @@ const formatMeasurement = (value, unit = "cm") => {
     cm: 1,
     m: 100,
     mm: 0.1,
+    inch: 2.54,
+    inches: 2.54,
+    in: 2.54,
   };
   const valueInCm = unitToCm[normalizedUnit]
     ? numeric * unitToCm[normalizedUnit]
     : null;
-  const inches = valueInCm != null ? valueInCm / 2.54 : null;
+  const inches =
+    valueInCm != null && !["inch", "inches", "in"].includes(normalizedUnit)
+      ? valueInCm / 2.54
+      : null;
+  const mmValue =
+    valueInCm != null && ["inch", "inches", "in"].includes(normalizedUnit)
+      ? valueInCm * 10
+      : null;
   const imperialValue =
     inches == null
       ? null
       : Number.isInteger(inches)
         ? inches.toString()
         : inches.toFixed(2).replace(/\.?0+$/, "");
+  const metricSecondaryValue =
+    mmValue == null
+      ? null
+      : Number.isInteger(mmValue)
+        ? mmValue.toString()
+        : mmValue.toFixed(2).replace(/\.?0+$/, "");
   return {
     primary: `${metric} ${unit}`,
-    secondary: imperialValue ? `${imperialValue} inch` : null,
+    secondary: imperialValue
+      ? `${imperialValue} inch`
+      : metricSecondaryValue
+        ? `${metricSecondaryValue} mm`
+        : null,
   };
 };
 
