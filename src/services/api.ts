@@ -9,4 +9,28 @@ const api = axios.create({
   },
 });
 
+export interface News {
+  id: number;
+  titleVi: string;
+  titleEn: string | null;
+  slug: string;
+  contentVi: string | null;
+  contentEn: string | null;
+  imageUrl: string | null;
+  excerptVi: string | null;
+  excerptEn: string | null;
+  isActive: boolean;
+  sortOrder: number;
+  type: string;
+  category: string | null;
+  year: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface NewsResponse {
+  events: News[];
+  activities: News[];
+}
+
 export default api;
