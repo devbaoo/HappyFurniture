@@ -11,8 +11,6 @@ const PLACEHOLDER_IMG_EVENT =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=600&h=400";
 const PLACEHOLDER_IMG_ACTIVITY =
   "https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&fit=crop&q=80&w=200&h=150";
-const PLACEHOLDER_IMG_FACTORY =
-  "https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&q=80&w=200&h=150";
 
 const News = () => {
   const { lang } = useLanguage();
@@ -66,7 +64,9 @@ const News = () => {
           ]}
         />
         <div className="mx-auto w-full max-w-[1650px] px-2 py-3 md:px-14 lg:px-24 md:py-4 relative">
-          <p className="text-center text-gray-500 py-12">{error || "Unable to load news"}</p>
+          <p className="text-center text-gray-500 py-12">
+            {error || "Unable to load news"}
+          </p>
         </div>
       </div>
     );
@@ -89,7 +89,6 @@ const News = () => {
       />
 
       <div className="mx-auto w-full max-w-[1650px] px-2 py-3 md:px-14 lg:px-24 md:py-4 relative">
-
         {/* EVENTS SECTION */}
         <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
           <div
@@ -106,23 +105,35 @@ const News = () => {
                 </p>
               ) : (
                 events.map((event) => (
-                  <Link key={event.id} to={`/news/${event.slug}`} className="flex flex-col group cursor-pointer">
+                  <Link
+                    key={event.id}
+                    to={`/news/${event.slug}`}
+                    className="flex flex-col group cursor-pointer"
+                  >
                     <div className="w-full h-64 bg-gray-200 overflow-hidden">
                       <img
                         alt={event.titleVi || event.titleEn || n.altEvent[lang]}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         src={event.imageUrl || PLACEHOLDER_IMG_EVENT}
-                        onError={(e) => { e.target.src = PLACEHOLDER_IMG_EVENT; }}
+                        onError={(e) => {
+                          e.target.src = PLACEHOLDER_IMG_EVENT;
+                        }}
                       />
                     </div>
                     <div className="bg-gray-50 px-5 py-4 md:px-5 md:py-4 flex flex-col flex-1 border border-t-0 border-gray-100">
                       <h3 className="font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
-                        {lang === "vi" ? event.titleVi : (event.titleEn || event.titleVi)}
+                        {lang === "vi"
+                          ? event.titleVi
+                          : event.titleEn || event.titleVi}
                       </h3>
                       <p className="text-sm text-gray-500 leading-[1.75] tracking-[0.01em] text-justify hyphens-auto line-clamp-3">
                         {lang === "vi"
-                          ? (event.excerptVi || event.contentVi || n.exhibitionBody[lang])
-                          : (event.excerptEn || event.contentEn || n.exhibitionBody[lang])}
+                          ? event.excerptVi ||
+                            event.contentVi ||
+                            n.exhibitionBody[lang]
+                          : event.excerptEn ||
+                            event.contentEn ||
+                            n.exhibitionBody[lang]}
                       </p>
                     </div>
                   </Link>
@@ -150,76 +161,42 @@ const News = () => {
               {n.companyActivities[lang]}
             </h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-6 mb-2 md:mb-2.5">
-
-              {/* LEFT: Team Building */}
-              <div className="flex flex-col space-y-3">
-                {activities.filter((a) => a.category === "TeamBuilding").length === 0 ? (
-                  <p className="text-gray-400 py-4">
-                    {lang === "vi" ? "Chua co hoat dong team building" : "No team building activities"}
-                  </p>
-                ) : (
-                  activities
-                    .filter((a) => a.category === "TeamBuilding")
-                    .map((item) => (
-                    <Link key={item.id} to={`/news/${item.slug}`} className="flex gap-2.5 md:gap-3 group cursor-pointer">
-                      <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
-                        <img
-                          alt={item.titleVi || item.titleEn || n.altActivity[lang]}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          src={item.imageUrl || PLACEHOLDER_IMG_ACTIVITY}
-                          onError={(e) => { e.target.src = PLACEHOLDER_IMG_ACTIVITY; }}
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <h3 className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
-                          {lang === "vi" ? item.titleVi : (item.titleEn || item.titleVi)}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em] text-justify hyphens-auto">
-                          {lang === "vi"
-                            ? (item.excerptVi || item.contentVi || n.teamBuildingBody[lang])
-                            : (item.excerptEn || item.contentEn || n.teamBuildingBody[lang])}
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                )}
+            {activities.length === 0 ? (
+              <p className="text-center text-gray-400 py-8">
+                {lang === "vi" ? "Chưa có hoạt động nào" : "No activities yet"}
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-5 mb-2 md:mb-2.5">
+                {activities.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={`/news/${item.slug}`}
+                    className="flex gap-2.5 md:gap-3 group cursor-pointer"
+                  >
+                    <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
+                      <img
+                        alt={item.titleVi || item.titleEn || n.altActivity[lang]}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        src={item.imageUrl || PLACEHOLDER_IMG_ACTIVITY}
+                        onError={(e) => {
+                          e.target.src = PLACEHOLDER_IMG_ACTIVITY;
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                      <h3 className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
+                        {lang === "vi" ? item.titleVi : item.titleEn || item.titleVi}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em] text-justify hyphens-auto">
+                        {lang === "vi"
+                          ? item.excerptVi || item.contentVi || n.teamBuildingBody[lang]
+                          : item.excerptEn || item.contentEn || n.teamBuildingBody[lang]}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
-
-              {/* RIGHT: Factory Tour */}
-              <div className="flex flex-col space-y-3">
-                {activities.filter((a) => a.category === "FactoryTour").length === 0 ? (
-                  <p className="text-gray-400 py-4">
-                    {lang === "vi" ? "Chua co hoat dong tham quan nha may" : "No factory tour activities"}
-                  </p>
-                ) : (
-                  activities
-                    .filter((a) => a.category === "FactoryTour")
-                    .map((item) => (
-                    <Link key={item.id} to={`/news/${item.slug}`} className="flex gap-2.5 md:gap-3 group cursor-pointer">
-                      <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
-                        <img
-                          alt={item.titleVi || item.titleEn || n.altActivity[lang]}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          src={item.imageUrl || PLACEHOLDER_IMG_FACTORY}
-                          onError={(e) => { e.target.src = PLACEHOLDER_IMG_FACTORY; }}
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <h3 className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
-                          {lang === "vi" ? item.titleVi : (item.titleEn || item.titleVi)}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em] text-justify hyphens-auto">
-                          {lang === "vi"
-                            ? (item.excerptVi || item.contentVi || n.factoryTourBody[lang])
-                            : (item.excerptEn || item.contentEn || n.factoryTourBody[lang])}
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                )}
-              </div>
-            </div>
+            )}
 
             <div className="mt-7 md:mt-8 flex justify-center">
               <button
