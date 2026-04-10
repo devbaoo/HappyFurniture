@@ -23,6 +23,40 @@ const Skeleton = ({ className = "" }) => (
   <div className={`animate-pulse rounded bg-surface ${className}`} />
 );
 
+const sortProductImages = (images = []) =>
+  [...images].sort((a, b) => {
+    const primaryDiff = Number(Boolean(b?.isPrimary)) - Number(Boolean(a?.isPrimary));
+    if (primaryDiff !== 0) return primaryDiff;
+
+    const aSortOrder = Number(a?.sortOrder);
+    const bSortOrder = Number(b?.sortOrder);
+    const hasASortOrder = Number.isFinite(aSortOrder);
+    const hasBSortOrder = Number.isFinite(bSortOrder);
+
+    if (hasASortOrder && hasBSortOrder && aSortOrder !== bSortOrder) {
+      return aSortOrder - bSortOrder;
+    }
+
+    if (hasASortOrder !== hasBSortOrder) {
+      return hasASortOrder ? -1 : 1;
+    }
+
+    const aId = Number(a?.id);
+    const bId = Number(b?.id);
+    const hasAId = Number.isFinite(aId);
+    const hasBId = Number.isFinite(bId);
+
+    if (hasAId && hasBId && aId !== bId) {
+      return aId - bId;
+    }
+
+    if (hasAId !== hasBId) {
+      return hasAId ? -1 : 1;
+    }
+
+    return 0;
+  });
+
 const formatMeasurement = (value, unit = "cm") => {
   if (value == null || value === "") return null;
 
@@ -158,9 +192,7 @@ const ProductDetail = () => {
           : null;
         setSelectedVariant(preSelected);
 
-        const sorted = [...(data.images ?? [])].sort(
-          (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
-        );
+        const sorted = sortProductImages(data.images ?? []);
 
         setActiveImg(0);
 
@@ -188,11 +220,7 @@ const ProductDetail = () => {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  const sortedImages = product
-    ? [...(product.images ?? [])].sort(
-        (a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0),
-      )
-    : [];
+  const sortedImages = product ? sortProductImages(product.images ?? []) : [];
 
   const handleSelectVariant = (variant) => {
     setSelectedVariant(variant);
@@ -209,7 +237,7 @@ const ProductDetail = () => {
   // Gallery: mặc định chỉ dùng ảnh product.
   // Khi chọn variant → chuyển HOÀN TOÀN sang ảnh của variant đó (không mix).
   const variantImages = selectedVariant?.images?.length
-    ? [...selectedVariant.images].sort((a, b) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0))
+    ? sortProductImages(selectedVariant.images)
     : selectedVariant?.imageUrl?.trim?.()
       ? [{ id: `variant-${selectedVariant.id}`, imageUrl: selectedVariant.imageUrl.trim(), altText: selectedVariant.colorName || "", isPrimary: true }]
       : [];
