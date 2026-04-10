@@ -114,7 +114,7 @@ const Header = () => {
       <div className="relative mx-auto max-w-[1800px] px-2 lg:px-10 w-full">
         <div
           className={`flex items-center lg:items-end justify-between relative transition-all duration-300 ${isScrolled ? "py-3 lg:py-4" : "py-4 lg:py-6"
-            } ${mobileOpen && isDark && !useLightHeader ? "bg-[#111111] -mx-2 px-2 pb-[17px] lg:mx-0 lg:px-0 lg:bg-transparent" : ""}`}
+            } ${mobileOpen ? "-mx-2 bg-white px-2 pb-[17px] lg:mx-0 lg:px-0" : ""}`}
         >
           {/* Left Side: Mobile Hamburger & Desktop Search */}
           <div className="w-auto md:w-[300px] flex items-center">
@@ -177,7 +177,10 @@ const Header = () => {
           </div>
 
           {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 text-center z-10 w-max">
+          <div
+            className={`absolute left-1/2 -translate-x-1/2 text-center z-10 w-max ${mobileOpen ? "hidden md:landscape:block" : ""
+              }`}
+          >
             <Link to="/" onClick={handleNavigationStateReset} className="flex items-center gap-2">
               <img
                 src="/images/logo-brown.png"
@@ -190,7 +193,9 @@ const Header = () => {
 
           {/* Right: flags + favorite button */}
           <div className="flex w-[128px] md:w-[300px] flex-col items-end gap-2 justify-end">
-            <div className="flex w-full items-center justify-end gap-2 md:gap-3">
+            <div
+              className={`${mobileOpen ? "hidden md:landscape:flex" : "flex"} w-full items-center justify-end gap-2 md:gap-3`}
+            >
               {/* Vietnam flag */}
               <button
                 type="button"
@@ -259,7 +264,7 @@ const Header = () => {
 
             <button
               onClick={() => setShowFavorites(true)}
-              className={`flex md:landscape:hidden h-[42px] ${favorites.length > 0 ? "w-[72px]" : "w-[48px]"} items-center justify-center self-end gap-2 border px-2.5 transition-all duration-200 ${useLightHeader
+              className={`${mobileOpen ? "hidden" : "flex"} md:landscape:hidden h-[42px] ${favorites.length > 0 ? "w-[72px]" : "w-[48px]"} items-center justify-center self-end gap-2 border px-2.5 transition-all duration-200 ${useLightHeader
                 ? "border-stone-400 bg-transparent text-stone-800 hover:border-[#3c4a28] hover:bg-[#3c4a28] hover:text-white"
                 : "border-white/80 bg-transparent text-white hover:border-[#3c4a28] hover:bg-[#3c4a28]"
                 }`}
@@ -314,7 +319,7 @@ const Header = () => {
       <nav aria-label={siteCopy.header.navAriaLabel[lang]}>
         <div className="mx-auto max-w-[1800px] px-3 xl:px-10 w-full hidden md:landscape:block">
           <ul
-            className={`flex items-center justify-center whitespace-nowrap transition-all duration-300 ${isScrolled ? "gap-2 lg:gap-3 xl:gap-10 pb-3" : "gap-2 lg:gap-4 xl:gap-12 pb-4"
+            className={`header-tablet-landscape-nav flex items-center justify-center whitespace-nowrap transition-all duration-300 ${isScrolled ? "gap-2 lg:gap-3 xl:gap-10 pb-3" : "gap-2 lg:gap-4 xl:gap-12 pb-4"
               }`}
           >
             {NAV_LEFT.map(({ to, label, end }) => (
