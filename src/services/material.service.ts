@@ -2,8 +2,12 @@ import api from "./api";
 
 export interface Material {
   id: number;
-  name: string;
-  description: string;
+  name?: string | null;
+  nameVi?: string | null;
+  nameEn?: string | null;
+  description?: string | null;
+  descriptionVi?: string | null;
+  descriptionEn?: string | null;
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;

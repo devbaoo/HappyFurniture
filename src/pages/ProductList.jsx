@@ -15,6 +15,26 @@ import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 
 /* ─── helpers ─────────────────────────────────────────────────── */
+const MATERIAL_FALLBACK_LABEL = {
+  vi: "Chất liệu",
+  en: "Material",
+};
+
+const ASSEMBLY_FALLBACK_LABEL = {
+  vi: "Lắp ráp",
+  en: "Assembly",
+};
+
+const TYPE_FALLBACK_LABEL = {
+  vi: "Loại",
+  en: "Type",
+};
+
+const FILTER_BUTTON_LABEL = {
+  vi: "Bộ lọc",
+  en: "Filter",
+};
+
 const SORT_OPTIONS = [
   { value: "", label: "Default" },
   { value: "price_asc", label: "Price: Low → High" },
@@ -150,6 +170,8 @@ const ProductList = () => {
   const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
   const activeCat = allCategories.find((c) => String(c.id) === categoryId);
   const activeCatLabel = activeCat ? localizeField(activeCat, "name", lang) : "";
+  const selectedMaterial = materials.find((m) => String(m.id) === materialId);
+  const selectedAssembly = assemblies.find((a) => String(a.id) === assemblyId);
 
   /* ── Sync nameFilter from URL (e.g. header search navigates here) */
   useEffect(() => {
@@ -170,14 +192,14 @@ const ProductList = () => {
 
     try {
       const data = await productService.getProducts({
-        ...(effectiveCatId ? { CategoryId: effectiveCatId } : {}),
-        ...(materialId ? { MaterialId: materialId } : {}),
-        ...(assemblyId ? { AssemblyId: assemblyId } : {}),
-        ...(nameFilter ? { Name: nameFilter } : {}),
-        ...(sortField ? { SortBy: sortField } : {}),
-        ...(sortOrder ? { SortOrder: sortOrder } : {}),
-        PageNumber: pageNumber,
-        PageSize: pageSize,
+        ...(effectiveCatId ? { categoryId: effectiveCatId } : {}),
+        ...(materialId ? { materialId } : {}),
+        ...(assemblyId ? { assemblyId } : {}),
+        ...(nameFilter ? { name: nameFilter } : {}),
+        ...(sortField ? { sortBy: sortField } : {}),
+        ...(sortOrder ? { sortOrder } : {}),
+        pageNumber,
+        pageSize,
       });
       const items = data.items ?? [];
       setProducts(items);
@@ -445,12 +467,12 @@ const ProductList = () => {
               className="flex items-center justify-center gap-1.5 px-3 md:px-6 h-[36px] md:h-[40px] text-[12px] md:text-[14px] bg-white text-stone-800 tracking-[0.1em] md:tracking-[0.14em] ring-[0.5px] ring-stone-400 hover:ring-[#3c4a28] hover:text-[#3c4a28] transition-all duration-200 mr-1 md:mr-3 shrink-0 whitespace-nowrap"
             >
               <SlidersHorizontal size={13} strokeWidth={1.2} />
-              <span className="font-medium">FILTER</span>
+              <span className="font-medium">{FILTER_BUTTON_LABEL[lang]}</span>
             </button>
 
             {/* Middle: Dropdowns all aligned to the left next to Filter */}
             <FilterDropdown
-              label={subCatId ? (localizeField(filterCategories.find(c => String(c.id) === subCatId) || {}, "name", lang) || "Type") : "Type"}
+              label={subCatId ? (localizeField(filterCategories.find(c => String(c.id) === subCatId) || {}, "name", lang) || TYPE_FALLBACK_LABEL[lang]) : TYPE_FALLBACK_LABEL[lang]}
               active={!!subCatId}
             >
               {filterCatLoading ? (
@@ -506,7 +528,7 @@ const ProductList = () => {
             </FilterDropdown>
 
             <FilterDropdown
-              label={materials.find(m => String(m.id) === materialId)?.name || "Material"}
+              label={selectedMaterial ? localizeField(selectedMaterial, "name", lang) : MATERIAL_FALLBACK_LABEL[lang]}
               active={!!materialId}
             >
               {materialsLoading ? (
@@ -531,7 +553,7 @@ const ProductList = () => {
                         onClick={() => applyFilter(() => setMaterialId(String(m.id) === materialId ? "" : String(m.id)))}
                         className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(m.id) === materialId ? "text-primary font-medium" : "text-[#333]"}`}
                       >
-                        {m.name}
+                        {localizeField(m, "name", lang)}
                       </button>
                     </li>
                   ))}
@@ -540,7 +562,7 @@ const ProductList = () => {
             </FilterDropdown>
 
             <FilterDropdown
-              label={assemblies.find(a => String(a.id) === assemblyId)?.name || "Assembly"}
+              label={selectedAssembly ? localizeField(selectedAssembly, "name", lang) : ASSEMBLY_FALLBACK_LABEL[lang]}
               active={!!assemblyId}
             >
               {assembliesLoading ? (
@@ -565,7 +587,7 @@ const ProductList = () => {
                         onClick={() => applyFilter(() => setAssemblyId(String(a.id) === assemblyId ? "" : String(a.id)))}
                         className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(a.id) === assemblyId ? "text-primary font-medium" : "text-[#333]"}`}
                       >
-                        {a.name}
+                        {localizeField(a, "name", lang)}
                       </button>
                     </li>
                   ))}
@@ -590,13 +612,13 @@ const ProductList = () => {
               )}
               {materialId && (
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
-                  Material: {materials.find(m => String(m.id) === materialId)?.name || materialId}
+                  Material: {selectedMaterial ? localizeField(selectedMaterial, "name", lang) : materialId}
                   <button onClick={() => applyFilter(() => setMaterialId(""))}><X size={10} /></button>
                 </span>
               )}
               {assemblyId && (
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
-                  Assembly: {assemblies.find(a => String(a.id) === assemblyId)?.name || assemblyId}
+                  Assembly: {selectedAssembly ? localizeField(selectedAssembly, "name", lang) : assemblyId}
                   <button onClick={() => applyFilter(() => setAssemblyId(""))}><X size={10} /></button>
                 </span>
               )}

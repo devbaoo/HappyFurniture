@@ -2,9 +2,13 @@ import api from "./api";
 
 export interface Assembly {
   id: number;
-  name: string;
+  name?: string | null;
+  nameVi?: string | null;
+  nameEn?: string | null;
   code?: string;
-  description?: string;
+  description?: string | null;
+  descriptionVi?: string | null;
+  descriptionEn?: string | null;
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;
