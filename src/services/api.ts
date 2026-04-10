@@ -22,8 +22,6 @@ export interface News {
   isActive: boolean;
   sortOrder: number;
   type: string;
-  category: string | null;
-  year: number | null;
   createdAt: string;
   updatedAt: string;
 }
