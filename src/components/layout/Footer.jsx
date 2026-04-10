@@ -17,14 +17,14 @@ const Footer = () => {
 
     return (
         <footer className="bg-[#3c4a28] text-white pt-2">
-            <div className="mx-auto max-w-[1600px] px-4 md:px-14 lg:px-24 w-full">
+            <div className="mx-auto max-w-[1600px] px-4 md:px-14 lg:px-24 [@media(min-width:768px)_and_(max-width:1280px)]:px-10 w-full">
 
 
                 {/* TOP GRID */}
-                <div className="mx-auto grid max-w-[1450px] grid-cols-2 md:grid-cols-[1.08fr_0.82fr_0.82fr_1.18fr] gap-x-10 gap-y-8 md:gap-x-6 md:gap-y-10 py-8 md:py-3 justify-items-start md:justify-items-start">
+                <div className="mx-auto grid max-w-[1450px] grid-cols-2 md:grid-cols-2 lg:grid-cols-[1.08fr_0.82fr_0.82fr_1.18fr] [@media(min-width:768px)_and_(max-width:1280px)]:grid-cols-[0.8fr_0.78fr_1.42fr] gap-x-10 gap-y-8 md:gap-x-6 md:gap-y-10 lg:gap-x-6 lg:gap-y-10 [@media(min-width:768px)_and_(max-width:1280px)]:gap-x-4 py-8 md:py-3 lg:py-3 justify-items-start md:justify-items-start">
 
                     {/* LOGO */}
-                    <div className="col-span-2 md:col-span-1 w-full flex flex-col items-start md:items-start">
+                    <div className="col-span-2 md:col-span-2 lg:col-span-1 [@media(min-width:768px)_and_(max-width:1280px)]:col-span-3 w-full flex flex-col items-start md:items-start">
                         <div className="mb-4 flex items-center gap-4 md:mb-3">
                             <img
                                 src="/images/logo-brown.png"
@@ -73,7 +73,7 @@ const Footer = () => {
                     </div>
 
                     {/* CONTACT */}
-                    <div className="col-span-2 md:col-span-1 w-full flex flex-col items-start md:items-start">
+                    <div className="col-span-2 md:col-span-2 lg:col-span-1 [@media(min-width:768px)_and_(max-width:1280px)]:col-span-1 w-full flex flex-col items-start md:items-start">
                         <h3 className="font-sans font-semibold mb-3 text-sm tracking-[0.12em] uppercase">CONTACT US</h3>
 
                         <div className="w-full space-y-4 text-sm font-normal leading-[1.75] tracking-[0.01em] text-white/80">
@@ -102,12 +102,12 @@ const Footer = () => {
                                 <svg className="w-2 h-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(110px,1fr)] gap-x-4 gap-y-1">
-                                    <span>(+84) 2516 280 180</span>
+                                <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(110px,1fr)] [@media(min-width:768px)_and_(max-width:1280px)]:grid-cols-[minmax(148px,1.25fr)_auto_minmax(88px,1fr)] gap-x-4 [@media(min-width:768px)_and_(max-width:1280px)]:gap-x-2 gap-y-1">
+                                    <span className="whitespace-nowrap">(+84) 2516 280 180</span>
                                     <span className="text-white/20">|</span>
                                     <span>{lang === "vi" ? "Việt Nam" : "Vietnamese"}</span>
 
-                                    <span>(+84) 986 229 279</span>
+                                    <span className="whitespace-nowrap">(+84) 986 229 279</span>
                                     <span className="text-white/20">|</span>
                                     <span>{lang === "vi" ? "Tiếng Anh" : "English"}</span>
                                 </div>
@@ -133,7 +133,7 @@ const Footer = () => {
                         <div className="flex-1 h-px bg-white/30"></div>
                     </div>
 
-                    <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-2 md:flex md:flex-row md:flex-wrap md:items-center md:gap-8">
+                    <div className="flex flex-col items-start gap-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-8 xl:flex-nowrap [@media(min-width:768px)_and_(max-width:1280px)]:flex-col [@media(min-width:768px)_and_(max-width:1280px)]:items-start [@media(min-width:768px)_and_(max-width:1280px)]:gap-4">
 
                         {/* ICONS */}
                         <div className="flex gap-3 md:gap-4">
@@ -175,7 +175,7 @@ const Footer = () => {
                         </div>
 
                         {/* COPYRIGHT */}
-                        <p className="min-w-0 max-w-[210px] text-left text-[11px] leading-[1.5] tracking-[0.01em] text-white/50 md:ml-auto md:max-w-none md:flex-1 md:whitespace-nowrap md:text-right md:text-[13px] md:leading-[1.75]">
+                        <p className="w-full max-w-[420px] text-left text-[11px] leading-[1.5] tracking-[0.01em] text-white/50 md:ml-auto md:max-w-none md:flex-1 md:whitespace-nowrap md:text-right md:text-[13px] md:leading-[1.75] xl:w-auto [@media(min-width:768px)_and_(max-width:1280px)]:ml-0 [@media(min-width:768px)_and_(max-width:1280px)]:w-full [@media(min-width:768px)_and_(max-width:1280px)]:max-w-none [@media(min-width:768px)_and_(max-width:1280px)]:flex-none [@media(min-width:768px)_and_(max-width:1280px)]:whitespace-normal [@media(min-width:768px)_and_(max-width:1280px)]:text-left">
                             {"\u00a92026"} All rights reserved. If you are using a screen reader and are having problems using this website, please call (800) 967-6696 for assistance.
                         </p>
 

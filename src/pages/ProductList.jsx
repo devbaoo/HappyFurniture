@@ -96,6 +96,9 @@ const loadRecentlyViewed = () => {
   catch (e) { void e; return []; }
 };
 
+const sortImagesByIdAsc = (images = []) =>
+  [...images].sort((a, b) => (a?.id ?? 0) - (b?.id ?? 0));
+
 /* ─── Main page ────────────────────────────────────────────────── */
 const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -350,7 +353,7 @@ const ProductList = () => {
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseMove={onMouseMove}
-                className={`grid grid-flow-col auto-cols-[calc((100%-2*12px)/3)] md:auto-cols-[calc((100%-6*12px)/7.5)] gap-3 overflow-x-auto select-none pb-2 bg-scroll ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                className={`grid grid-flow-col auto-cols-[calc((100%-2*12px)/3)] md:auto-cols-[calc((100%-6*12px)/7.5)] [@media(min-width:768px)_and_(max-width:1280px)]:auto-cols-[calc((100%-5*12px)/6.2)] gap-3 overflow-x-auto select-none pb-2 bg-scroll ${isDragging ? "cursor-grabbing" : "cursor-grab"
                   }`}
                 style={{ msOverflowStyle: "none", scrollbarWidth: "none" }}
               >
@@ -368,8 +371,8 @@ const ProductList = () => {
                       }`}
                   >
                     <span
-                      className={`text-white text-[10px] font-semibold px-2 pb-2 text-center w-full leading-[1.35] whitespace-normal break-words line-clamp-2 ${
-                        lang === "vi" ? "normal-case tracking-[0.02em]" : "uppercase tracking-[0.12em]"
+                      className={`text-white text-[10px] [@media(min-width:768px)_and_(max-width:1280px)]:text-[8px] font-semibold px-2 [@media(min-width:768px)_and_(max-width:1280px)]:px-1 pb-2 [@media(min-width:768px)_and_(max-width:1280px)]:pb-1.5 text-center w-full leading-[1.35] [@media(min-width:768px)_and_(max-width:1280px)]:leading-[1.2] whitespace-normal break-words line-clamp-2 ${
+                        lang === "vi" ? "normal-case tracking-[0.02em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.01em]" : "uppercase tracking-[0.12em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.04em]"
                       }`}
                     >
                       {lang === "vi" ? "Tất cả" : "All"}
@@ -403,8 +406,8 @@ const ProductList = () => {
                       )}
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
                       <span
-                        className={`relative text-white text-[10px] font-semibold text-center px-2 pb-2 z-10 w-full leading-[1.35] whitespace-normal break-words line-clamp-2 ${
-                          lang === "vi" ? "normal-case tracking-[0.02em]" : "uppercase tracking-[0.12em]"
+                        className={`relative text-white text-[10px] [@media(min-width:768px)_and_(max-width:1280px)]:text-[8px] font-semibold text-center px-2 [@media(min-width:768px)_and_(max-width:1280px)]:px-1 pb-2 [@media(min-width:768px)_and_(max-width:1280px)]:pb-1.5 z-10 w-full leading-[1.35] [@media(min-width:768px)_and_(max-width:1280px)]:leading-[1.2] whitespace-normal break-words line-clamp-2 ${
+                          lang === "vi" ? "normal-case tracking-[0.02em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.01em]" : "uppercase tracking-[0.12em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.04em]"
                         }`}
                       >
                         {localizeField(cat, "name", lang)}
@@ -658,7 +661,7 @@ const ProductList = () => {
                   key={p.id}
                   id={p.slug ?? String(p.id)}
                   name={localizeField(p, "name", lang)}
-                  images={p.images ?? []}
+                  images={sortImagesByIdAsc(p.images)}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
                 />
@@ -683,7 +686,7 @@ const ProductList = () => {
                   name={localizeField(p, "name", lang)}
                   isFavorited={favorites.some((f) => f.id === (p.slug ?? String(p.id)))}
                   onToggleFavorite={handleToggleFavorite}
-                  images={p.images ?? []}
+                  images={sortImagesByIdAsc(p.images)}
                 />
               ))}
             </div>

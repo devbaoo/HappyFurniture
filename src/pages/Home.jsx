@@ -35,7 +35,14 @@ const Img = ({
   );
 
 /* ─── Room/Category card ─── */
-const CategoryCard = ({ label, src, bg, to = "/product", className = "" }) => (
+const CategoryCard = ({
+  label,
+  src,
+  bg,
+  to = "/product",
+  className = "",
+  labelClassName = "",
+}) => (
   <Link
     to={to}
     className={`relative block overflow-hidden group cursor-pointer ${className}`}
@@ -48,7 +55,9 @@ const CategoryCard = ({ label, src, bg, to = "/product", className = "" }) => (
     />
     {/* Gradient layer to make text pop */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-    <span className="absolute bottom-4 right-5 font-sans text-white text-[13px] md:text-[15px] tracking-[0.08em] uppercase font-normal drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right leading-none">
+    <span
+      className={`absolute bottom-4 right-5 font-sans text-white text-[13px] md:text-[15px] tracking-[0.08em] uppercase font-normal drop-shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 text-right leading-none ${labelClassName}`}
+    >
       {label}
     </span>
   </Link>
@@ -464,6 +473,7 @@ const Home = () => {
                 bg={card.bg}
                 to={card.to}
                 className={card.className}
+                labelClassName="[@media(min-width:768px)_and_(max-width:1280px)]:right-3 [@media(min-width:768px)_and_(max-width:1280px)]:text-[12px] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.04em]"
               />
             ))}
           </div>
@@ -481,7 +491,7 @@ const Home = () => {
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] xl:h-full">
           {/* Title */}
           <h2
-            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out lg:-translate-y-2 xl:-translate-y-[33.3334px] ${
+            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 [@media(min-width:768px)_and_(max-width:1280px)]:mb-5 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out lg:-translate-y-2 xl:-translate-y-[33.3334px] ${
               visibleElements.has("promo") ? "opacity-100" : "opacity-0"
             } uppercase`}
           >
