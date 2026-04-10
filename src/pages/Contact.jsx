@@ -24,6 +24,10 @@ const Contact = () => {
   const E = t.errors;
   const contactMsName = lang === "vi" ? "UYÊN TRẦN" : "Uyen Tran (Ms.)";
   const contactMrName = lang === "vi" ? "THẮNG NGUYỄN" : "THANG NGUYEN (MR.)";
+  const mobileContactNameClass =
+    lang === "vi"
+      ? "text-[14px] sm:text-[15px] font-semibold text-[#3c4a28] mb-2 font-sans tracking-normal leading-[1.45] normal-case"
+      : "text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]";
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
@@ -117,9 +121,7 @@ const Contact = () => {
         <div className="w-full px-2 sm:px-8 md:px-14 lg:px-24 mx-auto max-w-[1800px] grid grid-cols-1 lg:grid-cols-[minmax(0,1.3fr)_minmax(300px,0.7fr)] xl:grid-cols-[1.15fr_0.85fr] items-start gap-8 lg:gap-6 xl:gap-8 lg:relative lg:h-auto xl:h-[613.25px]">
           {/* Form panel */}
           <div className="bg-[#3c4a28] px-5 sm:px-6 lg:px-8 xl:px-6 py-6 lg:py-7 xl:py-6 w-full flex flex-col lg:h-auto xl:h-[579.641px] lg:translate-y-8 xl:translate-y-[56px]">
-            <h2
-              className="font-heading text-white text-[30px] lg:text-[30px] xl:text-[34px] font-normal tracking-[0.08em] mb-6 lg:mb-5 xl:mb-6 leading-[1.08] uppercase"
-            >
+            <h2 className="font-heading text-white text-[30px] lg:text-[30px] xl:text-[34px] font-normal tracking-[0.08em] mb-6 lg:mb-5 xl:mb-6 leading-[1.08] uppercase">
               {t.formTitle[lang]}
             </h2>
 
@@ -440,7 +442,7 @@ const Contact = () => {
         </p>
         <div className="grid grid-cols-2 gap-3 sm:gap-8">
           <div className="min-w-0 overflow-hidden">
-            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]">
+            <h3 className={mobileContactNameClass}>
               {contactMsName}
             </h3>
             <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
@@ -504,7 +506,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="min-w-0 overflow-hidden">
-            <h3 className="text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]">
+            <h3 className={mobileContactNameClass}>
               {contactMrName}
             </h3>
             <div className="space-y-1.5 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
