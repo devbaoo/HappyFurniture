@@ -73,6 +73,15 @@
     @apply grid grid-cols-12 gap-4;
   }
 
+  @media (min-width: 768px) and (max-width: 1365px) and (orientation: landscape) {
+    .header-tablet-landscape-nav {
+      width: min(100%, 980px);
+      margin-inline: auto;
+      justify-content: space-between;
+      gap: 24px;
+    }
+  }
+
   .hero-video::-webkit-media-controls {
     display: none !important;
     -webkit-appearance: none;
