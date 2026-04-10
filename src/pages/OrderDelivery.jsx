@@ -33,16 +33,70 @@ const OrderDelivery = () => {
       />
 
       <section
+        className="relative overflow-hidden py-16 md:py-20"
+        data-animate
+        id="order-delivery-packaging"
+        style={{
+          backgroundImage: "url('/images/order/order-09.jpg')",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/55" />
+        <div
+          className={`relative mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full transform transition-all duration-1000 ease-out ${visibleElements.has("order-delivery-packaging")
+            ? "translate-y-0 opacity-100"
+            : "translate-y-8 opacity-0"
+            }`}
+        >
+          <div className="text-center max-w-2xl mx-auto mb-6">
+            <h2 className="font-heading font-normal uppercase whitespace-nowrap text-[20px] md:text-3xl text-white mb-2 md:mb-2.5 tracking-[0.03em] md:tracking-[0.08em] leading-[1.08]">
+              {o.packagingTitle[lang]}
+            </h2>
+            <p className="mx-auto w-full max-w-[760px] font-sans text-[14px] md:w-[750px] md:text-[18px] text-white/100 leading-[1.45] tracking-[0.01em] md:-translate-x-[39px]">
+              {o.packagingIntro[lang]}
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-[1020px] grid-cols-2 justify-items-center gap-3 md:gap-x-4 md:gap-y-3">
+            {o.packagingCards[lang].map((card) => (
+              <div
+                key={card.title}
+                className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5"
+              >
+                <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
+                  {card.title}
+                </h3>
+                <p className="order-packaging-card-body mt-1 md:mt-1.5 font-sans max-w-none text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
+                  {card.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src="/images/order/frame_5_52_8f.jpeg"
+            alt="Order delivery showcase"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      </section>
+
+      <section
         className="bg-white pt-3 pb-3 md:pt-5 md:pb-5"
         data-animate
         id="order-delivery-delivery"
       >
         <div
-          className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full transform transition-all duration-1000 ease-out ${
-            visibleElements.has("order-delivery-delivery")
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          className={`mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full transform transition-all duration-1000 ease-out ${visibleElements.has("order-delivery-delivery")
+            ? "translate-y-0 opacity-100"
+            : "translate-y-8 opacity-0"
+            }`}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-stretch">
             <div className="flex flex-col md:pt-10 lg:pt-14">
@@ -87,17 +141,26 @@ const OrderDelivery = () => {
         </div>
       </section>
 
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src="/images/order/color filler espresso (1).jpg"
+            alt="Order delivery detail"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      </section>
+
       <section
         className="bg-[#f5f5f3] overflow-hidden"
         data-animate
         id="order-delivery-order"
       >
         <div
-          className={`flex flex-col md:h-[455px] md:flex-row md:items-stretch transform transition-all duration-1000 ease-out ${
-            visibleElements.has("order-delivery-order")
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          className={`flex flex-col md:h-[455px] md:flex-row md:items-stretch transform transition-all duration-1000 ease-out ${visibleElements.has("order-delivery-order")
+            ? "translate-y-0 opacity-100"
+            : "translate-y-8 opacity-0"
+            }`}
         >
           <div className="relative hidden w-full min-h-[260px] md:block md:h-full md:w-1/2">
             <img
@@ -153,6 +216,37 @@ const OrderDelivery = () => {
         </div>
       </section>
 
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src="/images/order/z7707969819615_66aacb145f9ca8ddb413bb4c2215bda1.jpg"
+            alt="Order process showcase"
+            className="w-full h-auto object-cover"
+            style={{ height: "1038.23px", transform: "translate(0px, 35px)" }}
+          />
+        </div>
+      </section>
+
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src="/images/order/z7707978270483_8d927538e6e6b5871dd362324e2fcf81.jpg"
+            alt="Order process showcase detail"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      </section>
+
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src="/images/order/z7707975383386_8fff5ba0fa96c5c5659707b3cc5fe0b6.jpg"
+            alt="Order process showcase detail"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      </section>
+
       <section
         className="bg-white pt-4 pb-6 md:pt-[4.5rem] md:pb-16"
         data-animate
@@ -160,11 +254,10 @@ const OrderDelivery = () => {
       >
         <Container>
           <div
-            className={`transform transition-all duration-1000 ease-out ${
-              visibleElements.has("order-delivery-oem")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`transform transition-all duration-1000 ease-out ${visibleElements.has("order-delivery-oem")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
           >
             <div className="mx-auto mb-1 max-w-[760px] text-center md:mb-3">
               <SectionHeading className="mb-3 text-[28px] md:text-[42px] tracking-[0.04em]">
@@ -177,17 +270,17 @@ const OrderDelivery = () => {
 
             <div className="mx-auto grid max-w-[1180px] grid-cols-3 gap-1 md:gap-2">
               <img
-                src="/images/order/order-06.jpg"
+                src="/images/order/z7707988382316_ecc4988a3a178726e6a0f54b7744d701.jpg"
                 alt={o.oemGalleryAlt[lang][0]}
                 className="aspect-square w-full object-cover object-center"
               />
               <img
-                src="/images/order/order-07.jpg"
+                src="/images/order/z7707998155155_caecd7ac0f408a9b258b0ade495aad3c.jpg"
                 alt={o.oemGalleryAlt[lang][1]}
                 className="aspect-square w-full object-cover object-center"
               />
               <img
-                src="/images/order/order-08.jpg"
+                src="/images/order/z7708014628754_09ce464be8a667a69ca9102cc8c144c6.jpg"
                 alt={o.oemGalleryAlt[lang][2]}
                 className="aspect-square w-full object-cover object-center"
               />
@@ -196,51 +289,6 @@ const OrderDelivery = () => {
         </Container>
       </section>
 
-      <section
-        className="relative overflow-hidden py-16 md:py-20"
-        data-animate
-        id="order-delivery-packaging"
-        style={{
-          backgroundImage: "url('/images/order/order-09.jpg')",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/55" />
-        <div
-          className={`relative mx-auto max-w-[1800px] px-2 md:px-14 lg:px-24 w-full transform transition-all duration-1000 ease-out ${
-            visibleElements.has("order-delivery-packaging")
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
-        >
-          <div className="text-center max-w-2xl mx-auto mb-6">
-            <h2 className="font-heading font-normal uppercase whitespace-nowrap text-[20px] md:text-3xl text-white mb-2 md:mb-2.5 tracking-[0.03em] md:tracking-[0.08em] leading-[1.08]">
-              {o.packagingTitle[lang]}
-            </h2>
-            <p className="mx-auto w-full max-w-[760px] font-sans text-[14px] md:w-[750px] md:text-[18px] text-white/100 leading-[1.45] tracking-[0.01em] md:-translate-x-[39px]">
-              {o.packagingIntro[lang]}
-            </p>
-          </div>
-
-          <div className="mx-auto grid max-w-[1020px] grid-cols-2 justify-items-center gap-3 md:gap-x-4 md:gap-y-3">
-            {o.packagingCards[lang].map((card) => (
-              <div
-                key={card.title}
-                className="w-full bg-[#3C4A28]/95 border border-[#3C4A28] px-3 py-3 text-center text-white cursor-default md:h-[120px] md:w-[496px] md:px-6 md:py-4 lg:h-auto lg:min-h-0 lg:py-3.5"
-              >
-                <h3 className="font-sans text-[14px] md:text-[19px] font-semibold leading-[1.2] md:h-[43.7969px] md:-translate-y-[21px] lg:h-auto lg:translate-y-0">
-                  {card.title}
-                </h3>
-                <p className="order-packaging-card-body mt-1 md:mt-1.5 font-sans max-w-none text-white/95 md:h-[82px] md:-translate-y-[43px] lg:h-auto lg:translate-y-0">
-                  {card.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
