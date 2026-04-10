@@ -10,8 +10,9 @@ import { localizeField } from "../utils/i18n";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
-import manufacturingImg from "/images/about-us/FurnitureManufacturing.jpg";
+import manufacturingImg from "/images/what-we-do/DSC03115.jpg";
 import finishingImg from "/images/about-us/Finishing.jpg";
+import flycamImg from "/images/what-we-do/Screenshot flycam.01_33_41_51.Still076.jpg";
 
 const iconProps = { size: 22, strokeWidth: 1.4 };
 
@@ -167,6 +168,16 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
+      <section className="w-full bg-white pb-3 md:pb-5">
+        <div className="w-full overflow-hidden">
+          <img
+            src={flycamImg}
+            alt="Happy Furniture flycam view"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      </section>
+
       <section className="wwd-mfg-section" data-animate id="wwd-mfg">
         <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${visibleElements.has("wwd-mfg") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}>
