@@ -20,8 +20,23 @@ export interface ContentBlock {
   imageUrl: string | null;
   imageAltVi: string | null;
   imageAltEn: string | null;
+  /** "full" | "left" | "right" — chỉ dùng khi type = Image */
+  imagePosition: "full" | "left" | "right" | null;
   sortOrder: number;
   isFullWidth: boolean;
+}
+
+export interface NewsListItem {
+  id: number;
+  titleVi: string;
+  titleEn: string | null;
+  slug: string;
+  imageUrl: string | null;
+  excerptVi: string | null;
+  excerptEn: string | null;
+  sortOrder: number;
+  type: string;
+  createdAt: string;
 }
 
 export interface News {
@@ -49,8 +64,8 @@ export interface NewsDetail extends News {
 }
 
 export interface NewsResponse {
-  news: News[];
-  companyActivities: News[];
+  news: NewsListItem[];
+  companyActivities: NewsListItem[];
 }
 
 export default api;

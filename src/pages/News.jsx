@@ -121,6 +121,13 @@ const News = () => {
                       />
                     </div>
                     <div className="bg-gray-50 px-5 py-4 md:px-5 md:py-4 flex flex-col flex-1 border border-t-0 border-gray-100">
+                      <p className="text-[11px] text-gray-400 mb-1.5 tracking-wide">
+                        {new Date(item.createdAt).toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
                       <h3 className="font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
                         {lang === "vi"
                           ? item.titleVi
@@ -180,6 +187,13 @@ const News = () => {
                       />
                     </div>
                     <div className="flex flex-col justify-center">
+                      <p className="text-[11px] text-gray-400 mb-1 tracking-wide">
+                        {new Date(item.createdAt).toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
                       <h3 className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
                         {lang === "vi" ? item.titleVi : item.titleEn || item.titleVi}
                       </h3>
