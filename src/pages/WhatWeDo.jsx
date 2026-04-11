@@ -10,7 +10,7 @@ import { localizeField } from "../utils/i18n";
 
 // ── Image imports ──────────────────────────────────────────────────────────
 import manufacturingImg from "/images/what-we-do/DSC03115.jpg";
-import finishingImg from "/images/about-us/Finishing.jpg";
+import finishingImg from "/images/what-we-do/e69e66ce-5fd9-4c97-acc1-ef2fbe22ecbd.png";
 import flycamImg from "/images/what-we-do/Screenshot flycam.01_33_41_51.Still076.jpg";
 
 const iconProps = { size: 22, strokeWidth: 1.4 };
@@ -247,12 +247,12 @@ export default function WhatWeDo() {
           </h2>
 
           {/* 4 images */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:h-[290px]">
-            {[
-              { src: "/images/home/Quality.jpg" },
-              { src: "/images/home/InternationalStandard.jpg" },
-              { src: "/images/home/SustainableProduction.jpg" },
-              { src: "/images/home/ExportRegulations.jpg" },
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:h-[290px]">
+              {[
+              { src: "/images/home/z7709640056559_d62e1a25cc59af953edb6c01d6a056a1.jpg" },
+              { src: "/images/home/Timeline.00_06_53_55.Still014.jpg" },
+              { src: "/images/home/z7697264282057_4afb28f4f7bd51ce5d1ba0de8ed00098.jpg" },
+              { src: "/images/home/Timeline.00_07_15_09.Still015.jpg" },
             ].map((item, i) => (
               <div
                 key={i}
@@ -441,7 +441,7 @@ export default function WhatWeDo() {
               {/* TOP IMAGE */}
               <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
-                  src="/images/home/Timber.jpg"
+                  src="/images/home/ok33.jpg"
                   alt={timberAlts[0]}
                   className="w-full h-full object-cover"
                   placeholderBg="#b5a898"
@@ -452,7 +452,7 @@ export default function WhatWeDo() {
               <div className="grid grid-cols-2 gap-2 md:gap-1 w-full">
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
-                    src="/images/home/Timber2.jpg"
+                    src="/images/home/Timeline Day 1.00_33_41_34.Still166 (1).jpg"
                     alt={timberAlts[1]}
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
@@ -460,7 +460,7 @@ export default function WhatWeDo() {
                 </div>
                 <div className="overflow-hidden rounded-sm h-[130px] sm:h-[200px] lg:h-[280px]">
                   <Img
-                    src="/images/home/Timber3.jpg"
+                    src="/images/home/Timeline Day 1.00_33_18_05.Still164 (1).jpg"
                     alt={timberAlts[2]}
                     className="w-full h-full object-cover"
                     placeholderBg="#b5a898"
