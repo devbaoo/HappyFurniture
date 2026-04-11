@@ -122,22 +122,12 @@ const OrderDelivery = () => {
 
             <div className="relative hidden w-full min-h-[220px] md:block md:h-full md:min-h-0">
               <img
-                src="/images/order/order-02.jpg"
-                alt={o.deliveryImageAlt[lang]}
+                src="/images/order/color filler espresso (1).jpg"
+                alt="Order delivery detail"
                 className="w-full h-full min-h-[220px] object-cover object-center"
               />
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src="/images/order/color filler espresso (1).jpg"
-            alt="Order delivery detail"
-            className="w-full h-auto object-cover"
-          />
         </div>
       </section>
 
@@ -154,8 +144,8 @@ const OrderDelivery = () => {
         >
           <div className="relative hidden w-full min-h-[260px] md:block md:h-full md:w-1/2">
             <img
-              src="/images/order/order-03.jpg"
-              alt={o.orderImageAlt[lang]}
+              src="/images/order/z7707969819615_66aacb145f9ca8ddb413bb4c2215bda1.jpg"
+              alt="Order process showcase"
               className="absolute inset-0 h-full w-full object-cover object-center md:object-[center_center]"
               style={{ height: "582px", transform: "translate(0px, -127px)" }}
             />
@@ -191,49 +181,18 @@ const OrderDelivery = () => {
 
               <div className="mt-4 grid w-full max-w-none grid-cols-2 gap-2 md:mt-5 md:max-w-[560px] md:gap-3">
                 <img
-                  src="/images/order/order-04.jpg"
-                  alt={o.orderGalleryAlt[lang][0]}
+                  src="/images/order/z7707978270483_8d927538e6e6b5871dd362324e2fcf81.jpg"
+                  alt="Order process showcase detail"
                   className="aspect-[1.75/1] w-full object-cover object-center md:h-[164px] md:aspect-auto md:-translate-y-[11px]"
                 />
                 <img
-                  src="/images/order/order-05.jpg"
-                  alt={o.orderGalleryAlt[lang][1]}
+                  src="/images/order/z7707975383386_8fff5ba0fa96c5c5659707b3cc5fe0b6.jpg"
+                  alt="Order process showcase detail"
                   className="aspect-[1.75/1] w-full object-cover object-center md:h-[164px] md:aspect-auto md:-translate-y-[11px]"
                 />
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src="/images/order/z7707969819615_66aacb145f9ca8ddb413bb4c2215bda1.jpg"
-            alt="Order process showcase"
-            className="w-full h-auto object-cover"
-            style={{ height: "1038.23px", transform: "translate(0px, 35px)" }}
-          />
-        </div>
-      </section>
-
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src="/images/order/z7707978270483_8d927538e6e6b5871dd362324e2fcf81.jpg"
-            alt="Order process showcase detail"
-            className="w-full h-auto object-cover"
-          />
-        </div>
-      </section>
-
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src="/images/order/z7707975383386_8fff5ba0fa96c5c5659707b3cc5fe0b6.jpg"
-            alt="Order process showcase detail"
-            className="w-full h-auto object-cover"
-          />
         </div>
       </section>
 
