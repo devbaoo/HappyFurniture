@@ -72,7 +72,7 @@ const News = () => {
     );
   }
 
-  const { events, activities } = newsData;
+  const { news, companyActivities } = newsData;
 
   return (
     <div className="w-full bg-white font-sans">
@@ -89,7 +89,7 @@ const News = () => {
       />
 
       <div className="mx-auto w-full max-w-[1650px] px-2 py-3 md:px-14 lg:px-24 md:py-4 relative">
-        {/* EVENTS SECTION */}
+        {/* NEWS SECTION */}
         <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
           <div
             className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-events") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
@@ -99,22 +99,22 @@ const News = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-2 md:mb-2.5">
-              {events.length === 0 ? (
+              {news.length === 0 ? (
                 <p className="col-span-full text-center text-gray-400 py-8">
-                  {lang === "vi" ? "Chua co su kien nao" : "No events yet"}
+                  {lang === "vi" ? "Chưa có tin tức nào" : "No news yet"}
                 </p>
               ) : (
-                events.map((event) => (
+                news.map((item) => (
                   <Link
-                    key={event.id}
-                    to={`/news/${event.slug}`}
+                    key={item.id}
+                    to={`/news/${item.slug}`}
                     className="flex flex-col group cursor-pointer"
                   >
                     <div className="w-full h-64 bg-gray-200 overflow-hidden">
                       <img
-                        alt={event.titleVi || event.titleEn || n.altEvent[lang]}
+                        alt={item.titleVi || item.titleEn || n.altEvent[lang]}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src={event.imageUrl || PLACEHOLDER_IMG_EVENT}
+                        src={item.imageUrl || PLACEHOLDER_IMG_EVENT}
                         onError={(e) => {
                           e.target.src = PLACEHOLDER_IMG_EVENT;
                         }}
@@ -123,17 +123,13 @@ const News = () => {
                     <div className="bg-gray-50 px-5 py-4 md:px-5 md:py-4 flex flex-col flex-1 border border-t-0 border-gray-100">
                       <h3 className="font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
                         {lang === "vi"
-                          ? event.titleVi
-                          : event.titleEn || event.titleVi}
+                          ? item.titleVi
+                          : item.titleEn || item.titleVi}
                       </h3>
                       <p className="text-sm text-gray-500 leading-[1.75] tracking-[0.01em] text-justify hyphens-auto line-clamp-3">
                         {lang === "vi"
-                          ? event.excerptVi ||
-                            event.contentVi ||
-                            n.exhibitionBody[lang]
-                          : event.excerptEn ||
-                            event.contentEn ||
-                            n.exhibitionBody[lang]}
+                          ? item.excerptVi || n.exhibitionBody[lang]
+                          : item.excerptEn || n.exhibitionBody[lang]}
                       </p>
                     </div>
                   </Link>
@@ -152,7 +148,7 @@ const News = () => {
           </div>
         </section>
 
-        {/* ACTIVITIES SECTION */}
+        {/* COMPANY ACTIVITIES SECTION */}
         <section className="mb-6 md:mb-7" data-animate id="news-activities">
           <div
             className={`transform transition-all duration-1000 ease-out ${visibleElements.has("news-activities") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
@@ -161,13 +157,13 @@ const News = () => {
               {n.companyActivities[lang]}
             </h2>
 
-            {activities.length === 0 ? (
+            {companyActivities.length === 0 ? (
               <p className="text-center text-gray-400 py-8">
                 {lang === "vi" ? "Chưa có hoạt động nào" : "No activities yet"}
               </p>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-5 mb-2 md:mb-2.5">
-                {activities.map((item) => (
+                {companyActivities.map((item) => (
                   <Link
                     key={item.id}
                     to={`/news/${item.slug}`}
@@ -189,8 +185,8 @@ const News = () => {
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em] text-justify hyphens-auto">
                         {lang === "vi"
-                          ? item.excerptVi || item.contentVi || n.teamBuildingBody[lang]
-                          : item.excerptEn || item.contentEn || n.teamBuildingBody[lang]}
+                          ? item.excerptVi || n.teamBuildingBody[lang]
+                          : item.excerptEn || n.teamBuildingBody[lang]}
                       </p>
                     </div>
                   </Link>

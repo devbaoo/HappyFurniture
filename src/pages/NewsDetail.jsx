@@ -5,9 +5,45 @@ import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { newsService } from "../services/news.service";
+import type { ContentBlock, NewsDetail as NewsDetailType } from "../services/api";
 
 const PLACEHOLDER_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800&h=500";
+
+function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: string }) {
+  const title = lang === "vi" ? block.titleVi : (block.titleEn || block.titleVi);
+  const content = lang === "vi" ? block.contentVi : (block.contentEn || block.contentVi);
+
+  if (block.type === "Image" && block.imageUrl) {
+    return (
+      <div className={`w-full bg-gray-200 overflow-hidden mb-6 ${block.isFullWidth ? "" : "max-w-[700px]"}`}>
+        <img
+          src={block.imageUrl}
+          alt={lang === "vi" ? block.imageAltVi : block.imageAltEn || title || ""}
+          className={`w-full object-cover ${block.isFullWidth ? "h-[300px] sm:h-[400px] md:h-[500px]" : "h-[240px] sm:h-[320px]"}`}
+          loading="lazy"
+          onError={(e) => { e.target.src = PLACEHOLDER_IMG; }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mb-6">
+      {title && (
+        <h2 className="font-heading font-bold text-black text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28]">
+          {title}
+        </h2>
+      )}
+      {content && (
+        <div
+          className="text-[13px] md:text-sm text-gray-600 leading-[1.88] text-justify hyphens-auto"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      )}
+    </div>
+  );
+}
 
 export default function NewsDetail() {
   const { slug } = useParams();
@@ -15,8 +51,8 @@ export default function NewsDetail() {
   const n = siteCopy.newsPage;
   const navHome = siteCopy.nav[lang].home;
 
-  const [newsItem, setNewsItem] = useState(null);
-  const [relatedNews, setRelatedNews] = useState([]);
+  const [newsItem, setNewsItem] = useState<NewsDetailType | null>(null);
+  const [relatedNews, setRelatedNews] = useState<NewsDetailType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -30,9 +66,9 @@ export default function NewsDetail() {
           newsService.getActiveNews(),
         ]);
         setNewsItem(detail);
-        const allEvents = allNews.events;
-        const related = allEvents.filter((item) => item.slug !== slug).slice(0, 3);
-        setRelatedNews(related);
+        const allNewsItems = allNews.news;
+        const related = allNewsItems.filter((item) => item.slug !== slug).slice(0, 3);
+        setRelatedNews(related as NewsDetailType[]);
       } catch (err) {
         console.error("Failed to load news detail:", err);
         setError("Unable to load news");
@@ -80,13 +116,18 @@ export default function NewsDetail() {
   }
 
   const title = lang === "vi" ? newsItem.titleVi : (newsItem.titleEn || newsItem.titleVi);
-  const content = lang === "vi" ? newsItem.contentVi : (newsItem.contentEn || newsItem.contentVi);
+  const metaTitle = lang === "vi" ? newsItem.metaTitleVi : (newsItem.metaTitleEn || title);
+  const metaDescription = lang === "vi" ? newsItem.metaDescriptionVi : (newsItem.metaDescriptionEn || (lang === "vi" ? newsItem.excerptVi : newsItem.excerptEn));
+
+  const displayImage = newsItem.bannerUrl || newsItem.imageUrl;
+
+  const sortedBlocks = [...(newsItem.contentBlocks || [])].sort((a, b) => a.sortOrder - b.sortOrder);
 
   return (
     <div className="w-full bg-white font-sans">
       <SEOHead
-        title={title}
-        description={lang === "vi" ? newsItem.excerptVi : newsItem.excerptEn}
+        title={metaTitle}
+        description={metaDescription}
         canonical={`/news/${slug}`}
       />
       <PageBreadcrumb
@@ -112,11 +153,11 @@ export default function NewsDetail() {
               {title}
             </h1>
 
-            {/* Image */}
-            {newsItem.imageUrl && (
+            {/* Banner / Hero Image */}
+            {displayImage && (
               <div className="w-full h-[240px] sm:h-[340px] md:h-[420px] bg-gray-200 overflow-hidden mb-7">
                 <img
-                  src={newsItem.imageUrl}
+                  src={displayImage}
                   alt={title}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -125,15 +166,16 @@ export default function NewsDetail() {
               </div>
             )}
 
-            {/* Content */}
-            {content ? (
-              <div
-                className="text-[13px] md:text-sm text-gray-600 leading-[1.88] text-justify hyphens-auto"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
+            {/* Content Blocks */}
+            {sortedBlocks.length > 0 ? (
+              <div className="space-y-2">
+                {sortedBlocks.map((block) => (
+                  <ContentBlockRenderer key={block.id} block={block} lang={lang} />
+                ))}
+              </div>
             ) : (
               <div className="text-[13px] md:text-sm text-gray-400 leading-[1.88]">
-                {lang === "vi" ? "Noi dung dang duoc cap nhat..." : "Content is being updated..."}
+                {lang === "vi" ? "Nội dung đang được cập nhật..." : "Content is being updated..."}
               </div>
             )}
           </div>
@@ -146,7 +188,7 @@ export default function NewsDetail() {
                   <div className="w-full h-[170px] bg-gray-200 overflow-hidden mb-3">
                     <img
                       src={item.imageUrl || PLACEHOLDER_IMG}
-                      alt={lang === "vi" ? item.titleVi : item.titleEn}
+                      alt={lang === "vi" ? item.titleVi : item.titleEn || item.titleVi}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                       onError={(e) => { e.target.src = PLACEHOLDER_IMG; }}
@@ -161,8 +203,8 @@ export default function NewsDetail() {
                   </h3>
                   <p className="text-[11px] text-gray-500 leading-[1.75] line-clamp-3">
                     {lang === "vi"
-                      ? (item.excerptVi || item.contentVi)
-                      : (item.excerptEn || item.contentEn)}
+                      ? (item.excerptVi)
+                      : (item.excerptEn)}
                   </p>
                 </Link>
                 {idx < relatedNews.length - 1 && (
@@ -173,7 +215,7 @@ export default function NewsDetail() {
 
             {relatedNews.length === 0 && (
               <div className="text-gray-400 text-sm">
-                {lang === "vi" ? "Khong co tin lien quan" : "No related news"}
+                {lang === "vi" ? "Không có tin liên quan" : "No related news"}
               </div>
             )}
           </div>
