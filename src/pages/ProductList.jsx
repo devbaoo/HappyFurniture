@@ -119,6 +119,12 @@ const loadRecentlyViewed = () => {
 const sortImagesByIdAsc = (images = []) =>
   [...images].sort((a, b) => (a?.id ?? 0) - (b?.id ?? 0));
 
+const parseMultiValueParam = (value) =>
+  (value || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
 /* ─── Main page ────────────────────────────────────────────────── */
 const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -132,7 +138,9 @@ const ProductList = () => {
   const [pageNumber, setPageNumber] = useState(Number(searchParams.get("page") || 1));
   const [pageSize] = useState(Number(searchParams.get("pageSize") || 12));
   const [subCatId, setSubCatId] = useState(searchParams.get("subcat") || "");
-  const [materialId, setMaterialId] = useState(searchParams.get("material") || "");
+  const [materialIds, setMaterialIds] = useState(() =>
+    parseMultiValueParam(searchParams.get("material"))
+  );
   const [assemblyId, setAssemblyId] = useState(searchParams.get("assembly") || "");
 
   /* ── Filter categories (Type dropdown) ───────────────────────── */
@@ -170,8 +178,16 @@ const ProductList = () => {
   const allCategories = megaCategories.flatMap((c) => [c, ...(c.children || [])]);
   const activeCat = allCategories.find((c) => String(c.id) === categoryId);
   const activeCatLabel = activeCat ? localizeField(activeCat, "name", lang) : "";
-  const selectedMaterial = materials.find((m) => String(m.id) === materialId);
+  const selectedMaterials = materials.filter((m) =>
+    materialIds.includes(String(m.id))
+  );
   const selectedAssembly = assemblies.find((a) => String(a.id) === assemblyId);
+  const materialLabel =
+    selectedMaterials.length === 0
+      ? MATERIAL_FALLBACK_LABEL[lang]
+      : selectedMaterials.length === 1
+        ? localizeField(selectedMaterials[0], "name", lang)
+        : `${MATERIAL_FALLBACK_LABEL[lang]} (${selectedMaterials.length})`;
 
   /* ── Sync nameFilter from URL (e.g. header search navigates here) */
   useEffect(() => {
@@ -193,7 +209,8 @@ const ProductList = () => {
     try {
       const data = await productService.getProducts({
         ...(effectiveCatId ? { categoryId: effectiveCatId } : {}),
-        ...(materialId ? { materialId } : {}),
+        ...(materialIds.length === 1 ? { materialId: materialIds[0] } : {}),
+        ...(materialIds.length > 1 ? { materialIds: materialIds.join(",") } : {}),
         ...(assemblyId ? { assemblyId } : {}),
         ...(nameFilter ? { name: nameFilter } : {}),
         ...(sortField ? { sortBy: sortField } : {}),
@@ -219,7 +236,7 @@ const ProductList = () => {
     } finally {
       setLoading(false);
     }
-  }, [categoryId, subCatId, materialId, assemblyId, nameFilter, sortBy, pageNumber, pageSize]);
+  }, [categoryId, subCatId, materialIds, assemblyId, nameFilter, sortBy, pageNumber, pageSize]);
 
   useEffect(() => {
     fetchProducts();
@@ -230,14 +247,14 @@ const ProductList = () => {
     const params = {};
     if (categoryId) params.category = categoryId;
     if (subCatId) params.subcat = subCatId;
-    if (materialId) params.material = materialId;
+    if (materialIds.length) params.material = materialIds.join(",");
     if (assemblyId) params.assembly = assemblyId;
     if (nameFilter) params.name = nameFilter;
     if (sortBy) params.sortBy = sortBy;
     if (pageNumber > 1) params.page = pageNumber;
     if (pageSize !== 12) params.pageSize = pageSize;
     setSearchParams(params, { replace: true });
-  }, [categoryId, subCatId, materialId, assemblyId, nameFilter, sortBy, pageNumber, pageSize, setSearchParams]);
+  }, [categoryId, subCatId, materialIds, assemblyId, nameFilter, sortBy, pageNumber, pageSize, setSearchParams]);
 
   /* ── Reset to page 1 whenever any filter changes ─────────────── */
   const applyFilter = (fn) => { fn(); setPageNumber(1); };
@@ -336,13 +353,13 @@ const ProductList = () => {
   }, []);
 
   /* ── Active filters summary (pill chips) ─────────────────────── */
-  const hasActiveFilters = nameFilter || sortBy || subCatId || materialId || assemblyId;
+  const hasActiveFilters = nameFilter || sortBy || subCatId || materialIds.length > 0 || assemblyId;
 
   const clearAll = () => {
     setNameFilter("");
     setSortBy("");
     setSubCatId("");
-    setMaterialId("");
+    setMaterialIds([]);
     setAssemblyId("");
     setPageNumber(1);
   };
@@ -528,8 +545,8 @@ const ProductList = () => {
             </FilterDropdown>
 
             <FilterDropdown
-              label={selectedMaterial ? localizeField(selectedMaterial, "name", lang) : MATERIAL_FALLBACK_LABEL[lang]}
-              active={!!materialId}
+              label={materialLabel}
+              active={materialIds.length > 0}
             >
               {materialsLoading ? (
                 <div className="text-[11px] text-muted py-1 px-1">Loading...</div>
@@ -537,10 +554,10 @@ const ProductList = () => {
                 <div className="text-[11px] text-muted py-1 px-1">No materials</div>
               ) : (
                 <ul className="min-w-[160px]">
-                  {materialId && (
+                  {materialIds.length > 0 && (
                     <li>
                       <button
-                        onClick={() => applyFilter(() => setMaterialId(""))}
+                        onClick={() => applyFilter(() => setMaterialIds([]))}
                         className="w-full text-left py-1.5 px-2 text-[11px] tracking-[0.08em] uppercase text-muted hover:text-primary transition-colors border-b border-border mb-1"
                       >
                         Clear
@@ -550,10 +567,28 @@ const ProductList = () => {
                   {materials.map((m) => (
                     <li key={m.id}>
                       <button
-                        onClick={() => applyFilter(() => setMaterialId(String(m.id) === materialId ? "" : String(m.id)))}
-                        className={`w-full text-left py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${String(m.id) === materialId ? "text-primary font-medium" : "text-[#333]"}`}
+                        onClick={() =>
+                          applyFilter(() =>
+                            setMaterialIds((prev) =>
+                              prev.includes(String(m.id))
+                                ? prev.filter((id) => id !== String(m.id))
+                                : [...prev, String(m.id)]
+                            )
+                          )
+                        }
+                        className={`flex w-full items-center gap-2 py-1.5 px-2 text-[12px] tracking-[0.04em] hover:text-primary transition-colors ${materialIds.includes(String(m.id)) ? "text-primary font-medium" : "text-[#333]"}`}
                       >
-                        {localizeField(m, "name", lang)}
+                        <input
+                          type="checkbox"
+                          checked={materialIds.includes(String(m.id))}
+                          readOnly
+                          tabIndex={-1}
+                          className="h-3.5 w-3.5 rounded-[2px] border border-stone-400 accent-[#3c4a28] pointer-events-none"
+                        />
+                        <span>{localizeField(m, "name", lang)}</span>
+                        <span className={`hidden text-[10px] ${materialIds.includes(String(m.id)) ? "opacity-100" : "opacity-0"}`}>
+                          ✓
+                        </span>
                       </button>
                     </li>
                   ))}
@@ -610,12 +645,25 @@ const ProductList = () => {
                   <button onClick={() => applyFilter(() => setSubCatId(""))}><X size={10} /></button>
                 </span>
               )}
-              {materialId && (
-                <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
-                  Material: {selectedMaterial ? localizeField(selectedMaterial, "name", lang) : materialId}
-                  <button onClick={() => applyFilter(() => setMaterialId(""))}><X size={10} /></button>
+              {selectedMaterials.map((material) => (
+                <span
+                  key={material.id}
+                  className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase"
+                >
+                  Material: {localizeField(material, "name", lang)}
+                  <button
+                    onClick={() =>
+                      applyFilter(() =>
+                        setMaterialIds((prev) =>
+                          prev.filter((id) => id !== String(material.id))
+                        )
+                      )
+                    }
+                  >
+                    <X size={10} />
+                  </button>
                 </span>
-              )}
+              ))}
               {assemblyId && (
                 <span className="flex items-center gap-1 bg-surface px-3 py-1 text-[10px] tracking-[0.08em] uppercase">
                   Assembly: {selectedAssembly ? localizeField(selectedAssembly, "name", lang) : assemblyId}

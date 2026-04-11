@@ -9,7 +9,6 @@ import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { localizeField } from "../utils/i18n";
 
 // ── Image imports ──────────────────────────────────────────────────────────
-import heroImg from "/images/about-us/InsideFactoryBackGround.jpg";
 import manufacturingImg from "/images/what-we-do/DSC03115.jpg";
 import finishingImg from "/images/about-us/Finishing.jpg";
 import flycamImg from "/images/what-we-do/Screenshot flycam.01_33_41_51.Still076.jpg";
@@ -154,9 +153,9 @@ export default function WhatWeDo() {
         className="relative w-full overflow-hidden h-[clamp(220px,45vw,580px)] md:h-[70vh] md:min-h-[480px]"
       >
         <img
-          src={heroImg}
-          alt={w.heroAlt[lang]}
-          className="absolute inset-0 w-full h-full object-cover object-center brightness-[1.5]"
+          src={flycamImg}
+          alt="Happy Furniture flycam view"
+          className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.7]"
         />
         {/* subtle dark gradient at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
@@ -168,15 +167,6 @@ export default function WhatWeDo() {
       </section>
 
       {/* ══ FURNITURE MANUFACTURING ═══════════════════════════════════════ */}
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src={flycamImg}
-            alt="Happy Furniture flycam view"
-            className="w-full h-auto object-cover"
-          />
-        </div>
-      </section>
 
       <section className="wwd-mfg-section" data-animate id="wwd-mfg">
         <div className={`w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px] transform transition-all duration-1000 ease-out ${visibleElements.has("wwd-mfg") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"

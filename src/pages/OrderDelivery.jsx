@@ -37,7 +37,7 @@ const OrderDelivery = () => {
         data-animate
         id="order-delivery-packaging"
         style={{
-          backgroundImage: "url('/images/order/order-09.jpg')",
+          backgroundImage: "url('/images/order/frame_5_52_8f.jpeg')",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -74,16 +74,6 @@ const OrderDelivery = () => {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="w-full bg-white pb-3 md:pb-5">
-        <div className="w-full overflow-hidden">
-          <img
-            src="/images/order/frame_5_52_8f.jpeg"
-            alt="Order delivery showcase"
-            className="w-full h-auto object-cover"
-          />
         </div>
       </section>
 
