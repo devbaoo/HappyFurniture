@@ -22,7 +22,7 @@ const Contact = () => {
   const L = t.labels;
   const P = t.placeholders;
   const E = t.errors;
-  const contactMsName = lang === "vi" ? "UYÊN TRẦN" : "Uyen Tran (Ms.)";
+  const contactMsName = lang === "vi" ? "UYÊN TRẦN" : "UYEN TRAN (MS.)";
   const contactMrName = lang === "vi" ? "THẮNG NGUYỄN" : "THANG NGUYEN (MR.)";
   const mobileContactNameClass =
     lang === "vi"
@@ -344,7 +344,7 @@ const Contact = () => {
                       d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                     ></path>
                   </svg>
-                  <span>(+84) 2516 280 180 (máy lẻ 135)</span>
+                  <span>{lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)"}</span>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[7px]">
                   <svg
@@ -405,7 +405,7 @@ const Contact = () => {
                       d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                     ></path>
                   </svg>
-                  <span>(+84) 2516 280 140 (máy lẻ 0-14)</span>
+                  <span>{lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)"}</span>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[29px]">
                   <svg
@@ -482,7 +482,7 @@ const Contact = () => {
                   ></path>
                 </svg>
                 <span className="text-[8px] sm:text-[10px] whitespace-nowrap">
-                  (+84) 2516 280 180 (máy lẻ 135)
+                  {lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)"}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -546,7 +546,7 @@ const Contact = () => {
                   ></path>
                 </svg>
                 <span className="text-[8px] sm:text-[10px] whitespace-nowrap">
-                  (+84) 2516 280 140 (máy lẻ 0-14)
+                  {lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)"}
                 </span>
               </div>
               <div className="flex items-center gap-1">
