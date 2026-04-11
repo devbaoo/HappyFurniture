@@ -302,7 +302,7 @@ const Home = () => {
     const ensurePlayback = () => {
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {});
+        playPromise.catch(() => { });
       }
     };
 
@@ -317,7 +317,7 @@ const Home = () => {
   return (
     <div className="w-full">
       <SEOHead
-        title="Premium Luxury Furniture"
+        title="Premium Furniture"
         description="Make life more comfortable. Discover handcrafted luxury furniture crafted to perfection — beds, sofas, dining sets, and more at Happy Furniture."
         canonical="/"
         structuredData={{
@@ -354,9 +354,8 @@ const Home = () => {
             disablePictureInPicture
             disableRemotePlayback
             tabIndex={-1}
-            className={`transition-opacity duration-2000 ease-out ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            } hero-video absolute inset-0 h-full w-full object-cover pointer-events-none`}
+            className={`transition-opacity duration-2000 ease-out ${isLoaded ? "opacity-100" : "opacity-0"
+              } hero-video absolute inset-0 h-full w-full object-cover pointer-events-none`}
           >
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
@@ -368,9 +367,8 @@ const Home = () => {
         <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-28 text-center md:px-6 md:pb-20 md:pt-48 lg:px-8 lg:pt-56 xl:pt-60">
           {/* TITLE */}
           <h1
-            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            } text-[20px] sm:text-[24px] md:text-3xl lg:text-[36px] xl:text-[44px] xl:whitespace-nowrap [@media(max-height:820px)]:text-[clamp(1.75rem,3.2vw,2.5rem)] [@media(max-height:720px)]:text-[clamp(1.8rem,2.8vw,2.15rem)] uppercase`}
+            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              } text-[20px] sm:text-[24px] md:text-3xl lg:text-[36px] xl:text-[44px] xl:whitespace-nowrap [@media(max-height:820px)]:text-[clamp(1.75rem,3.2vw,2.5rem)] [@media(max-height:720px)]:text-[clamp(1.8rem,2.8vw,2.15rem)] uppercase`}
             style={{
               letterSpacing: "0.05em",
               transitionDelay: "0.3s",
@@ -382,9 +380,8 @@ const Home = () => {
 
           {/* DESCRIPTION */}
           <p
-            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out [@media(max-height:720px)]:mt-4 [@media(max-height:720px)]:max-w-xl ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            }`}
+            className={`text-white/90 md:text-white/80 text-sm md:text-base mt-4 md:mt-6 max-w-2xl mx-auto leading-[1.8] tracking-[0.01em] transform transition-all duration-1500 ease-out [@media(max-height:720px)]:mt-4 [@media(max-height:720px)]:max-w-xl ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.6s" }}
           >
             {h.heroSubtitle[lang]}
@@ -392,9 +389,8 @@ const Home = () => {
 
           {/* BUTTON */}
           <div
-            className={`mt-8 md:mt-10 [@media(max-height:720px)]:mt-6 transform transition-all duration-1500 ease-out ${
-              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            }`}
+            className={`mt-8 md:mt-10 [@media(max-height:720px)]:mt-6 transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.9s" }}
           >
             <Link
@@ -418,11 +414,10 @@ const Home = () => {
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           {/* Section title */}
           <div
-            className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`text-center mb-6 md:mb-6 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
           >
             <h2 className="font-heading text-[20px] md:text-4xl font-normal tracking-[0.08em] text-[#3c4a28] mb-2 md:mb-2 leading-[1.08] uppercase">
               {h.categoriesHeading[lang]}
@@ -437,11 +432,10 @@ const Home = () => {
 
           {/* Top row — 2 large equal images */}
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`grid grid-cols-1 md:grid-cols-2 gap-1.5 mb-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.2s" }}
           >
             {categoryCards.slice(0, 2).map((card) => (
@@ -458,11 +452,10 @@ const Home = () => {
 
           {/* Bottom row — 4 smaller equal images */}
           <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${
-              visibleElements.has("categories")
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }`}
+            className={`grid grid-cols-2 md:grid-cols-4 gap-1.5 transform transition-all duration-1000 ease-out ${visibleElements.has("categories")
+              ? "translate-y-0 opacity-100"
+              : "translate-y-8 opacity-0"
+              }`}
             style={{ transitionDelay: "0.4s" }}
           >
             {categoryCards.slice(2).map((card) => (
@@ -491,9 +484,8 @@ const Home = () => {
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px] xl:h-full">
           {/* Title */}
           <h2
-            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 [@media(min-width:768px)_and_(max-width:1280px)]:mb-5 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out lg:-translate-y-2 xl:-translate-y-[33.3334px] ${
-              visibleElements.has("promo") ? "opacity-100" : "opacity-0"
-            } uppercase`}
+            className={`text-center font-heading text-[#3c4a28] max-w-[468px] md:max-w-none mx-auto mb-3 md:mb-0 [@media(min-width:768px)_and_(max-width:1280px)]:mb-5 text-[23px] md:text-[clamp(1.5rem,2.4vw,2.1rem)] tracking-[0.04em] md:tracking-[0.07em] leading-[1.18] md:leading-[1.22] transition-all duration-1000 ease-out lg:-translate-y-2 xl:-translate-y-[33.3334px] ${visibleElements.has("promo") ? "opacity-100" : "opacity-0"
+              } uppercase`}
           >
             <span className="md:hidden">
               <span className="whitespace-nowrap">
@@ -616,13 +608,11 @@ const Home = () => {
               {featureColumns.map((item, index) => (
                 <div
                   key={`${item.title}-${index}`}
-                  className={`px-3 md:px-6 lg:px-7 2xl:px-10 py-3 md:py-5 lg:py-4 flex flex-col items-center justify-start 2xl:h-full ${
-                    index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
-                  } ${
-                    index % 2 === 0
+                  className={`px-3 md:px-6 lg:px-7 2xl:px-10 py-3 md:py-5 lg:py-4 flex flex-col items-center justify-start 2xl:h-full ${index < 2 ? "border-b md:border-b-0 border-[#c9c5be]" : ""
+                    } ${index % 2 === 0
                       ? "border-r md:border-r-0 border-[#c9c5be]"
                       : ""
-                  }`}
+                    }`}
                 >
                   <h3
                     className="mb-0 min-h-[1.85rem] md:min-h-[2.1rem] font-semibold lg:text-[16px] 2xl:text-[18px] flex items-start justify-center text-center"
@@ -811,18 +801,16 @@ const Home = () => {
                   {timberTagRows.map((row, rowIndex) => (
                     <div
                       key={`timber-row-${rowIndex}`}
-                      className={`grid gap-1.5 md:gap-2 ${
-                        row.length === 3 ? "grid-cols-3" : "grid-cols-2"
-                      }`}
+                      className={`grid gap-1.5 md:gap-2 ${row.length === 3 ? "grid-cols-3" : "grid-cols-2"
+                        }`}
                     >
                       {row.map((tag) => (
                         <span
                           key={tag}
-                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] lg:min-h-[28px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${
-                            tag === "FAS - First and Second"
-                              ? "text-[12px] md:text-[11px]"
-                              : "text-[13px] md:text-[12px] lg:text-[11px] xl:text-[12px]"
-                          }`}
+                          className={`w-full bg-white text-stone-800 md:text-stone-600 text-center rounded-sm shadow-sm flex items-center justify-center min-h-[28px] md:min-h-[30px] lg:min-h-[28px] px-2 py-0.1 leading-[1.15] tracking-[0.01em] font-medium ${tag === "FAS - First and Second"
+                            ? "text-[12px] md:text-[11px]"
+                            : "text-[13px] md:text-[12px] lg:text-[11px] xl:text-[12px]"
+                            }`}
                         >
                           {tag}
                         </span>
