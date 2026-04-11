@@ -87,12 +87,12 @@ const Footer = () => {
                                     {lang === "vi" ? (
                                         <>
                                             {"\u0110\u01b0\u1eddng s\u1ed1 9, Khu c\u00f4ng nghi\u1ec7p Tam Ph\u01b0\u1edbc,"}<br />
-                                            {"Th\u00e0nh ph\u1ed1 Bi\u00ean H\u00f2a, T\u1ec9nh \u0110\u1ed3ng Nai, Vi\u1ec7t Nam"}
+                                            {"Ph\u01b0\u1eddng Tam Ph\u01b0\u1edbc, T\u1ec9nh \u0110\u1ed3ng Nai, Vi\u1ec7t Nam"}
                                         </>
                                     ) : (
                                         <>
-                                            Road No. 9, Tam Phuoc Industrial Park,<br />
-                                            Bien Hoa City, Dong Nai Province, Vietnam.
+                                            9th Street, Tam Phuoc Industrial Park,<br />
+                                            Tam Phuoc Ward, Dong Nai Province, Vietnam
                                         </>
                                     )}
                                 </p>
