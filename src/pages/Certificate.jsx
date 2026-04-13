@@ -30,7 +30,7 @@ const Certificate = () => {
         ]}
       />
       <section
-        className="pt-0 pb-6 md:pb-10 text-center"
+        className="pt-4 md:pt-0 pb-6 md:pb-10 text-center"
         data-animate
         id="certificate-hero"
       >
@@ -40,7 +40,7 @@ const Certificate = () => {
             : "translate-y-8 opacity-0"
             }`}
         >
-          <div className="flex justify-center mb-2 md:mb-3">
+          <div className="hidden lg:flex justify-center mb-2 md:mb-3">
             <img
               alt=""
               className="object-contain w-64 h-64 md:w-80 md:h-80"
@@ -66,7 +66,7 @@ const Certificate = () => {
             : "translate-y-8 opacity-0"
             }`}
         >
-          <div className="relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px] bg-white">
+          <div className="max-lg:hidden lg:block relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px] bg-white">
             <img
               src="/images/certificates/chứng chỉ.jpg"
               alt="Happy Furniture certificates"
