@@ -367,7 +367,8 @@ const Home = () => {
         <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-28 text-center md:px-6 md:pb-20 md:pt-48 lg:px-8 lg:pt-56 xl:pt-60">
           {/* TITLE */}
           <h1
-            className={`font-heading text-white font-normal leading-[1.08] md:leading-[1.02] text-center transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            className={`font-heading text-white font-normal text-center transform transition-all duration-1500 ease-out ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              } ${lang === "vi" ? "leading-[1.32] md:leading-[1.24]" : "leading-[1.08] md:leading-[1.02]"
               } text-[20px] sm:text-[24px] md:text-3xl lg:text-[36px] xl:text-[44px] xl:whitespace-nowrap [@media(max-height:820px)]:text-[clamp(1.75rem,3.2vw,2.5rem)] [@media(max-height:720px)]:text-[clamp(1.8rem,2.8vw,2.15rem)] uppercase`}
             style={{
               letterSpacing: "0.05em",
@@ -586,7 +587,7 @@ const Home = () => {
             {/* Right: image */}
             <div className="lg:col-span-7 overflow-hidden w-full mt-2 md:mt-0">
               <Img
-                src="/images/home/z7697091001689_8275c2239150cd84b7db13430f546970.jpg"
+                src="/images/home/optimus.png"
                 alt={h.aboutImageAlt[lang]}
                 placeholderBg="#b5a898"
                 className="aspect-[4/3] w-full"
