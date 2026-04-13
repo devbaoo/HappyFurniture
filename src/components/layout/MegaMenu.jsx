@@ -27,7 +27,7 @@ const ImagePanel = ({ category, isDark }) => {
   const { lang } = useLanguage();
   const categoryLabel = localizeField(category, "name", lang);
   return (
-    <div className="hidden xl:flex xl:w-[220px] 2xl:w-[260px] shrink-0 flex-col gap-3">
+    <div className="hidden xl:flex xl:w-[180px] 2xl:w-[210px] shrink-0 flex-col gap-2">
       <div className="overflow-hidden w-full" style={{ aspectRatio: "4/3" }}>
         <img
           src={category.imageUrl || FALLBACK_IMG}
@@ -100,8 +100,8 @@ const DropdownPanel = ({
         onMouseLeave();
       }}
     >
-      <div className="mx-auto max-w-[1800px] px-6 xl:px-10 2xl:px-16 py-8 xl:py-10">
-        <div className="flex items-stretch gap-0 min-h-[300px] xl:min-h-[320px]">
+      <div className="mx-auto max-w-[1800px] px-6 xl:px-10 2xl:px-16 py-4 xl:py-6">
+        <div className="flex items-stretch gap-0 min-h-[200px] xl:min-h-[240px]">
 
           {/* ── Left sidebar: parent category list ────────── */}
           <div
@@ -120,7 +120,7 @@ const DropdownPanel = ({
                   onMouseEnter={() => setHoveredCatId(cat.id)}
                   className={`
                     group/parent flex items-center justify-between
-                    py-3 pr-4 xl:pr-5 2xl:pr-6 text-[11px] xl:text-[12px] tracking-[0.16em] xl:tracking-[0.2em] uppercase
+                    py-2 pr-4 xl:pr-5 2xl:pr-6 text-[11px] xl:text-[12px] tracking-[0.16em] xl:tracking-[0.2em] uppercase
                     transition-all duration-200
                     ${isActive
                       ? isDark
@@ -157,7 +157,7 @@ const DropdownPanel = ({
                 className="animate-fadeInMenu"
               >
                 {/* Section title */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <h3
                     className={`
                       text-[12px] xl:text-[13px] tracking-[0.18em] xl:tracking-[0.25em] uppercase font-semibold
