@@ -93,6 +93,7 @@ export interface CompanyInfo {
   phoneEn: string | null;
   faxVi: string | null;
   faxEn: string | null;
+  sortOrder: number;
   isActive: boolean;
   createdAt: string;
 }
