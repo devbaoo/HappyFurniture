@@ -35,20 +35,17 @@ const Contact = () => {
     companyInfoService.getActive().then(setCompanyInfos).catch(() => {});
   }, []);
 
-  const getContact = (type) => {
-    const name = lang === "vi" ? "UYÊN TRẦN" : "UYEN TRAN (MS.)";
-    const match = companyInfos.find(
+  const getContact = (searchKey) => {
+    const keyword = searchKey.toLowerCase();
+    return companyInfos.find(
       (c) =>
-        (lang === "vi" ? c.nameVi : c.nameEn || c.nameVi)
-          ?.toLowerCase()
-          .includes(name.toLowerCase().split(" ")[0]) ||
-        (c.nameVi || "").toLowerCase().includes(type.toLowerCase())
+        (c.nameVi || "").toLowerCase().includes(keyword) ||
+        (c.nameEn || "").toLowerCase().includes(keyword)
     );
-    return match;
   };
 
-  const contactMs = getContact("uyen tran");
-  const contactMr = getContact("thang nguyen");
+  const contactMs = getContact("uyen tran") || getContact("uyen");
+  const contactMr = getContact("thang nguyen") || getContact("thang");
 
   const mobileContactNameClass =
     lang === "vi"
