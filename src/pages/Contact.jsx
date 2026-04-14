@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { submitContact } from "../services/contact.service";
+import { companyInfoService } from "../services/companyInfo.service";
 
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const initialForm = {
@@ -22,18 +23,54 @@ const Contact = () => {
   const L = t.labels;
   const P = t.placeholders;
   const E = t.errors;
-  const contactMsName = lang === "vi" ? "UYÊN TRẦN" : "UYEN TRAN (MS.)";
-  const contactMrName = lang === "vi" ? "THẮNG NGUYỄN" : "THANG NGUYEN (MR.)";
-  const mobileContactNameClass =
-    lang === "vi"
-      ? "text-[14px] sm:text-[15px] font-semibold text-[#3c4a28] mb-2 font-sans tracking-normal leading-[1.45] normal-case"
-      : "text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]";
 
+  const [companyInfos, setCompanyInfos] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const recaptchaRef = useRef(null);
+
+  useEffect(() => {
+    companyInfoService.getActive().then(setCompanyInfos).catch(() => {});
+  }, []);
+
+  const getContact = (type) => {
+    const name = lang === "vi" ? "UYÊN TRẦN" : "UYEN TRAN (MS.)";
+    const match = companyInfos.find(
+      (c) =>
+        (lang === "vi" ? c.nameVi : c.nameEn || c.nameVi)
+          ?.toLowerCase()
+          .includes(name.toLowerCase().split(" ")[0]) ||
+        (c.nameVi || "").toLowerCase().includes(type.toLowerCase())
+    );
+    return match;
+  };
+
+  const contactMs = getContact("uyen tran");
+  const contactMr = getContact("thang nguyen");
+
+  const mobileContactNameClass =
+    lang === "vi"
+      ? "text-[14px] sm:text-[15px] font-semibold text-[#3c4a28] mb-2 font-sans tracking-normal leading-[1.45] normal-case"
+      : "text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]";
+
+  const contactMsName = lang === "vi"
+    ? (contactMs ? contactMs.nameVi : "UYÊN TRẦN")
+    : (contactMs ? contactMs.nameEn || contactMs.nameVi : "UYEN TRAN (MS.)");
+  const contactMrName = lang === "vi"
+    ? (contactMr ? contactMr.nameVi : "THẮNG NGUYỄN")
+    : (contactMr ? contactMr.nameEn || contactMr.nameVi : "THANG NGUYEN (MR.)");
+
+  const getPhone = (contact) => {
+    if (!contact) return "";
+    return lang === "vi" ? contact.phoneVi : contact.phoneEn || contact.phoneVi || "";
+  };
+
+  const getFax = (contact) => {
+    if (!contact) return "";
+    return lang === "vi" ? contact.faxVi : contact.faxEn || contact.faxVi || "";
+  };
 
   const validate = () => {
     const newErrors = {};
@@ -324,10 +361,10 @@ const Contact = () => {
                     ></path>
                   </svg>
                   <a
-                    href="mailto:uyen.tran@happyfurniturenvn.com"
+                    href={contactMs?.email ? `mailto:${contactMs.email}` : "mailto:uyen.tran@happyfurniturenvn.com"}
                     className="hover:text-black transition-colors"
                   >
-                    uyen.tran@happyfurniturenvn.com
+                    {contactMs?.email || "uyen.tran@happyfurniturenvn.com"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:top-[8px] lg:left-[2px]">
@@ -344,7 +381,7 @@ const Contact = () => {
                       d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                     ></path>
                   </svg>
-                  <span>{lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)"}</span>
+                  <span>{getPhone(contactMs) || (lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)")}</span>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[7px]">
                   <svg
@@ -385,10 +422,10 @@ const Contact = () => {
                     ></path>
                   </svg>
                   <a
-                    href="mailto:service03@happyfurniturevn.com"
+                    href={contactMr?.email ? `mailto:${contactMr.email}` : "mailto:service03@happyfurniturevn.com"}
                     className="hover:text-black transition-colors"
                   >
-                    service03@happyfurniturevn.com
+                    {contactMr?.email || "service03@happyfurniturevn.com"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:top-[2px] lg:left-[2px]">
@@ -405,7 +442,7 @@ const Contact = () => {
                       d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
                     ></path>
                   </svg>
-                  <span>{lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)"}</span>
+                  <span>{getPhone(contactMr) || (lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)")}</span>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[12px]">
                   <svg

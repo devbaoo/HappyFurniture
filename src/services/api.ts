@@ -82,4 +82,19 @@ export interface Certificate {
   createdAt: string;
 }
 
+// ─── CompanyInfo ─────────────────────────────────────────────────────────────
+
+export interface CompanyInfo {
+  id: number;
+  nameVi: string;
+  nameEn: string | null;
+  email: string | null;
+  phoneVi: string | null;
+  phoneEn: string | null;
+  faxVi: string | null;
+  faxEn: string | null;
+  isActive: boolean;
+  createdAt: string;
+}
+
 export default api;
