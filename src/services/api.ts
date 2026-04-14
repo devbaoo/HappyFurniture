@@ -68,4 +68,18 @@ export interface NewsResponse {
   companyActivities: NewsListItem[];
 }
 
+// ─── Certificates ─────────────────────────────────────────────────────────────
+
+export interface Certificate {
+  id: number;
+  nameVi: string;
+  nameEn: string | null;
+  descriptionVi: string | null;
+  descriptionEn: string | null;
+  logoUrl: string | null;
+  isActive: boolean;
+  sortOrder: number;
+  createdAt: string;
+}
+
 export default api;
