@@ -425,7 +425,6 @@ const ProductDetail = () => {
                     images: sortedImages,
                     slug: product.slug,
                     variantSlug: selectedVariant?.slug,
-                    variantName: selectedVariant?.colorName,
                   })
                 }
                 className="mb-3 flex w-full items-center justify-center gap-2 bg-[#3c4a28] py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a5a34]"
