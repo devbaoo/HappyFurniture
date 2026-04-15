@@ -64,13 +64,6 @@ const Certificate = () => {
               : "translate-y-8 opacity-0"
           }`}
         >
-          <div className="hidden lg:flex justify-center mb-2 md:mb-3">
-            <img
-              alt=""
-              className="object-contain w-64 h-64 md:w-80 md:h-80"
-              src="/images/certificates/certificate-hero.png"
-            />
-          </div>
           <h1
             className="font-heading uppercase font-normal mb-1 md:mb-1.5 text-[#3c4a28] tracking-[0.06em] md:tracking-[0.08em] leading-[1.08]"
             style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)" }}
@@ -80,6 +73,14 @@ const Certificate = () => {
           <p className="text-[15px] md:text-[18px] text-stone-800 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto text-left md:text-center">
             {c.heroIntro[lang]}
           </p>
+        </div>
+        {/* Mobile/Tablet — image below the content */}
+        <div className="lg:hidden order-2 lg:order-none relative overflow-hidden rounded-sm w-full h-[160px] sm:h-[200px] md:h-[250px] bg-white mt-4 md:mt-6">
+          <img
+            src="/images/certificates/chứng chỉ.jpg"
+            alt="Happy Furniture certificates"
+            className="h-full w-full object-contain"
+          />
         </div>
       </section>
 
@@ -91,8 +92,8 @@ const Certificate = () => {
               : "translate-y-8 opacity-0"
           }`}
         >
-          {/* Left column — combined image */}
-          <div className="max-lg:hidden lg:block relative overflow-hidden rounded-sm w-full h-[180px] sm:h-[225px] lg:h-[350px] bg-white">
+          {/* Left column — combined image (desktop only) */}
+          <div className="hidden lg:block relative overflow-hidden rounded-sm w-full h-[350px] bg-white">
             <img
               src="/images/certificates/chứng chỉ.jpg"
               alt="Happy Furniture certificates"
