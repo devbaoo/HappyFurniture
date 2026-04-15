@@ -32,7 +32,10 @@ const Contact = () => {
   const recaptchaRef = useRef(null);
 
   useEffect(() => {
-    companyInfoService.getActive().then(setCompanyInfos).catch(() => {});
+    companyInfoService
+      .getActive()
+      .then(setCompanyInfos)
+      .catch(() => {});
   }, []);
 
   const getContact = (searchKey) => {
@@ -40,7 +43,7 @@ const Contact = () => {
     return companyInfos.find(
       (c) =>
         (c.nameVi || "").toLowerCase().includes(keyword) ||
-        (c.nameEn || "").toLowerCase().includes(keyword)
+        (c.nameEn || "").toLowerCase().includes(keyword),
     );
   };
 
@@ -52,21 +55,28 @@ const Contact = () => {
       ? "text-[14px] sm:text-[15px] font-semibold text-[#3c4a28] mb-2 font-sans tracking-normal leading-[1.45] normal-case"
       : "text-[13px] sm:text-sm font-semibold text-[#3c4a28] mb-2 font-sans tracking-[0.1em]";
 
-  const contactMsName = lang === "vi"
-    ? (contactMs ? contactMs.nameVi : "UYÊN TRẦN")
-    : (contactMs ? contactMs.nameEn || contactMs.nameVi : "UYEN TRAN (MS.)");
-  const contactMrName = lang === "vi"
-    ? (contactMr ? contactMr.nameVi : "THẮNG NGUYỄN")
-    : (contactMr ? contactMr.nameEn || contactMr.nameVi : "THANG NGUYEN (MR.)");
+  const contactMsName =
+    lang === "vi"
+      ? contactMs
+        ? contactMs.nameVi
+        : "UYÊN TRẦN"
+      : contactMs
+        ? contactMs.nameEn || contactMs.nameVi
+        : "UYEN TRAN (MS.)";
+  const contactMrName =
+    lang === "vi"
+      ? contactMr
+        ? contactMr.nameVi
+        : "THẮNG NGUYỄN"
+      : contactMr
+        ? contactMr.nameEn || contactMr.nameVi
+        : "THANG NGUYEN (MR.)";
 
   const getPhone = (contact) => {
     if (!contact) return "";
-    return lang === "vi" ? contact.phoneVi : contact.phoneEn || contact.phoneVi || "";
-  };
-
-  const getFax = (contact) => {
-    if (!contact) return "";
-    return lang === "vi" ? contact.faxVi : contact.faxEn || contact.faxVi || "";
+    return lang === "vi"
+      ? contact.phoneVi
+      : contact.phoneEn || contact.phoneVi || "";
   };
 
   const validate = () => {
@@ -344,56 +354,41 @@ const Contact = () => {
               </h3>
               <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[17px] lg:translate-x-[2px] lg:w-[462.203px] lg:h-[120.172px]">
                 <div className="flex items-center gap-2 lg:relative lg:top-[23px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                    ></path>
-                  </svg>
+                  <img
+                    src="/images/icon/mail.svg"
+                    alt="email"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0"
+                  />
                   <a
-                    href={contactMs?.email ? `mailto:${contactMs.email}` : "mailto:uyen.tran@happyfurniturenvn.com"}
+                    href={
+                      contactMs?.email
+                        ? `mailto:${contactMs.email}`
+                        : "mailto:uyen.tran@happyfurniturenvn.com"
+                    }
                     className="hover:text-black transition-colors"
                   >
                     {contactMs?.email || "uyen.tran@happyfurniturenvn.com"}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:top-[8px] lg:left-[2px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                    ></path>
-                  </svg>
-                  <span>{getPhone(contactMs) || (lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)")}</span>
+                  <img
+                    src="/images/icon/phone.svg"
+                    alt="phone"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 lg:relative lg:-left-[2px]"
+                  />
+                  <span className="lg:relative lg:-left-[1px]">
+                    {getPhone(contactMs) ||
+                      (lang === "vi"
+                        ? "(+84) 2516 280 180 (máy lẻ 135)"
+                        : "(+84) 2516 280 180 (ext. 135)")}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 lg:relative lg:-top-[7px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"
-                    ></path>
-                  </svg>
+                  <img
+                    src="/images/icon/fax.svg"
+                    alt="fax"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0"
+                  />
                   <span>(+84) 2516 280 181</span>
                 </div>
               </div>
@@ -405,56 +400,41 @@ const Contact = () => {
               </h3>
               <div className="space-y-3 text-[12px] lg:text-[13px] font-normal text-gray-900 leading-[1.7] tracking-[0.01em] lg:relative lg:-top-[10px] lg:translate-x-[2px] lg:w-[462.203px] lg:h-[120.172px]">
                 <div className="flex items-center gap-2 lg:relative lg:top-[14px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                    ></path>
-                  </svg>
+                  <img
+                    src="/images/icon/mail.svg"
+                    alt="email"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0"
+                  />
                   <a
-                    href={contactMr?.email ? `mailto:${contactMr.email}` : "mailto:service03@happyfurniturevn.com"}
+                    href={
+                      contactMr?.email
+                        ? `mailto:${contactMr.email}`
+                        : "mailto:service03@happyfurniturevn.com"
+                    }
                     className="hover:text-black transition-colors"
                   >
                     {contactMr?.email || "service03@happyfurniturevn.com"}
                   </a>
                 </div>
-                <div className="flex items-center gap-2 lg:relative lg:top-[2px] lg:left-[2px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                    ></path>
-                  </svg>
-                  <span>{getPhone(contactMr) || (lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)")}</span>
+                <div className="flex items-center gap-2 lg:relative lg:top-0 lg:left-[2px]">
+                  <img
+                    src="/images/icon/phone.svg"
+                    alt="phone"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 lg:relative lg:-left-[2px]"
+                  />
+                  <span className="lg:relative lg:-left-[1px]">
+                    {getPhone(contactMr) ||
+                      (lang === "vi"
+                        ? "(+84) 2516 280 140 (máy lẻ 0-14)"
+                        : "(+84) 2516 280 140 (ext. 0–14)")}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 lg:relative lg:-top-[12px]">
-                  <svg
-                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"
-                    ></path>
-                  </svg>
+                <div className="flex items-center gap-2 lg:relative lg:-top-[15px]">
+                  <img
+                    src="/images/icon/fax.svg"
+                    alt="fax"
+                    className="w-3.5 h-3.5 lg:w-[14px] lg:h-[14px] shrink-0"
+                  />
                   <span>(+84) 2516 280 131</span>
                 </div>
               </div>
@@ -476,24 +456,18 @@ const Contact = () => {
         </p>
         <div className="grid grid-cols-2 gap-3 sm:gap-8 items-start">
           <div className="min-w-0 overflow-hidden flex h-full flex-col">
-            <h3 className={`${mobileContactNameClass} min-h-[2.6rem] sm:min-h-[2.8rem]`}>
+            <h3
+              className={`${mobileContactNameClass} min-h-[2.6rem] sm:min-h-[2.8rem]`}
+            >
               {contactMsName}
             </h3>
             <div className="grid gap-2 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
               <div className="mb-1 grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  ></path>
-                </svg>
+                <img
+                  src="/images/icon/mail.svg"
+                  alt="email"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                />
                 <a
                   href="mailto:uyen.tran@happyfurniturenvn.com"
                   className="text-gray-900 hover:text-black transition-colors text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap overflow-hidden text-ellipsis min-w-0 block"
@@ -502,62 +476,44 @@ const Contact = () => {
                 </a>
               </div>
               <div className="mt-2 grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                  ></path>
-                </svg>
-                <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap">
-                  {lang === "vi" ? "(+84) 2516 280 180 (máy lẻ 135)" : "(+84) 2516 280 180 (ext. 135)"}
+                <img
+                  src="/images/icon/phone.svg"
+                  alt="phone"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                  style={{ position: "relative", top: "-23px" }}
+                />
+                <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap" style={{ position: "relative", top: "-23px" }}>
+                  {lang === "vi"
+                    ? "(+84) 2516 280 180 (máy lẻ 135)"
+                    : "(+84) 2516 280 180 (ext. 135)"}
                 </span>
               </div>
               <div className="grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"
-                  ></path>
-                </svg>
-                <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap">
+                <img
+                  src="/images/icon/fax.svg"
+                  alt="fax"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                  style={{ position: "relative", top: "-24px" }}
+                />
+                <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap" style={{ position: "relative", top: "-24px", color: "rgb(21, 29, 46)" }}>
                   (+84) 2516 280 181
                 </span>
               </div>
             </div>
           </div>
           <div className="min-w-0 overflow-hidden flex h-full flex-col">
-            <h3 className={`${mobileContactNameClass} min-h-[2.6rem] sm:min-h-[2.8rem]`}>
+            <h3
+              className={`${mobileContactNameClass} min-h-[2.6rem] sm:min-h-[2.8rem]`}
+            >
               {contactMrName}
             </h3>
             <div className="grid gap-2 font-normal text-gray-900 leading-[1.7] tracking-[0.01em]">
               <div className="grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  ></path>
-                </svg>
+                <img
+                  src="/images/icon/mail.svg"
+                  alt="email"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                />
                 <a
                   href="mailto:service03@happyfurniturevn.com"
                   className="text-gray-900 hover:text-black transition-colors text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap overflow-hidden text-ellipsis min-w-0 block"
@@ -566,37 +522,23 @@ const Contact = () => {
                 </a>
               </div>
               <div className="grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                  ></path>
-                </svg>
+                <img
+                  src="/images/icon/phone.svg"
+                  alt="phone"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                />
                 <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap">
-                  {lang === "vi" ? "(+84) 2516 280 140 (máy lẻ 0-14)" : "(+84) 2516 280 140 (ext. 0–14)"}
+                  {lang === "vi"
+                    ? "(+84) 2516 280 140 (máy lẻ 0-14)"
+                    : "(+84) 2516 280 140 (ext. 0–14)"}
                 </span>
               </div>
               <div className="grid grid-cols-[10px_minmax(0,1fr)] items-start gap-x-2">
-                <svg
-                  className="w-2.5 h-2.5 shrink-0 text-gray-800 mt-[2px]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"
-                  ></path>
-                </svg>
+                <img
+                  src="/images/icon/fax.svg"
+                  alt="fax"
+                  className="w-2.5 h-2.5 shrink-0 mt-[2px]"
+                />
                 <span className="text-[8px] sm:text-[10px] leading-[1.45] whitespace-nowrap">
                   (+84) 2516 280 131
                 </span>
