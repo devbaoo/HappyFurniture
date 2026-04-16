@@ -6,7 +6,10 @@ import { useFavorites } from "../../context/FavoritesContext";
 /* ─── Print helper ──────────────────────────────────────────────── */
 const printQuoteList = (favorites) => {
   const rows = favorites.map((p, idx) => {
-    const primaryImg = p.images?.find((i) => i.isPrimary) ?? p.images?.[0];
+    // Variant: lấy ảnh đầu tiên. Product không variant: ưu tiên isPrimary.
+    const primaryImg = p.variantId
+      ? (p.images?.[0] ?? null)
+      : (p.images?.find((i) => i.isPrimary) ?? p.images?.[0]);
     const imgHtml = primaryImg
       ? `<img src="${primaryImg.imageUrl}" alt="${p.name}" style="width:90px;height:90px;object-fit:cover;display:block;" />`
       : `<div style="width:90px;height:90px;background:#e0e0e0;"></div>`;
@@ -150,7 +153,10 @@ const FavoriteModal = () => {
           {favorites.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2">
               {favorites.map((p, idx) => {
-                const primaryImg = p.images?.find((i) => i.isPrimary) ?? p.images?.[0];
+                // Variant: lấy ảnh đầu tiên. Product không variant: ưu tiên isPrimary.
+                const primaryImg = p.variantId
+                  ? (p.images?.[0] ?? null)
+                  : (p.images?.find((i) => i.isPrimary) ?? p.images?.[0]);
                 return (
                   <div
                     key={p.id}

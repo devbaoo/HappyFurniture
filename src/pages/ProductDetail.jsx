@@ -293,7 +293,12 @@ const ProductDetail = () => {
     ? localizeField(product.assembly, "description", lang)
     : "";
   const productCardId = product?.slug ?? String(product?.id ?? "");
-  const isFavorited = product && favorites.some((f) => f.id === productCardId);
+  const favoriteId = selectedVariant
+    ? `${productCardId}__variant__${selectedVariant.id}`
+    : productCardId;
+
+  // isFavorited phải khớp cả id variant nếu đang ở variant, hoặc khớp id sản phẩm chính nếu không có variant
+  const isFavorited = product && favorites.some((f) => f.id === favoriteId);
 
   if (loading) {
     return (
@@ -420,11 +425,12 @@ const ProductDetail = () => {
                 type="button"
                 onClick={() =>
                   toggleFavorite({
-                    id: productCardId,
+                    id: favoriteId,
                     name: productName,
-                    images: sortedImages,
+                    images: galleryImages,
                     slug: product.slug,
                     variantSlug: selectedVariant?.slug,
+                    variantId: selectedVariant?.id,
                   })
                 }
                 className="mb-3 flex w-full items-center justify-center gap-2 bg-[#3c4a28] py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#4a5a34]"
