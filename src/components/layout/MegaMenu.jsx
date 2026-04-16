@@ -102,7 +102,6 @@ const DropdownPanel = ({
     >
       <div className="mx-auto max-w-[1800px] px-6 xl:px-10 2xl:px-16 py-4 xl:py-6">
         <div className="flex items-stretch gap-0 min-h-[200px] xl:min-h-[240px]">
-
           {/* ── Left sidebar: parent category list ────────── */}
           <div
             className={`
@@ -122,25 +121,31 @@ const DropdownPanel = ({
                     group/parent flex items-center justify-between
                     py-2 pr-4 xl:pr-5 2xl:pr-6 text-[11px] xl:text-[12px] tracking-[0.16em] xl:tracking-[0.2em] uppercase
                     transition-all duration-200
-                    ${isActive
-                      ? isDark
-                        ? "text-white bg-white/5 pl-4"
-                        : "text-[#3c4a28] bg-stone-50 pl-4"
-                      : isDark
-                        ? "text-white/60 hover:text-white hover:bg-white/5 pl-3 hover:pl-4"
-                        : "text-stone-500 hover:text-[#3c4a28] hover:bg-stone-50 pl-3 hover:pl-4"
+                    ${
+                      isActive
+                        ? isDark
+                          ? "text-white bg-white/5 pl-4"
+                          : "text-[#3c4a28] bg-stone-50 pl-4"
+                        : isDark
+                          ? "text-white/60 hover:text-white hover:bg-white/5 pl-3 hover:pl-4"
+                          : "text-stone-500 hover:text-[#3c4a28] hover:bg-stone-50 pl-3 hover:pl-4"
                     }
                   `}
                 >
-                  <span className="font-medium">{localizeField(cat, "name", lang)}</span>
+                  <span className="font-medium">
+                    {localizeField(cat, "name", lang)}
+                  </span>
                   <ChevronRight
                     size={12}
                     strokeWidth={1.5}
                     className={`
                       shrink-0 transition-all duration-200
-                      ${isActive
-                        ? isDark ? "text-white opacity-100 translate-x-0" : "text-[#3c4a28] opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-1 group-hover/parent:opacity-60 group-hover/parent:translate-x-0"
+                      ${
+                        isActive
+                          ? isDark
+                            ? "text-white opacity-100 translate-x-0"
+                            : "text-[#3c4a28] opacity-100 translate-x-0"
+                          : "opacity-0 -translate-x-1 group-hover/parent:opacity-60 group-hover/parent:translate-x-0"
                       }
                     `}
                   />
@@ -152,10 +157,7 @@ const DropdownPanel = ({
           {/* ── Middle: children of the hovered parent ────── */}
           <div className="relative flex-1 overflow-hidden px-5 xl:px-7 2xl:px-10">
             {activeCat ? (
-              <div
-                key={activeCat.id}
-                className="animate-fadeInMenu"
-              >
+              <div key={activeCat.id} className="animate-fadeInMenu">
                 {/* Section title */}
                 <div className="mb-4">
                   <h3
@@ -179,7 +181,9 @@ const DropdownPanel = ({
                   <ul
                     className={`grid ${childGridClassName} gap-x-6 xl:gap-x-8 2xl:gap-x-10 gap-y-3`}
                   >
-                    {activeCat.children.map((child) => (
+                    {[...activeCat.children]
+                      .sort((a, b) => a.id - b.id)
+                      .map((child) => (
                       <li key={child.id}>
                         <Link
                           to={`/product?category=${child.id}`}
@@ -187,18 +191,20 @@ const DropdownPanel = ({
                             group/sub relative text-[11px] xl:text-[12px] tracking-[0.06em] xl:tracking-[0.1em] uppercase
                             transition-colors duration-200 flex items-center gap-2
                             py-1
-                            ${isDark
-                              ? "text-white/60 hover:text-white"
-                              : "text-stone-500 hover:text-[#3c4a28]"
+                            ${
+                              isDark
+                                ? "text-white/60 hover:text-white"
+                                : "text-stone-500 hover:text-[#3c4a28]"
                             }
                           `}
                         >
                           <span
                             className={`
                               w-1 h-1 rounded-full shrink-0 transition-all duration-200
-                              ${isDark
-                                ? "bg-white/20 group-hover/sub:bg-white"
-                                : "bg-stone-300 group-hover/sub:bg-[#3c4a28]"
+                              ${
+                                isDark
+                                  ? "bg-white/20 group-hover/sub:bg-white"
+                                  : "bg-stone-300 group-hover/sub:bg-[#3c4a28]"
                               }
                             `}
                           />
@@ -230,7 +236,6 @@ const DropdownPanel = ({
                     <ChevronRight size={10} strokeWidth={1.5} />
                   </Link>
                 )}
-
               </div>
             ) : (
               /* Fallback — should not happen since we always have a default */
@@ -254,7 +259,11 @@ const DropdownPanel = ({
 };
 
 /* ─── "Product" nav item with mega dropdown ───────────────────── */
-export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNavigate }) => {
+export const ProductNavItem = ({
+  isDark = false,
+  productLabel = "Product",
+  onNavigate,
+}) => {
   const { categories, loading } = useMegaMenu();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -344,9 +353,14 @@ export const ProductNavItem = ({ isDark = false, productLabel = "Product", onNav
         className={`
           relative text-[12px] tracking-[0.25em] uppercase pb-1
           transition-colors duration-200
-          ${isDark
-            ? open || isActive ? "text-white" : "text-white/80 hover:text-white"
-            : open || isActive ? "text-[#3c4a28]" : "text-stone-600 hover:text-[#3c4a28]"
+          ${
+            isDark
+              ? open || isActive
+                ? "text-white"
+                : "text-white/80 hover:text-white"
+              : open || isActive
+                ? "text-[#3c4a28]"
+                : "text-stone-600 hover:text-[#3c4a28]"
           }
         `}
         aria-expanded={open}
@@ -391,13 +405,17 @@ export const ProductMobileItem = ({
   if (loading) return null;
 
   return (
-    <li className={`border-b ${isDark ? "border-white/10" : "border-stone-100"}`}>
+    <li
+      className={`border-b ${isDark ? "border-white/10" : "border-stone-100"}`}
+    >
       <div className="flex items-center justify-between">
         <Link
           to="/product"
           onClick={onClose}
           className={`py-3 text-[12px] tracking-[0.2em] uppercase flex-1 ${
-            isDark ? "text-white/80 hover:text-white" : "text-stone-700 hover:text-[#3c4a28]"
+            isDark
+              ? "text-white/80 hover:text-white"
+              : "text-stone-700 hover:text-[#3c4a28]"
           }`}
         >
           {productLabel}
@@ -426,7 +444,9 @@ export const ProductMobileItem = ({
                   to={`/product?category=${cat.id}`}
                   onClick={onClose}
                   className={`block py-2 text-[11px] tracking-[0.18em] uppercase font-semibold flex-1 ${
-                    isDark ? "text-white/70 hover:text-white" : "text-stone-600 hover:text-[#3c4a28]"
+                    isDark
+                      ? "text-white/70 hover:text-white"
+                      : "text-stone-600 hover:text-[#3c4a28]"
                   }`}
                 >
                   {localizeField(cat, "name", lang)}
@@ -435,9 +455,7 @@ export const ProductMobileItem = ({
                   <button
                     type="button"
                     onClick={() =>
-                      setExpandedId((prev) =>
-                        prev === cat.id ? null : cat.id
-                      )
+                      setExpandedId((prev) => (prev === cat.id ? null : cat.id))
                     }
                     className={`p-1 transition-transform duration-200 ${
                       expandedId === cat.id ? "rotate-90" : ""
@@ -458,7 +476,9 @@ export const ProductMobileItem = ({
                 cat.children &&
                 cat.children.length > 0 && (
                   <ul className="pl-3 pb-1 flex flex-col gap-1.5">
-                    {cat.children.map((child) => (
+                    {[...cat.children]
+                      .sort((a, b) => a.id - b.id)
+                      .map((child) => (
                       <li key={child.id}>
                         <Link
                           to={`/product?category=${child.id}`}
