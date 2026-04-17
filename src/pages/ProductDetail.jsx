@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import ProductCard from "../components/ui/ProductCard";
 import ProductGalleryMagnifier from "../components/ui/ProductGalleryMagnifier";
 import { productService } from "../services/product.service";
@@ -25,7 +30,8 @@ const Skeleton = ({ className = "" }) => (
 
 const sortProductImages = (images = []) =>
   [...images].sort((a, b) => {
-    const primaryDiff = Number(Boolean(b?.isPrimary)) - Number(Boolean(a?.isPrimary));
+    const primaryDiff =
+      Number(Boolean(b?.isPrimary)) - Number(Boolean(a?.isPrimary));
     if (primaryDiff !== 0) return primaryDiff;
 
     const aSortOrder = Number(a?.sortOrder);
@@ -184,12 +190,12 @@ const ProductDetail = () => {
         setProduct(data);
         setProductSlug(data.slug);
 
-        // Pre-select variant từ slug URL nếu có, không thì null (hiển thị ảnh product mặc định)
+        // Pre-select variant từ slug URL nếu có, không thì chọn variant active đầu tiên (default)
         const preSelected = variantSlug
-          ? (data.variants?.find((v) => v.slug === variantSlug && v.isActive)
-              ?? data.variants?.find((v) => v.slug === variantSlug)
-              ?? null)
-          : null;
+          ? (data.variants?.find((v) => v.slug === variantSlug && v.isActive) ??
+            data.variants?.find((v) => v.slug === variantSlug) ??
+            null)
+          : (data.variants?.find((v) => v.isActive) ?? null);
         setSelectedVariant(preSelected);
 
         const sorted = sortProductImages(data.images ?? []);
@@ -222,6 +228,24 @@ const ProductDetail = () => {
 
   const sortedImages = product ? sortProductImages(product.images ?? []) : [];
 
+  const isDefaultVariant = (variant) => {
+    if (!variant) return true;
+
+    const variantSlug = variant.slug?.trim?.();
+    const baseSlug = productSlug?.trim?.();
+
+    if (!variantSlug) return true;
+    if (!baseSlug) return false;
+
+    const normalizedVariantSlug = variantSlug.toLowerCase();
+    const normalizedBaseSlug = baseSlug.toLowerCase();
+
+    return (
+      normalizedVariantSlug === normalizedBaseSlug ||
+      normalizedVariantSlug === `${normalizedBaseSlug}-default`
+    );
+  };
+
   const handleSelectVariant = (variant) => {
     setSelectedVariant(variant);
     setActiveImg(0);
@@ -232,13 +256,22 @@ const ProductDetail = () => {
     }
   };
 
-  // Gallery: mặc định chỉ dùng ảnh product.
-  // Khi chọn variant → chuyển HOÀN TOÀN sang ảnh của variant đó (không mix).
-  const variantImages = selectedVariant?.images?.length
-    ? sortProductImages(selectedVariant.images)
-    : selectedVariant?.imageUrl?.trim?.()
-      ? [{ id: `variant-${selectedVariant.id}`, imageUrl: selectedVariant.imageUrl.trim(), altText: selectedVariant.colorName || "", isPrimary: true }]
-      : [];
+  // Biến thể mặc định (slug null / product slug / product slug-default)
+  // luôn hiển thị ảnh product gốc.
+  const variantImages = !isDefaultVariant(selectedVariant)
+    ? selectedVariant?.images?.length
+      ? sortProductImages(selectedVariant.images)
+      : selectedVariant?.imageUrl?.trim?.()
+        ? [
+            {
+              id: `variant-${selectedVariant.id}`,
+              imageUrl: selectedVariant.imageUrl.trim(),
+              altText: selectedVariant.colorName || "",
+              isPrimary: true,
+            },
+          ]
+        : []
+    : [];
 
   const galleryImages = variantImages.length > 0 ? variantImages : sortedImages;
 
@@ -247,9 +280,13 @@ const ProductDetail = () => {
     : "Products";
   const categoryId = product?.categories?.[0]?.id ?? null;
   const productName = product ? localizeField(product, "name", lang) : "";
-  const productDescription = product ? localizeField(product, "description", lang) : "";
+  const productDescription = product
+    ? localizeField(product, "description", lang)
+    : "";
   const productDetail = product ? localizeField(product, "detail", lang) : "";
-  const productDeliveryInfo = product ? localizeField(product, "deliveryInfo", lang) : "";
+  const productDeliveryInfo = product
+    ? localizeField(product, "deliveryInfo", lang)
+    : "";
   const measurementUnit = product?.dimensionUnit || "cm";
   const productMeasurements = [
     {
@@ -401,7 +438,6 @@ const ProductDetail = () => {
             <div className="min-w-0 overflow-visible">
               <ProductGalleryMagnifier
                 images={galleryImages}
-                productImages={sortedImages}
                 activeIndex={activeImg}
                 onActiveIndexChange={setActiveImg}
                 productName={productName}
@@ -545,9 +581,7 @@ const ProductDetail = () => {
                   </DetailSection>
 
                   <DetailSection
-                    title={
-                      isVietnamese ? "Kích thước bao bì" : "Carton Size"
-                    }
+                    title={isVietnamese ? "Kích thước bao bì" : "Carton Size"}
                   >
                     {cartonMeasurements.length > 0 ? (
                       <MeasurementGrid items={cartonMeasurements} />

@@ -57,6 +57,8 @@ export interface Product {
     id: number;
     productId: number;
     colorName?: string | null;
+    colorNameEn?: string | null;
+    slug?: string | null;
     colorCode?: string | null;
     imageUrl?: string | null;
     isActive: boolean;
@@ -116,7 +118,9 @@ export const productService = {
   },
 
   // Resolve full slug có thể kèm variant slug ở cuối
-  resolveSlug: async (fullSlug: string): Promise<{ product: Product; variantSlug: string | null }> => {
+  resolveSlug: async (
+    fullSlug: string,
+  ): Promise<{ product: Product; variantSlug?: string | null }> => {
     const response = await api.get(`/Products/resolve-slug/${fullSlug}`);
     return response.data;
   },
