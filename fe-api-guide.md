@@ -12,7 +12,7 @@ Assembly là dữ liệu tham chiếu (reference data) — tương tự Category
 ### 1.1 Lấy danh sách Assembly (cho dropdown)
 
 ```
-GET /api/assemblies/active
+ GET /api/assemblies/active
 ```
 
 **Response:**
