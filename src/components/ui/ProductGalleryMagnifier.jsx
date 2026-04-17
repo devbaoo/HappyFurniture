@@ -15,7 +15,6 @@ const DESKTOP_MEDIA_QUERY = "(min-width: 1024px)";
  */
 const ProductGalleryMagnifier = ({
   images = [],
-  productImages = [],
   activeIndex,
   onActiveIndexChange,
   productName = "",
@@ -64,23 +63,30 @@ const ProductGalleryMagnifier = ({
     return src || null;
   };
 
-  const defaultThumb = productImages[0]?.imageUrl ?? null;
+  const clampLightboxOffset = useCallback(
+    (x, y) => {
+      const img = lightboxImageRef.current;
 
-  const clampLightboxOffset = useCallback((x, y) => {
-    const img = lightboxImageRef.current;
+      if (!img || !lightboxZoomed) {
+        return { x: 0, y: 0 };
+      }
 
-    if (!img || !lightboxZoomed) {
-      return { x: 0, y: 0 };
-    }
+      const maxX = Math.max(
+        0,
+        (img.offsetWidth * (LIGHTBOX_ZOOM_SCALE - 1)) / 2,
+      );
+      const maxY = Math.max(
+        0,
+        (img.offsetHeight * (LIGHTBOX_ZOOM_SCALE - 1)) / 2,
+      );
 
-    const maxX = Math.max(0, (img.offsetWidth * (LIGHTBOX_ZOOM_SCALE - 1)) / 2);
-    const maxY = Math.max(0, (img.offsetHeight * (LIGHTBOX_ZOOM_SCALE - 1)) / 2);
-
-    return {
-      x: Math.max(-maxX, Math.min(maxX, x)),
-      y: Math.max(-maxY, Math.min(maxY, y)),
-    };
-  }, [lightboxZoomed]);
+      return {
+        x: Math.max(-maxX, Math.min(maxX, x)),
+        y: Math.max(-maxY, Math.min(maxY, y)),
+      };
+    },
+    [lightboxZoomed],
+  );
 
   const handleMove = useCallback(
     (e) => {
@@ -220,9 +226,11 @@ const ProductGalleryMagnifier = ({
     }
 
     const nextX =
-      dragStateRef.current.originX + (event.clientX - dragStateRef.current.startX);
+      dragStateRef.current.originX +
+      (event.clientX - dragStateRef.current.startX);
     const nextY =
-      dragStateRef.current.originY + (event.clientY - dragStateRef.current.startY);
+      dragStateRef.current.originY +
+      (event.clientY - dragStateRef.current.startY);
 
     if (
       !dragStateRef.current.moved &&
@@ -413,26 +421,6 @@ const ProductGalleryMagnifier = ({
             }`}
           >
             <div className="flex flex-wrap items-center gap-2">
-              {defaultThumb && (
-                <button
-                  type="button"
-                  title="Default"
-                  aria-label="View default product images"
-                  onClick={() => onSelectVariant(null)}
-                  className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
-                    selectedVariant === null
-                      ? "border-primary ring-1 ring-primary ring-offset-1"
-                      : "border-border hover:border-secondary"
-                  }`}
-                >
-                  <img
-                    src={defaultThumb}
-                    alt="Default"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </button>
-              )}
-
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
                 const thumb = variantThumb(v);
