@@ -153,7 +153,7 @@ const DetailSection = ({ title, children, first = false, className = "" }) => (
 );
 
 const ProductDetail = () => {
-  const { slug } = useParams();
+  const { slug: fullSlug } = useParams();
   // searchParams / navigate dùng cho ?color= fallback (nếu cần)
   // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
@@ -161,20 +161,20 @@ const ProductDetail = () => {
 
   const [product, setProduct] = useState(null);
   // productSlug lưu slug thực của product (không kèm variant)
-  const [productSlug, setProductSlug] = useState(slug);
+  const [productSlug, setProductSlug] = useState(fullSlug);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImg, setActiveImg] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(null);
-  const [prevSlug, setPrevSlug] = useState(slug);
+  const [prevFullSlug, setPrevFullSlug] = useState(fullSlug);
   const [recentlyViewed, setRecentlyViewed] = useState(loadRecentlyViewed);
 
   const { favorites, toggleFavorite } = useFavorites();
   const { lang } = useLanguage();
   const isVietnamese = lang === "vi";
 
-  if (slug !== prevSlug) {
-    setPrevSlug(slug);
+  if (fullSlug !== prevFullSlug) {
+    setPrevFullSlug(fullSlug);
     setProduct(null);
     setLoading(true);
     setError(null);
@@ -182,10 +182,10 @@ const ProductDetail = () => {
   }
 
   useEffect(() => {
-    if (!slug) return;
+    if (!fullSlug) return;
 
     productService
-      .resolveSlug(slug)
+      .resolveSlug(fullSlug)
       .then(({ product: data, variantSlug }) => {
         setProduct(data);
         setProductSlug(data.slug);
@@ -209,7 +209,7 @@ const ProductDetail = () => {
             id: data.id,
             name: data.name,
             nameEn: data.nameEn ?? null,
-            slug: data.slug,
+            slug: fullSlug,
             images: sorted,
           };
 
@@ -224,7 +224,7 @@ const ProductDetail = () => {
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [slug]);
+  }, [fullSlug]);
 
   const sortedImages = product ? sortProductImages(product.images ?? []) : [];
 
@@ -254,7 +254,7 @@ const ProductDetail = () => {
     } else if (variant?.slug) {
       navigate(`/product/${variant.slug}`, { replace: true });
     } else {
-      navigate(`/product/${productSlug || slug}`, { replace: true });
+      navigate(`/product/${productSlug || fullSlug}`, { replace: true });
     }
   };
 
@@ -335,6 +335,8 @@ const ProductDetail = () => {
     : productCardId;
 
   // isFavorited phải khớp cả id variant nếu đang ở variant, hoặc khớp id sản phẩm chính nếu không có variant
+  const currentFullSlug =
+    selectedVariant?.fullSlug || selectedVariant?.slug || fullSlug || product?.slug;
   const isFavorited = product && favorites.some((f) => f.id === favoriteId);
 
   if (loading) {
@@ -387,7 +389,7 @@ const ProductDetail = () => {
             ? productDescription.slice(0, 155)
             : `${productName} — Premium handcrafted luxury furniture by Happy Furniture.`
         }
-        canonical={`/product/${product.slug}`}
+        canonical={`/product/${currentFullSlug}`}
         ogImage={sortedImages[0]?.imageUrl}
         ogType="product"
         structuredData={{
@@ -400,7 +402,7 @@ const ProductDetail = () => {
           image: sortedImages[0]?.imageUrl,
           brand: { "@type": "Brand", name: "Happy Furniture" },
           category: categoryName,
-          url: `http://happyfurniturenvn.com/product/${product.slug}`,
+          url: `http://happyfurniturenvn.com/product/${currentFullSlug}`,
         }}
       />
       <div className="border-b border-border bg-white">
@@ -454,7 +456,7 @@ const ProductDetail = () => {
                 {productName}
               </h1>
               <p className="mb-3 text-sm uppercase tracking-[0.1em] text-muted">
-                #{selectedVariant?.slug || product.slug || String(product.id)}
+                #{currentFullSlug || String(product.id)}
               </p>
 
               <button
@@ -464,8 +466,9 @@ const ProductDetail = () => {
                     id: favoriteId,
                     name: productName,
                     images: galleryImages,
-                    slug: product.slug,
-                    variantSlug: selectedVariant?.slug,
+                    slug: currentFullSlug,
+                    variantSlug:
+                      selectedVariant?.fullSlug || selectedVariant?.slug,
                     variantId: selectedVariant?.id,
                   })
                 }
