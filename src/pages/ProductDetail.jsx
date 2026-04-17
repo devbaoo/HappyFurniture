@@ -249,7 +249,9 @@ const ProductDetail = () => {
   const handleSelectVariant = (variant) => {
     setSelectedVariant(variant);
     setActiveImg(0);
-    if (variant?.slug) {
+    if (variant?.fullSlug) {
+      navigate(`/product/${variant.fullSlug}`, { replace: true });
+    } else if (variant?.slug) {
       navigate(`/product/${variant.slug}`, { replace: true });
     } else {
       navigate(`/product/${productSlug || slug}`, { replace: true });

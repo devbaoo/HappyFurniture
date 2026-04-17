@@ -57,6 +57,8 @@ export interface Product {
     id: number;
     productId: number;
     colorName?: string | null;
+    slug?: string | null;
+    fullSlug?: string | null;
     colorNameEn?: string | null;
     slug?: string | null;
     colorCode?: string | null;
