@@ -225,12 +225,10 @@ const ProductDetail = () => {
   const handleSelectVariant = (variant) => {
     setSelectedVariant(variant);
     setActiveImg(0);
-    // Cập nhật URL: /product/{productSlug}-{variantSlug}
-    const base = productSlug || slug;
     if (variant?.slug) {
-      navigate(`/product/${base}-${variant.slug}`, { replace: true });
+      navigate(`/product/${variant.slug}`, { replace: true });
     } else {
-      navigate(`/product/${base}`, { replace: true });
+      navigate(`/product/${productSlug || slug}`, { replace: true });
     }
   };
 
@@ -418,7 +416,7 @@ const ProductDetail = () => {
                 {productName}
               </h1>
               <p className="mb-3 text-sm uppercase tracking-[0.1em] text-muted">
-                #{product.slug || String(product.id)}
+                #{selectedVariant?.slug || product.slug || String(product.id)}
               </p>
 
               <button

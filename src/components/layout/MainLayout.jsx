@@ -21,10 +21,9 @@ const printQuoteList = (favorites) => {
         }</p>`
       : "";
     const borderRight = idx % 2 === 0 ? "border-right:1px solid #f0f0f0;" : "";
-    const refPrefix = p.variantSlug ? `${p.variantSlug}-` : "";
-    const nameWithVariant = p.variantSlug
-      ? `${p.name} — ${p.variantSlug}`
-      : p.name;
+    const refSlug = p.variantSlug || p.slug || String(p.id);
+    const variantSuffix = p.variantSlug ? p.variantSlug.split("-").pop() : null;
+    const nameWithVariant = variantSuffix ? `${p.name} — ${variantSuffix}` : p.name;
     return `
       <div style="display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid #f0f0f0;${borderRight}break-inside:avoid;page-break-inside:avoid;">
         <div style="width:90px;height:90px;flex-shrink:0;overflow:hidden;background:#f5f5f5;border:1px solid #ece7e1;">
@@ -32,7 +31,7 @@ const printQuoteList = (favorites) => {
         </div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:Georgia,serif;font-size:18px;font-weight:400;color:#252525;margin:0;line-height:1.15;">${nameWithVariant}</p>
-          <p style="font-size:11px;color:#7b7b7b;margin:4px 0 0;letter-spacing:0.1em;text-transform:uppercase;">Ref. ${refPrefix}${String(p.id).toUpperCase()}</p>
+          <p style="font-size:11px;color:#7b7b7b;margin:4px 0 0;letter-spacing:0.1em;text-transform:uppercase;">Ref. ${refSlug.toUpperCase()}</p>
           ${priceHtml}
         </div>
       </div>`;
@@ -180,10 +179,10 @@ const FavoriteModal = () => {
                     {/* Info */}
                     <div className="flex-1 min-w-0 self-start pt-1">
                       <p className="font-heading text-[21px] md:text-[22px] font-normal text-[#252525] leading-[1.08] tracking-[0.02em]">
-                        {p.name}{p.variantSlug && <span className="font-light text-[#6b6b6b]"> — {p.variantSlug}</span>}
+                        {p.name}{p.variantSlug && <span className="font-light text-[#6b6b6b]"> — {p.variantSlug.split("-").pop()}</span>}
                       </p>
                       <p className="font-sans text-xs md:text-[13px] text-[#7b7b7b] mt-2 tracking-[0.12em] uppercase">
-                        Ref. {p.variantSlug ? `${p.variantSlug}-` : ""}{String(p.id).toUpperCase()}
+                        Ref. {(p.variantSlug || p.slug || String(p.id)).toUpperCase()}
                       </p>
                       {p.price && (
                         <p className="font-sans text-[17px] md:text-[18px] text-[#232323] mt-3 font-semibold tracking-[0.01em]">
