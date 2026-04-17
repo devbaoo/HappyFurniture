@@ -57,6 +57,8 @@ export interface Product {
     id: number;
     productId: number;
     colorName?: string | null;
+    slug?: string | null;
+    fullSlug?: string | null;
     colorCode?: string | null;
     imageUrl?: string | null;
     isActive: boolean;
