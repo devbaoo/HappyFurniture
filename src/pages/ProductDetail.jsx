@@ -447,6 +447,7 @@ const ProductDetail = () => {
                 productName={productName}
                 variants={product.variants ?? []}
                 selectedVariant={selectedVariant}
+                isVietnamese={isVietnamese}
                 onSelectVariant={handleSelectVariant}
               />
             </div>

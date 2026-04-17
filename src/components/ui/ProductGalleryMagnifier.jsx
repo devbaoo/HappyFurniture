@@ -20,6 +20,7 @@ const ProductGalleryMagnifier = ({
   productName = "",
   variants = [],
   selectedVariant = null,
+  isVietnamese = false,
   onSelectVariant = null,
 }) => {
   const containerRef = useRef(null);
@@ -62,6 +63,8 @@ const ProductGalleryMagnifier = ({
     const src = v?.imageUrl?.trim?.();
     return src || null;
   };
+  const variantLabel = (v) =>
+    (isVietnamese ? v?.colorName : v?.colorNameEn || v?.colorName || "").trim();
 
   const clampLightboxOffset = useCallback(
     (x, y) => {
@@ -420,32 +423,39 @@ const ProductGalleryMagnifier = ({
                 : ""
             }`}
           >
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
               {activeVariants.map((v) => {
                 const selected = selectedVariant?.id === v.id;
                 const thumb = variantThumb(v);
+                const label = variantLabel(v);
                 return (
-                  <button
-                    key={v.id}
-                    type="button"
-                    title={v.colorName}
-                    aria-label={v.colorName}
-                    onClick={() => onSelectVariant(v)}
-                    className={`relative h-3 min-w-[5rem] shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 sm:min-w-[6.5rem] ${
-                      selected
-                        ? "border-primary ring-1 ring-primary ring-offset-1"
-                        : "border-border hover:border-secondary"
-                    }`}
-                    style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
-                  >
-                    {thumb && (
-                      <img
-                        src={thumb}
-                        alt={v.colorName}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
+                  <div key={v.id} className="flex min-w-[5rem] flex-col items-start gap-1 sm:min-w-[6.5rem]">
+                    <button
+                      type="button"
+                      title={label}
+                      aria-label={label}
+                      onClick={() => onSelectVariant(v)}
+                      className={`relative h-3 w-full shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 ${
+                        selected
+                          ? "border-primary ring-1 ring-primary ring-offset-1"
+                          : "border-border hover:border-secondary"
+                      }`}
+                      style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
+                    >
+                      {thumb && (
+                        <img
+                          src={thumb}
+                          alt={label}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      )}
+                    </button>
+                    {label && (
+                      <p className="text-left text-[13px] uppercase leading-tight tracking-[0.06em] text-stone-700 lg:hidden">
+                        {label}
+                      </p>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
