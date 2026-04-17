@@ -40,7 +40,7 @@ Assembly là dữ liệu tham chiếu (reference data) — tương tự Category
     "id": 3,
     "name": "Semi Knock-down",
     "code": "SKD",
-    "description": "Sản phẩm lắp ráp một phần",
+    "description": "Sản phẩm lắp ráp một phần ",
     "isActive": true,
     "createdAt": "2026-04-06T16:31:21Z",
     "updatedAt": "2026-04-06T16:31:21Z"
