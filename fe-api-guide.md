@@ -22,7 +22,7 @@ Assembly là dữ liệu tham chiếu (reference data) — tương tự Category
     "id": 1,
     "name": "Knock-down",
     "code": "KD",
-    "description": "Sản phẩm cần tự lắp ráp",
+    "description": "Sản phẩm cần tự lắp ráp ",
     "isActive": true,
     "createdAt": "2026-04-06T16:31:21Z",
     "updatedAt": "2026-04-06T16:31:21Z"
