@@ -323,6 +323,9 @@ const ProductDetail = () => {
     .filter(Boolean);
   const productMaterialsText =
     materialNames.length > 0 ? materialNames.join(", ") : "";
+  const materialDescriptions = (product?.materials ?? [])
+    .map((material) => localizeField(material, "description", lang))
+    .filter(Boolean);
   const productAssemblyName = product?.assembly
     ? localizeField(product.assembly, "name", lang)
     : "";
@@ -536,10 +539,12 @@ const ProductDetail = () => {
                         : "Product Materials"
                     }
                   >
-                    {productMaterialsText || productDetail ? (
+                    {productMaterialsText || materialDescriptions.length > 0 ? (
                       <div className="space-y-1">
                         {productMaterialsText && <p>{productMaterialsText}</p>}
-                        {productDetail && <p>{productDetail}</p>}
+                        {materialDescriptions.map((desc, i) => (
+                          <p key={i}>{desc}</p>
+                        ))}
                       </div>
                     ) : (
                       <p className="text-stone-400">
