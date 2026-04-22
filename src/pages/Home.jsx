@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import Container from "../components/ui/Container";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
-import useMegaMenu from "../hooks/useMegaMenu";
-import { localizeField } from "../utils/i18n";
 
 /* ─────────────────────────────────────────────
    Reusable image placeholder
@@ -144,59 +141,47 @@ const CATEGORY_CARD_CONFIG = [
     imageSrc: "/images/home/Home-LivingRoom.jpg",
     bg: "#3a3530",
     className: "aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]",
-    aliases: ["occasional", "living room", "phong khach"],
+    categoryId: 122,
   },
   {
     key: "bedroom",
     imageSrc: "/images/home/Home-Bedroom.jpg",
     bg: "#2e2a26",
     className: "aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/11]",
-    aliases: ["bedroom", "phong ngu"],
+    categoryId: 95,
   },
   {
     key: "dining",
     imageSrc: "/images/home/Home-Dining.jpg",
     bg: "#3d3832",
     className: "aspect-square",
-    aliases: ["dining", "phong an"],
+    categoryId: 107,
   },
   {
     key: "vanity",
     imageSrc: "/images/home/Home-Vanity.jpg",
     bg: "#312d29",
     className: "aspect-square",
-    aliases: ["vanity", "ban lavabo", "ban trang diem"],
+    categoryId: 98,
   },
   {
     key: "youth",
     imageSrc: "/images/home/Home-Youth.jpg",
     bg: "#3a3530",
     className: "aspect-square",
-    aliases: ["youth", "youth kids furniture", "kids furniture", "phong tre em"],
+    categoryId: 102,
   },
   {
     key: "accessories-tray",
     imageSrc: "/images/home/Home-Accessories.jpg",
     bg: "#2e2a26",
     className: "aspect-square",
-    aliases: ["accessories tray", "accessory tray", "accessories", "phu kien va khay"],
+    categoryId: 86,
   },
 ];
 
-const normalizeCategoryValue = (value = "") =>
-  value
-    .toString()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/&/g, " ")
-    .replace(/[^\w\s]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
-
 const Home = () => {
   const { lang } = useLanguage();
-  const { categories } = useMegaMenu();
   const [email, setEmail] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const visibleElements = useScrollAnimation();
@@ -258,34 +243,15 @@ const Home = () => {
   ];
   const timberAlts = h.timberAlts[lang];
 
-  const categoryCards = useMemo(() => {
-    const rootCategoryMap = new Map(
-      categories.map((category) => {
-        const keys = [
-          normalizeCategoryValue(localizeField(category, "name", "en")),
-          normalizeCategoryValue(localizeField(category, "name", "vi")),
-        ].filter(Boolean);
-
-        return [category.id, keys];
-      }),
-    );
-
-    const resolveCategoryLink = (aliases) => {
-      const normalizedAliases = aliases.map(normalizeCategoryValue);
-      const matchedCategory = categories.find((category) => {
-        const categoryKeys = rootCategoryMap.get(category.id) || [];
-        return normalizedAliases.some((alias) => categoryKeys.includes(alias));
-      });
-
-      return matchedCategory ? `/product?category=${matchedCategory.id}` : "/product";
-    };
-
-    return CATEGORY_CARD_CONFIG.map((card, index) => ({
-      ...card,
-      label: categoryLabels[index],
-      to: resolveCategoryLink(card.aliases),
-    }));
-  }, [categories, categoryLabels]);
+  const categoryCards = useMemo(
+    () =>
+      CATEGORY_CARD_CONFIG.map((card, index) => ({
+        ...card,
+        label: categoryLabels[index],
+        to: `/product?category=${card.categoryId}`,
+      })),
+    [categoryLabels],
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
