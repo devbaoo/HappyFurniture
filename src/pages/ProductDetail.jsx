@@ -230,32 +230,28 @@ const ProductDetail = () => {
 
   const isDefaultVariant = (variant) => {
     if (!variant) return true;
-
     const variantSlug = variant.slug?.trim?.();
-    const baseSlug = productSlug?.trim?.();
-
     if (!variantSlug) return true;
+    const baseSlug = productSlug?.trim?.();
     if (!baseSlug) return false;
+    const v = variantSlug.toLowerCase();
+    const b = baseSlug.toLowerCase();
+    return v === b || v === `${b}-default`;
+  };
 
-    const normalizedVariantSlug = variantSlug.toLowerCase();
-    const normalizedBaseSlug = baseSlug.toLowerCase();
-
-    return (
-      normalizedVariantSlug === normalizedBaseSlug ||
-      normalizedVariantSlug === `${normalizedBaseSlug}-default`
-    );
+  const buildVariantFullSlug = (baseSlug, variantSlug) => {
+    if (!variantSlug) return baseSlug;
+    const parts = baseSlug.split("-");
+    const variantParts = variantSlug.split("-");
+    return [...parts.slice(0, parts.length - variantParts.length), ...variantParts].join("-");
   };
 
   const handleSelectVariant = (variant) => {
     setSelectedVariant(variant);
     setActiveImg(0);
-    if (variant?.fullSlug) {
-      navigate(`/product/${variant.fullSlug}`, { replace: true });
-    } else if (variant?.slug) {
-      navigate(`/product/${variant.slug}`, { replace: true });
-    } else {
-      navigate(`/product/${productSlug || fullSlug}`, { replace: true });
-    }
+    const base = productSlug || fullSlug;
+    const targetSlug = buildVariantFullSlug(base, variant?.slug ?? null);
+    navigate(`/product/${targetSlug}`, { replace: true });
   };
 
   // Biến thể mặc định (slug null / product slug / product slug-default)
@@ -338,8 +334,10 @@ const ProductDetail = () => {
     : productCardId;
 
   // isFavorited phải khớp cả id variant nếu đang ở variant, hoặc khớp id sản phẩm chính nếu không có variant
-  const currentFullSlug =
-    selectedVariant?.fullSlug || selectedVariant?.slug || fullSlug || product?.slug;
+  const currentFullSlug = buildVariantFullSlug(
+    productSlug || fullSlug,
+    selectedVariant?.slug ?? null,
+  );
   const isFavorited = product && favorites.some((f) => f.id === favoriteId);
 
   if (loading) {
