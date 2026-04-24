@@ -405,12 +405,19 @@ const ProductList = () => {
                 >
                     <div
                     className={`w-full aspect-square md:aspect-[1/1.18] flex items-end justify-center transition-all duration-300 relative overflow-hidden ${!categoryId
-                      ? "bg-primary"
-                      : "bg-[#aaa] group-hover:bg-[#888]"
+                      ? "ring-2 ring-primary ring-inset"
+                      : ""
                       }`}
                   >
+                    <img
+                      src="/images/all.jpg"
+                      alt="All"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+                      draggable={false}
+                    />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
                     <span
-                      className={`text-white text-[10px] [@media(min-width:768px)_and_(max-width:1280px)]:text-[8px] font-semibold px-2 [@media(min-width:768px)_and_(max-width:1280px)]:px-1 pb-2 [@media(min-width:768px)_and_(max-width:1280px)]:pb-1.5 text-center w-full leading-[1.35] [@media(min-width:768px)_and_(max-width:1280px)]:leading-[1.2] whitespace-normal break-words line-clamp-2 ${
+                      className={`relative text-white text-[10px] [@media(min-width:768px)_and_(max-width:1280px)]:text-[8px] font-semibold px-2 [@media(min-width:768px)_and_(max-width:1280px)]:px-1 pb-2 [@media(min-width:768px)_and_(max-width:1280px)]:pb-1.5 text-center w-full leading-[1.35] [@media(min-width:768px)_and_(max-width:1280px)]:leading-[1.2] whitespace-normal break-words line-clamp-2 z-10 ${
                         lang === "vi" ? "normal-case tracking-[0.02em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.01em]" : "uppercase tracking-[0.12em] [@media(min-width:768px)_and_(max-width:1280px)]:tracking-[0.04em]"
                       }`}
                     >
