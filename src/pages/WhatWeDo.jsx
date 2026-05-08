@@ -441,7 +441,7 @@ export default function WhatWeDo() {
               {/* TOP IMAGE */}
               <div className="w-full h-[190px] sm:h-[360px] lg:h-[420px] overflow-hidden rounded-sm">
                 <Img
-                  src="/images/home/ok33.jpg"
+                  src="/images/home/256814594662335845.jpg"
                   alt={timberAlts[0]}
                   className="w-full h-full object-cover"
                   placeholderBg="#b5a898"
