@@ -16,6 +16,116 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
   const content = lang === "vi" ? block.contentVi : (block.contentEn || block.contentVi);
   const title2 = lang === "vi" ? block.title2Vi : (block.title2En || block.title2Vi);
   const content2 = lang === "vi" ? block.content2Vi : (block.content2En || block.content2Vi);
+  const title3 = lang === "vi" ? block.title3Vi : (block.title3En || block.title3Vi);
+  const content3 = lang === "vi" ? block.content3Vi : (block.content3En || block.content3Vi);
+
+  // ── Text3Columns: 3 cột văn bản song song ─────────────────────────────────
+  if (block.type === "Text3Columns") {
+    const has1 = title || content;
+    const has2 = title2 || content2;
+    const has3 = title3 || content3;
+    if (!has1 && !has2 && !has3) return null;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        {/* Cột 1 */}
+        <div>
+          {title && (
+            <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28] text-center">
+              {title}
+            </h2>
+          )}
+          {content && (
+            <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+              <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
+          )}
+        </div>
+        {/* Cột 2 */}
+        <div>
+          {title2 && (
+            <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28] text-center">
+              {title2}
+            </h2>
+          )}
+          {content2 && (
+            <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+              <ReactMarkdown>{content2}</ReactMarkdown>
+            </div>
+          )}
+        </div>
+        {/* Cột 3 */}
+        <div>
+          {title3 && (
+            <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28] text-center">
+              {title3}
+            </h2>
+          )}
+          {content3 && (
+            <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+              <ReactMarkdown>{content3}</ReactMarkdown>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Image3Columns: 3 ảnh song song ────────────────────────────────────────
+  if (block.type === "Image3Columns") {
+    const alt1 = (lang === "vi" ? block.imageAltVi : block.imageAltEn) || title || "";
+    const alt2 = (lang === "vi" ? block.image2AltVi : block.image2AltEn) || title2 || "";
+    const alt3 = (lang === "vi" ? block.image3AltVi : block.image3AltEn) || title3 || "";
+    const caption1 = title;
+    const caption2 = title2;
+    const caption3 = title3;
+    const has1 = block.imageUrl;
+    const has2 = block.image2Url;
+    const has3 = block.image3Url;
+    if (!has1 && !has2 && !has3) return null;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {/* Ảnh 1 */}
+        <div>
+          {block.imageUrl ? (
+            <div className="overflow-hidden rounded-sm">
+              <img src={block.imageUrl} alt={alt1} className="w-full h-auto max-h-[360px] object-cover" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMG; }} />
+            </div>
+          ) : (
+            <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+              <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" /></svg>
+            </div>
+          )}
+          {caption1 && <p className="mt-2 text-xs text-gray-500 text-center italic">{caption1}</p>}
+        </div>
+        {/* Ảnh 2 */}
+        <div>
+          {block.image2Url ? (
+            <div className="overflow-hidden rounded-sm">
+              <img src={block.image2Url} alt={alt2} className="w-full h-auto max-h-[360px] object-cover" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMG; }} />
+            </div>
+          ) : (
+            <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+              <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" /></svg>
+            </div>
+          )}
+          {caption2 && <p className="mt-2 text-xs text-gray-500 text-center italic">{caption2}</p>}
+        </div>
+        {/* Ảnh 3 */}
+        <div>
+          {block.image3Url ? (
+            <div className="overflow-hidden rounded-sm">
+              <img src={block.image3Url} alt={alt3} className="w-full h-auto max-h-[360px] object-cover" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMG; }} />
+            </div>
+          ) : (
+            <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+              <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" /></svg>
+            </div>
+          )}
+          {caption3 && <p className="mt-2 text-xs text-gray-500 text-center italic">{caption3}</p>}
+        </div>
+      </div>
+    );
+  }
 
   // ── TextColumns: 2 cột văn bản song song ──────────────────────────────────
   if (block.type === "TextColumns") {
@@ -168,15 +278,16 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
   }
 
   // ── Text block (mặc định) ─────────────────────────────────────────────────
+  const alignClass = block.alignment === "center" ? "text-center" : block.alignment === "right" ? "text-right" : block.alignment === "justify" ? "text-justify" : "text-left";
   return (
-    <div className="mb-6">
+    <div className={`mb-6 ${alignClass}`}>
       {title && (
-        <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28]">
+        <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28] inline-block">
           {title}
         </h2>
       )}
       {content && (
-        <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+        <div className={`prose prose-sm max-w-none text-gray-600 leading-[1.88] hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]`}>
           <ReactMarkdown>{content}</ReactMarkdown>
         </div>
       )}

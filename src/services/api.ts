@@ -12,7 +12,7 @@ const api = axios.create({
 export interface ContentBlock {
   id: number;
   newsId: number;
-  type: "Text" | "Image" | "TextColumns" | "ImageColumns";
+  type: "Text" | "Image" | "TextColumns" | "ImageColumns" | "Text3Columns" | "Image3Columns";
   titleVi: string | null;
   titleEn: string | null;
   contentVi: string | null;
@@ -33,6 +33,16 @@ export interface ContentBlock {
   image2Url: string | null;
   image2AltVi: string | null;
   image2AltEn: string | null;
+  // Căn lề
+  alignment: "left" | "center" | "right" | "justify" | null;
+  // Cột 3
+  title3Vi: string | null;
+  title3En: string | null;
+  content3Vi: string | null;
+  content3En: string | null;
+  image3Url: string | null;
+  image3AltVi: string | null;
+  image3AltEn: string | null;
 }
 
 export interface NewsListItem {
