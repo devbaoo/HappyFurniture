@@ -12,7 +12,7 @@ const api = axios.create({
 export interface ContentBlock {
   id: number;
   newsId: number;
-  type: "Text" | "Image";
+  type: "Text" | "Image" | "TextColumns" | "ImageColumns";
   titleVi: string | null;
   titleEn: string | null;
   contentVi: string | null;
@@ -24,6 +24,15 @@ export interface ContentBlock {
   imagePosition: "full" | "left" | "right" | null;
   sortOrder: number;
   isFullWidth: boolean;
+  // TextColumns: cột phải
+  title2Vi: string | null;
+  title2En: string | null;
+  content2Vi: string | null;
+  content2En: string | null;
+  // ImageColumns: ảnh phải
+  image2Url: string | null;
+  image2AltVi: string | null;
+  image2AltEn: string | null;
 }
 
 export interface NewsListItem {

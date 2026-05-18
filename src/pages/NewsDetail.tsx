@@ -14,7 +14,106 @@ const PLACEHOLDER_IMG =
 function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: string }) {
   const title = lang === "vi" ? block.titleVi : (block.titleEn || block.titleVi);
   const content = lang === "vi" ? block.contentVi : (block.contentEn || block.contentVi);
+  const title2 = lang === "vi" ? block.title2Vi : (block.title2En || block.title2Vi);
+  const content2 = lang === "vi" ? block.content2Vi : (block.content2En || block.content2Vi);
 
+  // ── TextColumns: 2 cột văn bản song song ──────────────────────────────────
+  if (block.type === "TextColumns") {
+    const hasLeft = title || content;
+    const hasRight = title2 || content2;
+    if (!hasLeft && !hasRight) return null;
+    return (
+      <div className="flex flex-col sm:flex-row gap-6 mb-6">
+        {/* Cột trái */}
+        <div className="flex-1">
+          {title && (
+            <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28]">
+              {title}
+            </h2>
+          )}
+          {content && (
+            <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+              <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
+          )}
+        </div>
+        {/* Đường kẻ giữa */}
+        <div className="hidden sm:block w-px bg-gray-200 self-stretch" />
+        {/* Cột phải */}
+        <div className="flex-1">
+          {title2 && (
+            <h2 className="font-heading font-bold text-lg md:text-xl leading-[1.3] tracking-[0.03em] mb-3 text-[#3c4a28]">
+              {title2}
+            </h2>
+          )}
+          {content2 && (
+            <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
+              <ReactMarkdown>{content2}</ReactMarkdown>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── ImageColumns: 2 ảnh song song ─────────────────────────────────────────
+  if (block.type === "ImageColumns") {
+    const alt1 = (lang === "vi" ? block.imageAltVi : block.imageAltEn) || title || "";
+    const alt2 = (lang === "vi" ? block.image2AltVi : block.image2AltEn) || title2 || "";
+    const caption1 = title;
+    const caption2 = title2;
+    const hasLeft = block.imageUrl;
+    const hasRight = block.image2Url;
+    if (!hasLeft && !hasRight) return null;
+    return (
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        {/* Ảnh trái */}
+        <div className="flex-1">
+          {block.imageUrl ? (
+            <div className="overflow-hidden rounded-sm">
+              <img
+                src={block.imageUrl}
+                alt={alt1}
+                className="w-full h-auto max-h-[400px] object-cover"
+                loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMG; }}
+              />
+            </div>
+          ) : (
+            <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+              <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" /></svg>
+            </div>
+          )}
+          {caption1 && (
+            <p className="mt-2 text-xs text-gray-500 text-center italic">{caption1}</p>
+          )}
+        </div>
+        {/* Ảnh phải */}
+        <div className="flex-1">
+          {block.image2Url ? (
+            <div className="overflow-hidden rounded-sm">
+              <img
+                src={block.image2Url}
+                alt={alt2}
+                className="w-full h-auto max-h-[400px] object-cover"
+                loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_IMG; }}
+              />
+            </div>
+          ) : (
+            <div className="h-48 bg-gray-100 rounded flex items-center justify-center">
+              <svg className="h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 15l-5-5L5 21" /></svg>
+            </div>
+          )}
+          {caption2 && (
+            <p className="mt-2 text-xs text-gray-500 text-center italic">{caption2}</p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Image với bố cục trái/phải/full ──────────────────────────────────────
   if (block.type === "Image") {
     const position: "full" | "left" | "right" =
       block.imagePosition ?? (block.isFullWidth ? "full" : "full");
@@ -68,6 +167,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
     if (!title && !content) return null;
   }
 
+  // ── Text block (mặc định) ─────────────────────────────────────────────────
   return (
     <div className="mb-6">
       {title && (
