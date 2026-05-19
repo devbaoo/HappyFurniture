@@ -511,9 +511,86 @@ const Home = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
+          7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
+         ══════════════════════════════════════════════ */}
+      <section className="bg-white pt-3 pb-4 md:py-7">
+        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
+          {/* ===== Partners ===== */}
+          <div className="text-center mb-4 md:mb-7">
+            <h3
+              className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}
+            >
+              {h.partnersHeading[lang]}
+            </h3>
+
+            <div className="w-32 md:w-48 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
+
+            {/* Mobile / tablet: hàng 3 + hàng 2; md+: một hàng như cũ */}
+            <div className="md:hidden flex flex-col items-center gap-2.5 sm:gap-3">
+              <div className="flex justify-center gap-3 sm:gap-5">
+                {PARTNER_LOGO_SRCS.slice(0, 3).map((src, i) => (
+                  <PartnerLogoCircle
+                    key={src}
+                    src={src}
+                    index={i}
+                    altPrefix={h.partnerLogoAlt[lang]}
+                  />
+                ))}
+              </div>
+              <div className="flex justify-center gap-3 sm:gap-5">
+                {PARTNER_LOGO_SRCS.slice(3, 5).map((src, i) => (
+                  <PartnerLogoCircle
+                    key={src}
+                    src={src}
+                    index={i + 3}
+                    altPrefix={h.partnerLogoAlt[lang]}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="hidden md:flex justify-center gap-8">
+              {PARTNER_LOGO_SRCS.map((src, i) => (
+                <PartnerLogoCircle
+                  key={src}
+                  src={src}
+                  index={i}
+                  altPrefix={h.partnerLogoAlt[lang]}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* ===== Certifications ===== */}
+          <div className="text-center">
+            <h3 className="text-[15px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase">
+              {siteCopy.home.certificationsHeading[lang]}
+            </h3>
+
+            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
+
+            <p className="text-[15px] md:text-[17px] text-stone-700 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto mb-4 md:mb-6 text-left md:text-center">
+              {siteCopy.home.certificationsIntro[lang]}
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center max-w-3xl mx-auto gap-3 sm:gap-5 md:gap-8">
+              {CERT_LOGO_SRCS.map((src, i) => (
+                <Img
+                  key={src}
+                  src={src}
+                  alt={certItems[i]?.title ?? "FSC"}
+                  className="h-8 sm:h-10 md:h-12"
+                  objectFit="contain"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
           4. ABOUT THE COMPANY — White bg, 2-col (text left, image right)
          ══════════════════════════════════════════════ */}
-      <section className="bg-white py-5 md:py-10">
+      <section className="bg-white pt-2 pb-5 md:pt-4 md:pb-10">
         <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1700px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-14 items-center">
             {/* Left: Text */}
@@ -648,83 +725,6 @@ const Home = () => {
           <p className="text-[#e5e5e5] md:text-white/60 text-[10px] md:text-sm max-w-[330px] md:max-w-3xl mx-auto leading-[1.7] tracking-[0.01em]">
             {h.factorySub[lang]}
           </p>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════
-          7. PARTNERS / CERTIFICATIONS — White bg, centered logos row
-         ══════════════════════════════════════════════ */}
-      <section className="bg-white pt-3 pb-4 md:py-7">
-        <div className="w-full px-2 md:px-14 lg:px-24 mx-auto max-w-[1800px]">
-          {/* ===== Partners ===== */}
-          <div className="text-center mb-4 md:mb-7">
-            <h3
-              className={`text-[14px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase`}
-            >
-              {h.partnersHeading[lang]}
-            </h3>
-
-            <div className="w-32 md:w-48 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
-
-            {/* Mobile / tablet: hàng 3 + hàng 2; md+: một hàng như cũ */}
-            <div className="md:hidden flex flex-col items-center gap-2.5 sm:gap-3">
-              <div className="flex justify-center gap-3 sm:gap-5">
-                {PARTNER_LOGO_SRCS.slice(0, 3).map((src, i) => (
-                  <PartnerLogoCircle
-                    key={src}
-                    src={src}
-                    index={i}
-                    altPrefix={h.partnerLogoAlt[lang]}
-                  />
-                ))}
-              </div>
-              <div className="flex justify-center gap-3 sm:gap-5">
-                {PARTNER_LOGO_SRCS.slice(3, 5).map((src, i) => (
-                  <PartnerLogoCircle
-                    key={src}
-                    src={src}
-                    index={i + 3}
-                    altPrefix={h.partnerLogoAlt[lang]}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="hidden md:flex justify-center gap-8">
-              {PARTNER_LOGO_SRCS.map((src, i) => (
-                <PartnerLogoCircle
-                  key={src}
-                  src={src}
-                  index={i}
-                  altPrefix={h.partnerLogoAlt[lang]}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* ===== Certifications ===== */}
-          <div className="text-center">
-            <h3 className="text-[15px] sm:text-base md:text-lg font-semibold text-[#3c4a28] mb-2 md:mb-4 font-sans tracking-[0.1em] uppercase">
-              {siteCopy.home.certificationsHeading[lang]}
-            </h3>
-
-            <div className="w-48 md:w-80 h-[2px] bg-stone-300 mx-auto mb-2 md:mb-5"></div>
-
-            <p className="text-[15px] md:text-[17px] text-stone-700 font-normal leading-[1.8] tracking-[0.01em] max-w-3xl mx-auto mb-4 md:mb-6 text-left md:text-center">
-              {siteCopy.home.certificationsIntro[lang]}
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 items-center justify-items-center max-w-3xl mx-auto gap-3 sm:gap-5 md:gap-8">
-              {CERT_LOGO_SRCS.map((src, i) => (
-                <Img
-                  key={src}
-                  src={src}
-                  alt={certItems[i]?.title ?? "FSC"}
-                  className="h-8 sm:h-10 md:h-12"
-                  objectFit="contain"
-                />
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
