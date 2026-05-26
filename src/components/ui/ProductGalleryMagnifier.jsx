@@ -440,8 +440,17 @@ const ProductGalleryMagnifier = ({
                           ? "border-primary ring-1 ring-primary ring-offset-1"
                           : "border-border hover:border-secondary"
                       }`}
-                      style={{ backgroundColor: swatchBg(v) }}
-                    />
+                      style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
+                    >
+                      {thumb && (
+                        <img
+                          src={thumb}
+                          alt={label}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          draggable={false}
+                        />
+                      )}
+                    </button>
                     {label && (
                       <p className="text-left text-[13px] uppercase leading-tight tracking-[0.06em] text-stone-700 lg:hidden">
                         {label}
