@@ -277,7 +277,7 @@ const ProductGalleryMagnifier = ({
   return (
     <div className="flex min-w-0 flex-row items-start gap-1 overflow-visible lg:gap-3">
       {canNavigate && (
-        <div className="flex w-14 shrink-0 flex-col gap-1 lg:w-14 lg:gap-1.5 xl:w-16 xl:gap-2">
+        <div className="flex w-14 shrink-0 flex-col gap-1 overflow-y-auto [&::-webkit-scrollbar]:hidden max-h-[calc(100vw-5rem)] lg:max-h-[min(52svh,30rem)] lg:w-14 lg:gap-1.5 xl:max-h-[min(58svh,34rem)] xl:w-16 xl:gap-2">
           {sorted.map((img, i) => {
             const isActive = activeIndex === i;
             return (
