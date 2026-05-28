@@ -275,9 +275,10 @@ const ProductGalleryMagnifier = ({
   };
 
   return (
-    <div className="flex min-w-0 flex-row items-start gap-1 overflow-visible lg:gap-3">
+    <div className="flex min-w-0 flex-col overflow-visible">
+      <div className="flex min-w-0 flex-row items-start gap-1 overflow-visible lg:gap-3">
       {canNavigate && (
-        <div className="flex w-14 shrink-0 flex-col gap-1 lg:w-14 lg:gap-1.5 xl:w-16 xl:gap-2">
+        <div className="flex w-14 shrink-0 flex-col gap-1 overflow-y-auto [&::-webkit-scrollbar]:hidden max-h-[calc(100vw-5rem)] lg:max-h-[min(52svh,30rem)] lg:w-14 lg:gap-1.5 xl:max-h-[min(58svh,34rem)] xl:w-16 xl:gap-2">
           {sorted.map((img, i) => {
             const isActive = activeIndex === i;
             return (
@@ -313,7 +314,7 @@ const ProductGalleryMagnifier = ({
         </div>
       )}
 
-      <div className="relative flex min-w-0 flex-1 flex-col overflow-visible">
+      <div className="relative min-w-0 flex-1 overflow-visible">
         <div className="relative w-full lg:max-w-[32rem] xl:max-w-[36rem]">
           <div
             ref={containerRef}
@@ -415,54 +416,50 @@ const ProductGalleryMagnifier = ({
           )}
         </div>
 
-        {showColorBar && (
-          <div
-            className={`mt-3 w-full border-t-2 border-[#3c4a28] pt-3 lg:mt-4 ${
-              canNavigate
-                ? "max-lg:-ml-[calc(3.5rem+0.375rem)] max-lg:w-[calc(100%+3.5rem+0.375rem)]"
-                : ""
-            }`}
-          >
-            <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
-              {activeVariants.map((v) => {
-                const selected = selectedVariant?.id === v.id;
-                const thumb = variantThumb(v);
-                const label = variantLabel(v);
-                return (
-                  <div key={v.id} className="flex min-w-[5rem] flex-col items-start gap-1 sm:min-w-[6.5rem]">
-                    <button
-                      type="button"
-                      title={label}
-                      aria-label={label}
-                      onClick={() => onSelectVariant(v)}
-                      className={`relative h-3 w-full shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 ${
-                        selected
-                          ? "border-primary ring-1 ring-primary ring-offset-1"
-                          : "border-border hover:border-secondary"
-                      }`}
-                      style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
-                    >
-                      {thumb && (
-                        <img
-                          src={thumb}
-                          alt={label}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          draggable={false}
-                        />
-                      )}
-                    </button>
-                    {label && (
-                      <p className="text-left text-[13px] uppercase leading-tight tracking-[0.06em] text-stone-700 lg:hidden">
-                        {label}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
       </div>
+      </div>
+
+      {showColorBar && (
+        <div className="mt-3 w-full border-t-2 border-[#3c4a28] pt-3 lg:mt-4">
+          <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
+            {activeVariants.map((v) => {
+              const selected = selectedVariant?.id === v.id;
+              const thumb = variantThumb(v);
+              const label = variantLabel(v);
+              return (
+                <div key={v.id} className="flex min-w-[5rem] flex-col items-start gap-1 sm:min-w-[6.5rem]">
+                  <button
+                    type="button"
+                    title={label}
+                    aria-label={label}
+                    onClick={() => onSelectVariant(v)}
+                    className={`relative h-3 w-full shrink-0 overflow-hidden rounded-sm border-2 shadow-sm transition-all sm:h-4 ${
+                      selected
+                        ? "border-primary ring-1 ring-primary ring-offset-1"
+                        : "border-border hover:border-secondary"
+                    }`}
+                    style={thumb ? undefined : { backgroundColor: swatchBg(v) }}
+                  >
+                    {thumb && (
+                      <img
+                        src={thumb}
+                        alt={label}
+                        className="absolute inset-0 h-full w-full object-cover"
+                        draggable={false}
+                      />
+                    )}
+                  </button>
+                  {label && (
+                    <p className="text-left text-[13px] uppercase leading-tight tracking-[0.06em] text-stone-700 lg:hidden">
+                      {label}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {lightboxOpen && current && (
         <div
