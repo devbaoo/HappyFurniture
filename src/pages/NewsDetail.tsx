@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import { useLanguage } from "../context/LanguageContext";
 import { siteCopy } from "../i18n/siteCopy";
 import SEOHead from "../components/SEOHead";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { newsService } from "../services/news.service";
 import type { ContentBlock, NewsDetail as NewsDetailType, NewsListItem } from "../services/api";
+import RichTextContent from "../components/news/RichTextContent";
 
 const PLACEHOLDER_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800&h=500";
@@ -36,7 +36,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
           )}
           {content && (
             <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <RichTextContent content={content} />
             </div>
           )}
         </div>
@@ -49,7 +49,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
           )}
           {content2 && (
             <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-              <ReactMarkdown>{content2}</ReactMarkdown>
+              <RichTextContent content={content2} />
             </div>
           )}
         </div>
@@ -62,7 +62,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
           )}
           {content3 && (
             <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-              <ReactMarkdown>{content3}</ReactMarkdown>
+              <RichTextContent content={content3} />
             </div>
           )}
         </div>
@@ -143,7 +143,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
           )}
           {content && (
             <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <RichTextContent content={content} />
             </div>
           )}
         </div>
@@ -158,7 +158,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
           )}
           {content2 && (
             <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-              <ReactMarkdown>{content2}</ReactMarkdown>
+              <RichTextContent content={content2} />
             </div>
           )}
         </div>
@@ -251,7 +251,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
               )}
               {content && (
                 <div className="prose prose-sm max-w-none text-gray-600 leading-[1.88] text-justify hyphens-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]">
-                  <ReactMarkdown>{content}</ReactMarkdown>
+                  <RichTextContent content={content} />
                 </div>
               )}
             </div>
@@ -288,7 +288,7 @@ function ContentBlockRenderer({ block, lang }: { block: ContentBlock; lang: stri
       )}
       {content && (
         <div className={`prose prose-sm max-w-none text-gray-600 leading-[1.88] hyphens-auto mx-auto prose-headings:font-heading prose-headings:text-[#3c4a28] prose-strong:text-gray-800 prose-a:text-[#3c4a28]`}>
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <RichTextContent content={content} />
         </div>
       )}
     </div>
