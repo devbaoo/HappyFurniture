@@ -7,36 +7,37 @@ import useScrollAnimation from "../hooks/useScrollAnimation";
 import PageBreadcrumb from "../components/layout/PageBreadcrumb";
 import { newsService } from "../services/news.service";
 
-const PLACEHOLDER_IMG_EVENT =
+const PLACEHOLDER_IMG =
   "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=600&h=400";
 
-const News = () => {
+const Event = () => {
   const { lang } = useLanguage();
   const n = siteCopy.newsPage;
-  const [news, setNews] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const visibleElements = useScrollAnimation([news]);
+  const visibleElements = useScrollAnimation([events]);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchEvents = async () => {
       try {
         setLoading(true);
-        const data = await newsService.getNewsOnly(1, 100);
-        setNews(data.items || []);
+        const data = await newsService.getEvents(1, 100);
+        setEvents(data.items || []);
       } catch (err) {
-        console.error("Failed to load news:", err);
-        setError("Unable to load news");
+        console.error("Failed to load events:", err);
+        setError("Unable to load events");
       } finally {
         setLoading(false);
       }
     };
-    fetchNews();
+    fetchEvents();
   }, []);
 
   const breadcrumbItems = [
     { label: siteCopy.nav[lang].home, to: "/" },
-    { label: siteCopy.nav[lang].news },
+    { label: siteCopy.nav[lang].news, to: "/news" },
+    { label: siteCopy.nav[lang].newsDropdown.event },
   ];
 
   if (loading) {
@@ -66,66 +67,69 @@ const News = () => {
   return (
     <div className="w-full bg-white font-sans">
       <SEOHead
-        title="News"
-        description="Latest news, updates, and exhibition highlights from Happy Furniture."
-        canonical="/news"
+        title={lang === "vi" ? "Sự kiện" : "Event"}
+        description={
+          lang === "vi"
+            ? "Các sự kiện và hoạt động công ty của Happy Furniture."
+            : "Events and company activities of Happy Furniture."
+        }
+        canonical="/event"
       />
       <PageBreadcrumb items={breadcrumbItems} />
 
       <div className="mx-auto w-full max-w-[1650px] px-2 py-3 md:px-14 lg:px-24 md:py-4 relative">
-        {/* NEWS SECTION */}
-        <section className="mb-6 md:mb-7 pt-1" data-animate id="news-events">
+        <section className="mb-6 md:mb-7 pt-1" data-animate id="event-list">
           <div
             className={`transform transition-all duration-1000 ease-out ${
-              visibleElements.has("news-events") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              visibleElements.has("event-list") ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl text-center tracking-[0.08em] font-normal mb-6 md:mb-7 leading-[1.08] uppercase">
-              {n.eventSection[lang]}
+              {n.companyActivities[lang]}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-3 mb-2 md:mb-2.5">
-              {news.length === 0 ? (
-                <p className="col-span-full text-center text-gray-400 py-8">
-                  {lang === "vi" ? "Chưa có tin tức nào" : "No news yet"}
-                </p>
-              ) : (
-                news.map((item) => (
+            {events.length === 0 ? (
+              <p className="text-center text-gray-400 py-8">
+                {lang === "vi" ? "Chưa có sự kiện nào" : "No events yet"}
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-5 mb-2 md:mb-2.5">
+                {events.map((item) => (
                   <Link
                     key={item.id}
                     to={`/news/${item.slug}`}
-                    className="flex flex-col group cursor-pointer"
+                    className="flex gap-2.5 md:gap-3 group cursor-pointer"
                   >
-                    <div className="w-full h-64 bg-gray-200 overflow-hidden">
+                    <div className="w-48 h-32 sm:w-64 sm:h-40 bg-gray-200 shrink-0 overflow-hidden">
                       <img
-                        alt={item.titleVi || item.titleEn || n.altEvent[lang]}
+                        alt={item.titleVi || item.titleEn || n.altActivity[lang]}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src={item.imageUrl || PLACEHOLDER_IMG_EVENT}
+                        src={item.imageUrl || PLACEHOLDER_IMG}
                         onError={(e) => {
-                          e.target.src = PLACEHOLDER_IMG_EVENT;
+                          e.target.src = PLACEHOLDER_IMG;
                         }}
                       />
                     </div>
-                    <div className="bg-gray-50 px-5 py-4 md:px-5 md:py-4 flex flex-col flex-1 border border-t-0 border-gray-100">
-                      <p className="text-[11px] text-gray-400 mb-1.5 tracking-wide">
+                    <div className="flex flex-col justify-center">
+                      <p className="text-[11px] text-gray-400 mb-1 tracking-wide">
                         {new Date(item.createdAt).toLocaleDateString(
                           lang === "vi" ? "vi-VN" : "en-US",
                           { year: "numeric", month: "short", day: "numeric" }
                         )}
                       </p>
-                      <h3 className="font-heading font-normal text-black mb-2 text-xl leading-[1.08] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
+                      <h3 className="font-heading font-normal text-black mb-1 text-base sm:text-lg leading-[1.1] tracking-[0.04em] group-hover:text-gray-600 transition-colors uppercase">
                         {lang === "vi" ? item.titleVi : item.titleEn || item.titleVi}
                       </h3>
-                      <p className="text-sm text-gray-500 leading-[1.75] tracking-[0.01em] text-justify hyphens-auto line-clamp-3">
+                      <p className="text-xs sm:text-sm text-gray-500 line-clamp-3 leading-[1.72] tracking-[0.01em] text-justify hyphens-auto">
                         {lang === "vi"
-                          ? item.excerptVi || n.exhibitionBody[lang]
-                          : item.excerptEn || n.exhibitionBody[lang]}
+                          ? item.excerptVi || n.teamBuildingBody[lang]
+                          : item.excerptEn || n.teamBuildingBody[lang]}
                       </p>
                     </div>
                   </Link>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </div>
@@ -133,4 +137,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Event;

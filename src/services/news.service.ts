@@ -7,6 +7,16 @@ export const newsService = {
     return response.data;
   },
 
+  getNewsOnly: async (page = 1, pageSize = 10) => {
+    const response = await api.get("/News/news", { params: { page, pageSize } });
+    return response.data;
+  },
+
+  getEvents: async (page = 1, pageSize = 10) => {
+    const response = await api.get("/News/company-activities", { params: { page, pageSize } });
+    return response.data;
+  },
+
   getBySlug: async (slug: string): Promise<NewsDetail> => {
     const response = await api.get(`/News/slug/${slug}`);
     return response.data;
