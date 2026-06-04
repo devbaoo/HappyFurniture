@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useFavorites } from "../../context/FavoritesContext";
 import { Bookmark, Menu, X } from "lucide-react";
-import { ProductNavItem, ProductMobileItem } from "./MegaMenu";
+import { ProductNavItem, ProductMobileItem, NewsNavItem, NewsMobileItem } from "./MegaMenu";
 import { useLanguage } from "../../context/LanguageContext";
 import { siteCopy } from "../../i18n/siteCopy";
 
@@ -66,11 +66,11 @@ const Header = () => {
     [lang],
   );
   const NAV_RIGHT = useMemo(
-    () => [
-      { to: "/news", label: siteCopy.nav[lang].news },
-      { to: "/order-delivery", label: siteCopy.nav[lang].orderDelivery },
-      { to: "/contact", label: siteCopy.nav[lang].contact },
-    ],
+    () =>
+      [
+        { to: "/order-delivery", label: siteCopy.nav[lang].orderDelivery },
+        { to: "/contact", label: siteCopy.nav[lang].contact },
+      ],
     [lang],
   );
   const ALL_STATIC = useMemo(
@@ -340,6 +340,13 @@ const Header = () => {
               onNavigate={handleNavigationStateReset}
             />
 
+            {/* ← "News" with simple dropdown → */}
+            <NewsNavItem
+              isDark={!useLightHeader}
+              newsLabel={siteCopy.nav[lang].news}
+              onNavigate={handleNavigationStateReset}
+            />
+
             {NAV_RIGHT.map(({ to, label }) => (
               <StaticNavItem
                 key={to}
@@ -380,6 +387,13 @@ const Header = () => {
                 isDark={false}
                 onClose={handleNavigationStateReset}
                 productLabel={lang === "vi" ? "Sản phẩm" : "Product"}
+              />
+
+              {/* News with expandable dropdown */}
+              <NewsMobileItem
+                isDark={false}
+                onClose={handleNavigationStateReset}
+                newsLabel={siteCopy.nav[lang].news}
               />
 
               {ALL_STATIC.slice(3).map(({ to, label }) => (

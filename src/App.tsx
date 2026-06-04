@@ -10,6 +10,7 @@ import OrderDelivery from "./pages/OrderDelivery";
 import Contact from "./pages/Contact";
 import Certificate from "./pages/Certificate";
 import News from "./pages/News";
+import Event from "./pages/Event";
 import NewsDetail from "./pages/NewsDetail";
 import WhatWeDo from "./pages/WhatWeDo";
 import ScrollToTop from "./components/ScrollToTop";
@@ -93,6 +94,14 @@ const App = () => {
           element={
             <MainLayout>
               <News />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/event"
+          element={
+            <MainLayout>
+              <Event />
             </MainLayout>
           }
         />

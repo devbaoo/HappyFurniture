@@ -90,6 +90,10 @@ export const siteCopy = {
       certificate: "Certificate",
       whatWeDo: "What We Do",
       news: "News",
+      newsDropdown: {
+        news: "News",
+        event: "Event",
+      },
       orderDelivery: "Order & Delivery",
       contact: "Contact",
     },
@@ -98,6 +102,10 @@ export const siteCopy = {
       certificate: "Ch\u1ee9ng nh\u1eadn",
       whatWeDo: "Ho\u1ea1t \u0111\u1ed9ng",
       news: "Tin t\u1ee9c",
+      newsDropdown: {
+        news: "Tin t\u1ee9c",
+        event: "S\u1ef1 ki\u1ec7n",
+      },
       orderDelivery: "\u0110\u1eb7t h\u00e0ng & giao h\u00e0ng",
       contact: "Li\u00ean h\u1ec7",
     },

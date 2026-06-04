@@ -503,4 +503,169 @@ export const ProductMobileItem = ({
   );
 };
 
-export default { ProductNavItem, ProductMobileItem };
+/* ─── "News" nav item with simple dropdown ────────────────────── */
+export const NewsNavItem = ({
+  isDark = false,
+  newsLabel = "News",
+  onNavigate,
+}) => {
+  const { lang } = useLanguage();
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef(null);
+  const isActive = pathname === "/news" || pathname === "/event";
+
+  const items = [
+    { to: "/news", label: siteCopy.nav[lang].newsDropdown.news },
+    { to: "/event", label: siteCopy.nav[lang].newsDropdown.event },
+  ];
+
+  const scheduleClose = useCallback(() => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), 120);
+  }, []);
+
+  const cancelClose = useCallback(() => {
+    clearTimeout(closeTimer.current);
+  }, []);
+
+  useEffect(() => {
+    return () => clearTimeout(closeTimer.current);
+  }, []);
+
+  return (
+    <li
+      className="relative group"
+      onMouseEnter={() => { clearTimeout(closeTimer.current); setOpen(true); }}
+      onMouseLeave={scheduleClose}
+    >
+      {/* Label — clickable to /news */}
+      <Link
+        to="/news"
+        onClick={() => { setOpen(false); onNavigate?.(); }}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className={`
+          relative text-[12px] tracking-[0.18em] uppercase pb-1
+          transition-colors duration-200
+          ${
+            isDark
+              ? open || isActive ? "text-white" : "text-white/80 hover:text-white"
+              : open || isActive ? "text-[#3c4a28]" : "text-stone-600 hover:text-[#3c4a28]"
+          }
+        `}
+      >
+        {newsLabel}
+        <span
+          className={`
+            absolute left-0 bottom-0 h-px w-full transform origin-left
+            transition-transform duration-300
+            ${isDark ? "bg-white" : "bg-[#3c4a28]"}
+            ${open || isActive ? "scale-x-100" : "scale-x-0"}
+          `}
+        />
+      </Link>
+
+      {/* Dropdown */}
+      <div
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+        className={`
+          absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[140px]
+          ${isDark ? "bg-[#1a1a1a] border border-white/10" : "bg-white border border-stone-100"}
+          shadow-lg
+          transition-all duration-200 ease-out
+          ${open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"}
+        `}
+        style={{ zIndex: 100 }}
+      >
+        {items.map(({ to, label }) => (
+          <Link
+            key={to}
+            to={to}
+            onClick={() => { setOpen(false); onNavigate?.(); }}
+            className={`
+              block px-5 py-3 text-[11px] tracking-[0.16em] uppercase
+              transition-colors duration-200
+              ${isDark
+                ? "text-white/70 hover:text-white hover:bg-white/5"
+                : "text-stone-600 hover:text-[#3c4a28] hover:bg-stone-50"
+              }
+            `}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+    </li>
+  );
+};
+
+/* ─── Mobile accordion for "News" ─────────────────────────────── */
+export const NewsMobileItem = ({
+  isDark = false,
+  onClose,
+  newsLabel = "News",
+}) => {
+  const { lang } = useLanguage();
+  const [open, setOpen] = useState(false);
+
+  const items = [
+    { to: "/news", label: siteCopy.nav[lang].newsDropdown.news },
+    { to: "/event", label: siteCopy.nav[lang].newsDropdown.event },
+  ];
+
+  return (
+    <li
+      className={`border-b ${isDark ? "border-white/10" : "border-stone-100"}`}
+    >
+      <div className="flex items-center justify-between">
+        <Link
+          to="/news"
+          onClick={onClose}
+          className={`py-3 text-[12px] tracking-[0.2em] uppercase flex-1 ${
+            isDark
+              ? "text-white/80 hover:text-white"
+              : "text-stone-700 hover:text-[#3c4a28]"
+          }`}
+        >
+          {newsLabel}
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className={`py-3 px-2 transition-transform duration-200 ${open ? "rotate-90" : ""}`}
+          aria-label="Expand news menu"
+        >
+          <ChevronRight
+            size={14}
+            strokeWidth={1.5}
+            className={isDark ? "text-white/50" : "text-stone-400"}
+          />
+        </button>
+      </div>
+
+      {open && (
+        <ul className="pl-4 pb-3 flex flex-col gap-0">
+          {items.map(({ to, label }) => (
+            <li key={to}>
+              <Link
+                to={to}
+                onClick={onClose}
+                className={`block py-2 text-[11px] tracking-[0.18em] uppercase ${
+                  isDark
+                    ? "text-white/60 hover:text-white"
+                    : "text-stone-500 hover:text-[#3c4a28]"
+                } transition-colors duration-200`}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+export default { ProductNavItem, ProductMobileItem, NewsNavItem, NewsMobileItem };
