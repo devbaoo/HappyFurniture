@@ -1,0 +1,25 @@
+# ==============================================================
+#  docker-compose.yml – HappyFurniture (React + Vite Frontend)
+# ==============================================================
+#
+#  Cách chạy:
+#    1. Sao chép .env.example → .env rồi điền giá trị thực
+#    2. docker compose up --build
+#
+#  Frontend sẽ chạy tại: http://localhost:5173
+# ==============================================================
+
+services:
+  happyfurniture-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Trỏ đến URL backend thực tế (domain hoặc IP)
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8080}
+        - VITE_API_PROXY_TARGET=${VITE_API_PROXY_TARGET:-http://localhost:8080}
+        - VITE_RECAPTCHA_SITE_KEY=${VITE_RECAPTCHA_SITE_KEY}
+    container_name: happyfurniture-fe
+    restart: unless-stopped
+    ports:
+      - "5173:80"
