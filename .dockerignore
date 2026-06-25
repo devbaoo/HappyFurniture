@@ -1,0 +1,25 @@
+# ==============================================================
+#  .dockerignore – HappyFurniture (React + Vite)
+# ==============================================================
+
+node_modules
+dist
+dist-ssr
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# IDE / OS
+.vscode
+.idea
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+nginx.conf
